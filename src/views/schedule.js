@@ -15,7 +15,7 @@ const listSchedule = appearancesArray =>
 
 const Schedule = ({ appearancesListByDateTime }) => (
   <div>
-    <h1>Bands</h1>
+    <h1>Schedule</h1>
     <ListGroup>{listSchedule(appearancesListByDateTime)}</ListGroup>
   </div>
 );

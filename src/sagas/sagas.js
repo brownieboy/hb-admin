@@ -55,9 +55,9 @@ function* readBandsSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    yield console.log(
-      "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
-    );
+    // yield console.log(
+    //   "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
+    // );
     yield put(bandsDuxActions.setFetchBandsSucceeded(item.value));
   }
 }
@@ -70,9 +70,9 @@ function* readAppearancesSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    // yield console.log(
-    //   "readBandsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    // );
+    yield console.log(
+      "readBandsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    );
     yield put(appearancesDuxActions.setFetchAppearancesSucceeded(item.value));
   }
 }
