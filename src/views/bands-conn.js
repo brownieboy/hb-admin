@@ -9,14 +9,13 @@ import {
   loadBandsNow,
   selectors as bandSelectors
 } from "../dux/bandsReducer.js";
-import { selectors as appearancesSelectors } from "../dux/appearancesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loadBandsProp: loadBandsNow }, dispatch);
 
 const mapStateToProps = state => ({
-  bandsStateProp: state.bandsState
-  // bandsAlphabeticalProp: bandSelectors.selectAlphabetical(state.bandsState),
+  bandsListProp: state.bandsState.bandsList,
+  bandsAlphabeticalProp: bandSelectors.selectAlphabetical(state.bandsState)
   // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(
   //   state.appearancesState
   // )

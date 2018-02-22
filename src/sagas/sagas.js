@@ -56,7 +56,7 @@ function* readBandsSaga() {
   while (true) {
     const item = yield take(updateChannel);
     yield console.log(
-      "readBandsSaga=" + JSON.stringify(item, null, 2)
+      "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
     );
     yield put(bandsDuxActions.setFetchBandsSucceeded(item.value));
   }
