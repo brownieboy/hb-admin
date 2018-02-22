@@ -17,6 +17,7 @@ const bandsReducer = (
     case FETCH_BANDS_REQUEST:
       return { ...state, fetchStatus: "loading" };
     case FETCH_BANDS_SUCCESS:
+    console.log("FETCH_BANDS_SUCCESS");
       return {
         ...state,
         fetchStatus: "",
