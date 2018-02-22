@@ -1,5 +1,5 @@
 // import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
-import { AsyncStorage } from "react-native";
+// import { AsyncStorage } from "react-native";
 import { buffers, eventChannel } from "redux-saga";
 import { all, fork, put, select, take, takeLatest } from "redux-saga/effects";
 // import FastImage from "react-native-fast-image";
@@ -53,6 +53,7 @@ export function createEventChannel(ref) {
   return listener;
 }
 
+/*
 function* updatedItemSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
@@ -98,32 +99,9 @@ function* updatedItemSaga() {
       }
     }
 
-    // let response = yield AsyncStorage.getItem("localPublishedData");
-    // console.log(
-    //   "data from storage = " +
-    //     JSON.stringify(response, null, 4).substring(0, 200)
-    // );
   }
 }
-
-const preloadImages = bandsArray => {
-  const arrayLength = bandsArray.length;
-  const preloadArray = [];
-  for (let x = 0; x < arrayLength; x++) {
-    // preloadArray.push({ uri: bandsArray[x].thumbFullUrl });
-    // preloadArray.push({ uri: bandsArray[x].cardFullUrl });
-    if (bandsArray[x].thumbFullUrl && bandsArray[x].thumbFullUrl !== "") {
-      preloadArray.push(bandsArray[x].thumbFullUrl);
-    }
-    if (bandsArray[x].cardFullUrl && bandsArray[x].cardFullUrl !== "") {
-      preloadArray.push(bandsArray[x].cardFullUrl);
-    }
-  }
-  // console.log("preloadArray=" + JSON.stringify(preloadArray, null, 4));
-  // console.log("Preloading...preloadArray=" + JSON.stringify(preloadArray, null, 4));
-  // FastImage.preload(preloadArray);
-  preloadRNICimages(preloadArray);
-};
+*/
 
 // worker Saga: will be fired on LOAD_BANDS_NOW actions
 function* loadBandsGen() {
@@ -169,7 +147,6 @@ function* loadBandsGen() {
       put(bandsDuxActions.setFetchBandsSucceeded(bandsArray)),
       put(appearancesDuxActions.setFetchAppearancesSucceeded(appearancesArray))
     ]);
-    preloadImages(bandsArray);
   } catch (e) {
     console.log("loadBandsGen error=" + e);
     yield all([
@@ -178,47 +155,6 @@ function* loadBandsGen() {
     ]);
   }
 }
-
-function* loadFavouritesGen() {
-  console.log("getting favourites");
-  yield put(favouritesDuxActions.setFetchFavouritesRequest());
-  try {
-    // const bandsDataNormalised = yield call(bandsApi.fetchBandsData);
-    const favouritesString = yield AsyncStorage.getItem("localFavourites");
-    const favourites = JSON.parse(favouritesString);
-    yield put(favouritesDuxActions.setFetchFavouritesSucceeded(favourites));
-  } catch (e) {
-    console.log("loadFavouritesGen error=" + e);
-    yield put(favouritesDuxActions.setFetchAppearancesFailed(e));
-  }
-}
-
-     // yield AsyncStorage.setItem(
-     //      "localPublishedData",
-     //      JSON.stringify(item.value)
-     //    );
-
-function* toggleFavouriteGen(bandObj) {
-  // console.log("toggling favourite " + JSON.stringify(bandObj, null, 4));
-  const state = yield select();
-  const newFavourites = state.favouritesState.favourites;
-  // console.log("toggling favourite state is " + JSON.stringify(state, null, 4));
-  // console.log("newFavourites is "+ newFavourites);
-
-  yield AsyncStorage.setItem("localFavourites", JSON.stringify(newFavourites));
-}
-
-function* mySaga() {
-  // yield takeLatest(bandsDuxConstants.LOAD_BANDS_NOW, loadBandsGen);
-  yield takeLatest(loadBandsNow().type, loadBandsGen);
-  yield takeLatest(loadFavouritesNow().type, loadFavouritesGen);
-  yield takeLatest(
-    favouritesDuxActions.toggleBandFavouriteStatus().type,
-    toggleFavouriteGen
-  );
-  yield fork(updatedItemSaga);
-}
-
 //  yield takeLatest(loadBandsNow(), loadBandsGen);
 
 // const db = firebaseApp.database();
