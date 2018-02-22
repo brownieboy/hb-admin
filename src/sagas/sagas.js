@@ -3,40 +3,19 @@
 import { buffers, eventChannel } from "redux-saga";
 import { all, fork, put, select, take, takeLatest } from "redux-saga/effects";
 // import FastImage from "react-native-fast-image";
-import { ImageCache } from "react-native-img-cache";
-import deepEqual from "deep-equal";
-import firebaseApp from "../api/firebase.js";
-
-import preloadRNICimages from "../helper-functions/preload-rnic-images.js";
+import firebaseApp from "../apis/firebase.js";
 
 // import bandsApi from "../api/bandsApi.js";
 import {
   bandsDuxActions,
-  // bandsDuxConstants,
   loadBandsNow
-} from "./bandsReducer.js";
+  // bandsDuxConstants,
+} from "../dux/bandsReducer.js";
 import {
   appearancesDuxActions
   // appearancesDuxConstants
-} from "./appearancesReducer.js";
-import { homeDuxActions } from "./homeReducer.js";
-import {
-  favouritesDuxActions,
-  loadFavouritesNow
-} from "./favouritesReducer.js";
-
-/*
-FastImage.preload([
-  {
-    uri: 'https://facebook.github.io/react/img/logo_og.png',
-    headers: { Authorization: 'someAuthToken' },
-  },
-  {
-    uri: 'https://facebook.github.io/react/img/logo_og.png',
-    headers: { Authorization: 'someAuthToken' },
-  },
-])
- */
+} from "../dux/appearancesReducer.js";
+import { homeDuxActions } from "../dux/homeReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {
@@ -51,6 +30,34 @@ export function createEventChannel(ref) {
     };
   }, buffers.expanding(1));
   return listener;
+}
+
+function* readBandsSaga() {
+  // console.log("running updatedItemSaga...");
+  const updateChannel = createEventChannel(
+    firebaseApp.database().ref("bandsList")
+  );
+
+  while (true) {
+    const item = yield take(updateChannel);
+    console.log(
+      "readBandsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    );
+  }
+}
+
+function* readStagesSaga() {
+  // console.log("running updatedItemSaga...");
+  const updateChannel = createEventChannel(
+    firebaseApp.database().ref("stages")
+  );
+
+  while (true) {
+    const item = yield take(updateChannel);
+    console.log(
+      "readStagesSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    );
+  }
 }
 
 /*
@@ -103,6 +110,7 @@ function* updatedItemSaga() {
 }
 */
 
+/*
 // worker Saga: will be fired on LOAD_BANDS_NOW actions
 function* loadBandsGen() {
   // yield console.log("loadBands() triggered in sagas.js");ß
@@ -155,6 +163,8 @@ function* loadBandsGen() {
     ]);
   }
 }
+*/
+
 //  yield takeLatest(loadBandsNow(), loadBandsGen);
 
 // const db = firebaseApp.database();
@@ -165,6 +175,12 @@ function* loadBandsGen() {
 //   console.log("publishedData snapshot");
 //   console.log(snapshot.val());
 // });
+
+function* mySaga() {
+  // yield takeLatest(loadBandsNow().type, loadBandsGen);
+  yield fork(readBandsSaga);
+  yield fork(readStagesSaga);
+}
 
 // Need to change this to write to async storage
 // Then need to change bandsApi to read from async storage
