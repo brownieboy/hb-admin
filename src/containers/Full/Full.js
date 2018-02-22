@@ -9,7 +9,7 @@ import Footer from "../../components/Footer/";
 
 import Dashboard from "../../views/Dashboard/";
 import Bands from "../../views/bands-conn.js";
-import Schedule from "../../views/schedule.js";
+import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages.js";
 
