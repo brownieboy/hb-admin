@@ -9,9 +9,6 @@ const mapDispatchToProps = () => ({});
 
 const mapStateToProps = state => ({
   stagesListProp: state.stagesState.stagesList
-  // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(
-  //   state.appearancesState
-  // )
 });
 
 const StagesConn = connect(mapStateToProps, mapDispatchToProps)(Stages);

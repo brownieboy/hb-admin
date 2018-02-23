@@ -11,6 +11,7 @@ import {
 } from "../dux/appearancesReducer.js";
 
 import { getBandInfoForId as getBandInfoIdAction } from "../dux/bandsReducer.js";
+import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loadappearancesProp: loadAppearances }, dispatch);
@@ -24,7 +25,10 @@ const mapStateToProps = state => ({
     state.appearancesState
   ),
   // Not really State, and returns a function, but what the hell
-  getBandInfoForId: bandId => getBandInfoIdAction(state.bandsState.bandsList, bandId)
+  getBandInfoForId: bandId =>
+    getBandInfoIdAction(state.bandsState.bandsList, bandId),
+  getStageInfoForId: stageId =>
+    getStageInfoIdAction(state.stagesState.stagesList, stageId)
 });
 
 const ScheduleConn = connect(mapStateToProps, mapDispatchToProps)(Schedule);
