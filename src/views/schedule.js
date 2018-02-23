@@ -9,10 +9,10 @@ const listSchedule = (appearancesArray, getBandInfoForId) => {
   return appearancesArray.map(appearanceMember => {
     const { dateTimeStart, bandId, name, stageName } = appearanceMember;
     bandInfo = getBandInfoForId(bandId);
-    console.log("bandInfo=" + bandInfo);
+    // console.log("bandInfo=" + JSON.stringify(bandInfo, null, 4));
     return (
       <ListGroupItem key={`${bandId}${dateTimeStart}`}>
-        {appearanceMember.name}
+        {bandInfo.name}
       </ListGroupItem>
     );
   });
