@@ -2,21 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 
-const listSchedule = appearancesArray =>
-  appearancesArray.map(appearanceMember => {
-    const { dateTimeStart, bandId, name, stageName } = appearanceMember;
 
+const listSchedule = (appearancesArray, getBandInfoForId) => {
+  let bandInfo;
+  console.log("appearancesArray start");
+  return appearancesArray.map(appearanceMember => {
+    const { dateTimeStart, bandId, name, stageName } = appearanceMember;
+    bandInfo = getBandInfoForId(bandId);
+    console.log("bandInfo=" + bandInfo);
     return (
       <ListGroupItem key={`${bandId}${dateTimeStart}`}>
         {appearanceMember.name}
       </ListGroupItem>
     );
   });
+};
 
-const Schedule = ({ appearancesListByDateTime }) => (
+const Schedule = ({ appearancesListByDateTime, getBandInfoForId }) => (
   <div>
     <h1>Schedule</h1>
-    <ListGroup>{listSchedule(appearancesListByDateTime)}</ListGroup>
+    <ListGroup>{listSchedule(appearancesListByDateTime, getBandInfoForId)}</ListGroup>
   </div>
 );
 

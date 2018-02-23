@@ -17,7 +17,7 @@ const bandsReducer = (
     case FETCH_BANDS_REQUEST:
       return { ...state, fetchStatus: "loading" };
     case FETCH_BANDS_SUCCESS:
-    console.log("FETCH_BANDS_SUCCESS");
+      console.log("FETCH_BANDS_SUCCESS");
       return {
         ...state,
         fetchStatus: "",
@@ -31,7 +31,7 @@ const bandsReducer = (
 };
 
 // Sort/filter functions for selectors
-const selectBands = state => state.bandsList;
+const selectBands = state => state.bandsList || [];
 
 // Selectors
 // const selectBandsByDateTime = createSelector([selectBands], bandsList => {
@@ -125,6 +125,11 @@ export const bandsDuxActions = {
   setFetchBandsRequest,
   setFetchBandsSucceeded
 };
+
+// Getters
+export const getBandInfoForId = (bandsList, bandId) =>
+  bandsList.find(bandMember => bandMember.bandId === bandId);
+
 
 // export const bandsDuxConstants = {
 //   LOAD_BANDS_NOW,

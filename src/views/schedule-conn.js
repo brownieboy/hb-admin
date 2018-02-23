@@ -10,6 +10,8 @@ import {
   selectors as appearanceSelectors
 } from "../dux/appearancesReducer.js";
 
+import { getBandInfoForId as getBandInfoIdAction } from "../dux/bandsReducer.js";
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loadappearancesProp: loadAppearances }, dispatch);
 
@@ -20,7 +22,9 @@ const mapStateToProps = state => ({
   ),
   appearancesGroupedByDayThenStage: appearanceSelectors.selectAppearancesGroupedByDayThenStage(
     state.appearancesState
-  )
+  ),
+  // Not really State, and returns a function, but what the hell
+  getBandInfoForId: bandId => getBandInfoIdAction(state.bandsState.bandsList, bandId)
 });
 
 const ScheduleConn = connect(mapStateToProps, mapDispatchToProps)(Schedule);
