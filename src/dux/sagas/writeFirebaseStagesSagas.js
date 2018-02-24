@@ -11,15 +11,10 @@ function* saveNewStage() {
   );
   console.log("newStageInfo=" + newStageInfo);
 
-  const ref = firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH);
-  const newChildRef = ref.push();
-  // console.log("my new shiny id is " + newChildRef.key());
+  // firebaseApp.database().object(`${globalTypes.DATABASE.STAGES_PATH}/5`).set(newStageInfo);
+  const ref = firebaseApp.database().ref(`${globalTypes.DATABASE.STAGES_PATH}`);
+  const newChildRef = ref.child("5");
   newChildRef.set(newStageInfo);
-  // yield call(
-  //   reduxSagaFirebase.database.push,
-  //   globalTypes.DATABASE.STAGES_PATH,
-  //   newStageInfo
-  // );
 }
 
 function* setStageStatus(action) {
