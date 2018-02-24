@@ -1,59 +1,29 @@
-import { login } from "./api";
-import { take, put, fork, call, race } from "redux-saga/effects";
+// Following instructions from redux-saga-firebase Github readme.
+import { call, put, takeEvery } from "redux-saga/effects";
+
+import { authProvider, reduxSagaFirebase } from "../apis/firebase.js";
 import {
-  LOGIN_REQUEST,
-  LOGIN_SUBMIT,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR
-} from "./actions";
-import { loginRequest, loginError, loginSuccess } from "../dux/firebaseLoginDux.js";
-import { startSubmit, stopSubmit } from "../form/actions";
-import { clearState } from "../router/actions";
+  loginSuccess,
+  loginFailure,
+  LOGIN_SUBMIT
+} from "../dux/firebaseLoginDux.js";
 
-function* handleLoginSubmit() {
-  // run the daemon
-  while (true) {
-    // wait for a login submit
-    const { payload } = yield take(LOGIN_SUBMIT);
-    // start submitting the form
-    yield put(startSubmit("authLogin"));
-    // put a login request
-    yield put(loginRequest(payload));
-    // wait for a response
-    const { error } = yield race({
-      success: take(LOGIN_SUCCESS),
-      error: take(LOGIN_ERROR)
-    });
-    // if not an error, pop the screen
-    if (!error) {
-      // finalize the form
-      yield put(stopSubmit("authLogin"));
-      yield put(clearState());
-    } else {
-      // finalize the form
-      yield put(stopSubmit("authLogin", error.payload));
-    }
+function* loginSaga() {
+  try {
+    const data = yield call(
+      reduxSagaFirebase.auth.signInWithPopup,
+      authProvider
+    );
+    yield put(loginSuccess(data));
+  } catch (error) {
+    yield put(loginFailure(error));
   }
 }
 
-function* handleLoginRequest() {
-  // run the daemon
-  while (true) {
-    try {
-      // wait for a login request
-      const { payload } = yield take(LOGIN_REQUEST);
-      // call the api
-      const user = yield call(login, payload);
-      // call the success
-      yield put(loginSuccess(user));
-    } catch (e) {
-      // call the error
-      yield put(loginError(e));
-    }
-  }
-}
+// function* loginFirebaseSaga() {
+//   yield [takeEvery(LOGIN_SUBMIT, loginSaga)];
+// }
 
-export default function* auth(getState) {
-  yield fork(handleLoginRequest);
-  yield fork(handleLoginSubmit);
-}
+const loginFirebaseSagas = [takeEvery(LOGIN_SUBMIT, loginSaga)];
+
+export default loginFirebaseSagas;

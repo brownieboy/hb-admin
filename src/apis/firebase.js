@@ -1,5 +1,6 @@
 // import firebase from "react-native-firebase";
 import firebase from "firebase";
+import ReduxSagaFirebase from 'redux-saga-firebase';
 
 const config = {
   apiKey: "AIzaSyDWMrob4ieV9UVEOCXUlDt19O9YAWAZveA",
@@ -17,9 +18,12 @@ export const extendedConfig = {
   cardsPhotoPath: "img/bands/cards"
 };
 
-firebase.initializeApp(config);
+const firebaseApp = firebase.initializeApp(config);
 
-export const provider = new firebase.auth.GoogleAuthProvider();
-export const auth = firebase.auth();
+export const authProvider = new firebase.auth.GoogleAuthProvider();
+// export const auth = firebase.auth();
 
-export default firebase;
+export const reduxSagaFirebase = new ReduxSagaFirebase(firebaseApp);
+
+
+export default firebaseApp;

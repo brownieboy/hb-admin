@@ -48,6 +48,7 @@
     "reactstrap": "5.0.0-beta",
     "redux": "^3.7.2",
     "redux-saga": "^0.16.0",
+    "redux-saga-firebase": "^0.12.0",
     "reselect": "^3.0.1",
     "simple-line-icons": "2.4.1"
   },
