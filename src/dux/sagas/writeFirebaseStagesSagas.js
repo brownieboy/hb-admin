@@ -12,9 +12,8 @@ function* saveNewStage() {
   console.log("newStageInfo=" + newStageInfo);
 
   // firebaseApp.database().object(`${globalTypes.DATABASE.STAGES_PATH}/5`).set(newStageInfo);
-  const ref = firebaseApp.database().ref(`${globalTypes.DATABASE.STAGES_PATH}`);
-  const newChildRef = ref.child("5");
-  newChildRef.set(newStageInfo);
+  const ref = firebaseApp.database().ref(`${globalTypes.DATABASE.STAGES_PATH}test`);
+  ref.set(["two", "three", "four"]);
 }
 
 function* setStageStatus(action) {
