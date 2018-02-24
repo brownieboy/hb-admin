@@ -102,11 +102,11 @@ function* readStagesSaga() {
 
 // export default mySaga;
 
-const firebaseDataSagas = [
+const readFirebaseDataSagas = [
   fork(readBandsSaga),
   fork(readHomeSaga),
   fork(readStagesSaga),
   fork(readAppearancesSaga)
 ];
 
-export default firebaseDataSagas;
+export default readFirebaseDataSagas;
