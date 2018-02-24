@@ -1,83 +1,92 @@
-// This approach taken from article at:
-// https://medium.com/@MattiaManzati/tips-to-handle-authentication-in-redux-2-introducing-redux-saga-130d6872fbe7
+export const types = {
+  LOGIN: {
+    REQUEST: "LOGIN.REQUEST",
+    SUCCESS: "LOGIN.SUCCESS",
+    FAILURE: "LOGIN.FAILURE"
+  },
+  LOGOUT: {
+    REQUEST: "LOGOUT.REQUEST",
+    SUCCESS: "LOGOUT.SUCCESS",
+    FAILURE: "LOGOUT.FAILURE"
+  },
+  SYNC_USER: "SYNC_USER"
+};
 
-import { combineReducers } from "redux";
+export const login = () => ({
+  type: types.LOGIN.REQUEST
+});
 
-// Triggered whenever the user clicks the login submit button
-export const LOGIN_SUBMIT = "core_auth/LOGIN_SUBMIT";
-export function loginSubmit(data) {
-  return {
-    type: LOGIN_SUBMIT,
-    payload: data
-  };
-}
+export const loginSuccess = credential => ({
+  type: types.LOGIN.SUCCESS,
+  credential
+});
 
-// Triggered whenever a login request is dispatched from whenever point in the code
-export const LOGIN_REQUEST = "core_auth/LOGIN_REQUEST";
-export function loginRequest(data) {
-  return {
-    type: LOGIN_REQUEST,
-    payload: data
-  };
-}
+export const loginFailure = error => ({
+  type: types.LOGIN.FAILURE,
+  error
+});
 
-// triggered when the login has succeded
-export const LOGIN_SUCCESS = "core_auth/LOGIN_SUCCESS";
-export function loginSuccess(data) {
-  return {
-    type: LOGIN_SUCCESS,
-    payload: data
-  };
-}
+export const logout = () => ({
+  type: types.LOGOUT.REQUEST
+});
 
-// triggered when the login failed
-export const LOGIN_ERROR = "core_auth/LOGIN_ERROR";
-export function loginError(errors) {
-  return {
-    type: LOGIN_ERROR,
-    error: true,
-    payload: errors
-  };
-}
+export const logoutSuccess = () => ({
+  type: types.LOGOUT.SUCCESS
+});
 
-// triggered to logout the user
-export const LOGOUT = "core_auth/LOGOUT";
-export function logout() {
-  return {
-    type: LOGOUT
-  };
-}
+export const logoutFailure = error => ({
+  type: types.LOGOUT.FAILURE,
+  error
+});
 
-const users = (state = {}, action) => {
-  if (!action) {
-    return state;
-  }
+export const syncUser = user => ({
+  type: types.SYNC_USER,
+  user
+});
 
+const initialState = {
+  loading: false,
+  loggedIn: false,
+  user: null
+};
+
+export default function loginReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case types.LOGIN.REQUEST:
+    case types.LOGOUT.REQUEST:
       return {
         ...state,
-        [action.payload.id]: action.payload
+        loading: true
+      };
+    case types.LOGIN.SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loggedIn: true
+      };
+    case types.LOGIN.FAILURE:
+      return {
+        ...state,
+        loading: false
+      };
+    case types.LOGOUT.SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        loggedIn: false
+      };
+    case types.LOGOUT.FAILURE:
+      return {
+        ...state,
+        loading: false
+      };
+    case types.SYNC_USER:
+      return {
+        ...state,
+        loggedIn: action.user != null,
+        user: action.user
       };
     default:
       return state;
   }
-};
-
-const auth = (state = null, action) => {
-  if (!action) {
-    return state;
-  }
-
-  switch (action.type) {
-    case LOGIN_SUCCESS:
-      return action.payload.id;
-    case LOGOUT:
-      return null;
-    default:
-      return state;
-  }
-};
-
-export default combineReducers({ users, auth });
-
+}

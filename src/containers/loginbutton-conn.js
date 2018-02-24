@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
 
-import { loginSubmit } from "../dux/firebaseLoginDux.js";
+import { login } from "../dux/firebaseLoginDux.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loginSubmitProp: loginSubmit }, dispatch);
+  bindActionCreators({ loginProp: login }, dispatch);
 
 const mapStateToProps = state => ({});
 
 class LoginButton extends Component {
   handleLogin = () => {
-    const { loginSubmitProp } = this.props;
-    console.log("loginSubmitProp() calling");
-    loginSubmitProp();
+    const { loginProp } = this.props;
+    console.log("loginProp() calling");
+    loginProp();
   };
 
   render() {
