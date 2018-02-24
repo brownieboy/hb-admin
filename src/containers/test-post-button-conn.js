@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
 
-import { saveNewStage } from "../dux/stagesWriteReducer.js";
+import { saveNewStage } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ saveNewStageProp: saveNewStage }, dispatch);
@@ -34,10 +34,3 @@ const TestPostButtonConn = connect(mapStateToProps, mapDispatchToProps)(
 
 export default TestPostButtonConn;
 
-/*
-  opStageInfo: {
-    id: "",
-    name: "",
-    sortOrder: 0
-  }
- */

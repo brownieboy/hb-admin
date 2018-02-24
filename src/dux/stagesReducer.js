@@ -7,6 +7,11 @@ const LOAD_STAGES_NOW = "LOAD_STAGES_NOW"; // Imperative, hence "NOW"!
 const FETCH_STAGES_REQUEST = "FETCH_STAGES_REQUEST";
 const FETCH_STAGES_SUCCESS = "FETCH_STAGES_SUCCESS";
 const FETCH_STAGES_FAILURE = "FETCH_STAGES_FAILURE";
+const SAVE_NEW_STAGE = "SAVE_NEW_STAGE";
+
+export const actionTypes = {
+  SAVE_NEW_STAGE
+};
 
 // Reducer
 const stagesReducer = (
@@ -24,14 +29,23 @@ const stagesReducer = (
       };
     case FETCH_STAGES_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
+    case SAVE_NEW_STAGE:
+      return { ...state, stagesList: [...state.stagesList, action.payload] };
     default:
       return state;
   }
 };
 
+/*
+case ADD_ITEM :
+    return {
+        ...state,
+        arr: [...state.arr, action.newItem]
+    }
+ */
+
 // Sort/filter functions for selectors
 // const selectStages = state => state.stagesList;
-
 
 export const loadStagesNow = () => ({ type: LOAD_STAGES_NOW });
 // export const fetchStagesSucceeded = () => ({ type: FETCH_STAGES_REQUEST });
@@ -48,17 +62,20 @@ const setFetchStagesFailed = errorMessage => ({
   payload: errorMessage
 });
 
+export const saveNewStage = stageInfo => ({
+  type: SAVE_NEW_STAGE,
+  payload: stageInfo
+});
+
 export const stagesDuxActions = {
   setFetchStagesFailed,
   setFetchStagesRequest,
-  setFetchStagesSucceeded
+  setFetchStagesSucceeded,
+  saveNewStage
 };
-
 
 // Getters
 export const getStageInfoForId = (stagesList, stageId) =>
   stagesList.find(stageMember => stageMember.id === stageId);
 
 export default stagesReducer;
-
-
