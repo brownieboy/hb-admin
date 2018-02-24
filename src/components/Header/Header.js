@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavbarToggler, NavbarBrand } from "reactstrap";
 
 import LoginButton from "../../containers/loginbutton-conn.js";
+import TestPostButton from "../../containers/test-post-button-conn.js";
 
 class Header extends Component {
   sidebarToggle(e) {
@@ -39,6 +40,7 @@ class Header extends Component {
         >
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
+        <TestPostButton />
         <LoginButton />
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />

@@ -14,13 +14,14 @@ export const syncStages = Stages => ({
   Stages
 });
 
-export const changeNewstage = stage => ({
+export const changeNewStage = stage => ({
   type: types.STAGES.NEW.CHANGE,
   stage
 });
 
-export const saveNewStage = () => ({
-  type: types.STAGES.NEW.SAVE
+export const saveNewStage = stageInfo => ({
+  type: types.STAGES.NEW.SAVE,
+  payload: stageInfo
 });
 
 export const setStageStatus = (stageId, done) => ({
@@ -31,7 +32,11 @@ export const setStageStatus = (stageId, done) => ({
 
 const initialState = {
   list: [],
-  new: ""
+  opStageInfo: {
+    id: "",
+    name: "",
+    sortOrder: 0
+  }
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -44,7 +49,12 @@ export default function reducer(state = initialState, action = {}) {
     case types.STAGES.NEW.CHANGE:
       return {
         ...state,
-        new: action.stage
+        opStageInfo: action.payload
+      };
+    case types.STAGES.NEW.SAVE:
+      return {
+        ...state,
+        opStageInfo: action.payload
       };
     default:
       return state;

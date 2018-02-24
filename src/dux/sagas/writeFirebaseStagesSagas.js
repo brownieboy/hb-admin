@@ -1,22 +1,25 @@
 import { call, fork, select, takeEvery } from "redux-saga/effects";
 import { types, syncStages } from "../stagesWriteReducer.js";
-import { reduxSagaFirebase } from "../../apis/firebase.js";
+import firebaseApp, { reduxSagaFirebase } from "../../apis/firebase.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveNewStage() {
-  const user = yield select(state => state.login.user);
-  const newStage = yield select(state => state.Stages.new);
-
-  yield call(
-    reduxSagaFirebase.database.create,
-    globalTypes.DATABASE.STAGES_PATH,
-    {
-      creator: user ? user.uid : null,
-      done: false,
-      label: newStage
-    }
+  // const user = yield select(state => state.login.user);
+  const newStageInfo = yield select(
+    state => state.stagesWriteState.opStageInfo
   );
+  console.log("newStageInfo=" + newStageInfo);
+
+  const ref = firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH);
+  const newChildRef = ref.push();
+  // console.log("my new shiny id is " + newChildRef.key());
+  newChildRef.set(newStageInfo);
+  // yield call(
+  //   reduxSagaFirebase.database.push,
+  //   globalTypes.DATABASE.STAGES_PATH,
+  //   newStageInfo
+  // );
 }
 
 function* setStageStatus(action) {
@@ -61,4 +64,3 @@ const writeFirebaseStagesSagas = [
 ];
 
 export default writeFirebaseStagesSagas;
-
