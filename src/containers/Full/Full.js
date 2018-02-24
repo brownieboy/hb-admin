@@ -13,6 +13,8 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
+import StageForm from "../../components/stage-form.js";
+
 class Full extends Component {
   render() {
     return (
@@ -33,6 +35,12 @@ class Full extends Component {
                 <Route path="/bands" name="Bands" component={Bands} />
                 <Route path="/schedule" name="Schedule" component={Schedule} />
                 <Route path="/stages" name="Stages" component={Stages} />
+                <Route
+                  path="/stageform"
+                  name="StageForm"
+                  component={StageForm}
+                />
+
                 <Redirect from="/" to="/homepage" />
               </Switch>
             </Container>

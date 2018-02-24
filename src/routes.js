@@ -4,6 +4,7 @@ const routes = {
   "/homepage": "HomePage",
   "/bands": "Bands",
   "/schedule": "Schedule",
-  "/stages": "Stages"
+  "/stages": "Stages",
+  "/stageform": "StageForm"
 };
 export default routes;
