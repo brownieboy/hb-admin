@@ -4,7 +4,7 @@ import { Formik } from "formik";
 
 const StageForm = () => (
   <div>
-    <h1>Stage Form/h1>
+    <h1>Stage Form</h1>
     {/*
       The benefit of the render prop approach is that you have full access to React's
       state, props, and composition model. Thus there is no need to map outer props
@@ -21,7 +21,7 @@ const StageForm = () => (
       initialValues={{
         id: "",
         name: "",
-        sortOrder: 0
+        sortOrder: -1
       }}
       validate={values => {
         // same as above, but feel free to move this into a class method now.
