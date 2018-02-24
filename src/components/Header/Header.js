@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Button, Nav, NavItem, NavbarToggler, NavbarBrand } from "reactstrap";
+import { NavbarToggler, NavbarBrand } from "reactstrap";
+
+import LoginButton from "../../containers/loginbutton-conn.js";
 
 class Header extends Component {
   sidebarToggle(e) {
@@ -22,9 +24,7 @@ class Header extends Component {
     document.body.classList.toggle("aside-menu-hidden");
   }
 
-  handleLogin = () => {
-    alert("login");
-  };
+
 
   render() {
     return (
@@ -39,7 +39,7 @@ class Header extends Component {
         >
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
-        <Button onClick={this.handleLogin}>Login</Button>
+        <LoginButton />
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />
         </NavbarToggler>

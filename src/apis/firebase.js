@@ -1,6 +1,6 @@
 // import firebase from "react-native-firebase";
 import firebase from "firebase";
-import ReduxSagaFirebase from 'redux-saga-firebase';
+import ReduxSagaFirebase from "redux-saga-firebase";
 
 const config = {
   apiKey: "AIzaSyDWMrob4ieV9UVEOCXUlDt19O9YAWAZveA",
@@ -24,6 +24,5 @@ export const authProvider = new firebase.auth.GoogleAuthProvider();
 // export const auth = firebase.auth();
 
 export const reduxSagaFirebase = new ReduxSagaFirebase(firebaseApp);
-
 
 export default firebaseApp;
