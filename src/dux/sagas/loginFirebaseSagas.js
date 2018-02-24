@@ -1,7 +1,7 @@
 // Following instructions from redux-saga-firebase Github readme.
 import { call, fork, put, take, takeEvery } from "redux-saga/effects";
 
-import { authProvider, reduxSagaFirebase } from "../apis/firebase.js";
+import { authProvider, reduxSagaFirebase } from "../../apis/firebase.js";
 import {
   types,
   loginSuccess,
@@ -9,7 +9,7 @@ import {
   logoutSuccess,
   logoutFailure,
   syncUser
-} from "../dux/firebaseLoginDux.js";
+} from "../firebaseLoginDux.js";
 
 function* loginSaga() {
   try {
