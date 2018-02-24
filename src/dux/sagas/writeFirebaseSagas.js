@@ -5,7 +5,7 @@ import firebaseApp from "../../apis/firebase.js";
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveStages() {
-  // const user = yield select(state => state.login.user);
+  // Every saved edit, we write back to Firebase as an array.
   const stagesList = yield select(state => state.stagesState.stagesList);
 
   const ref = firebaseApp
@@ -15,7 +15,8 @@ function* saveStages() {
 }
 
 const writeFirebaseSagas = [
-  takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveStages)
+  takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveStages),
+  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveStages)
 ];
 
 export default writeFirebaseSagas;

@@ -8,9 +8,11 @@ const FETCH_STAGES_REQUEST = "FETCH_STAGES_REQUEST";
 const FETCH_STAGES_SUCCESS = "FETCH_STAGES_SUCCESS";
 const FETCH_STAGES_FAILURE = "FETCH_STAGES_FAILURE";
 const SAVE_NEW_STAGE = "SAVE_NEW_STAGE";
+const SAVE_EDITED_STAGE = "SAVE_EDITED_STAGE";
 
 export const actionTypes = {
-  SAVE_NEW_STAGE
+  SAVE_NEW_STAGE,
+  SAVE_EDITED_STAGE
 };
 
 // Reducer
@@ -36,14 +38,6 @@ const stagesReducer = (
   }
 };
 
-/*
-case ADD_ITEM :
-    return {
-        ...state,
-        arr: [...state.arr, action.newItem]
-    }
- */
-
 // Sort/filter functions for selectors
 // const selectStages = state => state.stagesList;
 
@@ -64,6 +58,11 @@ const setFetchStagesFailed = errorMessage => ({
 
 export const saveNewStage = stageInfo => ({
   type: SAVE_NEW_STAGE,
+  payload: stageInfo
+});
+
+export const saveEditedStage = stageInfo => ({
+  type: SAVE_EDITED_STAGE,
   payload: stageInfo
 });
 
