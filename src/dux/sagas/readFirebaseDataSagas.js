@@ -3,19 +3,19 @@
 import { buffers, eventChannel } from "redux-saga";
 import { fork, put, take } from "redux-saga/effects";
 // import FastImage from "react-native-fast-image";
-import firebaseApp from "../apis/firebase.js";
+import firebaseApp from "../../apis/firebase.js";
 
 // import bandsApi from "../api/bandsApi.js";
 import {
   bandsDuxActions
   // bandsDuxConstants,
-} from "../dux/bandsReducer.js";
+} from "../bandsReducer.js";
 import {
   appearancesDuxActions
   // appearancesDuxConstants
-} from "../dux/appearancesReducer.js";
-import { homeDuxActions } from "../dux/homeReducer.js";
-import { stagesDuxActions } from "../dux/stagesReducer.js";
+} from "../appearancesReducer.js";
+import { homeDuxActions } from "../homeReducer.js";
+import { stagesDuxActions } from "../stagesReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {

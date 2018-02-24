@@ -24,9 +24,14 @@ function* loginSaga() {
   }
 }
 
-// function* loginFirebaseSaga() {
-//   yield [takeEvery(LOGIN_SUBMIT, loginSaga)];
-// }
+function* logoutSaga() {
+  try {
+    const data = yield call(reduxSagaFirebase.auth.signOut);
+    yield put(logoutSuccess(data));
+  } catch (error) {
+    yield put(logoutFailure(error));
+  }
+}
 
 function* syncUserSaga() {
   const channel = yield call(reduxSagaFirebase.auth.channel);
@@ -44,6 +49,7 @@ function* syncUserSaga() {
 
 const loginFirebaseSagas = [
   takeEvery(types.LOGIN.REQUEST, loginSaga),
+  takeEvery(types.LOGOUT.REQUEST, logoutSaga),
   fork(syncUserSaga)
 ];
 

@@ -3,22 +3,34 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
 
-import { login } from "../dux/firebaseLoginDux.js";
+import { login, logout } from "../dux/firebaseLoginDux.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loginProp: login }, dispatch);
+  bindActionCreators({ loginProp: login, logoutProp: logout }, dispatch);
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  loggedInState: state.firebaseLoginState
+});
 
 class LoginButton extends Component {
   handleLogin = () => {
-    const { loginProp } = this.props;
+    const { loginProp, logoutProp } = this.props;
+    const { loggedIn } = this.props.loggedInState || false;
     console.log("loginProp() calling");
-    loginProp();
+    if (loggedIn) {
+      logoutProp();
+    } else {
+      loginProp();
+    }
   };
 
   render() {
-    return <Button onClick={this.handleLogin}>Login</Button>;
+    const { loggedIn } = this.props.loggedInState || false;
+    return (
+      <Button onClick={this.handleLogin}>
+        {loggedIn ? "Logout" : "Login"}
+      </Button>
+    );
   }
 }
 
