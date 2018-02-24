@@ -70,9 +70,9 @@ function* readAppearancesSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    yield console.log(
-      "readBandsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    );
+    // yield console.log(
+    //   "readBandsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    // );
     yield put(appearancesDuxActions.setFetchAppearancesSucceeded(item.value));
   }
 }
@@ -92,11 +92,20 @@ function* readStagesSaga() {
   }
 }
 
-function* mySaga() {
-  yield fork(readBandsSaga);
-  yield fork(readHomeSaga);
-  yield fork(readStagesSaga);
-  yield fork(readAppearancesSaga);
-}
+// function* mySaga() {
+//   yield fork(readBandsSaga);
+//   yield fork(readHomeSaga);
+//   yield fork(readStagesSaga);
+//   yield fork(readAppearancesSaga);
+// }
 
-export default mySaga;
+// export default mySaga;
+
+const readFirebaseDataSagas = [
+  fork(readBandsSaga),
+  fork(readHomeSaga),
+  fork(readStagesSaga),
+  fork(readAppearancesSaga)
+];
+
+export default readFirebaseDataSagas;
