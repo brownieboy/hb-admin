@@ -4,6 +4,7 @@ import { buffers, eventChannel } from "redux-saga";
 import { fork, put, take } from "redux-saga/effects";
 // import FastImage from "react-native-fast-image";
 import firebaseApp from "../../apis/firebase.js";
+import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 // import bandsApi from "../api/bandsApi.js";
 import {
@@ -15,7 +16,7 @@ import {
   // appearancesDuxConstants
 } from "../appearancesReducer.js";
 import { homeDuxActions } from "../homeReducer.js";
-import { stagesDuxActions } from "../stagesReducer.js";
+import { stagesDuxActions } from "../stagesReadReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {
@@ -35,7 +36,7 @@ export function createEventChannel(ref) {
 function* readHomeSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
-    firebaseApp.database().ref("homePage")
+    firebaseApp.database().ref(globalTypes.DATABASE.HOME_PAGE_PATH)
   );
 
   while (true) {
@@ -50,7 +51,7 @@ function* readHomeSaga() {
 function* readBandsSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
-    firebaseApp.database().ref("bandsList")
+    firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH)
   );
 
   while (true) {
@@ -65,7 +66,7 @@ function* readBandsSaga() {
 function* readAppearancesSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
-    firebaseApp.database().ref("appearances")
+    firebaseApp.database().ref(globalTypes.DATABASE.APPEARANCES_PATH)
   );
 
   while (true) {
@@ -80,7 +81,7 @@ function* readAppearancesSaga() {
 function* readStagesSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
-    firebaseApp.database().ref("stages")
+    firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH)
   );
 
   while (true) {

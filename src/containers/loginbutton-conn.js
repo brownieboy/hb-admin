@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
 
-import { login, logout } from "../dux/firebaseLoginDux.js";
+import { login, logout } from "../dux/firebaseLoginReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loginProp: login, logoutProp: logout }, dispatch);

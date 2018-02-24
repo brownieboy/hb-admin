@@ -3,15 +3,15 @@ import { combineReducers } from "redux";
 import homeReducer from "./homeReducer.js";
 import bandsReducer from "./bandsReducer";
 import appearancesReducer from "./appearancesReducer.js";
-import stagesReducer from "./stagesReducer.js";
-import firebaseLoginReducer from "./firebaseLoginDux.js";
+import stagesReadReducer from "./stagesReadReducer.js";
+import firebaseLoginReducer from "./firebaseLoginReducer.js";
 
 const mainReducer = combineReducers({
   appearancesState: appearancesReducer,
   bandsState: bandsReducer,
   homeState: homeReducer,
   firebaseLoginState: firebaseLoginReducer,
-  stagesState: stagesReducer
+  stagesState: stagesReadReducer
 });
 
 export default mainReducer;

@@ -9,7 +9,7 @@ import {
   logoutSuccess,
   logoutFailure,
   syncUser
-} from "../firebaseLoginDux.js";
+} from "../firebaseLoginReducer.js";
 
 function* loginSaga() {
   try {

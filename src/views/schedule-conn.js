@@ -11,7 +11,7 @@ import {
 } from "../dux/appearancesReducer.js";
 
 import { getBandInfoForId as getBandInfoIdAction } from "../dux/bandsReducer.js";
-import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.js";
+import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReadReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ loadappearancesProp: loadAppearances }, dispatch);
