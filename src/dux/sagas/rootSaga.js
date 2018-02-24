@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
 
-import readFirebaseDataSagas from "./readFirebaseDataSagas.js";
+import firebaseDataSagas from "./firebaseDataSagas.js";
 import loginFirebaseSagas from "./loginFirebaseSagas.js";
 import writeFirebaseStagesSagas from "./writeFirebaseStagesSagas.js";
 
@@ -8,7 +8,7 @@ import writeFirebaseStagesSagas from "./writeFirebaseStagesSagas.js";
 // https://github.com/redux-saga/redux-saga/issues/160
 function* sagas() {
   yield all([
-    ...readFirebaseDataSagas,
+    ...firebaseDataSagas,
     ...loginFirebaseSagas,
     ...writeFirebaseStagesSagas
   ]);

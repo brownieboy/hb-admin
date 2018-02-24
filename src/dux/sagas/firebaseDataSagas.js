@@ -16,7 +16,7 @@ import {
   // appearancesDuxConstants
 } from "../appearancesReducer.js";
 import { homeDuxActions } from "../homeReducer.js";
-import { stagesDuxActions } from "../stagesReadReducer.js";
+import { stagesDuxActions } from "../stagesReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {
@@ -102,11 +102,11 @@ function* readStagesSaga() {
 
 // export default mySaga;
 
-const readFirebaseDataSagas = [
+const firebaseDataSagas = [
   fork(readBandsSaga),
   fork(readHomeSaga),
   fork(readStagesSaga),
   fork(readAppearancesSaga)
 ];
 
-export default readFirebaseDataSagas;
+export default firebaseDataSagas;

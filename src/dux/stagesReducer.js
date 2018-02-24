@@ -9,7 +9,7 @@ const FETCH_STAGES_SUCCESS = "FETCH_STAGES_SUCCESS";
 const FETCH_STAGES_FAILURE = "FETCH_STAGES_FAILURE";
 
 // Reducer
-const stagesReadReducer = (
+const stagesReducer = (
   state = { fetchStatus: "", fetchError: "", stagesList: [] },
   action
 ) => {
@@ -59,6 +59,6 @@ export const stagesDuxActions = {
 export const getStageInfoForId = (stagesList, stageId) =>
   stagesList.find(stageMember => stageMember.id === stageId);
 
-export default stagesReadReducer;
+export default stagesReducer;
 
 
