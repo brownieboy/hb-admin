@@ -6,6 +6,7 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveStages() {
   // Every saved edit, we write back to Firebase as an array.
+  console.log("saveStages*...");
   const stagesList = yield select(state => state.stagesState.stagesList);
   yield console.log("Saga to server=" + JSON.stringify(stagesList, null, 4));
 
