@@ -37,14 +37,15 @@ CommonStageFields.propTypes = {
 
 export const StageNewForm = ({ submitDataToServer }) => {
   const defaultFieldValues = { name: "", id: "", sortOrder: -1 };
-
+  const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
+  validationSchemaObj.id = yup.string().required();
   return (
     <div>
       <h1>My Form</h1>
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, defaultFieldValues)}
-        validationSchema={yup.object().shape(validationSchemaCommonObj)}
+        validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
           console.log(JSON.stringify(values, null, 2));
           submitDataToServer(values);
@@ -98,12 +99,7 @@ export const StageEditForm = ({
         }}
         render={props => (
           <form onSubmit={props.handleSubmit}>
-            <Field
-              type="text"
-              name="id"
-              placeholder="Stage id (must be unique, no spaces)"
-            />
-            {props.errors.id && <div id="feedback">{props.errors.id}</div>}
+            id: {fieldValues.id}
             <br />
             <CommonStageFields {...props} />
           </form>
