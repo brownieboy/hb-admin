@@ -7,6 +7,7 @@ import { StageNewForm, StageEditForm } from "../components/stage-form.js";
 // Dux
 import {
   saveNewStage,
+  saveEditedStage,
   getStageInfoForId as getStageInfoForIdAction
 } from "../dux/stagesReducer.js";
 
@@ -16,7 +17,7 @@ const mapDispatchToPropsNew = dispatch =>
 const mapStateToPropsNew = () => ({});
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveNewStage }, dispatch);
+  bindActionCreators({ submitDataToServer: saveEditedStage }, dispatch);
 
 const mapStateToPropsEdit = state => ({
   getStageInfoForId: stageId =>

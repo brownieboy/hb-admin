@@ -80,9 +80,13 @@ export const StageEditForm = ({
   getStageInfoForId
 }) => {
   let fieldValues = { name: "", id: "", sortOrder: -1 };
-  const matchingInfo = getStageInfoForId(match.params.id);
-  if (matchingInfo) {
-    fieldValues = Object.assign({}, matchingInfo);
+  if (match && match.params && match.params.id) {
+    const matchingInfo = getStageInfoForId(match.params.id);
+    console.log("Matching info = " + JSON.stringify(matchingInfo));
+
+    if (matchingInfo) {
+      fieldValues = Object.assign({}, matchingInfo);
+    }
   }
 
   return (
@@ -94,6 +98,7 @@ export const StageEditForm = ({
         validationSchema={yup.object().shape(validationSchemaCommonObj)}
         onSubmit={(values, actions) => {
           console.log(JSON.stringify(values, null, 2));
+          console.log("submitting to server...");
           submitDataToServer(values);
           actions.setSubmitting(false);
         }}
