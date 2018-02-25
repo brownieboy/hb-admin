@@ -104,7 +104,12 @@ export const StageEditForm = ({
         }}
         render={props => (
           <form onSubmit={props.handleSubmit}>
-            id: {fieldValues.id}
+            <Field
+              type="text"
+              name="id"
+              disabled
+              placeholder="Stage id (must be unique, no spaces)"
+            />
             <br />
             <CommonStageFields {...props} />
           </form>
