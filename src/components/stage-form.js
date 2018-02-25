@@ -9,9 +9,7 @@ const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
   if (isExisting) {
     console.log("Edit existing stage " + match.params.id);
     fieldValues = Object.assign({}, getStageInfoForId(match.params.id));
-    console.log(
-      "Matching info = " + JSON.stringify(fieldValues)
-    );
+    console.log("Matching info = " + JSON.stringify(fieldValues));
   } else {
     console.log("Creating new stage");
   }
@@ -20,6 +18,7 @@ const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
     <div>
       <h1>My Form</h1>
       <Formik
+        enableReinitialize
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape({
           id: yup.string().required(),
