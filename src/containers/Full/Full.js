@@ -17,6 +17,23 @@ import StageForm from "../../containers/stage-form-conn.js";
 
 // <Route path='/route/:id' exact component={MyComponent} />
 
+/*
+class App extends Component {
+  render() {
+    return (
+      <div>
+        <Switch>
+          <Route exact path="/" render={props => <Home {...props} {...this.props} />} />
+          <Route exact path="/users" render={props => <Users {...props} {...this.props} />} />
+          <Route exact path="/users/new" render={props => <NewUser {...props} {...this.props} />} />
+          <Route path="/users/:id" render={props => <User {...props} {...this.props} />} />
+        </Switch>
+      </div>
+    )
+  }
+}
+ */
+
 class Full extends Component {
   render() {
     return (
@@ -38,8 +55,14 @@ class Full extends Component {
                 <Route path="/schedule" name="Schedule" component={Schedule} />
                 <Route path="/stages" name="Stages" component={Stages} />
                 <Route
-                  path="/stageform:id" exact
-                  name="StageForm"
+                  path="/stageform/:id"
+                  exact
+                  name="StageFormEdit"
+                  component={StageForm}
+                />
+                <Route
+                  path="/stageform"
+                  name="StageFormNew"
                   component={StageForm}
                 />
 
@@ -56,3 +79,5 @@ class Full extends Component {
 }
 
 export default Full;
+
+// <Route path='/route/:id' exact component={MyComponent} />

@@ -1,3 +1,5 @@
+// imported by Breadcrumb.js, so may be able to lose this.
+
 const routes = {
   "/": "Home",
   "/dashboard": "Dashboard",
