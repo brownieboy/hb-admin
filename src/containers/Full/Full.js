@@ -15,6 +15,8 @@ import Stages from "../../views/stages-conn.js";
 
 import StageForm from "../../containers/stage-form-conn.js";
 
+// <Route path='/route/:id' exact component={MyComponent} />
+
 class Full extends Component {
   render() {
     return (
@@ -36,7 +38,7 @@ class Full extends Component {
                 <Route path="/schedule" name="Schedule" component={Schedule} />
                 <Route path="/stages" name="Stages" component={Stages} />
                 <Route
-                  path="/stageform"
+                  path="/stageform:id" exact
                   name="StageForm"
                   component={StageForm}
                 />
