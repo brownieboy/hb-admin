@@ -24,4 +24,3 @@ Stages.propTypes = {
 
 export default Stages;
 
-// <div>{JSON.stringify(StagesStateProp)}</div>

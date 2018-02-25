@@ -4,6 +4,33 @@ import { Formik, Field } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 
+export const validationSchema = yup.object().shape({
+  id: yup.string().required(),
+  name: yup.string().required(),
+  sortOrder: yup
+    .number()
+    .required()
+    .positive()
+    .integer()
+});
+
+export const CommonStageFields = ({ errors }) => (
+  <div>
+    <Field type="text" name="name" placeholder="Stage name" />
+    {errors.name && <div id="feedback">{errors.name}</div>}
+
+    <br />
+    <Field
+      type="number"
+      name="sortOrder"
+      placeholder="Sort order common (integer)"
+    />
+    {errors.sortOrder && <div id="feedback">{errors.sortOrder}</div>}
+
+    <button type="submit">Submit</button>
+  </div>
+);
+
 const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
   const isExisting = match && match.params && match.params.id;
   let fieldValues = { name: "", id: "", sortOrder: -1 };
@@ -25,15 +52,7 @@ const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, fieldValues)}
-        validationSchema={yup.object().shape({
-          id: yup.string().required(),
-          name: yup.string().required(),
-          sortOrder: yup
-            .number()
-            .required()
-            .positive()
-            .integer()
-        })}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           console.log(JSON.stringify(values, null, 2));
           saveNewStageProp(values);
@@ -48,20 +67,7 @@ const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
             />
             {props.errors.id && <div id="feedback">{props.errors.id}</div>}
             <br />
-            <Field type="text" name="name" placeholder="Stage name" />
-            {props.errors.name && <div id="feedback">{props.errors.name}</div>}
-
-            <br />
-            <Field
-              type="number"
-              name="sortOrder"
-              placeholder="Sort order (integer)"
-            />
-            {props.errors.sortOrder && (
-              <div id="feedback">{props.errors.sortOrder}</div>
-            )}
-
-            <button type="submit">Submit</button>
+            <CommonStageFields {...props} />
           </form>
         )}
       />
@@ -73,8 +79,12 @@ StageForm.propTypes = {
   saveNewStageProp: PropTypes.func.isRequired,
   match: PropTypes.object,
   getStageInfoForId: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  handleSubmit: PropTypes.func,
+  errors: PropTypes.object
+};
+
+CommonStageFields.propTypes = {
+  errors: PropTypes.object
 };
 
 export default StageForm;
