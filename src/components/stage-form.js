@@ -6,10 +6,14 @@ import yup from "yup";
 const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
   const isExisting = match && match.params && match.params.id ? true : false;
   let fieldValues = { name: "", id: "", sortOrder: -1 };
+  let matchingInfo;
   if (isExisting) {
     console.log("Edit existing stage " + match.params.id);
-    fieldValues = Object.assign({}, getStageInfoForId(match.params.id));
-    console.log("Matching info = " + JSON.stringify(fieldValues));
+    console.log("Matching info = " + JSON.stringify(matchingInfo));
+    matchingInfo = getStageInfoForId(match.params.id);
+    if (matchingInfo) {
+      fieldValues = Object.assign({}, matchingInfo);
+    }
   } else {
     console.log("Creating new stage");
   }
