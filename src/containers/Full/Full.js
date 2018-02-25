@@ -13,7 +13,9 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
-import StageForm from "../../containers/stage-form-conn.js";
+import StageFormNew from "../../containers/stage-form-new-conn.js";
+import StageFormEdit from "../../containers/stage-form-edit-conn.js";
+
 
 // <Route path='/route/:id' exact component={MyComponent} />
 
@@ -58,12 +60,12 @@ class Full extends Component {
                   path="/stageform/:id"
                   exact
                   name="StageFormEdit"
-                  component={StageForm}
+                  component={StageFormEdit}
                 />
                 <Route
                   path="/stageform"
                   name="StageFormNew"
-                  component={StageForm}
+                  component={StageFormNew}
                 />
 
                 <Redirect from="/" to="/homepage" />

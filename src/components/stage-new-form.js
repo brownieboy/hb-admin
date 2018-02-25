@@ -31,27 +31,15 @@ export const CommonStageFields = ({ errors }) => (
   </div>
 );
 
-const StageNewForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
-  const isExisting = match && match.params && match.params.id;
-  let fieldValues = { name: "", id: "", sortOrder: -1 };
-  let matchingInfo;
-  if (isExisting) {
-    console.log("Edit existing stage " + match.params.id);
-    console.log("Matching info = " + JSON.stringify(matchingInfo));
-    matchingInfo = getStageInfoForId(match.params.id);
-    if (matchingInfo) {
-      fieldValues = Object.assign({}, matchingInfo);
-    }
-  } else {
-    console.log("Creating new stage");
-  }
+const StageNewForm = ({ submitDataToServer }) => {
+  const defaultFieldValues = { name: "", id: "", sortOrder: -1 };
 
   return (
     <div>
       <h1>My Form</h1>
       <Formik
         enableReinitialize
-        initialValues={Object.assign({}, fieldValues)}
+        initialValues={Object.assign({}, defaultFieldValues)}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           console.log(JSON.stringify(values, null, 2));

@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import StageForm from "../components/stage-form.js";
+import StageForm from "../components/stage-form-new.js";
 
 // Dux
 import {
@@ -11,7 +11,7 @@ import {
 } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ saveNewStageProp: saveNewStage }, dispatch);
+  bindActionCreators({ submitDataToServer: saveNewStage }, dispatch);
 
 const mapStateToProps = state => ({
   getStageInfoForId: stageId =>
