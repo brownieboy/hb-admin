@@ -13,7 +13,7 @@ const Stages = ({ stagesListProp }) => {
     <div>
       <h1>Stages</h1>
       <ListGroup>{listStages(stagesListProp)}</ListGroup>
-      <Link to="/stageform/new">Add stage</Link>
+      <Link to="/stageform">Add stage</Link>
     </div>
   );
 };

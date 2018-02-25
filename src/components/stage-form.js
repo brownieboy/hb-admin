@@ -3,14 +3,18 @@ import React from "react";
 import { Formik, Field } from "formik";
 import yup from "yup";
 
-const StageForm = ({ saveNewStageProp, match }) => {
+const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
   const isExisting = match && match.params && match.params.id ? true : false;
+  let fieldValues = { name: "", id: "", sortOrder: -1 };
   if (isExisting) {
     console.log("Edit existing stage " + match.params.id);
+    fieldValues = Object.assign({}, getStageInfoForId(match.params.id));
+    console.log(
+      "Matching info = " + JSON.stringify(fieldValues)
+    );
   } else {
     console.log("Creating new stage");
   }
-  const fieldValues = { name: "", id: "", sortOrder: -1 };
 
   return (
     <div>
