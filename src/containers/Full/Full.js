@@ -13,7 +13,7 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
-import StageForm from "../../components/stage-form.js";
+import StageForm from "../../containers/stage-form-conn.js";
 
 class Full extends Component {
   render() {
