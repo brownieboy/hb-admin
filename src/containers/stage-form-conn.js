@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import StageForm from "../components/stage-form.js";
 
 // Dux
-import { saveNewStage } from "../dux/stagesWriteReducer.js";
+import { saveNewStage } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ saveNewStageProp: saveNewStage }, dispatch);
