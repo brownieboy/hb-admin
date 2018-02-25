@@ -81,6 +81,7 @@ export const StageEditForm = ({
 }) => {
   let fieldValues = { name: "", id: "", sortOrder: -1 };
   if (match && match.params && match.params.id) {
+    console.log("Calling getStageInfoForId from StageEditForm");
     const matchingInfo = getStageInfoForId(match.params.id);
     console.log("Matching info = " + JSON.stringify(matchingInfo));
 
