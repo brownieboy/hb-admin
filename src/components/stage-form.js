@@ -2,9 +2,10 @@
 import React from "react";
 import { Formik, Field } from "formik";
 import yup from "yup";
+import PropTypes from "prop-types";
 
 const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
-  const isExisting = match && match.params && match.params.id ? true : false;
+  const isExisting = match && match.params && match.params.id;
   let fieldValues = { name: "", id: "", sortOrder: -1 };
   let matchingInfo;
   if (isExisting) {
@@ -66,6 +67,14 @@ const StageForm = ({ saveNewStageProp, match, getStageInfoForId }) => {
       />
     </div>
   );
+};
+
+StageForm.propTypes = {
+  saveNewStageProp: PropTypes.func.isRequired,
+  match: PropTypes.object,
+  getStageInfoForId: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 export default StageForm;
