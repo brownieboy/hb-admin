@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "reactstrap";
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
@@ -13,9 +13,7 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
-import StageFormNew from "../../containers/stage-form-new-conn.js";
-import StageFormEdit from "../../containers/stage-form-edit-conn.js";
-
+import { StageFormNewConn, StageFormEditConn } from "../../containers/stage-form-conn.js";
 
 // <Route path='/route/:id' exact component={MyComponent} />
 
@@ -60,12 +58,12 @@ class Full extends Component {
                   path="/stageform/:id"
                   exact
                   name="StageFormEdit"
-                  component={StageFormEdit}
+                  component={StageFormEditConn}
                 />
                 <Route
                   path="/stageform"
                   name="StageFormNew"
-                  component={StageFormNew}
+                  component={StageFormNewConn}
                 />
 
                 <Redirect from="/" to="/homepage" />
