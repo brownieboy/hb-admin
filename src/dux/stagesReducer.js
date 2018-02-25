@@ -83,7 +83,9 @@ export const stagesDuxActions = {
 };
 
 // Getters
-export const getStageInfoForId = (stagesList, stageId) =>
-  stagesList.find(stageMember => stageMember.id === stageId);
+export const getStageInfoForId = (stagesList, stageId) => {
+  console.log("getStageInfoForId, stagesList=" + stagesList);
+  return stagesList.find(stageMember => stageMember.id === stageId);
+};
 
 export default stagesReducer;
