@@ -11,12 +11,10 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveData(action, configObj) {
   // Every saved edit, we write back to Firebase as an array.
-  yield put(saveStageRequest());
+  yield put(configObj.requestAction());
   const stagesList = yield select(state => state.stagesState.stagesList);
 
-  const ref = yield firebaseApp
-    .database()
-    .ref(`${configObj.path}test`);
+  const ref = yield firebaseApp.database().ref(`${configObj.path}test`);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer
@@ -34,14 +32,16 @@ function* saveData(action, configObj) {
   }
 }
 
+const stagesConfigObj = {
+  path: globalTypes.DATABASE.STAGES_PATH,
+  requestAction: saveStageRequest,
+  successAction: saveStageSucceeded,
+  failAction: saveStageFailed
+};
+
 const writeFirebaseSagas = [
-  takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveData, {
-    path: globalTypes.DATABASE.STAGES_PATH,
-    requestAction: saveStageRequest,
-    successAction: saveStageSucceeded,
-    failAction: saveStageFailed
-  }),
-  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveData, ["second"])
+  takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveData, stagesConfigObj),
+  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveData, stagesConfigObj)
 ];
 
 export default writeFirebaseSagas;
