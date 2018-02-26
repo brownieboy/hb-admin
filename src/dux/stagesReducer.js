@@ -20,7 +20,7 @@ const stagesReducer = (
   state = { fetchStatus: "", fetchError: "", stagesList: [] },
   action
 ) => {
-  let idx;
+  let idx, newStagesList;
   switch (action.type) {
     case FETCH_STAGES_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -37,11 +37,13 @@ const stagesReducer = (
     case SAVE_EDITED_STAGE:
       idx = state.stagesList.findIndex(obj => obj.id === action.payload.id);
 
-      return [
+      newStagesList = [
         ...state.stagesList.slice(0, idx),
         action.payload,
         ...state.stagesList.slice(idx + 1)
       ];
+
+      return { ...state, stagesList: newStagesList };
     default:
       return state;
   }
@@ -84,8 +86,16 @@ export const stagesDuxActions = {
 
 // Getters
 export const getStageInfoForId = (stagesList, stageId) => {
-  console.log("getStageInfoForId, stagesList=" + stagesList + ", stageId=" + stageId);
-  return stagesList.find(stageMember => stageMember.id === stageId);
+  console.log(
+    "getStageInfoForId, stagesList=" + stagesList + ", stageId=" + stageId
+  );
+  let stageInfo = { id: "", sortOrder: -1, name: "" };
+  try {
+    stageInfo = stagesList.find(stageMember => stageMember.id === stageId);
+  } catch (e) {
+    console.log("stagesReducer, getStageInfoForId silent fail, error=" + e);
+  }
+  return stageInfo;
 };
 
 export default stagesReducer;

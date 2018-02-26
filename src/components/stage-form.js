@@ -74,9 +74,7 @@ StageNewForm.propTypes = {
   errors: PropTypes.object
 };
 
-class StageEditForm extends Component {
-
-  
+export class StageEditForm extends Component {
   render() {
     const { submitDataToServer, match, getStageInfoForId } = this.props;
 
