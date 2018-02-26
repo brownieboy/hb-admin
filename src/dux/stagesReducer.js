@@ -9,10 +9,16 @@ const FETCH_STAGES_SUCCESS = "FETCH_STAGES_SUCCESS";
 const FETCH_STAGES_FAILURE = "FETCH_STAGES_FAILURE";
 const SAVE_NEW_STAGE = "SAVE_NEW_STAGE";
 const SAVE_EDITED_STAGE = "SAVE_EDITED_STAGE";
+const SAVE_STAGE_REQUEST = "SAVE_STAGE_REQUEST";
+const SAVE_STAGE_SUCCESS = "SAVE_STAGE_SUCCESS";
+const SAVE_STAGE_FAILED = "SAVE_STAGE_FAILED";
 
 export const actionTypes = {
   SAVE_NEW_STAGE,
-  SAVE_EDITED_STAGE
+  SAVE_EDITED_STAGE,
+  SAVE_STAGE_REQUEST,
+  SAVE_STAGE_SUCCESS,
+  SAVE_STAGE_FAILED
 };
 
 // Reducer
@@ -75,25 +81,31 @@ export const saveEditedStage = stageInfo => ({
   payload: stageInfo
 });
 
+export const saveStageRequest = () => ({
+  type: SAVE_STAGE_REQUEST
+});
+
+export const saveStageSucceeded = () => ({
+  type: SAVE_STAGE_SUCCESS
+});
+
+export const saveStageFailed = error => ({
+  type: SAVE_STAGE_FAILED,
+  payload: error
+});
+
 export const stagesDuxActions = {
   setFetchStagesFailed,
   setFetchStagesRequest,
   setFetchStagesSucceeded,
-  saveNewStage
+  saveStageRequest,
+  saveStageSucceeded,
+  saveNewStage,
+  saveStageFailed
 };
 
 // Getters
-export const getStageInfoForId = (stagesList, stageId) => {
-  console.log(
-    "getStageInfoForId, stagesList=" + stagesList + ", stageId=" + stageId
-  );
-  let stageInfo = { id: "", sortOrder: -1, name: "" };
-  try {
-    stageInfo = stagesList.find(stageMember => stageMember.id === stageId);
-  } catch (e) {
-    console.log("stagesReducer, getStageInfoForId silent fail, error=" + e);
-  }
-  return stageInfo;
-};
+export const getStageInfoForId = (stagesList, stageId) =>
+  stagesList.find(stageMember => stageMember.id === stageId);
 
 export default stagesReducer;

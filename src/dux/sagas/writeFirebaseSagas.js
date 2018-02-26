@@ -1,23 +1,37 @@
-import { select, takeEvery } from "redux-saga/effects";
-import { actionTypes as stagesActionTypes } from "../stagesReducer.js";
+import { put, select, takeEvery } from "redux-saga/effects";
+import {
+  actionTypes as stagesActionTypes,
+  saveStageRequest,
+  saveStageSucceeded,
+  saveStageFailed
+} from "../stagesReducer.js";
 import firebaseApp from "../../apis/firebase.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveStages() {
   // Every saved edit, we write back to Firebase as an array.
-  console.log("saveStages*...");
-  // const stagesList = yield select(state => state.stagesState.stagesList);
-  const stagesList = yield select(state => {
-    console.log("In saga select.  state=" + state);
-    return state.stagesState.stagesList;
-  });
-  yield console.log("Saga to server=" + JSON.stringify(stagesList, null, 4));
+  yield put(saveStageRequest());
+  const stagesList = yield select(state => state.stagesState.stagesList);
 
-  const ref = firebaseApp
+  const ref = yield firebaseApp
     .database()
     .ref(`${globalTypes.DATABASE.STAGES_PATH}test`);
-  ref.set(stagesList);
+
+  // The put statements didn't trigger Redux when I had them instead the .then()
+  // and .catch() statements.  So I set a variable inside the .catch() then refer
+  // to it in the if statement after the ref has run.  Clunky, but it works.
+  let firebaseError = "";
+  yield ref.set(stagesList).catch(e => {
+    firebaseError = e;
+    // console.log("Firebase stage save error=" + e);
+  });
+
+  if (firebaseError === "") {
+    yield put(saveStageSucceeded());
+  } else {
+    yield put(saveStageFailed(firebaseError));
+  }
 }
 
 const writeFirebaseSagas = [

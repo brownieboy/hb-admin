@@ -5,7 +5,13 @@ import { Link } from "react-router-dom";
 
 const listStages = StagesArray =>
   StagesArray.map(stageMember => (
-    <ListGroupItem key={stageMember.id}>{stageMember.name}</ListGroupItem>
+    <ListGroupItem key={stageMember.id}>
+      {stageMember.name}
+      {" - "}
+      <Link to={`/stageform/${stageMember.id}`}>
+        <i className="icon-pencil" />
+      </Link>
+    </ListGroupItem>
   ));
 
 const Stages = ({ stagesListProp }) => {
@@ -23,4 +29,3 @@ Stages.propTypes = {
 };
 
 export default Stages;
-
