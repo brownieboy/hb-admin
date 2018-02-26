@@ -80,12 +80,7 @@ export class StageEditForm extends Component {
 
     let fieldValues = { name: "", id: "", sortOrder: -1 };
     if (match && match.params && match.params.id) {
-      console.log(
-        "Calling getStageInfoForId from StageEditForm, id =" + match.params.id
-      );
       const matchingInfo = getStageInfoForId(match.params.id);
-      console.log("Matching info = " + JSON.stringify(matchingInfo));
-
       if (matchingInfo) {
         fieldValues = Object.assign({}, matchingInfo);
       }
@@ -99,8 +94,7 @@ export class StageEditForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaCommonObj)}
           onSubmit={(values, actions) => {
-            console.log(JSON.stringify(values, null, 2));
-            console.log("submitting to server...");
+            console.log("Submitting to server, " + JSON.stringify(values, null, 2));
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}

@@ -36,13 +36,11 @@ const stagesReducer = (
       return { ...state, stagesList: [...state.stagesList, action.payload] };
     case SAVE_EDITED_STAGE:
       idx = state.stagesList.findIndex(obj => obj.id === action.payload.id);
-
       newStagesList = [
         ...state.stagesList.slice(0, idx),
         action.payload,
         ...state.stagesList.slice(idx + 1)
       ];
-
       return { ...state, stagesList: newStagesList };
     default:
       return state;
