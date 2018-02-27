@@ -33,7 +33,7 @@ export const CommonStageFields = props => {
       </FormGroup>
 
       <FormGroup>
-        <Label for="sortOrder">Stage name</Label>
+        <Label for="sortOrder">Sort order</Label>
         <Input
           type="number"
           name="sortOrder"
@@ -124,6 +124,7 @@ export class StageEditForm extends Component {
     if (match && match.params && match.params.id) {
       const matchingInfo = getStageInfoForId(match.params.id);
       if (matchingInfo) {
+        console.log("matchingInfo=" + JSON.stringify(matchingInfo, null, 4));
         fieldValues = Object.assign({}, matchingInfo);
       }
     }
@@ -149,7 +150,7 @@ export class StageEditForm extends Component {
                 <Input
                   type="text"
                   name="id"
-                  values={props.values.id}
+                  value={props.values.id}
                 />
               </FormGroup>
               <CommonStageFields {...props} />
