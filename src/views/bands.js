@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
+import { Link } from "react-router-dom";
+
 
 const listBands = bandsArray =>
   bandsArray.map(bandMember => (
@@ -13,6 +15,7 @@ const Bands = ({ loadBandsProp, bandsAlphabeticalProp }) => {
     <div>
       <h1>Bands</h1>
       <ListGroup>{listBands(bandsAlphabeticalProp)}</ListGroup>
+      <Link to="/bandform">Add band</Link>
     </div>
   );
 };

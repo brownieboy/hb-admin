@@ -66,7 +66,7 @@ class Full extends Component {
                   component={BandFormEditConn}
                 />
                 <Route
-                  path="/bndform"
+                  path="/bandform"
                   name="BandFormNew"
                   component={BandFormNewConn}
                 />

@@ -2,14 +2,14 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import { BandNewForm, BandEditForm } from "../components/Band-form.js";
+import { BandNewForm, BandEditForm } from "../components/band-form.js";
 
 // Dux
 import {
   saveNewBand,
   saveEditedBand,
   getBandInfoForId as getBandInfoForIdAction
-} from "../dux/BandsReducer.js";
+} from "../dux/bandsReducer.js";
 
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators({ submitDataToServer: saveNewBand }, dispatch);
