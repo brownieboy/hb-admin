@@ -147,11 +147,7 @@ export class StageEditForm extends Component {
             <form onSubmit={props.handleSubmit}>
               <FormGroup>
                 <Label for="id">Stage ID</Label>
-                <Input
-                  type="text"
-                  name="id"
-                  value={props.values.id}
-                />
+                <Input disabled type="text" name="id" value={props.values.id} />
               </FormGroup>
               <CommonStageFields {...props} />
               <Button color="primary" type="submit">
