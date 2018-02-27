@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Formik, Field } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
+import { FormGroup, Label, Input } from "reactstrap";
 
 const validationSchemaCommonObj = {
   id: yup.string().required(),
@@ -14,8 +15,32 @@ const validationSchemaCommonObj = {
     .integer()
 };
 
+const FormikReactstrapFormGroup = ({ type, name, id, placeholder, label }) => {
+  return (
+    <FormGroup>
+      <Label for={name}>{label}</Label>
+      <Input type={type} name={name} id={id} placeholder={placeholder} />
+    </FormGroup>
+  );
+};
+
 export const CommonStageFields = ({ errors }) => (
   <div>
+    <FormGroup>
+      <Label for="exampleEmail">Email</Label>
+      <Input
+        type="email"
+        name="email"
+        id="exampleEmail"
+        placeholder="with a placeholder"
+      />
+    </FormGroup>
+    <FormikReactstrapFormGroup
+      name="test"
+      label="Test field"
+      placeholder="My placeholder"
+    />
+
     <Field type="text" name="name" placeholder="Stage name" />
     {errors.name && <div id="feedback">{errors.name}</div>}
 
@@ -94,7 +119,9 @@ export class StageEditForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaCommonObj)}
           onSubmit={(values, actions) => {
-            console.log("Submitting to server, " + JSON.stringify(values, null, 2));
+            console.log(
+              "Submitting to server, " + JSON.stringify(values, null, 2)
+            );
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
