@@ -1,13 +1,14 @@
 // Render Prop
 import React, { Component } from "react";
-import { Formik, Field } from "formik";
+import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
-import { FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Label, Input } from "reactstrap";
 
 const validationSchemaCommonObj = {
   id: yup.string().required(),
   name: yup.string().required(),
+  test: yup.string().required(),
   sortOrder: yup
     .number()
     .required()
@@ -15,49 +16,46 @@ const validationSchemaCommonObj = {
     .integer()
 };
 
-const FormikReactstrapFormGroup = ({ type, name, id, placeholder, label }) => {
+export const CommonStageFields = props => {
+  const { values, errors, handleChange, handleBlur } = props;
   return (
-    <FormGroup>
-      <Label for={name}>{label}</Label>
-      <Input type={type} name={name} id={id} placeholder={placeholder} />
-    </FormGroup>
+    <div>
+      <FormGroup>
+        <Label for="name">Stage name</Label>
+        <Input
+          type="text"
+          name="name"
+          placeholder="Stage name"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.name}
+        />
+        {errors.name && <div>{errors.name}</div>}
+      </FormGroup>
+
+      <FormGroup>
+        <Label for="sortOrder">Stage name</Label>
+        <Input
+          type="number"
+          name="sortOrder"
+          placeholder="Sort order common (integer)"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.sortOrder}
+        />
+        {errors.sortOrder && <div>{errors.sortOrder}</div>}
+      </FormGroup>
+    </div>
   );
 };
 
-export const CommonStageFields = ({ errors }) => (
-  <div>
-    <FormGroup>
-      <Label for="exampleEmail">Email</Label>
-      <Input
-        type="email"
-        name="email"
-        id="exampleEmail"
-        placeholder="with a placeholder"
-      />
-    </FormGroup>
-    <FormikReactstrapFormGroup
-      name="test"
-      label="Test field"
-      placeholder="My placeholder"
-    />
-
-    <Field type="text" name="name" placeholder="Stage name" />
-    {errors.name && <div id="feedback">{errors.name}</div>}
-
-    <br />
-    <Field
-      type="number"
-      name="sortOrder"
-      placeholder="Sort order common (integer)"
-    />
-    {errors.sortOrder && <div id="feedback">{errors.sortOrder}</div>}
-
-    <button type="submit">Submit</button>
-  </div>
-);
-
 CommonStageFields.propTypes = {
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  handleBlur: PropTypes.func,
+  values: PropTypes.object
 };
 
 export const StageNewForm = ({ submitDataToServer }) => {
@@ -66,7 +64,7 @@ export const StageNewForm = ({ submitDataToServer }) => {
   validationSchemaObj.id = yup.string().required();
   return (
     <div>
-      <h1>My Form</h1>
+      <h1>Add Stage</h1>
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, defaultFieldValues)}
@@ -76,18 +74,33 @@ export const StageNewForm = ({ submitDataToServer }) => {
           submitDataToServer(values);
           actions.setSubmitting(false);
         }}
-        render={props => (
-          <form onSubmit={props.handleSubmit}>
-            <Field
-              type="text"
-              name="id"
-              placeholder="Stage id (must be unique, no spaces)"
-            />
-            {props.errors.id && <div id="feedback">{props.errors.id}</div>}
-            <br />
-            <CommonStageFields {...props} />
-          </form>
-        )}
+        render={props => {
+          const {
+            values,
+            errors,
+            handleChange,
+            handleBlur,
+            handleSubmit
+          } = props;
+          return (
+            <form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label for="id">Stage ID</Label>
+                <Input
+                  type="text"
+                  name="id"
+                  placeholder="ID must be unique"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.id}
+                />
+                {errors.id && <div>{errors.id}</div>}
+              </FormGroup>
+              <CommonStageFields {...props} />
+              <Button type="submit">Submit</Button>
+            </form>
+          );
+        }}
       />
     </div>
   );
@@ -96,7 +109,12 @@ export const StageNewForm = ({ submitDataToServer }) => {
 StageNewForm.propTypes = {
   submitDataToServer: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
+  onBlur: PropTypes.func,
+  handleBlur: PropTypes.func,
+  values: PropTypes.object
 };
 
 export class StageEditForm extends Component {
@@ -113,7 +131,7 @@ export class StageEditForm extends Component {
 
     return (
       <div>
-        <h1>My Form</h1>
+        <h1>Edit Stage</h1>
         <Formik
           enableReinitialize
           initialValues={Object.assign({}, fieldValues)}
@@ -127,14 +145,18 @@ export class StageEditForm extends Component {
           }}
           render={props => (
             <form onSubmit={props.handleSubmit}>
-              <Field
-                type="text"
-                name="id"
-                disabled
-                placeholder="Stage id (must be unique, no spaces)"
-              />
-              <br />
+              <FormGroup>
+                <Label for="id">Stage ID</Label>
+                <Input
+                  type="text"
+                  name="id"
+                  values={props.values.id}
+                />
+              </FormGroup>
               <CommonStageFields {...props} />
+              <Button color="primary" type="submit">
+                Submit
+              </Button>
             </form>
           )}
         />
