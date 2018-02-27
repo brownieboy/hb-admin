@@ -7,12 +7,18 @@ const LOAD_BANDS_NOW = "LOAD_BANDS_NOW"; // Imperative, hence "NOW"!
 const FETCH_BANDS_REQUEST = "FETCH_BANDS_REQUEST";
 const FETCH_BANDS_SUCCESS = "FETCH_BANDS_SUCCESS";
 const FETCH_BANDS_FAILURE = "FETCH_BANDS_FAILURE";
+const SAVE_NEW_BAND = "SAVE_NEW_BAND";
+const SAVE_EDITED_BAND = "SAVE_EDITED_BAND";
+const SAVE_BAND_REQUEST = "SAVE_BAND_REQUEST";
+const SAVE_BAND_SUCCESS = "SAVE_BAND_SUCCESS";
+const SAVE_BAND_FAILED = "SAVE_BAND_FAILED";
 
 // Reducer
 const bandsReducer = (
   state = { fetchStatus: "", fetchError: "", bandsList: [] },
   action
 ) => {
+  let idx, newBandsList;
   switch (action.type) {
     case FETCH_BANDS_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -25,6 +31,29 @@ const bandsReducer = (
       };
     case FETCH_BANDS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
+    case SAVE_NEW_BAND:
+      return { ...state, bandsList: [...state.bandsList, action.payload] };
+    case SAVE_BAND_REQUEST:
+      return {
+        ...state,
+        saveStatus: "saving"
+      };
+    case SAVE_BAND_SUCCESS:
+      return {
+        ...state,
+        saveStatus: ""
+      };
+    case SAVE_BAND_FAILED:
+      return { ...state, saveStatus: "failure", saveError: action.payload };
+    case SAVE_EDITED_BAND:
+      idx = state.bandsList.findIndex(obj => obj.id === action.payload.id);
+      newBandsList = [
+        ...state.bandsList.slice(0, idx),
+        action.payload,
+        ...state.bandsList.slice(idx + 1)
+      ];
+      return { ...state, bandsList: newBandsList };
+
     default:
       return state;
   }
@@ -120,16 +149,42 @@ const setFetchBandsFailed = errorMessage => ({
   payload: errorMessage
 });
 
+export const saveNewBand = BandInfo => ({
+  type: SAVE_NEW_BAND,
+  payload: BandInfo
+});
+
+export const saveEditedBand = BandInfo => ({
+  type: SAVE_EDITED_BAND,
+  payload: BandInfo
+});
+
+export const saveBandRequest = () => ({
+  type: SAVE_BAND_REQUEST
+});
+
+export const saveBandSucceeded = () => ({
+  type: SAVE_BAND_SUCCESS
+});
+
+export const saveBandFailed = error => ({
+  type: SAVE_BAND_FAILED,
+  payload: error
+});
+
 export const bandsDuxActions = {
   setFetchBandsFailed,
   setFetchBandsRequest,
-  setFetchBandsSucceeded
+  setFetchBandsSucceeded,
+  saveBandRequest,
+  saveBandSucceeded,
+  saveNewBand,
+  saveBandFailed
 };
 
 // Getters
 export const getBandInfoForId = (bandsList, bandId) =>
   bandsList.find(bandMember => bandMember.bandId === bandId);
-
 
 // export const bandsDuxConstants = {
 //   LOAD_BANDS_NOW,
