@@ -57,13 +57,20 @@ CommonStageFields.propTypes = {
   values: PropTypes.object
 };
 
-export const StageNewForm = ({ submitDataToServer }) => {
+export const StageNewForm = ({ submitDataToServer, saveStatus, saveError }) => {
   const defaultFieldValues = { name: "", id: "", sortOrder: -1 };
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
   validationSchemaObj.id = yup.string().required();
   return (
     <div>
       <h1>Add Stage</h1>
+      Loading status: {saveStatus}
+      {saveStatus === "saving" && (
+        <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
+      )}
+      <br />
+      {saveStatus === "failure" &&
+        `Error: ${JSON.stringify(saveError, null, 4)}`}
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, defaultFieldValues)}

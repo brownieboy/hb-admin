@@ -14,12 +14,17 @@ import {
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators({ submitDataToServer: saveNewStage }, dispatch);
 
-const mapStateToPropsNew = () => ({});
+const mapStateToPropsNew = state => ({
+  saveStatus: state.stagesState.saveStatus,
+  saveError: state.stagesState.saveError
+});
 
 const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedStage }, dispatch);
 
 const mapStateToPropsEdit = state => ({
+  saveStatus: state.stagesState.saveStatus,
+  saveError: state.stagesState.saveError,
   getStageInfoForId: stageId =>
     getStageInfoForIdAction(state.stagesState.stagesList, stageId)
 });
@@ -33,5 +38,3 @@ export const StageFormEditConn = connect(
   mapStateToPropsEdit,
   mapDispatchToPropsEdit
 )(StageEditForm);
-
-

@@ -9,7 +9,7 @@ import firebaseApp from "../../apis/firebase.js";
 
 // import { types as globalTypes } from "../../constants/firebasePaths.js";
 
-function* saveData(action) {
+function* saveData() {
   // Every saved edit, we write back to Firebase as an array.
   yield put(saveStageRequest());
   const stagesList = yield select(state => state.stagesState.stagesList);

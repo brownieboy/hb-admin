@@ -23,7 +23,13 @@ export const actionTypes = {
 
 // Reducer
 const stagesReducer = (
-  state = { fetchStatus: "", fetchError: "", stagesList: [] },
+  state = {
+    fetchStatus: "",
+    fetchError: "",
+    saveStage: "",
+    saveError: {},
+    stagesList: []
+  },
   action
 ) => {
   let idx, newStagesList;
@@ -40,6 +46,18 @@ const stagesReducer = (
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
     case SAVE_NEW_STAGE:
       return { ...state, stagesList: [...state.stagesList, action.payload] };
+    case SAVE_STAGE_REQUEST:
+      return {
+        ...state,
+        saveStatus: "saving"
+      };
+    case SAVE_STAGE_SUCCESS:
+      return {
+        ...state,
+        saveStatus: ""
+      };
+    case SAVE_STAGE_FAILED:
+      return { ...state, saveStatus: "failure", saveError: action.payload };
     case SAVE_EDITED_STAGE:
       idx = state.stagesList.findIndex(obj => obj.id === action.payload.id);
       newStagesList = [

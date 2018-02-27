@@ -14,7 +14,7 @@ const listSchedule = (
     bandInfo = getBandInfoForId(bandId);
     stageInfo = getStageInfoForId(stageId);
     // console.log("bandInfo=" + JSON.stringify(bandInfo, null, 4));
-    console.log("stageInfo=" + JSON.stringify(stageInfo, null, 4));
+    // console.log("stageInfo=" + JSON.stringify(stageInfo, null, 4));
 
     return (
       <ListGroupItem key={`${bandId}${dateTimeStart}`}>
