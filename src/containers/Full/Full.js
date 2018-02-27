@@ -13,7 +13,14 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
-import { StageFormNewConn, StageFormEditConn } from "../../containers/stage-form-conn.js";
+import {
+  BandFormNewConn,
+  BandFormEditConn
+} from "../../containers/band-form-conn.js";
+import {
+  StageFormNewConn,
+  StageFormEditConn
+} from "../../containers/stage-form-conn.js";
 
 // <Route path='/route/:id' exact component={MyComponent} />
 
@@ -52,6 +59,17 @@ class Full extends Component {
                 />
                 <Route path="/homepage" name="HomePage" component={HomePage} />
                 <Route path="/bands" name="Bands" component={Bands} />
+                <Route
+                  path="/bandform/:id"
+                  exact
+                  name="BandFormEdit"
+                  component={BandFormEditConn}
+                />
+                <Route
+                  path="/bndform"
+                  name="BandFormNew"
+                  component={BandFormNewConn}
+                />
                 <Route path="/schedule" name="Schedule" component={Schedule} />
                 <Route path="/stages" name="Stages" component={Stages} />
                 <Route
