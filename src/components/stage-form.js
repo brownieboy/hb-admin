@@ -8,7 +8,6 @@ import { Button, FormGroup, Label, Input } from "reactstrap";
 const validationSchemaCommonObj = {
   id: yup.string().required(),
   name: yup.string().required(),
-  test: yup.string().required(),
   sortOrder: yup
     .number()
     .required()
