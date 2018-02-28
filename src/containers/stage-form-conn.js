@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import { StageNewForm, StageEditForm } from "../components/stage-form.js";
+import StageForm from "../components/stage-form.js";
 
 // Dux
 import {
@@ -11,30 +11,37 @@ import {
   getStageInfoForId as getStageInfoForIdAction
 } from "../dux/stagesReducer.js";
 
-const mapDispatchToPropsNew = dispatch =>
-  bindActionCreators({ submitDataToServer: saveNewStage }, dispatch);
-
-const mapStateToPropsNew = state => ({
-  saveStatus: state.stagesState.saveStatus,
-  saveError: state.stagesState.saveError
-});
-
-const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedStage }, dispatch);
-
-const mapStateToPropsEdit = state => ({
+const getCommonStateObject = state => ({
   saveStatus: state.stagesState.saveStatus,
   saveError: state.stagesState.saveError,
   getStageInfoForId: stageId =>
     getStageInfoForIdAction(state.stagesState.stagesList, stageId)
 });
 
+
+// So we're connecting the same form to Redux, but with different props
+// and state depending on whether we're creating a new one or
+// editing an existing one
+const mapDispatchToPropsNew = dispatch =>
+  bindActionCreators({ submitDataToServer: saveNewStage }, dispatch);
+const mapStateToPropsNew = state => ({
+  ...getCommonStateObject(state),
+  isEditExisting: false
+});
+
+const mapDispatchToPropsEdit = dispatch =>
+  bindActionCreators({ submitDataToServer: saveEditedStage }, dispatch);
+const mapStateToPropsEdit = state => ({
+  ...getCommonStateObject(state),
+  isEditExisting: true
+});
+
 export const StageFormNewConn = connect(
   mapStateToPropsNew,
   mapDispatchToPropsNew
-)(StageNewForm);
+)(StageForm);
 
 export const StageFormEditConn = connect(
   mapStateToPropsEdit,
   mapDispatchToPropsEdit
-)(StageEditForm);
+)(StageForm);
