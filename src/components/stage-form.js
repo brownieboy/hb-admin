@@ -1,5 +1,5 @@
 // Render Prop
-import React, { Component } from "react";
+import React from "react";
 import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";

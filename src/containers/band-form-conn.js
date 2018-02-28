@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import { BandNewForm, BandEditForm } from "../components/band-form.js";
+import BandForm from "../components/band-form.js";
 
 // Dux
 import {
@@ -11,30 +11,36 @@ import {
   getBandInfoForId as getBandInfoForIdAction
 } from "../dux/bandsReducer.js";
 
+const getCommonStateObject = state => ({
+  saveStatus: state.bandsState.saveStatus,
+  saveError: state.bandsState.saveError,
+  getBandInfoForId: bandId =>
+    getBandInfoForIdAction(state.bandsState.bandsList, bandId)
+});
+
+// So we're connecting the same form to Redux, but with different props
+// and state depending on whether we're creating a new one or
+// editing an existing one
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators({ submitDataToServer: saveNewBand }, dispatch);
-
 const mapStateToPropsNew = state => ({
-  saveStatus: state.bandsState.saveStatus,
-  saveError: state.bandsState.saveError
+  ...getCommonStateObject(state),
+  isEditExisting: false
 });
 
 const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedBand }, dispatch);
-
 const mapStateToPropsEdit = state => ({
-  saveStatus: state.BandsState.saveStatus,
-  saveError: state.BandsState.saveError,
-  // getBandInfoForId: bandId =>
-  //   getBandInfoForIdAction(state.bandsState.bandsList, bandId)
+  ...getCommonStateObject(state),
+  isEditExisting: true
 });
 
 export const BandFormNewConn = connect(
   mapStateToPropsNew,
   mapDispatchToPropsNew
-)(BandNewForm);
+)(BandForm);
 
 export const BandFormEditConn = connect(
   mapStateToPropsEdit,
   mapDispatchToPropsEdit
-)(BandEditForm);
+)(BandForm);
