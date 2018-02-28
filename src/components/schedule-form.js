@@ -15,21 +15,22 @@ const AppearanceForm = ({
   isEditExisting,
   match,
   submitDataToServer,
+  bandsPicker,
   saveStatus,
   saveError
 }) => {
-  let fieldValues = { name: "", id: "", summary: "" };
+  let fieldValues = { bandId: "", stageId: "" };
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
+  console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
   if (isEditExisting) {
-    const matchingInfo = getAppearanceInfoForId(match.params.id);
-    if (matchingInfo) {
-      fieldValues = Object.assign({}, matchingInfo);
-    }
+    // const matchingInfo = getAppearanceInfoForId(match.params.id);
+    // if (matchingInfo) {
+    //   fieldValues = Object.assign({}, matchingInfo);
+    // }
   } else {
-    validationSchemaObj.id = yup
-      .string()
-      .required()
-      .test("id", "There is already a band with the same id", id => !getAppearanceInfoForId(id));
+    // validationSchemaObj.id = yup
+    //   .string()
+    //   .required()
   }
   return (
     <div>
@@ -59,7 +60,7 @@ const AppearanceForm = ({
             handleSubmit
           } = props;
 
-/*
+          /*
       "dateTimeEnd": "2018-07-21T21:30",
       "dateTimeStart": "2018-07-21T20:30",
       "stageId": "main",

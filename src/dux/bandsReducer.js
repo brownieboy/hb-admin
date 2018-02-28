@@ -92,8 +92,12 @@ const selectAlphabetical = createSelector([selectBands], bandsList =>
 //   stringSort(peopleList.slice(), "name")
 // );
 
+const selectBandsPicker = createSelector([selectAlphabetical], bandsList =>
+  bandsList.map(bandMember => ({ id: bandMember.bandId, name: bandMember.name }))
+);
+
 export const selectors = {
-  selectAlphabetical
+  selectAlphabetical, selectBandsPicker
 };
 
 /*
