@@ -34,7 +34,7 @@ const StageForm = ({
     validationSchemaObj.id = yup
       .string()
       .required()
-      .test("id", "id not unique", id => !getStageInfoForId(id));
+      .test("id", "There is already a stage with the id ${id}", id => !getStageInfoForId(id));
   }
   return (
     <div>

@@ -29,7 +29,7 @@ const BandForm = ({
     validationSchemaObj.id = yup
       .string()
       .required()
-      .test("id", "id not unique", id => !getBandInfoForId(id));
+      .test("id", "There is already a band with the id ${id}", id => !getBandInfoForId(id));
   }
   return (
     <div>
