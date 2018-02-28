@@ -21,25 +21,10 @@ import {
   StageFormNewConn,
   StageFormEditConn
 } from "../../containers/stage-form-conn.js";
-
-// <Route path='/route/:id' exact component={MyComponent} />
-
-/*
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <Switch>
-          <Route exact path="/" render={props => <Home {...props} {...this.props} />} />
-          <Route exact path="/users" render={props => <Users {...props} {...this.props} />} />
-          <Route exact path="/users/new" render={props => <NewUser {...props} {...this.props} />} />
-          <Route path="/users/:id" render={props => <User {...props} {...this.props} />} />
-        </Switch>
-      </div>
-    )
-  }
-}
- */
+import {
+  ScheduleFormNewConn,
+  ScheduleFormEditConn
+} from "../../containers/schedule-form-conn.js";
 
 class Full extends Component {
   render() {
@@ -71,6 +56,17 @@ class Full extends Component {
                   component={BandFormNewConn}
                 />
                 <Route path="/schedule" name="Schedule" component={Schedule} />
+                <Route
+                  path="/scheduleform/:id"
+                  exact
+                  name="ScheduleFormEdit"
+                  component={ScheduleFormEditConn}
+                />
+                <Route
+                  path="/scheduleform"
+                  name="ScheduleFormNew"
+                  component={ScheduleFormNewConn}
+                />
                 <Route path="/stages" name="Stages" component={Stages} />
                 <Route
                   path="/stageform/:id"

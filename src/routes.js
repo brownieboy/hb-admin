@@ -7,6 +7,8 @@ const routes = {
   "/bands": "Bands",
   "/schedule": "Schedule",
   "/stages": "Stages",
-  "/stageform": "StageForm"
+  "/stageform": "StageForm",
+  "/bandform": "BandForm",
+  "/scheduleform": "ScheduleForm"
 };
 export default routes;

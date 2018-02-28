@@ -10,12 +10,27 @@ const LOAD_APPEARANCES_NOW = "LOAD_APPEARANCES_NOW"; // Imperative, hence "NOW"!
 const FETCH_APPEARANCES_REQUEST = "FETCH_APPEARANCES_REQUEST";
 const FETCH_APPEARANCES_SUCCESS = "FETCH_APPEARANCES_SUCCESS";
 const FETCH_APPEARANCES_FAILURE = "FETCH_APPEARANCES_FAILURE";
+const SAVE_NEW_APPEARANCE = "SAVE_NEW_APPEARANCE";
+const SAVE_EDITED_APPEARANCE = "SAVE_EDITED_APPEARANCE";
+const SAVE_APPEARANCE_REQUEST = "SAVE_APPEARANCE_REQUEST";
+const SAVE_APPEARANCE_SUCCESS = "SAVE_APPEARANCE_SUCCESS";
+const SAVE_APPEARANCE_FAILED = "SAVE_APPEARANCE_FAILED";
+
+export const actionTypes = {
+  SAVE_NEW_APPEARANCE,
+  SAVE_EDITED_APPEARANCE,
+  SAVE_APPEARANCE_REQUEST,
+  SAVE_APPEARANCE_SUCCESS,
+  SAVE_APPEARANCE_FAILED
+};
 
 // Reducer
 const appearancesReducer = (
   state = { fetchStatus: "", fetchError: "", appearancesList: [] },
   action
 ) => {
+  let idx, newAppearancesList;
+
   switch (action.type) {
     case FETCH_APPEARANCES_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -27,6 +42,34 @@ const appearancesReducer = (
       };
     case FETCH_APPEARANCES_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
+    case SAVE_NEW_APPEARANCE:
+      return {
+        ...state,
+        appearancesList: [...state.appearancesList, action.payload]
+      };
+    case SAVE_APPEARANCE_REQUEST:
+      return {
+        ...state,
+        saveStatus: "saving"
+      };
+    case SAVE_APPEARANCE_SUCCESS:
+      return {
+        ...state,
+        saveStatus: ""
+      };
+    case SAVE_APPEARANCE_FAILED:
+      return { ...state, saveStatus: "failure", saveError: action.payload };
+    case SAVE_EDITED_APPEARANCE:
+      idx = state.appearancesList.findIndex(
+        obj => obj.id === action.payload.id
+      );
+      newAppearancesList = [
+        ...state.appearancesList.slice(0, idx),
+        action.payload,
+        ...state.appearancesList.slice(idx + 1)
+      ];
+      return { ...state, appearancesList: newAppearancesList };
+
     default:
       return state;
   }
@@ -146,10 +189,37 @@ const setFetchAppearancesFailed = errorMessage => ({
   payload: errorMessage
 });
 
+export const saveNewAppearance = appearanceInfo => ({
+  type: SAVE_NEW_APPEARANCE,
+  payload: appearanceInfo
+});
+
+export const saveEditedAppearance = appearanceInfo => ({
+  type: SAVE_EDITED_APPEARANCE,
+  payload: appearanceInfo
+});
+
+export const saveAppearanceRequest = () => ({
+  type: SAVE_APPEARANCE_REQUEST
+});
+
+export const saveAppearanceSucceeded = () => ({
+  type: SAVE_APPEARANCE_SUCCESS
+});
+
+export const saveAppearanceFailed = error => ({
+  type: SAVE_APPEARANCE_FAILED,
+  payload: error
+});
+
 export const appearancesDuxActions = {
   setFetchAppearancesFailed,
   setFetchAppearancesRequest,
-  setFetchAppearancesSucceeded
+  setFetchAppearancesSucceeded,
+  saveAppearanceRequest,
+  saveAppearanceSucceeded,
+  saveNewAppearance,
+  saveAppearanceFailed
 };
 
 export const appearancesDuxConstants = {
