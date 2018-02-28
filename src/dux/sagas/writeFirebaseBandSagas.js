@@ -7,14 +7,14 @@ import {
 } from "../bandsReducer.js";
 import firebaseApp from "../../apis/firebase.js";
 
-// import { types as globalTypes } from "../../constants/firebasePaths.js";
+import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveData() {
   // Every saved edit, we write back to Firebase as an array.
   yield put(saveBandRequest());
   const bandsList = yield select(state => state.bandsState.bandsList);
 
-  const ref = yield firebaseApp.database().ref("bandstest");
+  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer

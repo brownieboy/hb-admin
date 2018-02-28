@@ -98,6 +98,21 @@ const BandForm = ({
                 />
                 {errors.summary && <div>{errors.summary}</div>}
               </FormGroup>
+
+              <FormGroup>
+                <Label for="summary">Summary</Label>
+                <Input
+                  rows={6}
+                  type="textarea"
+                  name="blurb"
+                  placeholder="Info about the band/artist"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.blurb}
+                />
+                {errors.blurb && <div>{errors.blurb}</div>}
+              </FormGroup>
+
               <Button type="submit">Submit</Button>
             </form>
           );
