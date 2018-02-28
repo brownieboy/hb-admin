@@ -7,7 +7,8 @@ import { Button, FormGroup, Label, Input } from "reactstrap";
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
-  stageId: yup.string().required()
+  stageId: yup.string().required(),
+  dateTimeStart: yup.string().required()
 };
 
 const renderOptionsField = dataArray =>
@@ -107,6 +108,17 @@ const AppearanceForm = ({
                   {renderOptionsField(stagesPicker)}
                 </Input>
                 {errors.stageId && <div>{errors.stageId}</div>}
+              </FormGroup>
+              <FormGroup>
+                <Label for="dateTimeStart">Start time</Label>
+                <Input
+                  type="date"
+                  name="dateTimeStart"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.name}
+                />
+                {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
               </FormGroup>
 
               <Button type="submit">Submit</Button>
