@@ -8,7 +8,7 @@ import { Button, FormGroup, Label, Input } from "reactstrap";
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
   name: yup.string().required(),
-  summary: yup.string().required(),
+  summary: yup.string().required()
 };
 
 export const CommonBandFields = props => {
@@ -56,7 +56,7 @@ CommonBandFields.propTypes = {
 export const BandNewForm = ({ submitDataToServer, saveStatus, saveError }) => {
   const defaultFieldValues = { name: "", bandId: "", summary: "" };
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
-  validationSchemaObj.id = yup.string().required();
+  // validationSchemaObj.id = yup.string().required();
   return (
     <div>
       <h1>Add Band</h1>
