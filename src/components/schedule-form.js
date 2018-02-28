@@ -23,6 +23,7 @@ const AppearanceForm = ({
   match,
   submitDataToServer,
   bandsPicker,
+  stagesPicker,
   saveStatus,
   saveError
 }) => {
@@ -88,6 +89,7 @@ const AppearanceForm = ({
                   onBlur={handleBlur}
                   value={values.bandId}
                 >
+                  <option />
                   {renderOptionsField(bandsPicker)}
                 </Input>
                 {errors.bandId && <div>{errors.bandId}</div>}
@@ -95,12 +97,15 @@ const AppearanceForm = ({
               <FormGroup>
                 <Label for="stageId">Stage</Label>
                 <Input
-                  type="text"
+                  type="select"
                   name="stageId"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.name}
-                />
+                >
+                  <option />
+                  {renderOptionsField(stagesPicker)}
+                </Input>
                 {errors.stageId && <div>{errors.stageId}</div>}
               </FormGroup>
 

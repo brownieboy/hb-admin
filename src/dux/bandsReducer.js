@@ -93,11 +93,15 @@ const selectAlphabetical = createSelector([selectBands], bandsList =>
 // );
 
 const selectBandsPicker = createSelector([selectAlphabetical], bandsList =>
-  bandsList.map(bandMember => ({ id: bandMember.bandId, name: bandMember.name }))
+  bandsList.map(bandMember => ({
+    id: bandMember.bandId,
+    name: bandMember.name
+  }))
 );
 
 export const selectors = {
-  selectAlphabetical, selectBandsPicker
+  selectAlphabetical,
+  selectBandsPicker
 };
 
 /*

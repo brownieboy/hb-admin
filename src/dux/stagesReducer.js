@@ -1,4 +1,4 @@
-// import { createSelector } from "reselect";
+import { createSelector } from "reselect";
 
 // import { stringSort } from "../helper-functions/sorting.js";
 
@@ -72,7 +72,17 @@ const stagesReducer = (
 };
 
 // Sort/filter functions for selectors
-// const selectStages = state => state.stagesList;
+const selectStages = state => state.stagesList;
+const selectStagesPicker = createSelector([selectStages], stagesList =>
+  stagesList.map(stageMember => ({
+    id: stageMember.id,
+    name: stageMember.name
+  }))
+);
+
+export const selectors = {
+  selectStagesPicker
+};
 
 export const loadStagesNow = () => ({ type: LOAD_STAGES_NOW });
 // export const fetchStagesSucceeded = () => ({ type: FETCH_STAGES_REQUEST });

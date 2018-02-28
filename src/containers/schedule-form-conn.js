@@ -12,6 +12,7 @@ import {
 } from "../dux/appearancesReducer.js";
 
 import { selectors as bandsSelectors } from "../dux/bandsReducer.js";
+import { selectors as stagesSelectors } from "../dux/stagesReducer.js";
 
 // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(
 //   state.appearancesState
@@ -20,7 +21,8 @@ import { selectors as bandsSelectors } from "../dux/bandsReducer.js";
 const getCommonStateObject = state => ({
   saveStatus: state.appearancesState.saveStatus,
   saveError: state.appearancesState.saveError,
-  bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState)
+  bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState),
+  stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState)
   // getAppearanceInfoForId: appearanaceId =>
   //   getAppearanceInfoForIdAction(state.appearancesState.appearancesList, appearanaceId)
 });
