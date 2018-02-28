@@ -6,13 +6,9 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 
 const validationSchemaCommonObj = {
-  id: yup.string().required(),
+  bandId: yup.string().required(),
   name: yup.string().required(),
-  sortOrder: yup
-    .number()
-    .required()
-    .positive()
-    .integer()
+  summary: yup.string().required(),
 };
 
 export const CommonBandFields = props => {
@@ -33,16 +29,16 @@ export const CommonBandFields = props => {
       </FormGroup>
 
       <FormGroup>
-        <Label for="sortOrder">Sort order</Label>
+        <Label for="summary">Summary</Label>
         <Input
-          type="number"
-          name="sortOrder"
-          placeholder="Sort order common (integer)"
+          type="text"
+          name="summary"
+          placeholder="One line summary, shown in app's bands list"
           onChange={handleChange}
           onBlur={handleBlur}
-          value={values.sortOrder}
+          value={values.summary}
         />
-        {errors.sortOrder && <div>{errors.sortOrder}</div>}
+        {errors.summary && <div>{errors.summary}</div>}
       </FormGroup>
     </div>
   );
@@ -58,7 +54,7 @@ CommonBandFields.propTypes = {
 };
 
 export const BandNewForm = ({ submitDataToServer, saveStatus, saveError }) => {
-  const defaultFieldValues = { name: "", id: "", sortOrder: -1 };
+  const defaultFieldValues = { name: "", bandId: "", summary: "" };
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
   validationSchemaObj.id = yup.string().required();
   return (
@@ -91,16 +87,16 @@ export const BandNewForm = ({ submitDataToServer, saveStatus, saveError }) => {
           return (
             <form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label for="id">Band ID</Label>
+                <Label for="bandId">Band ID</Label>
                 <Input
                   type="text"
-                  name="id"
+                  name="bandId"
                   placeholder="ID must be unique"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.id}
+                  value={values.bandId}
                 />
-                {errors.id && <div>{errors.id}</div>}
+                {errors.bandId && <div>{errors.bandId}</div>}
               </FormGroup>
               <CommonBandFields {...props} />
               <Button type="submit">Submit</Button>
@@ -127,7 +123,7 @@ export class BandEditForm extends Component {
   render() {
     const { submitDataToServer, match, getBandInfoForId } = this.props;
 
-    let fieldValues = { name: "", id: "", sortOrder: -1 };
+    let fieldValues = { name: "", id: "", summary: -1 };
     if (match && match.params && match.params.id) {
       const matchingInfo = getBandInfoForId(match.params.id);
       if (matchingInfo) {

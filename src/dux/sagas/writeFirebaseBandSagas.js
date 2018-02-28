@@ -22,7 +22,7 @@ function* saveData() {
   let firebaseError = "";
   yield ref.set(bandsList).catch(e => {
     firebaseError = e;
-    // console.log("Firebase band save error=" + e);
+    console.log("Firebase band save error=" + e);
   });
 
   if (firebaseError === "") {
@@ -33,15 +33,15 @@ function* saveData() {
 }
 
 // const bandsConfigObj = {
-//   path: globalTypes.DATABASE.STAGES_PATH,
+//   path: globalTypes.DATABASE.BANDS_PATH,
 //   requestAction: saveBandRequest,
 //   successAction: saveBandSucceeded,
 //   failAction: saveBandFailed
 // };
 
 const writeFirebaseSagas = [
-  takeEvery(bandsActionTypes.SAVE_NEW_STAGE, saveData),
-  takeEvery(bandsActionTypes.SAVE_EDITED_STAGE, saveData)
+  takeEvery(bandsActionTypes.SAVE_NEW_BAND, saveData),
+  takeEvery(bandsActionTypes.SAVE_EDITED_BAND, saveData)
 ];
 
 export default writeFirebaseSagas;

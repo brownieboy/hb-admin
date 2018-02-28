@@ -25,8 +25,8 @@ const mapDispatchToPropsEdit = dispatch =>
 const mapStateToPropsEdit = state => ({
   saveStatus: state.BandsState.saveStatus,
   saveError: state.BandsState.saveError,
-  getBandInfoForId: bandId =>
-    getBandInfoForIdAction(state.bandsState.bandsList, bandId)
+  // getBandInfoForId: bandId =>
+  //   getBandInfoForIdAction(state.bandsState.bandsList, bandId)
 });
 
 export const BandFormNewConn = connect(

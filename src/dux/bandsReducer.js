@@ -13,6 +13,14 @@ const SAVE_BAND_REQUEST = "SAVE_BAND_REQUEST";
 const SAVE_BAND_SUCCESS = "SAVE_BAND_SUCCESS";
 const SAVE_BAND_FAILED = "SAVE_BAND_FAILED";
 
+export const actionTypes = {
+  SAVE_NEW_BAND,
+  SAVE_EDITED_BAND,
+  SAVE_BAND_REQUEST,
+  SAVE_BAND_SUCCESS,
+  SAVE_BAND_FAILED
+};
+
 // Reducer
 const bandsReducer = (
   state = { fetchStatus: "", fetchError: "", bandsList: [] },
