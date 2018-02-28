@@ -10,6 +10,13 @@ const validationSchemaCommonObj = {
   stageId: yup.string().required()
 };
 
+const renderOptionsField = dataArray =>
+  dataArray.map(dataMember => (
+    <option key={dataMember.id} value={dataMember.id}>
+      {dataMember.name}
+    </option>
+  ));
+
 const AppearanceForm = ({
   getAppearanceInfoForId,
   isEditExisting,
@@ -21,7 +28,7 @@ const AppearanceForm = ({
 }) => {
   let fieldValues = { bandId: "", stageId: "" };
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
-  console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
+  // console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
   if (isEditExisting) {
     // const matchingInfo = getAppearanceInfoForId(match.params.id);
     // if (matchingInfo) {
@@ -75,12 +82,14 @@ const AppearanceForm = ({
               <FormGroup>
                 <Label for="bandId">Band</Label>
                 <Input
-                  type="text"
+                  type="select"
                   name="bandId"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.bandId}
-                />
+                >
+                  {renderOptionsField(bandsPicker)}
+                </Input>
                 {errors.bandId && <div>{errors.bandId}</div>}
               </FormGroup>
               <FormGroup>
