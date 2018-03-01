@@ -63,6 +63,21 @@ function* readBandsSaga() {
   }
 }
 
+function* readDatesSaga() {
+  // console.log("running updatedItemSaga...");
+  const updateChannel = createEventChannel(
+    firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH)
+  );
+
+  while (true) {
+    const item = yield take(updateChannel);
+    // yield console.log(
+    //   "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
+    // );
+    yield put(bandsDuxActions.setFetchBandsSucceeded(item.value));
+  }
+}
+
 function* readAppearancesSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
