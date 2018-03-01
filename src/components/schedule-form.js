@@ -4,13 +4,13 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import Globalize from "globalize";
-import globalizeLocalizer from "react-widgets-globalize";
+import Moment from "moment";
+import momentLocalizer from "react-widgets-moment";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import "react-widgets/dist/css/react-widgets.css";
 
-Globalize.locale("en");
-
-globalizeLocalizer();
+Moment.locale("en");
+momentLocalizer();
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
@@ -130,8 +130,7 @@ const AppearanceForm = ({
 
               <FormGroup>
                 <Label for="timeStart">Start time</Label>
-                <DateTimePicker />
-                {errors.timeStart && <div>{errors.timeStart}</div>}
+                <DateTimePicker defaultValue={new Date()} />
               </FormGroup>
 
               <Button type="submit">Submit</Button>
