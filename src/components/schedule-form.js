@@ -4,7 +4,13 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import { DateTimePicker } from "react-widgets";
+import Globalize from "globalize";
+import globalizeLocalizer from "react-widgets-globalize";
+import DateTimePicker from "react-widgets/lib/DateTimePicker";
+
+Globalize.locale("en");
+
+globalizeLocalizer();
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
