@@ -3,6 +3,8 @@ const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 
 const extractCSS = new ExtractTextPlugin("[name].fonts.css");
 const extractSCSS = new ExtractTextPlugin("[name].styles.css");
@@ -105,7 +107,9 @@ module.exports = (env = {}) => {
       }),
       new CopyWebpackPlugin([{ from: "./public/img", to: "img" }], {
         copyUnmodified: false
-      })
+      }),
+      new BundleAnalyzerPlugin(),
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/)
     ]
   };
 };
