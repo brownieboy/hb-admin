@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
+import { DateTimePicker } from "react-widgets";
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
@@ -119,6 +120,12 @@ const AppearanceForm = ({
                   value={values.name}
                 />
                 {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
+              </FormGroup>
+
+              <FormGroup>
+                <Label for="timeStart">Start time</Label>
+                <DateTimePicker />
+                {errors.timeStart && <div>{errors.timeStart}</div>}
               </FormGroup>
 
               <Button type="submit">Submit</Button>
