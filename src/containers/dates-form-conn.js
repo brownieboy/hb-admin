@@ -9,6 +9,7 @@ import { saveEditedDates } from "../dux/datesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedDates }, dispatch);
+
 const mapStateToProps = state => ({
   saveStatus: state.datesState.saveStatus,
   saveError: state.datesState.saveError,

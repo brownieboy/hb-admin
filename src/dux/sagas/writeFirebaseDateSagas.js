@@ -11,6 +11,7 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveData() {
   // Every saved edit, we write back to Firebase as an array.
+  console.log("saveData saga handlere for SAVE_EDITED_DATES");
   yield put(saveDatesRequest());
   const datesList = yield select(state => state.datesState.datesList);
 
@@ -34,8 +35,7 @@ function* saveData() {
 
 
 const writeFirebaseSagas = [
-  takeEvery(datesActionTypes.SAVE_NEW_STAGE, saveData),
-  takeEvery(datesActionTypes.SAVE_EDITED_STAGE, saveData)
+  takeEvery(datesActionTypes.SAVE_EDITED_DATES, saveData)
 ];
 
 export default writeFirebaseSagas;

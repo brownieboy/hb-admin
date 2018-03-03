@@ -51,11 +51,13 @@ class DatesForm extends Component {
     this.setState({ datesList: newDatesList });
   };
 
-  handelSubmit = () => {
-    const values = this.momentDatesToISOText(this.date.datesList);
+  handleSubmit = e => {
+    const { submitDataToServer } = this.props;
+    e.preventDefault();
+    const values = this.momentDatesToISOText(this.state.datesList);
     console.log(JSON.stringify(values, null, 2));
-    // submitDataToServer(values);
-    actions.setSubmitting(false);
+    submitDataToServer(values);
+    // actions.setSubmitting(false);
   };
 
   render() {
@@ -69,7 +71,6 @@ class DatesForm extends Component {
     } = this.props;
 
     let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
-    const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     return (
       <div>
         <h1>Add Dates</h1>
@@ -80,7 +81,7 @@ class DatesForm extends Component {
         <br />
         {saveStatus === "failure" &&
           `Error: ${JSON.stringify(saveError, null, 4)}`}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="dateOne">Day 1</Label>
             <DateTimePicker
