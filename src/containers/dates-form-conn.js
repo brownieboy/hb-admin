@@ -7,15 +7,12 @@ import DatesForm from "../components/dates-form.js";
 // Dux
 import { saveEditedDates } from "../dux/datesReducer.js";
 
-const getCommonStateObject = state => ({
-  saveStatus: state.homeState.saveStatus,
-  saveError: state.homeState.saveError
-});
-
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedDates }, dispatch);
 const mapStateToProps = state => ({
-  ...getCommonStateObject(state),
+  saveStatus: state.datesState.saveStatus,
+  saveError: state.datesState.saveError,
+  datesList: state.datesState.datesList,
   isEditExisting: true
 });
 

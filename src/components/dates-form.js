@@ -21,6 +21,7 @@ const validationSchemaCommonObj = {
 class DatesForm extends Component {
   render() {
     const {
+      datesList,
       isEditExisting,
       match,
       submitDataToServer,
@@ -95,6 +96,7 @@ class DatesForm extends Component {
 }
 
 DatesForm.propTypes = {
+  datesList : PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   errors: PropTypes.object,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
