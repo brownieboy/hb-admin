@@ -10,7 +10,6 @@ const SAVE_DATES_SUCCESS = "SAVE_DATES_SUCCESS";
 const SAVE_DATES_FAILED = "SAVE_DATES_FAILED";
 
 export const actionTypes = {
-  SAVE_NEW_DATES,
   SAVE_EDITED_DATES,
   SAVE_DATES_REQUEST,
   SAVE_DATES_SUCCESS,
@@ -52,39 +51,35 @@ const setFetchDatesFailed = errorMessage => ({
   payload: errorMessage
 });
 
-export const datesDuxActions = {
-  setFetchDatesFailed,
-  setFetchDatesRequest,
-  setFetchDatesSucceeded,
-    saveDateRequest,
-  saveDateSucceeded,
-  saveNewDate,
-  saveDateFailed
-};
-
-export const saveNewDate = datesList => ({
-  type: SAVE_NEW_DATES,
-  payload: datesList
-});
-
-export const saveEditedDate = datesList => ({
+export const saveEditedDates = datesList => ({
   type: SAVE_EDITED_DATES,
   payload: datesList
 });
 
-export const saveDateRequest = () => ({
+export const saveDatesRequest = () => ({
   type: SAVE_DATES_REQUEST
 });
 
-export const saveDateSucceeded = () => ({
+export const saveDatesSucceeded = () => ({
   type: SAVE_DATES_SUCCESS
 });
 
-export const saveDateFailed = error => ({
+export const saveDatesFailed = error => ({
   type: SAVE_DATES_FAILED,
   payload: error
 });
 
 
-export default datesReducer;
+export const datesDuxActions = {
+  setFetchDatesFailed,
+  setFetchDatesRequest,
+  setFetchDatesSucceeded,
+  saveDatesRequest,
+  saveDatesSucceeded,
+  saveEditedDates,
+  saveDatesFailed
+};
 
+
+
+export default datesReducer;

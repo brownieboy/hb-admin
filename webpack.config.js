@@ -109,7 +109,7 @@ module.exports = (env = {}) => {
         copyUnmodified: false
       }),
       new BundleAnalyzerPlugin(),
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/)
+      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb/)
     ]
   };
 };

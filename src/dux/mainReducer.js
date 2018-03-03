@@ -5,13 +5,15 @@ import bandsReducer from "./bandsReducer";
 import appearancesReducer from "./appearancesReducer.js";
 import stagesReducer from "./stagesReducer.js";
 import firebaseLoginReducer from "./firebaseLoginReducer.js";
+import datesReducer from "./datesReducer.js";
 
 const mainReducer = combineReducers({
   appearancesState: appearancesReducer,
   bandsState: bandsReducer,
   homeState: homeReducer,
   firebaseLoginState: firebaseLoginReducer,
-  stagesState: stagesReducer
+  stagesState: stagesReducer,
+  datesState: datesReducer
 });
 
 export default mainReducer;

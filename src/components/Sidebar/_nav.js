@@ -16,6 +16,11 @@ export default {
       icon: "icon-home"
     },
     {
+      name: "Dates",
+      url: "/dates",
+      icon: "icon-calendar"
+    },
+    {
       name: "Bands",
       url: "/bands",
       icon: "icon-microphone"

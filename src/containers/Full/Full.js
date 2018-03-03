@@ -13,6 +13,7 @@ import Schedule from "../../views/schedule-conn.js";
 import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
 
+
 import {
   BandFormNewConn,
   BandFormEditConn
@@ -25,6 +26,9 @@ import {
   ScheduleFormNewConn,
   ScheduleFormEditConn
 } from "../../containers/schedule-form-conn.js";
+
+import DatesEdit from "../../containers/dates-form-conn.js";
+
 
 class Full extends Component {
   render() {
@@ -79,7 +83,11 @@ class Full extends Component {
                   name="StageFormNew"
                   component={StageFormNewConn}
                 />
-
+                <Route
+                  path="/dates"
+                  name="Dates"
+                  component={DatesEdit}
+                />
                 <Redirect from="/" to="/homepage" />
               </Switch>
             </Container>
