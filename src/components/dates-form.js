@@ -19,6 +19,16 @@ const validationSchemaCommonObj = {
 };
 
 class DatesForm extends Component {
+  constructor(props) {
+    super(props);
+    const { datesList } = props;
+    console.log("datesList=" + JSON.stringify(datesList, null, 4));
+    this.state = {
+      dateOne: datesList[0],
+      dateTwo: datesList[1],
+      dateThree: datesList[2]
+    };
+  }
   render() {
     const {
       datesList,

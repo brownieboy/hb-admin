@@ -18,7 +18,7 @@ export const actionTypes = {
 
 // Reducer
 const datesReducer = (
-  state = { fetchStatus: "", fetchError: "", datesList: [] },
+  state = { fetchStatus: "", fetchError: "", datesList: ["", "", ""] },
   action
 ) => {
   switch (action.type) {
