@@ -42,10 +42,10 @@ function* readDatesSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    // yield console.log(
-    //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    // );
-    yield put(datesDuxActions.setFetchDatesSucceeded(item.value.datesList));
+    yield console.log(
+      "readDatesSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    );
+    yield put(datesDuxActions.setFetchDatesSucceeded(item.value));
   }
 }
 
@@ -76,21 +76,6 @@ function* readBandsSaga() {
     //   "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
     // );
     yield put(bandsDuxActions.setFetchBandsSucceeded(item.value));
-  }
-}
-
-function* readDatesSaga() {
-  // console.log("running updatedItemSaga...");
-  const updateChannel = createEventChannel(
-    firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH)
-  );
-
-  while (true) {
-    const item = yield take(updateChannel);
-    // yield console.log(
-    //   "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
-    // );
-    yield put(datesDuxActions.setFetchDatesSucceeded(item.value));
   }
 }
 

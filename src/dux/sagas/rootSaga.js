@@ -13,7 +13,8 @@ function* sagas() {
     ...readFirebaseDataSagas,
     ...loginFirebaseSagas,
     ...writeFirebaseBandSagas,
-    ...writeFirebaseStageSagas
+    ...writeFirebaseStageSagas,
+    ...writeFirebaseDateSagas
   ]);
 }
 export default sagas;

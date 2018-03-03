@@ -55,7 +55,7 @@ class DatesForm extends Component {
     const { submitDataToServer } = this.props;
     e.preventDefault();
     const values = this.momentDatesToISOText(this.state.datesList);
-    console.log(JSON.stringify(values, null, 2));
+    console.log("submitting dates to server = " + JSON.stringify(values, null, 2));
     submitDataToServer(values);
     // actions.setSubmitting(false);
   };

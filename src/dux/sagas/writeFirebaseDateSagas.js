@@ -9,11 +9,14 @@ import firebaseApp from "../../apis/firebase.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
-function* saveData() {
+function* saveData(action) {
   // Every saved edit, we write back to Firebase as an array.
-  console.log("saveData saga handlere for SAVE_EDITED_DATES");
   yield put(saveDatesRequest());
-  const datesList = yield select(state => state.datesState.datesList);
+  // const datesList = yield select(state => state.datesState.datesList);
+  console.log(
+    "saveData saga handler for SAVE_EDITED_DATES, action=" +
+      JSON.stringify(action, null, 4)
+  );
 
   const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH);
 
@@ -21,9 +24,9 @@ function* saveData() {
   // and .catch() statements.  So I set a variable inside the .catch() then refer
   // to it in the if statement after the ref has run.  Clunky, but it works.
   let firebaseError = "";
-  yield ref.set(datesList).catch(e => {
+  yield ref.set(action.payload).catch(e => {
     firebaseError = e;
-    // console.log("Firebase stage save error=" + e);
+    console.log("Firebase dates save error=" + e);
   });
 
   if (firebaseError === "") {
@@ -32,7 +35,6 @@ function* saveData() {
     yield put(saveDatesFailed(firebaseError));
   }
 }
-
 
 const writeFirebaseSagas = [
   takeEvery(datesActionTypes.SAVE_EDITED_DATES, saveData)
