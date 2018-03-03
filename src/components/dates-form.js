@@ -4,12 +4,12 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import Moment from "moment";
+import moment from "moment";
 import momentLocalizer from "react-widgets-moment";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 
-Moment.locale("en-gb");
+moment.locale("en-gb");
 momentLocalizer();
 
 const validationSchemaCommonObj = {
@@ -18,17 +18,36 @@ const validationSchemaCommonObj = {
   // dayThree: yup.string().required()
 };
 
+// const stripTimeFrom
+
 class DatesForm extends Component {
   constructor(props) {
     super(props);
     const { datesList } = props;
-    console.log("datesList=" + JSON.stringify(datesList, null, 4));
+    // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
-      dateOne: datesList[0],
-      dateTwo: datesList[1],
-      dateThree: datesList[2]
+      datesList: this.textDatesToMomentDates(datesList)
     };
   }
+
+  textDatesToMomentDates = textDateList =>
+    textDateList.map(textDate => {
+      const newDateM = moment(textDate);
+      return newDateM.isValid() ? newDateM : moment(new Date());
+    });
+
+  handleChange = fieldData => {
+    console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
+    const { datesList } = this.state;
+
+    const newDatesList = [
+      ...datesList.slice(0, fieldData.fieldNo),
+      moment(fieldData.value),
+      ...datesList.slice(fieldData.fieldNo + 1)
+    ];
+    this.setState({ datesList: newDatesList });
+  };
+
   render() {
     const {
       datesList,
@@ -39,7 +58,6 @@ class DatesForm extends Component {
       saveError
     } = this.props;
 
-    // let formatter = Globalize.dateFormatter({ raw: "MMM dd, yyyy" });
     let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     return (
@@ -76,6 +94,7 @@ class DatesForm extends Component {
                   <DateTimePicker
                     name="dateOne"
                     time={false}
+                    onChange={value => this.handleChange({ value, fieldNo: 0 })}
                     defaultValue={new Date()}
                   />
                 </FormGroup>
@@ -84,6 +103,7 @@ class DatesForm extends Component {
                   <DateTimePicker
                     name="dateTwo"
                     time={false}
+                    onChange={value => this.handleChange({ value, fieldNo: 1 })}
                     defaultValue={new Date()}
                   />
                 </FormGroup>
@@ -92,6 +112,7 @@ class DatesForm extends Component {
                   <DateTimePicker
                     name="dateThree"
                     time={false}
+                    onChange={value => this.handleChange({ value, fieldNo: 2 })}
                     defaultValue={new Date()}
                   />
                 </FormGroup>
@@ -106,7 +127,7 @@ class DatesForm extends Component {
 }
 
 DatesForm.propTypes = {
-  datesList : PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  datesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   errors: PropTypes.object,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
