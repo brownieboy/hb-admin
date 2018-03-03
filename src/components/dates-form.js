@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Label } from "reactstrap";
 import moment from "moment";
 import momentLocalizer from "react-widgets-moment";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
@@ -36,6 +36,9 @@ class DatesForm extends Component {
       return newDateM.isValid() ? newDateM : moment(new Date());
     });
 
+  momentDatesToISOText = momentDateList =>
+    momentDateList.map(momentDate => momentDate.format("YYYY-MM-DD"));
+
   handleChange = fieldData => {
     console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
     const { datesList } = this.state;
@@ -46,6 +49,13 @@ class DatesForm extends Component {
       ...datesList.slice(fieldData.fieldNo + 1)
     ];
     this.setState({ datesList: newDatesList });
+  };
+
+  handelSubmit = () => {
+    const values = this.momentDatesToISOText(this.date.datesList);
+    console.log(JSON.stringify(values, null, 2));
+    // submitDataToServer(values);
+    actions.setSubmitting(false);
   };
 
   render() {
@@ -70,57 +80,36 @@ class DatesForm extends Component {
         <br />
         {saveStatus === "failure" &&
           `Error: ${JSON.stringify(saveError, null, 4)}`}
-        <Formik
-          enableReinitialize
-          initialValues={Object.assign({}, fieldValues)}
-          validationSchema={yup.object().shape(validationSchemaObj)}
-          onSubmit={(values, actions) => {
-            console.log(JSON.stringify(values, null, 2));
-            submitDataToServer(values);
-            actions.setSubmitting(false);
-          }}
-          render={props => {
-            const {
-              values,
-              errors,
-              handleChange,
-              handleBlur,
-              handleSubmit
-            } = props;
-            return (
-              <form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <Label for="dateOne">Day 1</Label>
-                  <DateTimePicker
-                    name="dateOne"
-                    time={false}
-                    onChange={value => this.handleChange({ value, fieldNo: 0 })}
-                    defaultValue={new Date()}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="dateTwo">Day 2</Label>
-                  <DateTimePicker
-                    name="dateTwo"
-                    time={false}
-                    onChange={value => this.handleChange({ value, fieldNo: 1 })}
-                    defaultValue={new Date()}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label for="dateThree">Day 3</Label>
-                  <DateTimePicker
-                    name="dateThree"
-                    time={false}
-                    onChange={value => this.handleChange({ value, fieldNo: 2 })}
-                    defaultValue={new Date()}
-                  />
-                </FormGroup>
-                <Button type="submit">Submit</Button>
-              </form>
-            );
-          }}
-        />
+        <form onSubmit={handleSubmit}>
+          <FormGroup>
+            <Label for="dateOne">Day 1</Label>
+            <DateTimePicker
+              name="dateOne"
+              time={false}
+              onChange={value => this.handleChange({ value, fieldNo: 0 })}
+              defaultValue={new Date()}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="dateTwo">Day 2</Label>
+            <DateTimePicker
+              name="dateTwo"
+              time={false}
+              onChange={value => this.handleChange({ value, fieldNo: 1 })}
+              defaultValue={new Date()}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="dateThree">Day 3</Label>
+            <DateTimePicker
+              name="dateThree"
+              time={false}
+              onChange={value => this.handleChange({ value, fieldNo: 2 })}
+              defaultValue={new Date()}
+            />
+          </FormGroup>
+          <Button type="submit">Submit</Button>
+        </form>
       </div>
     );
   }
