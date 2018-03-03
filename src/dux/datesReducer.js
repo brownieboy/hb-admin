@@ -42,9 +42,9 @@ export const loadDatesNow = () => ({ type: LOAD_DATES_NOW });
 const setFetchDatesRequest = () => ({
   type: FETCH_DATES_REQUEST
 });
-const setFetchDatesSucceeded = datesText => ({
+const setFetchDatesSucceeded = datesItem => ({
   type: FETCH_DATES_SUCCESS,
-  payload: datesText
+  payload: datesItem.datesList || []
 });
 const setFetchDatesFailed = errorMessage => ({
   type: FETCH_DATES_FAILURE,

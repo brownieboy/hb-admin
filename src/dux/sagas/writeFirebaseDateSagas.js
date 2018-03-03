@@ -1,47 +1,41 @@
 import { put, select, takeEvery } from "redux-saga/effects";
 import {
-  actionTypes as stagesActionTypes,
-  saveStageRequest,
-  saveStageSucceeded,
-  saveStageFailed
-} from "../stagesReducer.js";
+  actionTypes as datesActionTypes,
+  saveDatesRequest,
+  saveDatesSucceeded,
+  saveDatesFailed
+} from "../datesReducer.js";
 import firebaseApp from "../../apis/firebase.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveData() {
   // Every saved edit, we write back to Firebase as an array.
-  yield put(saveStageRequest());
-  const stagesList = yield select(state => state.stagesState.stagesList);
+  yield put(saveDatesRequest());
+  const datesList = yield select(state => state.datesState.datesList);
 
-  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH);
+  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer
   // to it in the if statement after the ref has run.  Clunky, but it works.
   let firebaseError = "";
-  yield ref.set(stagesList).catch(e => {
+  yield ref.set(datesList).catch(e => {
     firebaseError = e;
     // console.log("Firebase stage save error=" + e);
   });
 
   if (firebaseError === "") {
-    yield put(saveStageSucceeded());
+    yield put(saveDatesSucceeded());
   } else {
-    yield put(saveStageFailed(firebaseError));
+    yield put(saveDatesFailed(firebaseError));
   }
 }
 
-// const stagesConfigObj = {
-//   path: globalTypes.DATABASE.STAGES_PATH,
-//   requestAction: saveStageRequest,
-//   successAction: saveStageSucceeded,
-//   failAction: saveStageFailed
-// };
 
 const writeFirebaseSagas = [
-  takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveData),
-  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveData)
+  takeEvery(datesActionTypes.SAVE_NEW_STAGE, saveData),
+  takeEvery(datesActionTypes.SAVE_EDITED_STAGE, saveData)
 ];
 
 export default writeFirebaseSagas;

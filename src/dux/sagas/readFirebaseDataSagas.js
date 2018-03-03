@@ -17,6 +17,7 @@ import {
 } from "../appearancesReducer.js";
 import { homeDuxActions } from "../homeReducer.js";
 import { stagesDuxActions } from "../stagesReducer.js";
+import { datesDuxActions } from "../datesReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {
@@ -31,6 +32,21 @@ export function createEventChannel(ref) {
     };
   }, buffers.expanding(1));
   return listener;
+}
+
+function* readDatesSaga() {
+  // console.log("running updatedItemSaga...");
+  const updateChannel = createEventChannel(
+    firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH)
+  );
+
+  while (true) {
+    const item = yield take(updateChannel);
+    // yield console.log(
+    //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    // );
+    yield put(datesDuxActions.setFetchDatesSucceeded(item.value.datesList));
+  }
 }
 
 function* readHomeSaga() {
@@ -66,7 +82,7 @@ function* readBandsSaga() {
 function* readDatesSaga() {
   // console.log("running updatedItemSaga...");
   const updateChannel = createEventChannel(
-    firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH)
+    firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH)
   );
 
   while (true) {
@@ -74,7 +90,7 @@ function* readDatesSaga() {
     // yield console.log(
     //   "readBandsSaga=" + JSON.stringify(item, null, 2).substring(0, 300)
     // );
-    yield put(bandsDuxActions.setFetchBandsSucceeded(item.value));
+    yield put(datesDuxActions.setFetchDatesSucceeded(item.value));
   }
 }
 
@@ -121,7 +137,8 @@ const readFirebaseDataSagas = [
   fork(readBandsSaga),
   fork(readHomeSaga),
   fork(readStagesSaga),
-  fork(readAppearancesSaga)
+  fork(readAppearancesSaga),
+  fork(readDatesSaga)
 ];
 
 export default readFirebaseDataSagas;
