@@ -80,7 +80,7 @@ class DatesForm extends Component {
 
     let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     return (
-      <div>
+      <div style={{ maxWidth: 180 }}>
         <h1>Add Dates</h1>
         Loading status: {saveStatus}
         {saveStatus === "saving" && (
