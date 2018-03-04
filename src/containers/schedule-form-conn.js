@@ -34,6 +34,7 @@ const mapDispatchToPropsNew = dispatch =>
   bindActionCreators({ submitDataToServer: saveNewAppearance }, dispatch);
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),
+  datesList: state.datesState.datesList,
   isEditExisting: false
 });
 
