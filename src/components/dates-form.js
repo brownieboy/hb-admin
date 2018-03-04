@@ -7,6 +7,7 @@ import enGB from "date-fns/locale/en-GB";
 import dateFnsLocalizer, { defaultFormats } from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
+import { dateFormatString } from "../constants/formats.js";
 
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
@@ -94,7 +95,7 @@ class DatesForm extends Component {
             <Label for="dateOne">Day 1</Label>
             <DateTimePicker
               name="dateOne"
-              format="DD/MM/YYYY"
+              format={dateFormatString}
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 0 })}
               defaultValue={this.state.datesList[0]}
@@ -105,7 +106,7 @@ class DatesForm extends Component {
             <Label for="dateTwo">Day 2</Label>
             <DateTimePicker
               name="dateTwo"
-              format="DD/MM/YYYY"
+              format={dateFormatString}
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 1 })}
               value={this.state.datesList[1]}
@@ -115,7 +116,7 @@ class DatesForm extends Component {
             <Label for="dateThree">Day 3</Label>
             <DateTimePicker
               name="dateThree"
-              format="DD/MM/YYYY"
+              format={dateFormatString}
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 2 })}
               value={this.state.datesList[2]}
