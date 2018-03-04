@@ -1,43 +1,16 @@
 // Render Prop
 import React, { Component } from "react";
-import { Formik } from "formik";
-import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label } from "reactstrap";
-import moment from "moment";
-import momentLocalizer from "react-widgets-moment";
-import { format as dateFnsFormat } from "date-fns";
-// import locales from "date-fns/locale";
+import dateFnsFormat from "date-fns/format";
 import enGB from "date-fns/locale/en-GB";
 import dateFnsLocalizer, { defaultFormats } from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 
-// dateFns.locale(en);
-// dateFnsLocalizer({ locales: { en } });
-// const formats = Object.assign(defaultFormats, { default: "mmm YY" });
-// dateFnsLocalizer({ formats, locales });
-// moment.locale("en-gb");
-// momentLocalizer();
-
-// Use custom date formats and include all date-fns locales
-// import locales from "date-fns/locale";
-
-const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
-// dateFnsLocalizer({ formats, locales });
-
-// Include only the locales you need to limit bundle size
-// import de from 'date-fns/locale/de'
-
-dateFnsLocalizer(formats, { "en-GB": enGB });
-
-const validationSchemaCommonObj = {
-  // dayOne: yup.string().required(),
-  // dayTwo: yup.string().required(),
-  // dayThree: yup.string().required()
-};
-
-// const stripTimeFrom
+// const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
+// dateFnsLocalizer(formats, { "en-GB": enGB });
+dateFnsLocalizer({ "en-GB": enGB });
 
 class DatesForm extends Component {
   constructor(props) {
