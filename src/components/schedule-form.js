@@ -4,13 +4,13 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import Moment from "moment";
-import momentLocalizer from "react-widgets-moment";
+// import Moment from "moment";
+// import momentLocalizer from "react-widgets-moment";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 
-Moment.locale("en");
-momentLocalizer();
+// Moment.locale("en");
+// momentLocalizer();
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
