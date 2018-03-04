@@ -59,7 +59,7 @@ const AppearanceForm = ({
     //   .required()
   }
   return (
-    <div>
+    <div style={{ maxWidth: 320 }}>
       <h1>Add Appearance</h1>
       Loading status: {saveStatus}
       {saveStatus === "saving" && (
@@ -136,22 +136,21 @@ const AppearanceForm = ({
                 {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
               </FormGroup>
               <FormGroup>
-                <Label for="dateTimeStart">Start time</Label>
-                <Input
-                  type="date"
-                  name="dateTimeStart"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-                {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
-              </FormGroup>
-
-              <FormGroup>
                 <Label for="timeStart">Start time</Label>
-                <DateTimePicker defaultValue={new Date()} />
+                <DateTimePicker
+                  name="timeStart"
+                  defaultValue={new Date()}
+                  date={false}
+                />
               </FormGroup>
-
+              <FormGroup>
+                <Label for="timeEnd">End Time</Label>
+                <DateTimePicker
+                  name="timeEnd"
+                  defaultValue={new Date()}
+                  date={false}
+                />
+              </FormGroup>
               <Button type="submit">Submit</Button>
             </form>
           );
