@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label } from "reactstrap";
-import dateFnsFormat from "date-fns/format";
+import { format as dateFnsFormat } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
 import dateFnsLocalizer, { defaultFormats } from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
