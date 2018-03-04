@@ -108,8 +108,7 @@ module.exports = (env = {}) => {
       new CopyWebpackPlugin([{ from: "./public/img", to: "img" }], {
         copyUnmodified: false
       }),
-      new BundleAnalyzerPlugin(),
-      new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en-gb/)
+      new BundleAnalyzerPlugin()
     ]
   };
 };

@@ -6,11 +6,30 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label } from "reactstrap";
 import moment from "moment";
 import momentLocalizer from "react-widgets-moment";
+import { format as dateFnsFormat } from "date-fns";
+// import locales from "date-fns/locale";
+import enGB from "date-fns/locale/en-GB";
+import dateFnsLocalizer, { defaultFormats } from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 
-moment.locale("en-gb");
-momentLocalizer();
+// dateFns.locale(en);
+// dateFnsLocalizer({ locales: { en } });
+// const formats = Object.assign(defaultFormats, { default: "mmm YY" });
+// dateFnsLocalizer({ formats, locales });
+// moment.locale("en-gb");
+// momentLocalizer();
+
+// Use custom date formats and include all date-fns locales
+// import locales from "date-fns/locale";
+
+const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
+// dateFnsLocalizer({ formats, locales });
+
+// Include only the locales you need to limit bundle size
+// import de from 'date-fns/locale/de'
+
+dateFnsLocalizer(formats, { "en-GB": enGB });
 
 const validationSchemaCommonObj = {
   // dayOne: yup.string().required(),
@@ -26,7 +45,7 @@ class DatesForm extends Component {
     const { datesList } = props;
     // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
-      datesList: this.textDatesToMomentDates(datesList)
+      datesList: this.textDatesToFnsDates(datesList)
     };
   }
 
@@ -37,19 +56,21 @@ class DatesForm extends Component {
     // );
     if (nextProps.datesList) {
       this.setState({
-        datesList: this.textDatesToMomentDates(nextProps.datesList)
+        datesList: this.textDatesToFnsDates(nextProps.datesList)
       });
     }
   }
 
-  textDatesToMomentDates = textDateList =>
+  textDatesToFnsDates = textDateList =>
     textDateList.map(textDate => {
-      const newDateM = moment(textDate);
-      return newDateM.isValid() ? newDateM : moment(new Date());
+      const newDate = new Date(textDate);
+      return newDate;
     });
 
-  momentDatesToISOText = momentDateList =>
-    momentDateList.map(momentDate => momentDate.format("YYYY-MM-DD"));
+  fnsDatesToISOText = dateList => {
+    // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
+    return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
+  };
 
   handleChange = fieldData => {
     console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
@@ -57,7 +78,7 @@ class DatesForm extends Component {
 
     const newDatesList = [
       ...datesList.slice(0, fieldData.fieldNo),
-      moment(fieldData.value),
+      new Date(fieldData.value),
       ...datesList.slice(fieldData.fieldNo + 1)
     ];
     this.setState({ datesList: newDatesList });
@@ -66,7 +87,7 @@ class DatesForm extends Component {
   handleSubmit = e => {
     const { submitDataToServer } = this.props;
     e.preventDefault();
-    const values = this.momentDatesToISOText(this.state.datesList);
+    const values = this.fnsDatesToISOText(this.state.datesList);
     console.log(
       "submitting dates to server = " + JSON.stringify(values, null, 2)
     );
@@ -100,28 +121,31 @@ class DatesForm extends Component {
             <Label for="dateOne">Day 1</Label>
             <DateTimePicker
               name="dateOne"
+              format="DD/MM/YYYY"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 0 })}
-              defaultValue={this.state.datesList[0].toDate()}
-              value={this.state.datesList[0].toDate()}
+              defaultValue={this.state.datesList[0]}
+              value={this.state.datesList[0]}
             />
           </FormGroup>
           <FormGroup>
             <Label for="dateTwo">Day 2</Label>
             <DateTimePicker
               name="dateTwo"
+              format="DD/MM/YYYY"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 1 })}
-              value={this.state.datesList[1].toDate()}
+              value={this.state.datesList[1]}
             />
           </FormGroup>
           <FormGroup>
             <Label for="dateThree">Day 3</Label>
             <DateTimePicker
               name="dateThree"
+              format="DD/MM/YYYY"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 2 })}
-              value={this.state.datesList[2].toDate()}
+              value={this.state.datesList[2]}
             />
           </FormGroup>
           <Button type="submit">Submit</Button>

@@ -42,9 +42,9 @@ function* readDatesSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    yield console.log(
-      "readDatesSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    );
+    // yield console.log(
+    //   "readDatesSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    // );
     yield put(datesDuxActions.setFetchDatesSucceeded(item.value));
   }
 }
