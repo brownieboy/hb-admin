@@ -30,6 +30,18 @@ class DatesForm extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    // console.log(
+    //   "date-form.js componentWillReceiveProps, nextProps=" +
+    //     JSON.stringify(nextProps, null, 4)
+    // );
+    if (nextProps.datesList) {
+      this.setState({
+        datesList: this.textDatesToMomentDates(nextProps.datesList)
+      });
+    }
+  }
+
   textDatesToMomentDates = textDateList =>
     textDateList.map(textDate => {
       const newDateM = moment(textDate);
@@ -55,7 +67,9 @@ class DatesForm extends Component {
     const { submitDataToServer } = this.props;
     e.preventDefault();
     const values = this.momentDatesToISOText(this.state.datesList);
-    console.log("submitting dates to server = " + JSON.stringify(values, null, 2));
+    console.log(
+      "submitting dates to server = " + JSON.stringify(values, null, 2)
+    );
     submitDataToServer(values);
     // actions.setSubmitting(false);
   };
@@ -88,7 +102,8 @@ class DatesForm extends Component {
               name="dateOne"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 0 })}
-              defaultValue={new Date()}
+              defaultValue={this.state.datesList[0].toDate()}
+              value={this.state.datesList[0].toDate()}
             />
           </FormGroup>
           <FormGroup>
@@ -97,7 +112,7 @@ class DatesForm extends Component {
               name="dateTwo"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 1 })}
-              defaultValue={new Date()}
+              value={this.state.datesList[1].toDate()}
             />
           </FormGroup>
           <FormGroup>
@@ -106,7 +121,7 @@ class DatesForm extends Component {
               name="dateThree"
               time={false}
               onChange={value => this.handleChange({ value, fieldNo: 2 })}
-              defaultValue={new Date()}
+              value={this.state.datesList[2].toDate()}
             />
           </FormGroup>
           <Button type="submit">Submit</Button>

@@ -1,4 +1,4 @@
-import { put, select, takeEvery } from "redux-saga/effects";
+import { put, takeEvery } from "redux-saga/effects";
 import {
   actionTypes as datesActionTypes,
   saveDatesRequest,
