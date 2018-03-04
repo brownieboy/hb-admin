@@ -7,7 +7,10 @@ import { Button, FormGroup, Label, Input } from "reactstrap";
 // import Moment from "moment";
 // import momentLocalizer from "react-widgets-moment";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import { format as dateFnsFormat } from "date-fns";
+import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
+import { dateFormatString } from "../constants/formats.js";
 
 // Moment.locale("en");
 // momentLocalizer();
@@ -25,7 +28,14 @@ const renderOptionsField = dataArray =>
     </option>
   ));
 
+const renderSelectDates = datesList =>
+  datesList.map(dateMember => ({
+    valueField: dateMember,
+    textField: dateFnsFormat(dateMember, dateFormatString)
+  }));
+
 const AppearanceForm = ({
+  datesList,
   getAppearanceInfoForId,
   isEditExisting,
   match,
@@ -115,6 +125,15 @@ const AppearanceForm = ({
                   {renderOptionsField(stagesPicker)}
                 </Input>
                 {errors.stageId && <div>{errors.stageId}</div>}
+              </FormGroup>
+              <FormGroup>
+                <Label for="dateTimeStart">Day</Label>
+                <SelectList
+                  data={renderSelectDates(datesList)}
+                  textField="textField"
+                  valueField="valueField"
+                />
+                {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
               </FormGroup>
               <FormGroup>
                 <Label for="dateTimeStart">Start time</Label>
