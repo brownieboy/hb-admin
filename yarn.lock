@@ -5059,6 +5059,10 @@ react-transition-group@2.2.1, react-transition-group@^2.2.0:
     prop-types "^15.5.8"
     warning "^3.0.0"
 
+react-widgets-date-fns@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/react-widgets-date-fns/-/react-widgets-date-fns-4.0.8.tgz#91062ea45f4a51527e9c4cb9f2169a4df688d7c9"
+
 react-widgets-globalize@^5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/react-widgets-globalize/-/react-widgets-globalize-5.0.0.tgz#589a0d5742b89e513ba1a22b4474ff2cf692c05f"

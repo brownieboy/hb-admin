@@ -52,6 +52,7 @@
     "react-router-dom": "4.2.2",
     "react-transition-group": "2.2.1",
     "react-widgets": "^4.2.0",
+    "react-widgets-date-fns": "^4.0.8",
     "react-widgets-globalize": "^5.0.0",
     "react-widgets-moment": "^4.0.7",
     "reactstrap": "5.0.0-beta",
