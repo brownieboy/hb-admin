@@ -138,6 +138,7 @@ const AppearanceForm = ({
                 <Label for="timeStart">Start time</Label>
                 <DateTimePicker
                   name="timeStart"
+                  culture="en-GB"
                   format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
@@ -147,6 +148,7 @@ const AppearanceForm = ({
                 <Label for="timeEnd">End Time</Label>
                 <DateTimePicker
                   name="timeEnd"
+                  culture="en-GB"
                   format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
