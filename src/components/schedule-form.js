@@ -4,16 +4,15 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-// import Moment from "moment";
-// import momentLocalizer from "react-widgets-moment";
+import dateFnsLocalizer from "react-widgets-date-fns";
+import enGB from "date-fns/locale/en-GB";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import { format as dateFnsFormat } from "date-fns";
 import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
-import { dateFormatString } from "../constants/formats.js";
+import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
-// Moment.locale("en");
-// momentLocalizer();
+dateFnsLocalizer({ "en-GB": enGB });
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
@@ -59,7 +58,7 @@ const AppearanceForm = ({
     //   .required()
   }
   return (
-    <div style={{ maxWidth: 320 }}>
+    <div style={{ maxWidth: 320, marginBottom: 50 }}>
       <h1>Add Appearance</h1>
       Loading status: {saveStatus}
       {saveStatus === "saving" && (
@@ -139,6 +138,7 @@ const AppearanceForm = ({
                 <Label for="timeStart">Start time</Label>
                 <DateTimePicker
                   name="timeStart"
+                  format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
                 />
@@ -147,6 +147,7 @@ const AppearanceForm = ({
                 <Label for="timeEnd">End Time</Label>
                 <DateTimePicker
                   name="timeEnd"
+                  format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
                 />

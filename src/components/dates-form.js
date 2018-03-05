@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Button, FormGroup, Label } from "reactstrap";
 import { format as dateFnsFormat } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
-import dateFnsLocalizer, { defaultFormats } from "react-widgets-date-fns";
+import dateFnsLocalizer from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString } from "../constants/formats.js";
