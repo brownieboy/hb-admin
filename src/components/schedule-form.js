@@ -4,15 +4,15 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import dateFnsLocalizer from "react-widgets-date-fns";
-import enGB from "date-fns/locale/en-GB";
+// import dateFnsLocalizer from "react-widgets-date-fns";
+// import enGB from "date-fns/locale/en-GB";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import { format as dateFnsFormat } from "date-fns";
 import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
-dateFnsLocalizer({ "en-GB": enGB });
+// dateFnsLocalizer({ "en-GB": enGB });
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),

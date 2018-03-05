@@ -12,7 +12,7 @@ import { dateFormatString } from "../constants/formats.js";
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
 // dateFnsLocalizer({ "en-GB": enGB });
-dateFnsLocalizer({ locales: { "en-GB": enGB } });
+dateFnsLocalizer({ locales: { 'en-GB': enGB } })
 
 class DatesForm extends Component {
   constructor(props) {
