@@ -163,6 +163,30 @@ const AppearanceForm = ({
   );
 };
 
+
+/*
+See Formik doc plus https://github.com/jaredpalmer/formik/issues/86
+export const MyReactNativeForm = props => (
+  <View>
+    <TextInput
+      onChangeText={text => props.setFieldValue('email', text)}
+      value={props.values.email}
+    />
+    <Button onPress={props.handleSubmit} />
+  </View>
+);
+ */
+export const MyReactNativeForm = props => (
+  <View>
+    <TextInput
+      onChangeText={text => props.setFieldValue('email', text)}
+      value={props.values.email}
+    />
+    <Button onPress={props.handleSubmit} />
+  </View>
+);
+ */
+
 AppearanceForm.propTypes = {
   errors: PropTypes.object,
   getAppearanceInfoForId: PropTypes.func,
