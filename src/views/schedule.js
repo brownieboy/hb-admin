@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 
+const getAppearanceKey = (bandId, stageId, dateTimeStart) =>
+  `${bandId}~${stageId}~${dateTimeStart}`;
+
 const listSchedule = (
   appearancesArray,
   getBandInfoForId,
@@ -16,14 +19,19 @@ const listSchedule = (
     stageInfo = getStageInfoForId(stageId);
     // console.log("bandInfo=" + JSON.stringify(bandInfo, null, 4));
     // console.log("stageInfo=" + JSON.stringify(stageInfo, null, 4));
-
+    const key = getAppearanceKey(bandId, stageId, dateTimeStart);
     return (
-      <ListGroupItem key={`${bandId}${dateTimeStart}`}>
+      <ListGroupItem key={key}>
         {`${bandInfo.name} (${stageInfo.name})`}
+        <Link to={`/scheduleform/${key}`}>
+          <i className="icon-pencil" />
+        </Link>
       </ListGroupItem>
     );
   });
 };
+
+// ListItem key={`${bandId}${dateTimeStart}`}
 
 const Schedule = ({
   appearancesListByDateTime,
