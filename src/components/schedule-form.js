@@ -82,7 +82,8 @@ const AppearanceForm = ({
             errors,
             handleChange,
             handleBlur,
-            handleSubmit
+            handleSubmit,
+            setFieldValue
           } = props;
 
           /*
@@ -94,7 +95,9 @@ const AppearanceForm = ({
       "bandId": "acdc",
       "name": "AC/DC"
  */
-
+          console.log(
+            "Appearances form, values=" + JSON.stringify(values, null, 2)
+          );
           return (
             <form onSubmit={handleSubmit}>
               <FormGroup>
@@ -134,26 +137,49 @@ const AppearanceForm = ({
                 />
                 {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
               </FormGroup>
+
               <FormGroup>
-                <Label for="timeStart">Start time</Label>
+                <Label for="timeStart">Start Time</Label>
                 <DateTimePicker
                   name="timeStart"
-                  culture="en-GB"
-                  format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
+                  onChange={value => {
+                    // console.log("onChange value = " + value);
+                    // console.log(
+                    //   "onChange string = " + dateFnsFormat(value, timeFormatString)
+                    // );
+                    setFieldValue("timeStart", value);
+                    setFieldValue(
+                      "timeStartString",
+                      dateFnsFormat(value, timeFormatString)
+                    );
+                  }}
+                  value={values.timeStart}
                 />
               </FormGroup>
+
               <FormGroup>
                 <Label for="timeEnd">End Time</Label>
                 <DateTimePicker
                   name="timeEnd"
-                  culture="en-GB"
-                  format={timeFormatString}
                   defaultValue={new Date()}
                   date={false}
+                  onChange={value => {
+                    // console.log("onChange value = " + value);
+                    // console.log(
+                    //   "onChange string = " + dateFnsFormat(value, timeFormatString)
+                    // );
+                    setFieldValue("timeEnd", value);
+                    setFieldValue(
+                      "timeEndString",
+                      dateFnsFormat(value, timeFormatString)
+                    );
+                  }}
+                  value={values.timeEnd}
                 />
               </FormGroup>
+
               <Button type="submit">Submit</Button>
             </form>
           );
@@ -163,8 +189,28 @@ const AppearanceForm = ({
   );
 };
 
-
 /*
+
+              <FormGroup>
+                <Label for="timeStart">Start time</Label>
+                <DateTimePicker
+                  name="timeStart"
+                  culture="en-GB"
+                  defaultValue={new Date()}
+                  date={false}
+                  step={5}
+                  onChange={value => {
+                    console.log("onChange value = " + value);
+                    setFieldValue("timeStart", value);
+                  }}
+                  onBlur={value => setFieldValue("timeStart", value)}
+                />
+              </FormGroup>
+
+
+                  onChange={value => setFieldValue("timeEnd", value)}
+                  onBlur={value => setFieldValue("timeEnd", value)}
+
 See Formik doc plus https://github.com/jaredpalmer/formik/issues/86
 export const MyReactNativeForm = props => (
   <View>
@@ -176,6 +222,7 @@ export const MyReactNativeForm = props => (
   </View>
 );
  */
+/*
 export const MyReactNativeForm = props => (
   <View>
     <TextInput
@@ -199,6 +246,7 @@ AppearanceForm.propTypes = {
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
+  setFieldValue: PropTypes.func,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };
