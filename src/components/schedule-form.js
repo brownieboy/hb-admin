@@ -191,6 +191,24 @@ const AppearanceForm = ({
 
 /*
 
+From the react-widgets sample code in its www folder.  Can probably use dateFnsFormat instead though.
+
+function merge(date, time){
+  if( time == null && date == null)
+    return null
+
+  if( time == null) time = new Date
+  if( date == null) date = new Date
+
+  date = dates.startOf(date, 'day')
+  date = dates.hours(date,        dates.hours(time))
+  date = dates.minutes(date,      dates.minutes(time))
+  date = dates.seconds(date,      dates.seconds(time))
+  return dates.milliseconds(date, dates.milliseconds(time))
+}
+
+
+
               <FormGroup>
                 <Label for="timeStart">Start time</Label>
                 <DateTimePicker
