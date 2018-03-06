@@ -4,20 +4,22 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-// import dateFnsLocalizer from "react-widgets-date-fns";
-// import enGB from "date-fns/locale/en-GB";
+import dateFnsLocalizer from "react-widgets-date-fns";
+import enGB from "date-fns/locale/en-GB";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import { format as dateFnsFormat } from "date-fns";
 import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
-// dateFnsLocalizer({ "en-GB": enGB });
+dateFnsLocalizer({ "en-GB": enGB });
 
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
   stageId: yup.string().required(),
-  dateTimeStart: yup.string().required()
+  dateTimeStart: yup.string().required(),
+  timeStart: yup.date().required(),
+  timeEnd: yup.date().required()
 };
 
 const renderOptionsField = dataArray =>
@@ -144,6 +146,9 @@ const AppearanceForm = ({
                   name="timeStart"
                   defaultValue={new Date()}
                   date={false}
+                  culture="en-GB"
+                  format={timeFormatString}
+                  step={15}
                   onChange={value => {
                     // console.log("onChange value = " + value);
                     // console.log(
@@ -157,6 +162,7 @@ const AppearanceForm = ({
                   }}
                   value={values.timeStart}
                 />
+                {errors.timeStart && <div>{errors.timeStart}</div>}
               </FormGroup>
 
               <FormGroup>
@@ -165,6 +171,9 @@ const AppearanceForm = ({
                   name="timeEnd"
                   defaultValue={new Date()}
                   date={false}
+                  culture="en-GB"
+                  step={15}
+                  format={timeFormatString}
                   onChange={value => {
                     // console.log("onChange value = " + value);
                     // console.log(
@@ -178,6 +187,7 @@ const AppearanceForm = ({
                   }}
                   value={values.timeEnd}
                 />
+                {errors.timeEnd && <div>{errors.timeEnd}</div>}
               </FormGroup>
 
               <Button type="submit">Submit</Button>
