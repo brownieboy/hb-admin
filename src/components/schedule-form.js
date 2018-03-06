@@ -17,7 +17,7 @@ dateFnsLocalizer({ "en-GB": enGB });
 const validationSchemaCommonObj = {
   bandId: yup.string().required(),
   stageId: yup.string().required(),
-  dateTimeStart: yup.string().required(),
+  dateDay: yup.string().required(),
   timeStart: yup.date().required(),
   timeEnd: yup.date().required()
 };
@@ -74,13 +74,19 @@ const AppearanceForm = ({
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          console.log(JSON.stringify(values, null, 2));
-          const processedValues = Object.assign({}, values);
-          delete processedValues.timeStartString;
-          delete processedValues.timeEndString;
-          // processedValues.time
+          // console.log("onSubmit values=" + JSON.stringify(values, null, 2));
+          const processedValues = {
+            stageId: values.stageId,
+            bandId: values.bandId,
+            dateTimeStart: `${values.dateDay}T${values.timeStartString}`,
+            dateTimeEnd: `${values.dateDay}T${values.timeEndString}`
+          };
+          // console.log(
+          //   "onSubmit processedValues=" +
+          //     JSON.stringify(processedValues, null, 2)
+          // );
 
-          // submitDataToServer(values);
+          submitDataToServer(processedValues);
           actions.setSubmitting(false);
         }}
         render={props => {
@@ -93,18 +99,9 @@ const AppearanceForm = ({
             setFieldValue
           } = props;
 
-          /*
-      "dateTimeEnd": "2018-07-21T21:30",
-      "dateTimeStart": "2018-07-21T20:30",
-      "stageId": "main",
-      "stageName": "Main Stage",
-      "stageSortOrder": 10,
-      "bandId": "acdc",
-      "name": "AC/DC"
- */
-          console.log(
-            "Appearances form, values=" + JSON.stringify(values, null, 2)
-          );
+          // console.log(
+          //   "Appearances form, values=" + JSON.stringify(values, null, 2)
+          // );
           return (
             <form onSubmit={handleSubmit}>
               <FormGroup>
@@ -139,12 +136,12 @@ const AppearanceForm = ({
                 <Label for="dateTimeStart">Day</Label>
                 <SelectList
                   name="dateDay"
-                  onChange={ value => setFieldValue("dateDay", value.valueField) }
+                  onChange={value => setFieldValue("dateDay", value.valueField)}
                   data={renderSelectDates(datesList)}
                   textField="textField"
                   valueField="valueField"
                 />
-                {errors.dateTimeStart && <div>{errors.dateTimeStart}</div>}
+                {errors.dateDay && <div>{errors.dateDay}</div>}
               </FormGroup>
 
               <FormGroup>

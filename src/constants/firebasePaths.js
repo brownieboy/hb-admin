@@ -4,7 +4,7 @@ export const types = {
     BANDS_PATH: "bandstest",
     DATES_PATH: "datesTest",
     HOME_PAGE_PATH: "homePage",
-    APPEARANCES_PATH: "appearances",
+    APPEARANCES_PATH: "appearancesTest",
     PUBLISHED_DATA_PATH: "publishedData"
   }
 };
