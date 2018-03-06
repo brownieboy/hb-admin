@@ -75,7 +75,12 @@ const AppearanceForm = ({
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
           console.log(JSON.stringify(values, null, 2));
-          submitDataToServer(values);
+          const processedValues = Object.assign({}, values);
+          delete processedValues.timeStartString;
+          delete processedValues.timeEndString;
+          // processedValues.time
+
+          // submitDataToServer(values);
           actions.setSubmitting(false);
         }}
         render={props => {
@@ -133,6 +138,8 @@ const AppearanceForm = ({
               <FormGroup>
                 <Label for="dateTimeStart">Day</Label>
                 <SelectList
+                  name="dateDay"
+                  onChange={ value => setFieldValue("dateDay", value.valueField) }
                   data={renderSelectDates(datesList)}
                   textField="textField"
                   valueField="valueField"
