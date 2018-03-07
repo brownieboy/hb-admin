@@ -81,6 +81,7 @@ function* readBandsSaga() {
 
 function* readAppearancesSaga() {
   // console.log("running updatedItemSaga...");
+  yield put(appearancesDuxActions.setFetchAppearancesRequest());
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.APPEARANCES_PATH)
   );

@@ -12,6 +12,10 @@ import shortId from "shortid";
 import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString, timeFormatString } from "../constants/formats.js";
+import {
+  LoadStatusIndicator,
+  SaveStatusIndicator
+} from "./loadsaveindicator.js";
 
 dateFnsLocalizer({ "en-GB": enGB });
 
@@ -44,6 +48,8 @@ const AppearanceForm = ({
   submitDataToServer,
   bandsPicker,
   stagesPicker,
+  fetchStatus,
+  fetchError,
   saveStatus,
   saveError
 }) => {
@@ -77,7 +83,9 @@ const AppearanceForm = ({
       // console.log("timeEnd=" + timeEnd);
       // console.log("timeStart isNaN getTime = " + isNaN(timeStart.getTime()));
       // console.log("timeEnd isNaN getTime =" + isNaN(timeEnd.getTime()));
-      fieldValues.timeStart = isNaN(timeStart.getTime()) ? new Date() : timeStart;
+      fieldValues.timeStart = isNaN(timeStart.getTime())
+        ? new Date()
+        : timeStart;
       fieldValues.timeEnd = isNaN(timeEnd.getTime()) ? new Date() : timeEnd;
       // console.log("Final fieldValues=" + JSON.stringify(fieldValues, null, 2));
     }
@@ -89,13 +97,8 @@ const AppearanceForm = ({
   return (
     <div style={{ maxWidth: 320, marginBottom: 50 }}>
       <h1>Add Appearance</h1>
-      Loading status: {saveStatus}
-      {saveStatus === "saving" && (
-        <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
-      )}
-      <br />
-      {saveStatus === "failure" &&
-        `Error: ${JSON.stringify(saveError, null, 4)}`}
+      <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
+      <SaveStatusIndicator saveStatus={saveStatus} saveError={saveError} />
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, fieldValues)}
@@ -192,7 +195,7 @@ const AppearanceForm = ({
                   date={false}
                   culture="en-GB"
                   format={timeFormatString}
-                  step={15}
+                  step={30}
                   onChange={value => {
                     // console.log("onChange value = " + value);
                     // console.log(
@@ -216,7 +219,7 @@ const AppearanceForm = ({
                   defaultValue={isEditExisting ? values.timeStart : new Date()}
                   date={false}
                   culture="en-GB"
-                  step={15}
+                  step={30}
                   format={timeFormatString}
                   onChange={value => {
                     // console.log("onChange value = " + value);

@@ -20,6 +20,8 @@ import { selectors as stagesSelectors } from "../dux/stagesReducer.js";
 
 const getCommonStateObject = state => ({
   saveStatus: state.appearancesState.saveStatus,
+  fetchStatus: state.appearancesState.fetchStatus,
+  fetchError: state.appearancesState.fetchError,
   saveError: state.appearancesState.saveError,
   bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState),
   stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState),
