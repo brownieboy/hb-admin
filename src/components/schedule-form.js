@@ -57,9 +57,13 @@ const AppearanceForm = ({
         JSON.stringify(matchingInfo, null, 2)
     );
 
-    // if (matchingInfo) {
-    //   fieldValues = Object.assign({}, matchingInfo);
-    // }
+    if (matchingInfo) {
+      fieldValues = {
+        bandId: matchingInfo.bandId,
+        stageId: matchingInfo.stageId,
+        dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD")
+      };
+    }
   } else {
     // validationSchemaObj.id = yup
     //   .string()
@@ -131,7 +135,7 @@ const AppearanceForm = ({
                   name="stageId"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.name}
+                  value={values.stageId}
                 >
                   <option />
                   {renderOptionsField(stagesPicker)}
@@ -146,6 +150,7 @@ const AppearanceForm = ({
                   data={renderSelectDates(datesList)}
                   textField="textField"
                   valueField="valueField"
+                  value={values.dateDay}
                 />
                 {errors.dateDay && <div>{errors.dateDay}</div>}
               </FormGroup>
