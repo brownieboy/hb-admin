@@ -60,6 +60,7 @@ const AppearanceForm = ({
 
     if (matchingInfo) {
       console.log("matchingInfo.dateTimeStart=" + matchingInfo.dateTimeStart);
+      console.log("matchingInfo.dateTimeEnd=" + matchingInfo.dateTimeEnd);
 
       // incoming
       fieldValues = {
@@ -70,12 +71,14 @@ const AppearanceForm = ({
       };
       const timeStart = new Date(matchingInfo.dateTimeStart);
       const timeEnd = new Date(matchingInfo.dateTimeEnd);
+      fieldValues.timeStartString = dateFnsFormat(timeStart, "HH:mm");
+      fieldValues.timeEndString = dateFnsFormat(timeEnd, "HH:mm");
       console.log("timeStart=" + timeStart);
       console.log("timeEnd=" + timeEnd);
-      // console.log("timeStart getTime = " + (isNaN(timeStart.getTime()));
-      // console.log("timeEnd getTime =" + isNaN(timeEnd getTime());
-      fieldValues.timeStart = isNaN(timeStart.getTime) ? new Date() : timeStart;
-      fieldValues.timeEnd = isNaN(timeEnd.getTime) ? new Date() : timeEnd;
+      console.log("timeStart isNaN getTime = " + isNaN(timeStart.getTime()));
+      console.log("timeEnd isNaN getTime =" + isNaN(timeEnd.getTime()));
+      fieldValues.timeStart = isNaN(timeStart.getTime()) ? new Date() : timeStart;
+      fieldValues.timeEnd = isNaN(timeEnd.getTime()) ? new Date() : timeEnd;
       console.log("Final fieldValues=" + JSON.stringify(fieldValues, null, 2));
     }
   } else {
@@ -185,7 +188,7 @@ const AppearanceForm = ({
                 <Label for="timeStart">Start Time</Label>
                 <DateTimePicker
                   name="timeStart"
-                  defaultValue={new Date()}
+                  defaultValue={isEditExisting ? values.timeStart : new Date()}
                   date={false}
                   culture="en-GB"
                   format={timeFormatString}
@@ -210,7 +213,7 @@ const AppearanceForm = ({
                 <Label for="timeEnd">End Time</Label>
                 <DateTimePicker
                   name="timeEnd"
-                  defaultValue={new Date()}
+                  defaultValue={isEditExisting ? values.timeStart : new Date()}
                   date={false}
                   culture="en-GB"
                   step={15}
