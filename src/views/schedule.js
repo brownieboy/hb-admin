@@ -15,13 +15,13 @@ const listSchedule = (
   let bandInfo, stageInfo;
   console.log("appearancesArray start = " + appearancesArray);
   return appearancesArray.map(appearanceMember => {
-    const { dateTimeStart, bandId, stageId } = appearanceMember;
+    const { bandId, stageId } = appearanceMember;
     bandInfo = getBandInfoForId(bandId);
     stageInfo = getStageInfoForId(stageId);
     // console.log("bandInfo=" + JSON.stringify(bandInfo, null, 4));
     // console.log("stageInfo=" + JSON.stringify(stageInfo, null, 4));
     return (
-      <ListGroupItem key={appearanceMember.id35}>
+      <ListGroupItem key={appearanceMember.id}>
         {`${bandInfo.name} (${stageInfo.name})`}
         <Link to={`/scheduleform/${appearanceMember.id}`}>
           <i className="icon-pencil" />

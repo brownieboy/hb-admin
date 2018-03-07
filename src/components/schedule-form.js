@@ -59,14 +59,24 @@ const AppearanceForm = ({
     );
 
     if (matchingInfo) {
+      console.log("matchingInfo.dateTimeStart=" + matchingInfo.dateTimeStart);
+
       // incoming
       fieldValues = {
         bandId: matchingInfo.bandId,
         stageId: matchingInfo.stageId,
         dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
-        timeStart: new Date(matchingInfo.dateTimeStart),
-        timeEnd: new Date(matchingInfo.dateTimeEnd)
+        id: matchingInfo.id
       };
+      const timeStart = new Date(matchingInfo.dateTimeStart);
+      const timeEnd = new Date(matchingInfo.dateTimeEnd);
+      console.log("timeStart=" + timeStart);
+      console.log("timeEnd=" + timeEnd);
+      // console.log("timeStart getTime = " + (isNaN(timeStart.getTime()));
+      // console.log("timeEnd getTime =" + isNaN(timeEnd getTime());
+      fieldValues.timeStart = isNaN(timeStart.getTime) ? new Date() : timeStart;
+      fieldValues.timeEnd = isNaN(timeEnd.getTime) ? new Date() : timeEnd;
+      console.log("Final fieldValues=" + JSON.stringify(fieldValues, null, 2));
     }
   } else {
     // validationSchemaObj.id = yup
@@ -88,7 +98,7 @@ const AppearanceForm = ({
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          // console.log("onSubmit values=" + JSON.stringify(values, null, 2));
+          console.log("onSubmit values=" + JSON.stringify(values, null, 2));
           // Outgoing
           const processedValues = {
             stageId: values.stageId,
@@ -99,15 +109,17 @@ const AppearanceForm = ({
 
           // Add ID only if it's a new appearance.  Assume that we won't be
           // able to change the bandId when editing later.
-          if (!isEditExisting) {
+          if (isEditExisting) {
+            processedValues.id = values.id;
+          } else {
             processedValues.id = `${
               processedValues.bandId
             }~${shortId.generate()}`;
           }
-          // console.log(
-          //   "onSubmit processedValues=" +
-          //     JSON.stringify(processedValues, null, 2)
-          // );
+          console.log(
+            "onSubmit processedValues=" +
+              JSON.stringify(processedValues, null, 2)
+          );
 
           submitDataToServer(processedValues);
           actions.setSubmitting(false);
@@ -132,6 +144,7 @@ const AppearanceForm = ({
                 <Input
                   type="select"
                   name="bandId"
+                  disabled={isEditExisting}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.bandId}
