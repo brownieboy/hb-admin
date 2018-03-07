@@ -59,8 +59,8 @@ const AppearanceForm = ({
     );
 
     if (matchingInfo) {
-      console.log("matchingInfo.dateTimeStart=" + matchingInfo.dateTimeStart);
-      console.log("matchingInfo.dateTimeEnd=" + matchingInfo.dateTimeEnd);
+      // console.log("matchingInfo.dateTimeStart=" + matchingInfo.dateTimeStart);
+      // console.log("matchingInfo.dateTimeEnd=" + matchingInfo.dateTimeEnd);
 
       // incoming
       fieldValues = {
@@ -73,13 +73,13 @@ const AppearanceForm = ({
       const timeEnd = new Date(matchingInfo.dateTimeEnd);
       fieldValues.timeStartString = dateFnsFormat(timeStart, "HH:mm");
       fieldValues.timeEndString = dateFnsFormat(timeEnd, "HH:mm");
-      console.log("timeStart=" + timeStart);
-      console.log("timeEnd=" + timeEnd);
-      console.log("timeStart isNaN getTime = " + isNaN(timeStart.getTime()));
-      console.log("timeEnd isNaN getTime =" + isNaN(timeEnd.getTime()));
+      // console.log("timeStart=" + timeStart);
+      // console.log("timeEnd=" + timeEnd);
+      // console.log("timeStart isNaN getTime = " + isNaN(timeStart.getTime()));
+      // console.log("timeEnd isNaN getTime =" + isNaN(timeEnd.getTime()));
       fieldValues.timeStart = isNaN(timeStart.getTime()) ? new Date() : timeStart;
       fieldValues.timeEnd = isNaN(timeEnd.getTime()) ? new Date() : timeEnd;
-      console.log("Final fieldValues=" + JSON.stringify(fieldValues, null, 2));
+      // console.log("Final fieldValues=" + JSON.stringify(fieldValues, null, 2));
     }
   } else {
     // validationSchemaObj.id = yup
