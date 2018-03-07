@@ -8,6 +8,7 @@ import dateFnsLocalizer from "react-widgets-date-fns";
 import enGB from "date-fns/locale/en-GB";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import { format as dateFnsFormat } from "date-fns";
+import shortId from "shortid";
 import SelectList from "react-widgets/lib/SelectList";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString, timeFormatString } from "../constants/formats.js";
@@ -58,10 +59,13 @@ const AppearanceForm = ({
     );
 
     if (matchingInfo) {
+      // incoming
       fieldValues = {
         bandId: matchingInfo.bandId,
         stageId: matchingInfo.stageId,
-        dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD")
+        dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
+        timeStart: new Date(matchingInfo.dateTimeStart),
+        timeEnd: new Date(matchingInfo.dateTimeEnd)
       };
     }
   } else {
@@ -85,12 +89,21 @@ const AppearanceForm = ({
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
           // console.log("onSubmit values=" + JSON.stringify(values, null, 2));
+          // Outgoing
           const processedValues = {
             stageId: values.stageId,
             bandId: values.bandId,
             dateTimeStart: `${values.dateDay}T${values.timeStartString}`,
             dateTimeEnd: `${values.dateDay}T${values.timeEndString}`
           };
+
+          // Add ID only if it's a new appearance.  Assume that we won't be
+          // able to change the bandId when editing later.
+          if (!isEditExisting) {
+            processedValues.id = `${
+              processedValues.bandId
+            }~${shortId.generate()}`;
+          }
           // console.log(
           //   "onSubmit processedValues=" +
           //     JSON.stringify(processedValues, null, 2)

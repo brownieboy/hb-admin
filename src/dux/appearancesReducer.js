@@ -198,7 +198,7 @@ const setFetchAppearancesRequest = () => ({
 });
 const setFetchAppearancesSucceeded = appearancesList => ({
   type: FETCH_APPEARANCES_SUCCESS,
-  payload: appearancesList
+  payload: appearancesList || []
 });
 const setFetchAppearancesFailed = errorMessage => ({
   type: FETCH_APPEARANCES_FAILURE,

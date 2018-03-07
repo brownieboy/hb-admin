@@ -59,6 +59,7 @@
     "redux-saga": "^0.16.0",
     "redux-saga-firebase": "^0.12.0",
     "reselect": "^3.0.1",
+    "shortid": "^2.2.8",
     "simple-line-icons": "2.4.1",
     "yup": "^0.24.1"
   },

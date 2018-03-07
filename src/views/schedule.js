@@ -13,7 +13,7 @@ const listSchedule = (
   getStageInfoForId
 ) => {
   let bandInfo, stageInfo;
-  console.log("appearancesArray start");
+  console.log("appearancesArray start = " + appearancesArray);
   return appearancesArray.map(appearanceMember => {
     const { dateTimeStart, bandId, stageId } = appearanceMember;
     bandInfo = getBandInfoForId(bandId);
