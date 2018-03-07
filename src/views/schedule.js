@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
-import { getAppearanceKey } from "../helper-functions/computedkeys.js";
+// import { getAppearanceKey } from "../helper-functions/computedkeys.js";
 
 // const getAppearanceKey = (bandId, stageId, dateTimeStart) =>
 //   `${bandId}~${stageId}~${dateTimeStart}`;
@@ -20,11 +20,10 @@ const listSchedule = (
     stageInfo = getStageInfoForId(stageId);
     // console.log("bandInfo=" + JSON.stringify(bandInfo, null, 4));
     // console.log("stageInfo=" + JSON.stringify(stageInfo, null, 4));
-    const key = getAppearanceKey(bandId, stageId, dateTimeStart);
     return (
-      <ListGroupItem key={key}>
+      <ListGroupItem key={appearanceMember.id35}>
         {`${bandInfo.name} (${stageInfo.name})`}
-        <Link to={`/scheduleform/${key}`}>
+        <Link to={`/scheduleform/${appearanceMember.id}`}>
           <i className="icon-pencil" />
         </Link>
       </ListGroupItem>
