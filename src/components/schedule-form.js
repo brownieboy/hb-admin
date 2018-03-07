@@ -50,7 +50,13 @@ const AppearanceForm = ({
   const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
   // console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
   if (isEditExisting) {
-    // const matchingInfo = getAppearanceInfoForId(match.params.id);
+    console.log("schedule form edit mode, id=" + match.params.id);
+    const matchingInfo = getAppearanceInfoForId(match.params.id);
+    console.log(
+      "schedule form edit mode, matchingInfo=" +
+        JSON.stringify(matchingInfo, null, 2)
+    );
+
     // if (matchingInfo) {
     //   fieldValues = Object.assign({}, matchingInfo);
     // }

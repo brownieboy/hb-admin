@@ -2,9 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+import { getAppearanceKey } from "../helper-functions/computedkeys.js";
 
-const getAppearanceKey = (bandId, stageId, dateTimeStart) =>
-  `${bandId}~${stageId}~${dateTimeStart}`;
+// const getAppearanceKey = (bandId, stageId, dateTimeStart) =>
+//   `${bandId}~${stageId}~${dateTimeStart}`;
 
 const listSchedule = (
   appearancesArray,

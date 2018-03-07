@@ -2,6 +2,8 @@ import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
 import { format } from "date-fns";
 
+import { getAppearanceKey } from "../helper-functions/computedkeys.js";
+
 // import { d3 } from "d3-collection";
 import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
 
@@ -175,6 +177,20 @@ export const selectors = {
 
 
  */
+
+// Getters
+// Note that we're computing the appearanceId in appearances list rather than storing
+// it in Redux.  Doing the latter might be quicker for computational speed, but would
+// mean storing duplicate data
+export const getAppearanceInfoForId = (appearancesList, appearanceId) =>
+  appearancesList.find(
+    appearanceMember =>
+      getAppearanceKey(
+        appearanceMember.bandId,
+        appearanceMember.stageId,
+        appearanceMember.dateTimeStart
+      ) === appearanceId
+  );
 
 export const loadAppearances = () => ({ type: LOAD_APPEARANCES_NOW });
 const setFetchAppearancesRequest = () => ({

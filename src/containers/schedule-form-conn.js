@@ -7,8 +7,8 @@ import ScheduleForm from "../components/schedule-form.js";
 // Dux
 import {
   saveNewAppearance,
-  saveEditedAppearance
-  // getAppearanceInfoForId as getAppearanceInfoForIdAction
+  saveEditedAppearance,
+  getAppearanceInfoForId as getAppearanceInfoForIdAction
 } from "../dux/appearancesReducer.js";
 
 import { selectors as bandsSelectors } from "../dux/bandsReducer.js";
@@ -22,9 +22,8 @@ const getCommonStateObject = state => ({
   saveStatus: state.appearancesState.saveStatus,
   saveError: state.appearancesState.saveError,
   bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState),
-  stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState)
-  // getAppearanceInfoForId: appearanaceId =>
-  //   getAppearanceInfoForIdAction(state.appearancesState.appearancesList, appearanaceId)
+  stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState),
+  datesList: state.datesState.datesList
 });
 
 // So we're connecting the same form to Redux, but with different props
@@ -34,7 +33,6 @@ const mapDispatchToPropsNew = dispatch =>
   bindActionCreators({ submitDataToServer: saveNewAppearance }, dispatch);
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),
-  datesList: state.datesState.datesList,
   isEditExisting: false
 });
 
@@ -42,7 +40,12 @@ const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedAppearance }, dispatch);
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
-  isEditExisting: true
+  isEditExisting: true,
+  getAppearanceInfoForId: appearanceId =>
+    getAppearanceInfoForIdAction(
+      state.appearancesState.appearancesList,
+      appearanceId
+    )
 });
 
 export const ScheduleFormNewConn = connect(
