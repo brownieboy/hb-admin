@@ -7,9 +7,9 @@ import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 
 const listBands = bandsArray =>
   bandsArray.map(bandMember => (
-    <ListGroupItem key={bandMember.bandId}>
+    <ListGroupItem key={bandMember.id}>
       {bandMember.name}{" "}
-      <Link to={`/bandform/${bandMember.bandId}`}>
+      <Link to={`/bandform/${bandMember.id}`}>
         <i className="icon-pencil" />
       </Link>
     </ListGroupItem>

@@ -94,7 +94,7 @@ const selectAlphabetical = createSelector([selectBands], bandsList =>
 
 const selectBandsPicker = createSelector([selectAlphabetical], bandsList =>
   bandsList.map(bandMember => ({
-    id: bandMember.bandId,
+    id: bandMember.id,
     name: bandMember.name
   }))
 );
@@ -200,7 +200,7 @@ export const bandsDuxActions = {
 
 // Getters
 export const getBandInfoForId = (bandsList, bandId) =>
-  (bandsList ? bandsList.find(bandMember => bandMember.bandId === bandId) : null);
+  (bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null);
 
 // export const bandsDuxConstants = {
 //   LOAD_BANDS_NOW,
