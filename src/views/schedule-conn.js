@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch =>
 
 const mapStateToProps = state => ({
   // appearancesProp: state.appearancesState,
+  fetchStatus: state.appearancesState.fetchStatus,
+  fetchError: state.appearancesState.fetchError,
   appearancesListByDateTime: appearanceSelectors.selectAppearancesByDateTime(
     state.appearancesState
   ),

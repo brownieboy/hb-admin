@@ -26,7 +26,7 @@ export const actionTypes = {
 
 // Reducer
 const appearancesReducer = (
-  state = { fetchStatus: "", fetchError: "", appearancesList: [] },
+  state = { fetchStatus: "", fetchError: "", saveStatus: "", fetchError: "", appearancesList: [] },
   action
 ) => {
   let idx, newAppearancesList;

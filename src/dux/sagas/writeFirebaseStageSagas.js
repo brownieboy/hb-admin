@@ -14,7 +14,7 @@ function* saveData() {
   yield put(saveStageRequest());
   const stagesList = yield select(state => state.stagesState.stagesList);
 
-  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH);
+  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer

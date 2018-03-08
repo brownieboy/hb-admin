@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+
+import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
+
 // import { getAppearanceKey } from "../helper-functions/computedkeys.js";
 
 // const getAppearanceKey = (bandId, stageId, dateTimeStart) =>
@@ -35,11 +38,14 @@ const listSchedule = (
 
 const Schedule = ({
   appearancesListByDateTime,
+  fetchStatus,
+  fetchError,
   getBandInfoForId,
   getStageInfoForId
 }) => (
   <div>
     <h1>Schedule</h1>
+    <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
     <ListGroup>
       {listSchedule(
         appearancesListByDateTime,
@@ -54,6 +60,8 @@ const Schedule = ({
 Schedule.propTypes = {
   appearancesListByDateTime: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired,
+  fetchStatus: PropTypes.string.isRequired,
+  fetchError: PropTypes.string.isRequired,
   getBandInfoForId: PropTypes.func.isRequired,
   getStageInfoForId: PropTypes.func.isRequired
 };

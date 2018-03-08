@@ -8,11 +8,15 @@ import dateFnsLocalizer from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString } from "../constants/formats.js";
+import {
+  LoadStatusIndicator,
+  SaveStatusIndicator
+} from "./loadsaveindicator.js";
 
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
 // dateFnsLocalizer({ "en-GB": enGB });
-dateFnsLocalizer({ locales: { 'en-GB': enGB } })
+dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
 class DatesForm extends Component {
   constructor(props) {
@@ -76,55 +80,58 @@ class DatesForm extends Component {
       isEditExisting,
       match,
       submitDataToServer,
+      fetchStatus,
+      fetchError,
       saveStatus,
       saveError
     } = this.props;
 
     let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     return (
-      <div style={{ maxWidth: 180 }}>
-        <h1>Add Dates</h1>
-        Loading status: {saveStatus}
-        {saveStatus === "saving" && (
-          <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
-        )}
-        <br />
-        {saveStatus === "failure" &&
-          `Error: ${JSON.stringify(saveError, null, 4)}`}
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label for="dateOne">Day 1</Label>
-            <DateTimePicker
-              name="dateOne"
-              format={dateFormatString}
-              time={false}
-              onChange={value => this.handleChange({ value, fieldNo: 0 })}
-              defaultValue={this.state.datesList[0]}
-              value={this.state.datesList[0]}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="dateTwo">Day 2</Label>
-            <DateTimePicker
-              name="dateTwo"
-              format={dateFormatString}
-              time={false}
-              onChange={value => this.handleChange({ value, fieldNo: 1 })}
-              value={this.state.datesList[1]}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="dateThree">Day 3</Label>
-            <DateTimePicker
-              name="dateThree"
-              format={dateFormatString}
-              time={false}
-              onChange={value => this.handleChange({ value, fieldNo: 2 })}
-              value={this.state.datesList[2]}
-            />
-          </FormGroup>
-          <Button type="submit">Submit</Button>
-        </form>
+      <div>
+        <h1>Helstonbury Dates</h1>
+        <div style={{ maxWidth: 180 }}>
+          <LoadStatusIndicator
+            fetchStatus={fetchStatus}
+            fetchError={fetchError}
+          />
+          <SaveStatusIndicator saveStatus={saveStatus} saveError={saveError} />
+
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Label for="dateOne">Day 1</Label>
+              <DateTimePicker
+                name="dateOne"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 0 })}
+                defaultValue={this.state.datesList[0]}
+                value={this.state.datesList[0]}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="dateTwo">Day 2</Label>
+              <DateTimePicker
+                name="dateTwo"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 1 })}
+                value={this.state.datesList[1]}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="dateThree">Day 3</Label>
+              <DateTimePicker
+                name="dateThree"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 2 })}
+                value={this.state.datesList[2]}
+              />
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
       </div>
     );
   }
@@ -133,6 +140,8 @@ class DatesForm extends Component {
 DatesForm.propTypes = {
   datesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   errors: PropTypes.object,
+  fetchError: PropTypes.string.isRequired,
+  fetchStatus: PropTypes.string.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
@@ -141,7 +150,7 @@ DatesForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
-  saveError: PropTypes.object,
+  saveError: PropTypes.string,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };

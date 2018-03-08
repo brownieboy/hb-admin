@@ -1,6 +1,6 @@
 import React from "react";
 
-export const LoadStatusIndicator = (fetchStatus, fetchError) => (
+export const LoadStatusIndicator = ({ fetchStatus, fetchError }) => (
   <div>
     <div>Load status: {fetchStatus}</div>
     {fetchStatus === "loading" && (
@@ -14,7 +14,7 @@ export const LoadStatusIndicator = (fetchStatus, fetchError) => (
   </div>
 );
 
-export const SaveStatusIndicator = (saveStatus, saveError) => (
+export const SaveStatusIndicator = ({ saveStatus, saveError }) => (
   <div>
     <div>Save status: {saveStatus}</div>
     {saveStatus === "saving" && (

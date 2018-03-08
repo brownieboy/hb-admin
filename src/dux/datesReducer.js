@@ -18,7 +18,13 @@ export const actionTypes = {
 
 // Reducer
 const datesReducer = (
-  state = { fetchStatus: "", fetchError: "", datesList: ["", "", ""] },
+  state = {
+    fetchStatus: "",
+    fetchError: "",
+    saveStatus: "",
+    saveError: "",
+    datesList: ["", "", ""]
+  },
   action
 ) => {
   switch (action.type) {
@@ -55,7 +61,7 @@ export const saveEditedDates = datesList => {
   console.log("saveEditedDates action creator, " + datesList);
   return {
     type: SAVE_EDITED_DATES,
-    payload: datesList
+    payload: datesList || []
   };
 };
 

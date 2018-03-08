@@ -14,6 +14,7 @@ import {
 const getCommonStateObject = state => ({
   saveStatus: state.bandsState.saveStatus,
   saveError: state.bandsState.saveError,
+  // bandsListProp: state.bandsState.bandsList,
   getBandInfoForId: bandId =>
     getBandInfoForIdAction(state.bandsState.bandsList, bandId)
 });

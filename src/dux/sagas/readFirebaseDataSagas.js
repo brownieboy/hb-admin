@@ -36,6 +36,7 @@ export function createEventChannel(ref) {
 
 function* readDatesSaga() {
   // console.log("running updatedItemSaga...");
+  yield put(datesDuxActions.setFetchDatesRequest());
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.DATES_PATH)
   );
@@ -66,6 +67,7 @@ function* readHomeSaga() {
 
 function* readBandsSaga() {
   // console.log("running updatedItemSaga...");
+  yield put(bandsDuxActions.setFetchBandsRequest());
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH)
   );
@@ -97,6 +99,8 @@ function* readAppearancesSaga() {
 
 function* readStagesSaga() {
   // console.log("running updatedItemSaga...");
+  yield put(stagesDuxActions.setFetchStagesRequest());
+
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH)
   );

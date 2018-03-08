@@ -13,6 +13,8 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   saveStatus: state.datesState.saveStatus,
   saveError: state.datesState.saveError,
+  fetchStatus: state.datesState.fetchStatus,
+  fetchError: state.datesState.fetchError,
   datesList: state.datesState.datesList,
   isEditExisting: true
 });

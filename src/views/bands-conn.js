@@ -14,6 +14,8 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators({ loadBandsProp: loadBandsNow }, dispatch);
 
 const mapStateToProps = state => ({
+  fetchStatus: state.bandsState.fetchStatus,
+  fetchError: state.bandsState.fetchError,
   bandsListProp: state.bandsState.bandsList,
   bandsAlphabeticalProp: bandSelectors.selectAlphabetical(state.bandsState)
   // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(

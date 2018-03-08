@@ -158,7 +158,7 @@ const setFetchBandsRequest = () => ({
 });
 const setFetchBandsSucceeded = bandsList => ({
   type: FETCH_BANDS_SUCCESS,
-  payload: bandsList
+  payload: bandsList || []
 });
 const setFetchBandsFailed = errorMessage => ({
   type: FETCH_BANDS_FAILURE,
@@ -200,7 +200,7 @@ export const bandsDuxActions = {
 
 // Getters
 export const getBandInfoForId = (bandsList, bandId) =>
-  bandsList.find(bandMember => bandMember.bandId === bandId);
+  (bandsList ? bandsList.find(bandMember => bandMember.bandId === bandId) : null);
 
 // export const bandsDuxConstants = {
 //   LOAD_BANDS_NOW,

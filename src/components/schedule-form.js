@@ -311,6 +311,8 @@ export const MyReactNativeForm = props => (
 
 AppearanceForm.propTypes = {
   errors: PropTypes.object,
+  fetchError: PropTypes.string.isRequired,
+  fetchStatus: PropTypes.object.isRequired,
   getAppearanceInfoForId: PropTypes.func,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,

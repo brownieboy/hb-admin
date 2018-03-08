@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 
 const listStages = StagesArray =>
   StagesArray.map(stageMember => (
@@ -14,10 +15,12 @@ const listStages = StagesArray =>
     </ListGroupItem>
   ));
 
-const Stages = ({ stagesListProp }) => {
+const Stages = ({ stagesListProp, fetchError, fetchStatus }) => {
   return (
     <div>
       <h1>Stages</h1>
+      <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
+
       <ListGroup>{listStages(stagesListProp)}</ListGroup>
       <Link to="/stageform">Add stage</Link>
     </div>
@@ -25,6 +28,8 @@ const Stages = ({ stagesListProp }) => {
 };
 
 Stages.propTypes = {
+  fetchStatus: PropTypes.string.isRequired,
+  fetchError: PropTypes.string.isRequired,
   stagesListProp: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
 

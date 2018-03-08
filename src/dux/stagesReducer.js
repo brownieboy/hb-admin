@@ -92,7 +92,7 @@ const setFetchStagesRequest = () => ({
 });
 const setFetchStagesSucceeded = stagesList => ({
   type: FETCH_STAGES_SUCCESS,
-  payload: stagesList
+  payload: stagesList || []
 });
 const setFetchStagesFailed = errorMessage => ({
   type: FETCH_STAGES_FAILURE,
