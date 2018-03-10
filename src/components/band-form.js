@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
@@ -146,6 +146,7 @@ class BandForm extends Component {
                   onChange={this.handleThumbFileChange}
                 />
                 <button
+                  disabled={!this.state.thumbFileInfo.name}
                   onClick={() => {
                     sendStorageThumbStart({
                       fileInfo: this.state.thumbFileInfo
@@ -154,7 +155,11 @@ class BandForm extends Component {
                 >
                   Upload thumbnail
                 </button>
-                Thumb progress: {thumbProgress}
+                <Label for="thumbProgressBar">Thumbnail upload progress:</Label>
+                <div className="text-center">
+                  {parseInt(thumbProgress, 10)}%
+                </div>
+                <Progress name="thumbProgressBar" value={thumbProgress} />
               </div>
             );
           }}
