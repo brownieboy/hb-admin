@@ -32,9 +32,13 @@ const mapStateToPropsNew = state => ({
 });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedBand }, dispatch);
+  bindActionCreators({ submitDataToServer: saveEditedBand, sendStorageThumbStart }, dispatch);
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
+  thumbStatus: state.storageState.thumbStatus,
+  thumbError: state.storageState.thumbError,
+  thumbDownloadUrl: state.storageState.thumbDownloadUrl,
+  thumbProgress: state.storageState.thumbProgress,
   isEditExisting: true
 });
 

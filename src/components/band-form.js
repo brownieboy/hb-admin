@@ -33,7 +33,8 @@ class BandForm extends Component {
       submitDataToServer,
       saveStatus,
       saveError,
-      sendStorageThumbStart
+      sendStorageThumbStart,
+      thumbProgress
     } = this.props;
     let fieldValues = { name: "", id: "", summary: "" };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
@@ -153,6 +154,7 @@ class BandForm extends Component {
                 >
                   Upload thumbnail
                 </button>
+                Thumb progress: {thumbProgress}
               </div>
             );
           }}
@@ -175,6 +177,7 @@ BandForm.propTypes = {
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   sendStorageThumbStart: PropTypes.func.isRequired,
+  thumbProgress: PropTypes.number.isRequired,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };

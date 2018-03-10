@@ -29,7 +29,7 @@ export const sendStorageThumbStart = fileInfo => ({
 
 const sendStorageThumbSuccess = successInfo => ({
   type: SEND_STORAGE_THUMB_SUCCESS,
-  payload: successInfo // e.g. {DownloadUrl: ""}
+  payload: successInfo // e.g. {downloadUrl: ""}
 });
 
 const sendStorageThumbFailure = errorMessage => ({

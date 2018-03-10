@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
 import { reduxSagaFirebase } from "../../apis/firebase.js";
 
