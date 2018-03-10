@@ -6,5 +6,8 @@ export const types = {
     HOME_PAGE_PATH: "homePage",
     APPEARANCES_PATH: "appearancesTest",
     PUBLISHED_DATA_PATH: "publishedData"
+  },
+  STORAGE: {
+    THUMBS_PATH: "/img/bands/thumbstest"
   }
 };

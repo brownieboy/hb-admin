@@ -12,6 +12,13 @@ function* uploadCardImage(data) {
   yield console.log("saga uploadCardImage started, data=");
   yield console.log(data);
 
+  const file = data.payload.fileInfo;
+
+  const storageRef = firebaseApp.storage().ref();
+  const uploadTask = storageRef
+    .child(`${globalTypes.STORAGE.THUMBS_PATH}}/${file.name}`)
+    .put(file, { contentType: file.type });
+
   // const bandsList = yield select(state => state.bandsState.bandsList);
 
   // const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.BANDS_PATH);

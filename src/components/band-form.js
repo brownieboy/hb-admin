@@ -14,7 +14,7 @@ class BandForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      thumbFileName: "",
+      thumbFileInfo: {},
       cardPostFileName: ""
     };
   }
@@ -147,7 +147,7 @@ class BandForm extends Component {
                 <button
                   onClick={() => {
                     sendStorageThumbStart({
-                      postUrl: this.state.thumbFileName
+                      fileInfo: this.state.thumbFileInfo
                     });
                   }}
                 >
