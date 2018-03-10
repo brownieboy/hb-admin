@@ -29,7 +29,7 @@ export const sendStorageThumbStart = fileInfo => ({
 
 const sendStorageThumbSuccess = successInfo => ({
   type: SEND_STORAGE_THUMB_SUCCESS,
-  payload: successInfo // e.g. {readUrl: ""}
+  payload: successInfo // e.g. {DownloadUrl: ""}
 });
 
 const sendStorageThumbFailure = errorMessage => ({
@@ -49,7 +49,7 @@ const sendStorageCardStart = fileInfo => ({
 
 const sendStorageCardSuccess = successInfo => ({
   type: SEND_STORAGE_CARD_SUCCESS,
-  payload: successInfo // e.g. {readUrl: ""}
+  payload: successInfo // e.g. {DownloadUrl: ""}
 });
 
 const sendStorageCardFailure = errorMessage => ({
@@ -77,12 +77,12 @@ const initialState = {
   thumbStatus: "",
   thumbError: "",
   thumbFileInfo: "",
-  thumbReadUrl: "",
+  thumbDownloadUrl: "",
   thumbProgress: 0,
   cardStatus: "",
   cardError: "",
   cardFileInfo: "",
-  cardReadUrl: "",
+  cardDownloadUrl: "",
   cardProgress: 0
 };
 
@@ -91,32 +91,50 @@ const storageReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case SEND_STORAGE_THUMB_START:
-      return { ...state, thumbStatus: "posting", thumbFileInfo: payload.fileInfo };
+      return {
+        ...state,
+        thumbStatus: "posting",
+        thumbFileInfo: payload.fileInfo
+      };
 
     case SEND_STORAGE_THUMB_SUCCESS:
       return {
         ...state,
         thumbStatus: "success",
         thumbError: "",
-        thumbReadUrl: action.readUrl
+        thumbDownloadUrl: action.downloadUrl
       };
     case SEND_STORAGE_THUMB_FAILURE:
       return { ...state, thumbStatus: "failure", fetchError: payload };
     case UPDATE_STORAGE_THUMB_STATUS:
-      return { ...state, thumbStatus: "posting", thumbFileInfo: payload.fileInfo, thumbProgress: payload.percentUploaded };
+      return {
+        ...state,
+        thumbStatus: "posting",
+        thumbFileInfo: payload.fileInfo,
+        thumbProgress: payload.percentUploaded
+      };
     case SEND_STORAGE_CARD_START:
-      return { ...state, cardStatus: "posting", cardFileInfo: payload.fileInfo };
+      return {
+        ...state,
+        cardStatus: "posting",
+        cardFileInfo: payload.fileInfo
+      };
     case SEND_STORAGE_CARD_SUCCESS:
       return {
         ...state,
         cardStatus: "success",
         cardError: "",
-        cardReadUrl: action.readUrl
+        cardDownloadUrl: action.downloadUrl
       };
     case SEND_STORAGE_CARD_FAILURE:
       return { ...state, cardStatus: "failure", fetchError: payload };
     case UPDATE_STORAGE_CARD_STATUS:
-      return { ...state, cardStatus: "posting", cardFileInfo: payload.fileInfo, cardProgress: payload.percentUploaded };
+      return {
+        ...state,
+        cardStatus: "posting",
+        cardFileInfo: payload.fileInfo,
+        cardProgress: payload.percentUploaded
+      };
     default:
       return state;
   }
