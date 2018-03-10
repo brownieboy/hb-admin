@@ -6,6 +6,7 @@ import writeFirebaseBandSagas from "./writeFirebaseBandSagas.js";
 import writeFirebaseStageSagas from "./writeFirebaseStageSagas.js";
 import writeFirebaseDateSagas from "./writeFirebaseDateSagas.js";
 import writeFirebaseScheduleSagas  from "./writeFirebaseScheduleSagas.js";
+import uploadFirebaseImagesSagas from "./uploadFirebaseImagesSagas.js";
 
 // Combine sagas solution taken from Andarist's comment at:
 // https://github.com/redux-saga/redux-saga/issues/160
@@ -16,7 +17,8 @@ function* sagas() {
     ...writeFirebaseBandSagas,
     ...writeFirebaseStageSagas,
     ...writeFirebaseDateSagas,
-    ...writeFirebaseScheduleSagas
+    ...writeFirebaseScheduleSagas,
+    ...uploadFirebaseImagesSagas
   ]);
 }
 export default sagas;

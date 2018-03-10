@@ -6,6 +6,7 @@ import appearancesReducer from "./appearancesReducer.js";
 import stagesReducer from "./stagesReducer.js";
 import firebaseLoginReducer from "./firebaseLoginReducer.js";
 import datesReducer from "./datesReducer.js";
+import storageReducer from "./storageReducer";
 
 const mainReducer = combineReducers({
   appearancesState: appearancesReducer,
@@ -13,7 +14,8 @@ const mainReducer = combineReducers({
   homeState: homeReducer,
   firebaseLoginState: firebaseLoginReducer,
   stagesState: stagesReducer,
-  datesState: datesReducer
+  datesState: datesReducer,
+  storageState: storageReducer
 });
 
 export default mainReducer;

@@ -11,6 +11,8 @@ import {
   getBandInfoForId as getBandInfoForIdAction
 } from "../dux/bandsReducer.js";
 
+import { sendStorageThumbStart } from "../dux/storageReducer.js";
+
 const getCommonStateObject = state => ({
   saveStatus: state.bandsState.saveStatus,
   saveError: state.bandsState.saveError,
@@ -23,7 +25,7 @@ const getCommonStateObject = state => ({
 // and state depending on whether we're creating a new one or
 // editing an existing one
 const mapDispatchToPropsNew = dispatch =>
-  bindActionCreators({ submitDataToServer: saveNewBand }, dispatch);
+  bindActionCreators({ submitDataToServer: saveNewBand, sendStorageThumbStart }, dispatch);
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),
   isEditExisting: false
