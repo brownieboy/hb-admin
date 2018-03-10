@@ -9,6 +9,15 @@ import {
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
+function* syncFileUrl(filePath) {
+  try {
+    const url = yield call(reduxSagaFirebase.storage.getDownloadURL, filePath);
+    yield put(storageDuxActions.sendStorageThumbSuccess({ downloadUrl: url }));
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 function* uploadCardImage(data) {
   // yield put(saveBandRequest());
   yield console.log("saga uploadCardImage started, data=");
@@ -21,7 +30,6 @@ function* uploadCardImage(data) {
   console.log("file=");
   console.log(file);
 
-
   const tempStorage = reduxSagaFirebase.storage;
 
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
@@ -30,8 +38,9 @@ function* uploadCardImage(data) {
     const pct = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
     console.log(`${pct}%`);
   });
-  
+
   yield task;
+  yield syncFileUrl(filePath);
 
   // task.on("state_changed", snapshot => {
   //   const pct = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
