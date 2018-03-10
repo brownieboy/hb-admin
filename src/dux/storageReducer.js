@@ -1,135 +1,125 @@
-import { createSelector } from "reselect";
-
-// import { stringSort } from "../helper-functions/sorting.js";
+// import { createSelector } from "reselect";
 
 // Action type constants
 const SEND_STORAGE_THUMB_START = "SEND_STORAGE_THUMB_START";
+const SEND_STORAGE_THUMB_SUCCESS = "SEND_STORAGE_THUMB_SUCCESS";
+const SEND_STORAGE_THUMB_FAILURE = "SEND_STORAGE_THUMB_FAILURE";
+const UPDATE_STORAGE_THUMB_STATUS = "UPDATE_STORAGE_THUMB_STATUS";
 const SEND_STORAGE_CARD_START = "SEND_STORAGE_CARD_START";
+const SEND_STORAGE_CARD_SUCCESS = "SEND_STORAGE_CARD_SUCCESS";
+const SEND_STORAGE_CARD_FAILURE = "SEND_STORAGE_CARD_FAILURE";
+const UPDATE_STORAGE_CARD_STATUS = "UPDATE_STORAGE_CARD_STATUS";
 
 export const actionTypes = {
+  SEND_STORAGE_THUMB_START,
+  SEND_STORAGE_THUMB_SUCCESS,
+  SEND_STORAGE_THUMB_FAILURE,
+  UPDATE_STORAGE_THUMB_STATUS,
   SEND_STORAGE_CARD_START,
-  SEND_STORAGE_THUMB_START
+  SEND_STORAGE_CARD_SUCCESS,
+  SEND_STORAGE_CARD_FAILURE,
+  UPDATE_STORAGE_CARD_STATUS
+};
 
+// Action creators
+const sendStorageThumbStart = storageInfo => ({
+  type: SEND_STORAGE_THUMB_START,
+  payload: storageInfo // e.g { postUrl: "" }
+});
+
+const sendStorageThumbSuccess = successInfo => ({
+  type: SEND_STORAGE_THUMB_SUCCESS,
+  payload: successInfo // e.g. {readUrl: ""}
+});
+
+const sendStorageThumbFailure = errorMessage => ({
+  type: SEND_STORAGE_THUMB_FAILURE,
+  payload: errorMessage
+});
+
+const updateStorageThumbStatus = statusInfo => ({
+  type: UPDATE_STORAGE_THUMB_STATUS,
+  payload: statusInfo // e.g. {percentUploaded: 15}
+});
+
+const sendStorageCardStart = storageInfo => ({
+  type: SEND_STORAGE_CARD_START,
+  payload: storageInfo // e.g { postUrl: "" }
+});
+
+const sendStorageCardSuccess = successInfo => ({
+  type: SEND_STORAGE_CARD_SUCCESS,
+  payload: successInfo // e.g. {readUrl: ""}
+});
+
+const sendStorageCardFailure = errorMessage => ({
+  type: SEND_STORAGE_CARD_FAILURE,
+  payload: errorMessage
+});
+
+const updateStorageCardStatus = statusInfo => ({
+  type: UPDATE_STORAGE_CARD_STATUS,
+  payload: statusInfo // e.g. {percentUploaded: 15}
+});
+
+export const storageDuxActions = {
+  sendStorageThumbStart,
+  sendStorageThumbSuccess,
+  sendStorageThumbFailure,
+  updateStorageThumbStatus,
+  sendStorageCardStart,
+  sendStorageCardSuccess,
+  sendStorageCardFailure,
+  updateStorageCardStatus
 };
 
 const initialState = {
   thumbStatus: "",
   thumbError: "",
-  thumbUrl: "",
+  thumbPostUrl: "",
+  thumbReadUrl: "",
   thumbProgress: 0,
   cardStatus: "",
   cardError: "",
-  cardUrl: "",
+  cardPostUrl: "",
+  cardReadUrl: "",
   cardProgress: 0
 };
 
 // Reducer
-const stagesReducer = (
-  state = initialState
-  action
-) => {
-  let idx, newStagesList;
-  switch (action.type) {
-    case FETCH_STORAGE_REQUEST:
-      return { ...state, fetchStatus: "loading" };
-    case FETCH_STORAGE_SUCCESS:
+const storageReducer = (state = initialState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case SEND_STORAGE_THUMB_START:
+      return { ...state, thumbStatus: "posting", thumbPostUrl: payload.postURL };
+
+    case SEND_STORAGE_THUMB_SUCCESS:
       return {
         ...state,
-        fetchStatus: "",
-        stagesList: action.payload
+        thumbStatus: "success",
+        thumbError: "",
+        thumbReadUrl: action.readUrl
       };
-    case FETCH_STORAGE_FAILURE:
-      return { ...state, fetchStatus: "failure", fetchError: action.payload };
-    case SAVE_NEW_STORAGE:
-      return { ...state, stagesList: [...state.stagesList, action.payload] };
-    case SAVE_STORAGE_REQUEST:
+    case SEND_STORAGE_THUMB_FAILURE:
+      return { ...state, thumbStatus: "failure", fetchError: payload };
+    case UPDATE_STORAGE_THUMB_STATUS:
+      return { ...state, thumbStatus: "posting", thumbPostUrl: payload.postURL, thumbProgress: payload.percentUploaded };
+    case SEND_STORAGE_CARD_START:
+      return { ...state, cardStatus: "posting", cardPostUrl: payload.postURL };
+    case SEND_STORAGE_CARD_SUCCESS:
       return {
         ...state,
-        saveStatus: "saving"
+        cardStatus: "success",
+        cardError: "",
+        cardReadUrl: action.readUrl
       };
-    case SAVE_STORAGE_SUCCESS:
-      return {
-        ...state,
-        saveStatus: ""
-      };
-    case SAVE_STORAGE_FAILED:
-      return { ...state, saveStatus: "failure", saveError: action.payload };
-    case SAVE_EDITED_STORAGE:
-      idx = state.stagesList.findIndex(obj => obj.id === action.payload.id);
-      newStagesList = [
-        ...state.stagesList.slice(0, idx),
-        action.payload,
-        ...state.stagesList.slice(idx + 1)
-      ];
-      return { ...state, stagesList: newStagesList };
+    case SEND_STORAGE_CARD_FAILURE:
+      return { ...state, cardStatus: "failure", fetchError: payload };
+    case UPDATE_STORAGE_CARD_STATUS:
+      return { ...state, cardStatus: "posting", cardPostUrl: payload.postURL, cardProgress: payload.percentUploaded };
     default:
       return state;
   }
 };
 
-// Sort/filter functions for selectors
-const selectStages = state => state.stagesList;
-const selectStagesPicker = createSelector([selectStages], stagesList =>
-  stagesList.map(stageMember => ({
-    id: stageMember.id,
-    name: stageMember.name
-  }))
-);
-
-export const selectors = {
-  selectStagesPicker
-};
-
-export const loadStagesNow = () => ({ type: LOAD_STORAGE_NOW });
-// export const fetchStagesSucceeded = () => ({ type: FETCH_STORAGE_REQUEST });
-
-const setFetchStagesRequest = () => ({
-  type: FETCH_STORAGE_REQUEST
-});
-const setFetchStagesSucceeded = stagesList => ({
-  type: FETCH_STORAGE_SUCCESS,
-  payload: stagesList || []
-});
-const setFetchStagesFailed = errorMessage => ({
-  type: FETCH_STORAGE_FAILURE,
-  payload: errorMessage
-});
-
-export const saveNewStage = stageInfo => ({
-  type: SAVE_NEW_STORAGE,
-  payload: stageInfo
-});
-
-export const saveEditedStage = stageInfo => ({
-  type: SAVE_EDITED_STORAGE,
-  payload: stageInfo
-});
-
-export const saveStageRequest = () => ({
-  type: SAVE_STORAGE_REQUEST
-});
-
-export const saveStageSucceeded = () => ({
-  type: SAVE_STORAGE_SUCCESS
-});
-
-export const saveStageFailed = error => ({
-  type: SAVE_STORAGE_FAILED,
-  payload: error
-});
-
-export const stagesDuxActions = {
-  setFetchStagesFailed,
-  setFetchStagesRequest,
-  setFetchStagesSucceeded,
-  saveStageRequest,
-  saveStageSucceeded,
-  saveNewStage,
-  saveStageFailed
-};
-
-// Getters
-export const getStageInfoForId = (stagesList, stageId) =>
-  stagesList.find(stageMember => stageMember.id === stageId);
-
-export default stagesReducer;
+export default storageReducer;
