@@ -37,7 +37,7 @@ const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   thumbStatus: state.storageState.thumbStatus,
   thumbError: state.storageState.thumbError,
-  thumbDownloadUrl: state.storageState.thumbDownloadUrl,
+  // thumbFullUrl: state.storageState.thumbFullUrl,
   thumbProgress: state.storageState.thumbProgress,
   isEditExisting: true
 });

@@ -10,6 +10,15 @@ const validationSchemaCommonObj = {
   summary: yup.string().required()
 };
 
+const ThumbImage = urlData =>
+  urlData.url ? (
+    <img
+      name="thumbnailImage"
+      style={{ height: 100, width: 100 }}
+      src={urlData.url}
+    />
+  ) : null;
+
 class BandForm extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +29,8 @@ class BandForm extends Component {
   }
 
   handleThumbFileChange = event => {
-    console.log("handleThumbFileChange");
-    console.log(event.target.files[0]);
+    // console.log("handleThumbFileChange");
+    // console.log(event.target.files[0]);
     this.setState({ thumbFileInfo: event.target.files[0] });
   };
 
@@ -42,6 +51,8 @@ class BandForm extends Component {
       const matchingInfo = getBandInfoForId(match.params.id);
       if (matchingInfo) {
         fieldValues = Object.assign({}, matchingInfo);
+        // console.log("fieldValues:");
+        // console.log(fieldValues);
       }
     } else {
       validationSchemaObj.id = yup
@@ -139,27 +150,38 @@ class BandForm extends Component {
                   <Button type="submit">Submit</Button>
                 </form>
                 <h2>Images</h2>
-                <Label for="thumbInput">Thumbnail image</Label>
-                <input
-                  type="file"
-                  name="thumbInput"
-                  onChange={this.handleThumbFileChange}
-                />
-                <button
-                  disabled={!this.state.thumbFileInfo.name}
-                  onClick={() => {
-                    sendStorageThumbStart({
-                      fileInfo: this.state.thumbFileInfo
-                    });
-                  }}
-                >
-                  Upload thumbnail
-                </button>
-                <Label for="thumbProgressBar">Thumbnail upload progress:</Label>
-                <div className="text-center">
-                  {parseInt(thumbProgress, 10)}%
+                <div name="imagesWrapper">
+                  <Label for="thumbInput">Thumbnail image:</Label>
+                  <div>
+                    <input
+                      type="file"
+                      name="thumbInput"
+                      onChange={this.handleThumbFileChange}
+                    />
+                  </div>
+                  <button
+                    disabled={!this.state.thumbFileInfo.name}
+                    onClick={() => {
+                      sendStorageThumbStart({
+                        bandId: values.id,
+                        fileInfo: this.state.thumbFileInfo
+                      });
+                    }}
+                  >
+                    Upload thumbnail
+                  </button>
+                  <div style={{ maxWidth: 200 }}>
+                    <div className="text-center">
+                      {parseInt(thumbProgress, 10)}%
+                    </div>
+                    <Progress
+                      name="thumbProgressBar"
+                      value={thumbProgress}
+                      color={thumbProgress === 100 ? "success" : "info"}
+                    />
+                    <ThumbImage url={values.thumbFullUrl} />
+                  </div>
                 </div>
-                <Progress name="thumbProgressBar" value={thumbProgress} />
               </div>
             );
           }}

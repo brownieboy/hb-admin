@@ -6,6 +6,8 @@ import {
   actionTypes as storageActionTypes,
   storageDuxActions
 } from "../storageReducer.js";
+
+import { bandsDuxActions } from "../bandsReducer.js";
 // import firebaseApp from "../../apis/firebase.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -13,7 +15,7 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 function* syncFileUrl(filePath) {
   try {
     const url = yield call(reduxSagaFirebase.storage.getDownloadURL, filePath);
-    yield put(storageDuxActions.sendStorageThumbSuccess({ downloadUrl: url }));
+    return url;
   } catch (error) {
     console.error(error);
   }
@@ -31,8 +33,8 @@ function* handleEventEmit(snapshot) {
 }
 
 function* uploadCardImage(data) {
-  // yield console.log("saga handleEventEmit started, data=");
-  // yield console.log(data);
+  yield console.log("saga handleEventEmit started, data:");
+  yield console.log(data);
 
   const file = yield data.payload.fileInfo;
   const filePath = yield `${globalTypes.STORAGE.THUMBS_PATH}/${file.name}`;
@@ -43,8 +45,17 @@ function* uploadCardImage(data) {
   yield takeEvery(channel, handleEventEmit);
 
   yield task;
-  yield syncFileUrl(filePath);
-
+  const thumbDownloadUrl = yield syncFileUrl(filePath);
+  yield put(
+    storageDuxActions.sendStorageThumbSuccess({ downloadUrl: thumbDownloadUrl })
+  );
+  console.log("Down here already...");
+  yield put(
+    bandsDuxActions.updateBandThumbUrl({
+      bandId: data.payload.bandId,
+      downloadUrl: thumbDownloadUrl
+    })
+  );
 }
 
 const uploadFirebaseImagesSagas = [
