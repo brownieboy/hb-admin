@@ -1,124 +1,148 @@
 // Render Prop
-import React from "react";
-import { Formik } from "formik";
-import yup from "yup";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Label, Input } from "reactstrap";
+import { Button, FormGroup, Label } from "reactstrap";
+import { format as dateFnsFormat } from "date-fns";
+import enGB from "date-fns/locale/en-GB";
+import dateFnsLocalizer from "react-widgets-date-fns";
+import DateTimePicker from "react-widgets/lib/DateTimePicker";
+import "react-widgets/dist/css/react-widgets.css";
+import { dateFormatString } from "../constants/formats.js";
+import {
+  LoadStatusIndicator,
+  SaveStatusIndicator
+} from "./loadsaveindicator.js";
 
-const validationSchemaCommonObj = {
-  name: yup.string().required(),
-  sortOrder: yup
-    .number()
-    .required()
-    .positive()
-    .integer()
-};
+// const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
+// dateFnsLocalizer(formats, { "en-GB": enGB });
+// dateFnsLocalizer({ "en-GB": enGB });
+dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
-const StageForm = ({
-  getStageInfoForId,
-  isEditExisting,
-  match,
-  submitDataToServer,
-  saveStatus,
-  saveError
-}) => {
-  let fieldValues = { name: "", id: "", sortOrder: -1 };
-  const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
-  if (isEditExisting) {
-    const matchingInfo = getStageInfoForId(match.params.id);
-
-    if (matchingInfo) {
-      fieldValues = Object.assign({}, matchingInfo);
-    }
-  } else {
-    validationSchemaObj.id = yup
-      .string()
-      .required()
-      .test(
-        "id",
-        "There is already a stage with the same id",
-        id => !getStageInfoForId(id)
-      );
+class DatesForm extends Component {
+  constructor(props) {
+    super(props);
+    const { datesList } = props;
+    // console.log("datesList=" + JSON.stringify(datesList, null, 4));
+    this.state = {
+      datesList: this.textDatesToFnsDates(datesList)
+    };
   }
-  return (
-    <div>
-      <h1>Add Stage</h1>
-      Loading status: {saveStatus}
-      {saveStatus === "saving" && (
-        <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
-      )}
-      <br />
-      {saveStatus === "failure" &&
-        `Error: ${JSON.stringify(saveError, null, 4)}`}
-      <Formik
-        enableReinitialize
-        initialValues={Object.assign({}, fieldValues)}
-        validationSchema={yup.object().shape(validationSchemaObj)}
-        onSubmit={(values, actions) => {
-          console.log(JSON.stringify(values, null, 2));
-          submitDataToServer(values);
-          actions.setSubmitting(false);
-        }}
-        render={props => {
-          const {
-            values,
-            errors,
-            handleChange,
-            handleBlur,
-            handleSubmit
-          } = props;
-          return (
-            <form onSubmit={handleSubmit}>
-              <FormGroup>
-                <Label for="id">Stage ID</Label>
-                <Input
-                  disabled={isEditExisting}
-                  type="text"
-                  name="id"
-                  placeholder="ID must be unique"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.id}
-                />
-                {errors.id && <div>{errors.id}</div>}
-              </FormGroup>
-              <FormGroup>
-                <Label for="name">Stage name</Label>
-                <Input
-                  type="text"
-                  name="name"
-                  placeholder="Stage name"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.name}
-                />
-                {errors.name && <div>{errors.name}</div>}
-              </FormGroup>
 
-              <FormGroup>
-                <Label for="sortOrder">Sort order</Label>
-                <Input
-                  type="number"
-                  name="sortOrder"
-                  placeholder="Sort order common (integer)"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.sortOrder}
-                />
-                {errors.sortOrder && <div>{errors.sortOrder}</div>}
-              </FormGroup>
-              <Button type="submit">Submit</Button>
-            </form>
-          );
-        }}
-      />
-    </div>
-  );
-};
+  componentWillReceiveProps(nextProps) {
+    // console.log(
+    //   "date-form.js componentWillReceiveProps, nextProps=" +
+    //     JSON.stringify(nextProps, null, 4)
+    // );
+    if (nextProps.datesList) {
+      this.setState({
+        datesList: this.textDatesToFnsDates(nextProps.datesList)
+      });
+    }
+  }
 
-StageForm.propTypes = {
+  textDatesToFnsDates = textDateList =>
+    textDateList.map(textDate => {
+      const newDate = new Date(textDate);
+      return newDate;
+    });
+
+  fnsDatesToISOText = dateList => {
+    // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
+    return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
+  };
+
+  handleChange = fieldData => {
+    console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
+    const { datesList } = this.state;
+
+    const newDatesList = [
+      ...datesList.slice(0, fieldData.fieldNo),
+      new Date(fieldData.value),
+      ...datesList.slice(fieldData.fieldNo + 1)
+    ];
+    this.setState({ datesList: newDatesList });
+  };
+
+  handleSubmit = e => {
+    const { submitDataToServer } = this.props;
+    e.preventDefault();
+    const values = this.fnsDatesToISOText(this.state.datesList);
+    console.log(
+      "submitting dates to server = " + JSON.stringify(values, null, 2)
+    );
+    submitDataToServer(values);
+    // actions.setSubmitting(false);
+  };
+
+  render() {
+    const {
+      datesList,
+      isEditExisting,
+      match,
+      submitDataToServer,
+      fetchStatus,
+      fetchError,
+      saveStatus,
+      saveError
+    } = this.props;
+    console.log("home-form render");
+
+    let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
+    return (
+      <div>
+        <h1>Helstonbury Dates</h1>
+        <div style={{ maxWidth: 180 }}>
+          <LoadStatusIndicator
+            fetchStatus={fetchStatus}
+            fetchError={fetchError}
+          />
+          <SaveStatusIndicator saveStatus={saveStatus} saveError={saveError} />
+
+          <form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Label for="dateOne">Day 1</Label>
+              <DateTimePicker
+                name="dateOne"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 0 })}
+                defaultValue={this.state.datesList[0]}
+                value={this.state.datesList[0]}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="dateTwo">Day 2</Label>
+              <DateTimePicker
+                name="dateTwo"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 1 })}
+                value={this.state.datesList[1]}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="dateThree">Day 3</Label>
+              <DateTimePicker
+                name="dateThree"
+                format={dateFormatString}
+                time={false}
+                onChange={value => this.handleChange({ value, fieldNo: 2 })}
+                value={this.state.datesList[2]}
+              />
+            </FormGroup>
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+}
+
+DatesForm.propTypes = {
+  datesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   errors: PropTypes.object,
-  getStageInfoForId: PropTypes.func.isRequired,
+  fetchError: PropTypes.string.isRequired,
+  fetchStatus: PropTypes.string.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
@@ -127,9 +151,9 @@ StageForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
-  saveError: PropTypes.object,
+  saveError: PropTypes.string,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };
 
-export default StageForm;
+export default DatesForm;

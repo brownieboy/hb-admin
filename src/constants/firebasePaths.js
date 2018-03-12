@@ -3,7 +3,7 @@ export const types = {
     STAGES_PATH: "stagestest",
     BANDS_PATH: "bandstest",
     DATES_PATH: "datesTest",
-    HOME_PAGE_PATH: "homePage",
+    HOME_PAGE_PATH: "homePageTest",
     APPEARANCES_PATH: "appearancesTest",
     PUBLISHED_DATA_PATH: "publishedData"
   },

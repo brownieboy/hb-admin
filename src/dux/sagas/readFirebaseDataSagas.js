@@ -51,7 +51,7 @@ function* readDatesSaga() {
 }
 
 function* readHomeSaga() {
-  // console.log("running updatedItemSaga...");
+  console.log("running readHomeSaga...");
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.HOME_PAGE_PATH)
   );
@@ -61,7 +61,7 @@ function* readHomeSaga() {
     // yield console.log(
     //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
     // );
-    yield put(homeDuxActions.setFetchHomeSucceeded(item.value.homePageText));
+    yield put(homeDuxActions.setFetchHomeSucceeded(item.value));
   }
 }
 

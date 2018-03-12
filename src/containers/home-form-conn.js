@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import HomeForm from "../components/stage-form.js";
+import HomeForm from "../components/home-form.js";
 
 // Dux
 import {

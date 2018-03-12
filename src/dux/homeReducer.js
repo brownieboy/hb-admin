@@ -34,7 +34,7 @@ const setFetchHomeRequest = () => ({
 });
 const setFetchHomeSucceeded = homeText => ({
   type: FETCH_HOME_SUCCESS,
-  payload: homeText || ""
+  payload: homeText || {}
 });
 const setFetchHomeFailed = errorMessage => ({
   type: FETCH_HOME_FAILURE,

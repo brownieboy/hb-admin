@@ -10,9 +10,7 @@ import Footer from "../../components/Footer/";
 import Dashboard from "../../views/Dashboard/";
 import Bands from "../../views/bands-conn.js";
 import Schedule from "../../views/schedule-conn.js";
-import HomePage from "../../views/homepage.js";
 import Stages from "../../views/stages-conn.js";
-
 
 import {
   BandFormNewConn,
@@ -28,7 +26,7 @@ import {
 } from "../../containers/schedule-form-conn.js";
 
 import DatesEdit from "../../containers/dates-form-conn.js";
-
+import HomePageEdit from "../../containers/home-form-conn.js";
 
 class Full extends Component {
   render() {
@@ -46,7 +44,11 @@ class Full extends Component {
                   name="Dashboard"
                   component={Dashboard}
                 />
-                <Route path="/homepage" name="HomePage" component={HomePage} />
+                <Route
+                  path="/homepage"
+                  name="HomePage"
+                  component={HomePageEdit}
+                />
                 <Route path="/bands" name="Bands" component={Bands} />
                 <Route
                   path="/bandform/:id"
@@ -83,11 +85,7 @@ class Full extends Component {
                   name="StageFormNew"
                   component={StageFormNewConn}
                 />
-                <Route
-                  path="/dates"
-                  name="Dates"
-                  component={DatesEdit}
-                />
+                <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/homepage" />
               </Switch>
             </Container>
