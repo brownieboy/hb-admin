@@ -8,6 +8,7 @@ export const types = {
     PUBLISHED_DATA_PATH: "publishedData"
   },
   STORAGE: {
-    THUMBS_PATH: "/img/bands/thumbstest"
+    THUMBS_PATH: "/img/bands/thumbstest",
+    CARDS_PATH: "/img/bands/cardstest"
   }
 };

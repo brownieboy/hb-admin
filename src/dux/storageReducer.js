@@ -42,7 +42,7 @@ const updateStorageThumbStatus = statusInfo => ({
   payload: statusInfo // e.g. {percentUploaded: 15}
 });
 
-const sendStorageCardStart = fileInfo => ({
+export const sendStorageCardStart = fileInfo => ({
   type: SEND_STORAGE_CARD_START,
   payload: fileInfo // e.g { postUrl: "" }
 });

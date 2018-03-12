@@ -224,7 +224,7 @@ const updateBandThumbUrl = updateInfo => ({
   type: UPDATE_BAND_THUMB_URL,
   payload: updateInfo // {bandId, downloadUrl}
 });
-const updateCardThumbUrl = updateInfo => ({
+const updateBandCardUrl = updateInfo => ({
   type: UPDATE_BAND_CARD_URL,
   payload: updateInfo // {bandId, downloadUrl}
 });
@@ -237,7 +237,7 @@ export const bandsDuxActions = {
   saveBandSucceeded,
   saveNewBand,
   saveBandFailed,
-  updateCardThumbUrl,
+  updateBandCardUrl,
   updateBandThumbUrl
 };
 

@@ -73,7 +73,7 @@ function* uploadCardImage(data) {
   yield console.log(data);
 
   const file = yield data.payload.fileInfo;
-  const filePath = yield `${globalTypes.STORAGE.THUMBS_PATH}/${file.name}`;
+  const filePath = yield `${globalTypes.STORAGE.CARDS_PATH}/${file.name}`;
 
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
 

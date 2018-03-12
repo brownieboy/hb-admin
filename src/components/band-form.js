@@ -10,20 +10,31 @@ const validationSchemaCommonObj = {
   summary: yup.string().required()
 };
 
-const ThumbImage = urlData =>
+const ThumbImage = urlData => (
   urlData.url ? (
     <img
       name="thumbnailImage"
       style={{ height: 100, width: 100 }}
       src={urlData.url}
     />
-  ) : null;
+  ) : null);
+
+const CardImage = urlData => (
+  urlData.url ? (
+    <img
+      name="cardImage"
+      style={{ height: 300, width: 400 }}
+      src={urlData.url}
+    />
+  ) : null);
+
 
 class BandForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       thumbFileInfo: {},
+      cardFileInfo: {},
       cardPostFileName: ""
     };
   }
@@ -34,6 +45,12 @@ class BandForm extends Component {
     this.setState({ thumbFileInfo: event.target.files[0] });
   };
 
+  handleCardFileChange = event => {
+    // console.log("handleThumbFileChange");
+    // console.log(event.target.files[0]);
+    this.setState({ cardFileInfo: event.target.files[0] });
+  };
+
   render() {
     const {
       getBandInfoForId,
@@ -42,6 +59,7 @@ class BandForm extends Component {
       submitDataToServer,
       saveStatus,
       saveError,
+      sendStorageCardStart,
       sendStorageThumbStart,
       thumbProgress,
       cardProgress
@@ -205,19 +223,19 @@ class BandForm extends Component {
                   </div>
                   <div name="cardImagesWrapper" style={{ display: "flex" }}>
                     <div name="imagesLeftWrapper">
-                      <Label for="cardInput">Thumbnail image:</Label>
+                      <Label for="cardInput">Card image:</Label>
                       <div>
                         <input
                           type="file"
                           disabled={!isEditExisting}
                           name="cardInput"
-                          onChange={this.handleThumbFileChange}
+                          onChange={this.handleCardFileChange}
                         />
                       </div>
                       <button
                         disabled={!this.state.cardFileInfo.name}
                         onClick={() => {
-                          sendStorageThumbStart({
+                          sendStorageCardStart({
                             bandId: values.id,
                             fileInfo: this.state.cardFileInfo
                           });
@@ -244,7 +262,7 @@ class BandForm extends Component {
                       </div>
                     </div>
                     <div name="imagesRightWrapper">
-                      <ThumbImage url={values.cardFullUrl} />
+                      <CardImage url={values.cardFullUrl} style />
                     </div>
                   </div>
                 </div>
@@ -258,6 +276,7 @@ class BandForm extends Component {
 }
 
 BandForm.propTypes = {
+  cardProgress: PropTypes.number.isRequired,
   errors: PropTypes.object,
   getBandInfoForId: PropTypes.func.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
@@ -269,6 +288,7 @@ BandForm.propTypes = {
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
+  sendStorageCardStart: PropTypes.func.isRequired,
   sendStorageThumbStart: PropTypes.func.isRequired,
   thumbProgress: PropTypes.number.isRequired,
   submitDataToServer: PropTypes.func.isRequired,
