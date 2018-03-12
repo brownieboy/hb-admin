@@ -59,13 +59,13 @@ class BandForm extends Component {
     //   console.log(
     //     "successful save of new band, so redirecting to " + this.classId
     //   );
-      // history.push(`/bandform/${this.classId}`);
+    // history.push(`/bandform/${this.classId}`);
     // }
   }
 
   componentWillUnmount() {
     console.log("Clearing from componentWillUnmount");
-      this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
+    this.props.saveBandClear && this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
   }
 
   render() {
