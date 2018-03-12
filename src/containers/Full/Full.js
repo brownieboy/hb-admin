@@ -27,6 +27,7 @@ import {
 
 import DatesEdit from "../../containers/dates-form-conn.js";
 import HomePageEdit from "../../containers/home-form-conn.js";
+import PlaceHolder from "../../components/placeholder.js";
 
 class Full extends Component {
   render() {
@@ -49,6 +50,7 @@ class Full extends Component {
                   name="HomePage"
                   component={HomePageEdit}
                 />
+                <Route path="/dummy" name="Dummy" component={PlaceHolder} />
                 <Route path="/bands" name="Bands" component={Bands} />
                 <Route
                   path="/bandform/:id"
