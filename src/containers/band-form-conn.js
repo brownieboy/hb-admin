@@ -27,7 +27,13 @@ const getCommonStateObject = state => ({
 // So we're connecting the same form to Redux, but with different props
 // and state depending on whether we're creating a new one or
 // editing an existing one
-const mapDispatchToPropsNew = () => {};
+const mapDispatchToPropsNew = dispatch =>
+  bindActionCreators(
+    {
+      submitDataToServer: saveNewBand
+    },
+    dispatch
+  );
 
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),

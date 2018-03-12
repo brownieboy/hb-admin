@@ -177,7 +177,7 @@ class BandForm extends Component {
                   </div>
                 )}
                 <div name="imagesWrapper" style={{ marginBottom: 100 }}>
-                  <div name="thumbImagesWrapper" style={{ display: "flex" }}>
+                  <div name="thumbImagesWrapper" style={{ display: "flex", marginBottom: 30 }}>
                     <div name="imagesLeftWrapper">
                       <Label for="thumbInput">Thumbnail image:</Label>
                       <div>
