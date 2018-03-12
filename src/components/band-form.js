@@ -10,24 +10,23 @@ const validationSchemaCommonObj = {
   summary: yup.string().required()
 };
 
-const ThumbImage = urlData => (
+const ThumbImage = urlData =>
   urlData.url ? (
     <img
       name="thumbnailImage"
       style={{ height: 100, width: 100 }}
       src={urlData.url}
     />
-  ) : null);
+  ) : null;
 
-const CardImage = urlData => (
+const CardImage = urlData =>
   urlData.url ? (
     <img
       name="cardImage"
       style={{ height: 300, width: 400 }}
       src={urlData.url}
     />
-  ) : null);
-
+  ) : null;
 
 class BandForm extends Component {
   constructor(props) {
@@ -38,6 +37,8 @@ class BandForm extends Component {
       cardPostFileName: ""
     };
   }
+
+  classId = "";
 
   handleThumbFileChange = event => {
     // console.log("handleThumbFileChange");
@@ -51,10 +52,19 @@ class BandForm extends Component {
     this.setState({ cardFileInfo: event.target.files[0] });
   };
 
+  componentDidUpdate() {
+    const { history, isEditExisting, saveStatus } = this.props;
+    if (!isEditExisting && saveStatus === "success") {
+      console.log("successful save of new band, so redirecting to " + this.classId);
+      history.push(`/bandform/${this.classId}`);
+    }
+  }
+
   render() {
     const {
       getBandInfoForId,
       isEditExisting,
+      history, // from react-router
       match,
       submitDataToServer,
       saveStatus,
@@ -64,6 +74,7 @@ class BandForm extends Component {
       thumbProgress,
       cardProgress
     } = this.props;
+
     let fieldValues = { name: "", id: "", summary: "" };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     if (isEditExisting) {
@@ -110,6 +121,7 @@ class BandForm extends Component {
               handleBlur,
               handleSubmit
             } = props;
+
             return (
               <div>
                 <form onSubmit={handleSubmit}>
@@ -120,7 +132,10 @@ class BandForm extends Component {
                       type="text"
                       name="id"
                       placeholder="ID must be unique"
-                      onChange={handleChange}
+                      onChange={e => {
+                        handleChange(e);
+                        this.classId = e.target.value;
+                      }}
                       onBlur={handleBlur}
                       value={values.id}
                     />
@@ -177,7 +192,10 @@ class BandForm extends Component {
                   </div>
                 )}
                 <div name="imagesWrapper" style={{ marginBottom: 100 }}>
-                  <div name="thumbImagesWrapper" style={{ display: "flex", marginBottom: 30 }}>
+                  <div
+                    name="thumbImagesWrapper"
+                    style={{ display: "flex", marginBottom: 30 }}
+                  >
                     <div name="imagesLeftWrapper">
                       <Label for="thumbInput">Thumbnail image:</Label>
                       <div>
@@ -276,8 +294,9 @@ class BandForm extends Component {
 }
 
 BandForm.propTypes = {
-  cardProgress: PropTypes.number.isRequired,
+  cardProgress: PropTypes.number,
   errors: PropTypes.object,
+  history: PropTypes.object.isRequired, // from react-router
   getBandInfoForId: PropTypes.func.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
@@ -288,9 +307,9 @@ BandForm.propTypes = {
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
-  sendStorageCardStart: PropTypes.func.isRequired,
-  sendStorageThumbStart: PropTypes.func.isRequired,
-  thumbProgress: PropTypes.number.isRequired,
+  sendStorageCardStart: PropTypes.func,
+  sendStorageThumbStart: PropTypes.func,
+  thumbProgress: PropTypes.number,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };

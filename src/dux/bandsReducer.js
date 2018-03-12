@@ -51,7 +51,7 @@ const bandsReducer = (
     case SAVE_BAND_SUCCESS:
       return {
         ...state,
-        saveStatus: ""
+        saveStatus: "success"
       };
     case SAVE_BAND_FAILED:
       return { ...state, saveStatus: "failure", saveError: action.payload };
