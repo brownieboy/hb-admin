@@ -12,6 +12,7 @@ const SAVE_EDITED_BAND = "SAVE_EDITED_BAND";
 const SAVE_BAND_REQUEST = "SAVE_BAND_REQUEST";
 const SAVE_BAND_SUCCESS = "SAVE_BAND_SUCCESS";
 const SAVE_BAND_FAILED = "SAVE_BAND_FAILED";
+const SAVE_BAND_CLEAR = "SAVE_BAND_CLEAR";
 const UPDATE_BAND_THUMB_URL = "UPDATE_BAND_THUMB_URL";
 const UPDATE_BAND_CARD_URL = "UPDATE_BAND_CARD_URL";
 
@@ -52,6 +53,11 @@ const bandsReducer = (
       return {
         ...state,
         saveStatus: "success"
+      };
+    case SAVE_BAND_CLEAR:
+      return {
+        ...state,
+        saveStatus: ""
       };
     case SAVE_BAND_FAILED:
       return { ...state, saveStatus: "failure", saveError: action.payload };
@@ -213,6 +219,10 @@ export const saveBandRequest = () => ({
 
 export const saveBandSucceeded = () => ({
   type: SAVE_BAND_SUCCESS
+});
+
+export const saveBandClear = () => ({
+  type: SAVE_BAND_CLEAR
 });
 
 export const saveBandFailed = error => ({

@@ -1,5 +1,6 @@
 // Render Prop
 import React, { Component } from "react";
+import { Redirect } from "react-router";
 import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
@@ -53,22 +54,29 @@ class BandForm extends Component {
   };
 
   componentDidUpdate() {
-    const { history, isEditExisting, saveStatus } = this.props;
-    if (!isEditExisting && saveStatus === "success") {
-      console.log("successful save of new band, so redirecting to " + this.classId);
-      history.push(`/bandform/${this.classId}`);
-    }
+    // const { history, isEditExisting, saveStatus } = this.props;
+    // if (!isEditExisting && saveStatus === "success") {
+    //   console.log(
+    //     "successful save of new band, so redirecting to " + this.classId
+    //   );
+      // history.push(`/bandform/${this.classId}`);
+    // }
+  }
+
+  componentWillUnmount() {
+    console.log("Clearing from componentWillUnmount");
+      this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
   }
 
   render() {
     const {
       getBandInfoForId,
       isEditExisting,
-      history, // from react-router
       match,
       submitDataToServer,
       saveStatus,
       saveError,
+      saveBandClear,
       sendStorageCardStart,
       sendStorageThumbStart,
       thumbProgress,
@@ -94,7 +102,11 @@ class BandForm extends Component {
           id => !getBandInfoForId(id)
         );
     }
-    return (
+
+    const isRedirectOn = !isEditExisting && saveStatus === "success";
+    return isRedirectOn ? (
+      <Redirect to={`/bandform/${this.classId}`} />
+    ) : (
       <div>
         <h1>Add Band</h1>
         Loading status: {saveStatus}

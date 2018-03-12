@@ -8,6 +8,7 @@ import BandForm from "../components/band-form.js";
 import {
   saveNewBand,
   saveEditedBand,
+  saveBandClear,
   getBandInfoForId as getBandInfoForIdAction
 } from "../dux/bandsReducer.js";
 
@@ -30,7 +31,8 @@ const getCommonStateObject = state => ({
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
     {
-      submitDataToServer: saveNewBand
+      submitDataToServer: saveNewBand,
+      saveBandClear
     },
     dispatch
   );
