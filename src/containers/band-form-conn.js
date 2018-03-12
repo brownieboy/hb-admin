@@ -11,7 +11,10 @@ import {
   getBandInfoForId as getBandInfoForIdAction
 } from "../dux/bandsReducer.js";
 
-import { sendStorageThumbStart } from "../dux/storageReducer.js";
+import {
+  sendStorageCardStart,
+  sendStorageThumbStart
+} from "../dux/storageReducer.js";
 
 const getCommonStateObject = state => ({
   saveStatus: state.bandsState.saveStatus,
@@ -24,21 +27,31 @@ const getCommonStateObject = state => ({
 // So we're connecting the same form to Redux, but with different props
 // and state depending on whether we're creating a new one or
 // editing an existing one
-const mapDispatchToPropsNew = dispatch =>
-  bindActionCreators({ submitDataToServer: saveNewBand, sendStorageThumbStart }, dispatch);
+const mapDispatchToPropsNew = () => {};
+
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),
   isEditExisting: false
 });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedBand, sendStorageThumbStart }, dispatch);
+  bindActionCreators(
+    {
+      submitDataToServer: saveEditedBand,
+      sendStorageThumbStart,
+      sendStorageCardStart
+    },
+    dispatch
+  );
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
+  cardStatus: state.storageState.cardStatus,
+  cardError: state.storageState.cardError,
+  cardProgress: state.storageState.cardProgress,
   thumbStatus: state.storageState.thumbStatus,
   thumbError: state.storageState.thumbError,
-  // thumbFullUrl: state.storageState.thumbFullUrl,
   thumbProgress: state.storageState.thumbProgress,
+  // thumbFullUrl: state.storageState.thumbFullUrl,
   isEditExisting: true
 });
 

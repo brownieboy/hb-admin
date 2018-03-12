@@ -13,6 +13,7 @@ const SAVE_BAND_REQUEST = "SAVE_BAND_REQUEST";
 const SAVE_BAND_SUCCESS = "SAVE_BAND_SUCCESS";
 const SAVE_BAND_FAILED = "SAVE_BAND_FAILED";
 const UPDATE_BAND_THUMB_URL = "UPDATE_BAND_THUMB_URL";
+const UPDATE_BAND_CARD_URL = "UPDATE_BAND_CARD_URL";
 
 export const actionTypes = {
   SAVE_NEW_BAND,
@@ -72,6 +73,20 @@ const bandsReducer = (
       );
       currentBandObj = state.bandsList.slice()[idx];
       currentBandObj.thumbFullUrl = action.payload.downloadUrl;
+      newBandsList = [
+        ...state.bandsList.slice(0, idx),
+        currentBandObj,
+        ...state.bandsList.slice(idx + 1)
+      ];
+      return { ...state, bandsList: newBandsList };
+
+    case UPDATE_BAND_CARD_URL:
+      console.log("UPDATE_BAND_CARD_URL reducer");
+      idx = state.bandsList.findIndex(
+        bandObj => bandObj.id === action.payload.bandId
+      );
+      currentBandObj = state.bandsList.slice()[idx];
+      currentBandObj.cardFullUrl = action.payload.downloadUrl;
       newBandsList = [
         ...state.bandsList.slice(0, idx),
         currentBandObj,
@@ -209,6 +224,10 @@ const updateBandThumbUrl = updateInfo => ({
   type: UPDATE_BAND_THUMB_URL,
   payload: updateInfo // {bandId, downloadUrl}
 });
+const updateCardThumbUrl = updateInfo => ({
+  type: UPDATE_BAND_CARD_URL,
+  payload: updateInfo // {bandId, downloadUrl}
+});
 
 export const bandsDuxActions = {
   setFetchBandsFailed,
@@ -218,12 +237,13 @@ export const bandsDuxActions = {
   saveBandSucceeded,
   saveNewBand,
   saveBandFailed,
+  updateCardThumbUrl,
   updateBandThumbUrl
 };
 
 // Getters
 export const getBandInfoForId = (bandsList, bandId) =>
-  bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null;
+  (bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null);
 
 // export const bandsDuxConstants = {
 //   LOAD_BANDS_NOW,

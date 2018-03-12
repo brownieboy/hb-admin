@@ -17,12 +17,12 @@ function* syncFileUrl(filePath) {
     const url = yield call(reduxSagaFirebase.storage.getDownloadURL, filePath);
     return url;
   } catch (error) {
-    console.error(error);
+    return console.error(error);
   }
 }
 
-function* handleEventEmit(snapshot) {
-  // yield console.log("saga uploadCardImage started, snapshot:");
+function* handleEventEmitThumb(snapshot) {
+  // yield console.log("saga handleEventEmitThumb started, snapshot:");
   // yield console.log(snapshot);
   const progress = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
   yield put(
@@ -32,8 +32,8 @@ function* handleEventEmit(snapshot) {
   );
 }
 
-function* uploadCardImage(data) {
-  yield console.log("saga handleEventEmit started, data:");
+function* uploadThumbImage(data) {
+  yield console.log("saga uploadThumbImage started, data:");
   yield console.log(data);
 
   const file = yield data.payload.fileInfo;
@@ -42,14 +42,13 @@ function* uploadCardImage(data) {
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
 
   const channel = eventChannel(emit => task.on("state_changed", emit));
-  yield takeEvery(channel, handleEventEmit);
+  yield takeEvery(channel, handleEventEmitThumb);
 
   yield task;
   const thumbDownloadUrl = yield syncFileUrl(filePath);
   yield put(
     storageDuxActions.sendStorageThumbSuccess({ downloadUrl: thumbDownloadUrl })
   );
-  console.log("Down here already...");
   yield put(
     bandsDuxActions.updateBandThumbUrl({
       bandId: data.payload.bandId,
@@ -58,8 +57,45 @@ function* uploadCardImage(data) {
   );
 }
 
+function* handleEventEmitCard(snapshot) {
+  // yield console.log("saga handleEventEmitCard started, snapshot:");
+  // yield console.log(snapshot);
+  const progress = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
+  yield put(
+    storageDuxActions.updateStorageCardStatus({
+      percentUploaded: progress
+    })
+  );
+}
+
+function* uploadCardImage(data) {
+  yield console.log("saga uploadCardImage started, data:");
+  yield console.log(data);
+
+  const file = yield data.payload.fileInfo;
+  const filePath = yield `${globalTypes.STORAGE.THUMBS_PATH}/${file.name}`;
+
+  const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
+
+  const channel = eventChannel(emit => task.on("state_changed", emit));
+  yield takeEvery(channel, handleEventEmitCard);
+
+  yield task;
+  const cardDownloadUrl = yield syncFileUrl(filePath);
+  yield put(
+    storageDuxActions.sendStorageCardSuccess({ downloadUrl: cardDownloadUrl })
+  );
+  yield put(
+    bandsDuxActions.updateBandCardUrl({
+      bandId: data.payload.bandId,
+      downloadUrl: cardDownloadUrl
+    })
+  );
+}
+
 const uploadFirebaseImagesSagas = [
-  takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadCardImage)
+  takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadThumbImage),
+  takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadCardImage)
 ];
 
 export default uploadFirebaseImagesSagas;
