@@ -43,7 +43,8 @@ class BandForm extends Component {
       saveStatus,
       saveError,
       sendStorageThumbStart,
-      thumbProgress
+      thumbProgress,
+      cardProgress
     } = this.props;
     let fieldValues = { name: "", id: "", summary: "" };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
