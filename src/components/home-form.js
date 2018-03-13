@@ -3,6 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import yup from "yup";
 import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Formik } from "formik";
 
 import {
   LoadStatusIndicator,
@@ -29,6 +30,49 @@ const HomeForm = ({
       <br />
       {saveStatus === "failure" &&
         `Error: ${JSON.stringify(saveError, null, 4)}`}
+      hello
+      <Formik
+        enableReinitialize
+        initialValues={Object.assign({}, fieldValues)}
+        validationSchema={yup.object().shape(validationSchemaObj)}
+        onSubmit={(values, actions) => {
+          console.log(JSON.stringify(values, null, 2));
+          submitDataToServer(values);
+          actions.setSubmitting(false);
+        }}
+        render={props => {
+          const {
+            values,
+            errors,
+            handleChange,
+            handleBlur,
+            handleSubmit
+          } = props;
+          return (
+            <form onSubmit={handleSubmit}>
+              <FormGroup>
+                <Label for="homeText">Stage ID</Label>
+                <Input
+                  type="text"
+                  name="homeText"
+                  placeholder="Home page information"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.homeText}
+                />
+                {errors.homeText && <div>{errors.homeText}</div>}
+              </FormGroup>
+              <Button type="submit">Submit</Button>
+            </form>
+          );
+        }}
+      />
+    </div>
+  );
+};
+
+/*
+
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, fieldValues)}
@@ -66,9 +110,8 @@ const HomeForm = ({
           );
         }}
       />
-    </div>
-  );
-};
+
+ */
 
 HomeForm.propTypes = {
   errors: PropTypes.object,
@@ -80,7 +123,7 @@ HomeForm.propTypes = {
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
-  saveError: PropTypes.string,
+  saveError: PropTypes.object,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object
 };
