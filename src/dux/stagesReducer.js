@@ -12,6 +12,7 @@ const SAVE_EDITED_STAGE = "SAVE_EDITED_STAGE";
 const SAVE_STAGE_REQUEST = "SAVE_STAGE_REQUEST";
 const SAVE_STAGE_SUCCESS = "SAVE_STAGE_SUCCESS";
 const SAVE_STAGE_FAILED = "SAVE_STAGE_FAILED";
+const SAVE_STAGE_CLEAR = "SAVE_STAGE_CLEAR";
 
 export const actionTypes = {
   SAVE_NEW_STAGE,
@@ -52,6 +53,11 @@ const stagesReducer = (
         saveStatus: "saving"
       };
     case SAVE_STAGE_SUCCESS:
+      return {
+        ...state,
+        saveStatus: "success"
+      };
+    case SAVE_STAGE_CLEAR:
       return {
         ...state,
         saveStatus: ""
@@ -122,6 +128,10 @@ export const saveStageFailed = error => ({
   payload: error
 });
 
+export const saveStageClear = () => ({
+  type: SAVE_STAGE_CLEAR
+});
+
 export const stagesDuxActions = {
   setFetchStagesFailed,
   setFetchStagesRequest,
@@ -129,12 +139,12 @@ export const stagesDuxActions = {
   saveStageRequest,
   saveStageSucceeded,
   saveNewStage,
+  saveStageClear,
   saveStageFailed
 };
 
 // Getters
 export const getStageInfoForId = (stagesList, stageId) =>
   stagesList.find(stageMember => stageMember.id === stageId);
-
 
 export default stagesReducer;

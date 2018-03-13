@@ -53,16 +53,6 @@ class BandForm extends Component {
     this.setState({ cardFileInfo: event.target.files[0] });
   };
 
-  componentDidUpdate() {
-    // const { history, isEditExisting, saveStatus } = this.props;
-    // if (!isEditExisting && saveStatus === "success") {
-    //   console.log(
-    //     "successful save of new band, so redirecting to " + this.classId
-    //   );
-    // history.push(`/bandform/${this.classId}`);
-    // }
-  }
-
   componentWillUnmount() {
     console.log("Clearing from componentWillUnmount");
     this.props.saveBandClear && this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
