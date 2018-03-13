@@ -40,22 +40,28 @@ const Schedule = ({
   appearancesListByDateTime,
   fetchStatus,
   fetchError,
+  appearancesWithBandsNames,
   getBandInfoForId,
   getStageInfoForId
-}) => (
-  <div>
-    <h1>Schedule</h1>
-    <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
-    <ListGroup>
-      {listSchedule(
-        appearancesListByDateTime,
-        getBandInfoForId,
-        getStageInfoForId
-      )}
-    </ListGroup>
-    <Link to="/scheduleform">Add appearance</Link>
-  </div>
-);
+}) => {
+  console.log("In Schedule, appearancesWithBandsNames:");
+  console.log(appearancesWithBandsNames);
+  appearancesWithBandsNames();
+  return (
+    <div>
+      <h1>Schedule</h1>
+      <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
+      <ListGroup>
+        {listSchedule(
+          appearancesListByDateTime,
+          getBandInfoForId,
+          getStageInfoForId
+        )}
+      </ListGroup>
+      <Link to="/scheduleform">Add appearance</Link>
+    </div>
+  );
+};
 
 Schedule.propTypes = {
   appearancesListByDateTime: PropTypes.arrayOf(PropTypes.object.isRequired)

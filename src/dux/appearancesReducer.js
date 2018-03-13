@@ -1,6 +1,7 @@
 import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
 import { format } from "date-fns";
+import { getBandInfoForId } from "./bandsReducer.js";
 
 // import { d3 } from "d3-collection";
 import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
@@ -27,7 +28,13 @@ export const actionTypes = {
 
 // Reducer
 const appearancesReducer = (
-  state = { fetchStatus: "", fetchError: "", saveStatus: "", fetchError: "", appearancesList: [] },
+  state = {
+    fetchStatus: "",
+    fetchError: "",
+    saveStatus: "",
+    fetchError: "",
+    appearancesList: []
+  },
   action
 ) => {
   let idx, newAppearancesList;
@@ -82,7 +89,10 @@ const appearancesReducer = (
 };
 
 // Sort/filter functions for selectors
+// Definitely *is* being used.  So where is its state from?
 const selectAppearances = state => state.appearancesList;
+
+const selectBands = state => state.bandsList;
 
 // Selectors
 const selectAppearancesByDateTime = createSelector(
@@ -93,10 +103,42 @@ const selectAppearancesByDateTime = createSelector(
       .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
 );
 
+// const selectAppearancesByDateTimeWithNames = createSelector
 
-// New one 
+// const selectBandsByDateTime = createSelector(
+//   [selectBands],
+//   bandsList =>
+//     bandsList
+// );
+//
 
-
+/*
+export const getVisibleTodos = (state, filter) => {
+  switch (filter) {
+    case 'all':
+      return state;
+    case 'completed':
+      return state.filter(t => t.completed);
+    case 'active':
+      return state.filter(t => !t.completed);
+    default:
+      throw new Error(`Unknown filter: ${filter}.`);
+  }
+};
+ */
+export const getAppearancesWithBandNames = state => {
+  const bandsList = state.bandsState.bandsList.slice();
+  let matchingBand;
+  const appearancesWithBandNames = selectAppearancesByDateTime(state.appearancesState).map(
+    appearance => {
+      matchingBand = getBandInfoForId(bandsList, appearance.bandId);
+      appearance.bandName = matchingBand.name;
+      return appearance;
+    }
+  );
+  console.log("getAppearancesWithBandNames:");
+  console.log(appearancesWithBandNames);
+};
 
 const selectAppearancesGroupedByDayThenStage = createSelector(
   [selectAppearancesByDateTime],
@@ -196,6 +238,8 @@ export const getAppearanceInfoForId = (appearancesList, appearanceId) =>
     appearanceMember => appearanceMember.id === appearanceId
   );
 
+// New one
+
 // Action creators
 export const loadAppearances = () => ({ type: LOAD_APPEARANCES_NOW });
 
@@ -257,4 +301,3 @@ export const appearancesDuxConstants = {
 };
 
 export default appearancesReducer;
-

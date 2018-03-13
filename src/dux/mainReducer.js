@@ -7,6 +7,7 @@ import stagesReducer from "./stagesReducer.js";
 import firebaseLoginReducer from "./firebaseLoginReducer.js";
 import datesReducer from "./datesReducer.js";
 import storageReducer from "./storageReducer";
+import { getAppearancesWithBandNames as fromAppearancesGetAppearancesWithBandsNames } from "./appearancesReducer.js";
 
 const mainReducer = combineReducers({
   appearancesState: appearancesReducer,
@@ -19,3 +20,23 @@ const mainReducer = combineReducers({
 });
 
 export default mainReducer;
+
+export const getAppearancesWithBandsNames = state => {
+  console.log("mainReducer..getAppearancesWithBandsNames, state:");
+  console.log(state);
+  fromAppearancesGetAppearancesWithBandsNames(state);
+};
+
+/*
+import { combineReducers } from 'redux';
+import todos, * as fromTodos from './todos';
+
+const todoApp = combineReducers({
+  todos,
+});
+
+export default todoApp;
+
+export const getVisibleTodos = (state, filter) =>
+  fromTodos.getVisibleTodos(state.todos, filter);
+ */
