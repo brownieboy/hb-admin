@@ -8,6 +8,7 @@ import ScheduleForm from "../components/schedule-form.js";
 import {
   saveNewAppearance,
   saveEditedAppearance,
+  saveAppearanceClear,
   getAppearanceInfoForId as getAppearanceInfoForIdAction
 } from "../dux/appearancesReducer.js";
 
@@ -32,7 +33,10 @@ const getCommonStateObject = state => ({
 // and state depending on whether we're creating a new one or
 // editing an existing one
 const mapDispatchToPropsNew = dispatch =>
-  bindActionCreators({ submitDataToServer: saveNewAppearance }, dispatch);
+  bindActionCreators(
+    { submitDataToServer: saveNewAppearance, saveAppearanceClear },
+    dispatch
+  );
 const mapStateToPropsNew = state => ({
   ...getCommonStateObject(state),
   isEditExisting: false

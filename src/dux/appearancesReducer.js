@@ -15,6 +15,7 @@ const SAVE_EDITED_APPEARANCE = "SAVE_EDITED_APPEARANCE";
 const SAVE_APPEARANCE_REQUEST = "SAVE_APPEARANCE_REQUEST";
 const SAVE_APPEARANCE_SUCCESS = "SAVE_APPEARANCE_SUCCESS";
 const SAVE_APPEARANCE_FAILED = "SAVE_APPEARANCE_FAILED";
+const SAVE_APPEARANCE_CLEAR = "SAVE_APPEARANCE_CLEAR";
 
 export const actionTypes = {
   SAVE_NEW_APPEARANCE,
@@ -53,6 +54,11 @@ const appearancesReducer = (
         saveStatus: "saving"
       };
     case SAVE_APPEARANCE_SUCCESS:
+      return {
+        ...state,
+        saveStatus: "success"
+      };
+    case SAVE_APPEARANCE_CLEAR:
       return {
         ...state,
         saveStatus: ""
@@ -221,6 +227,10 @@ export const saveAppearanceFailed = error => ({
   payload: error
 });
 
+export const saveAppearanceClear = () => ({
+  type: SAVE_APPEARANCE_CLEAR
+});
+
 export const appearancesDuxActions = {
   setFetchAppearancesFailed,
   setFetchAppearancesRequest,
@@ -228,7 +238,8 @@ export const appearancesDuxActions = {
   saveAppearanceRequest,
   saveAppearanceSucceeded,
   saveNewAppearance,
-  saveAppearanceFailed
+  saveAppearanceFailed,
+  saveAppearanceClear
 };
 
 export const appearancesDuxConstants = {
