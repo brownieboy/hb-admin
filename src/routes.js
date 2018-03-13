@@ -3,7 +3,6 @@
 const routes = {
   "/": "Home",
   "/dashboard": "Dashboard",
-  "/dummy": "Dummy",
   "/homepage": "HomePage",
   "/bands": "Bands",
   "/schedule": "Schedule",

@@ -26,7 +26,7 @@ import {
 } from "../../containers/schedule-form-conn.js";
 
 import DatesEdit from "../../containers/dates-form-conn.js";
-import HomePageEdit from "../../containers/home-form-conn.js";
+import EditHomePage from "../../containers/home-form-conn.js";
 import PlaceHolder from "../../components/placeholder.js";
 
 class Full extends Component {
@@ -46,9 +46,10 @@ class Full extends Component {
                   component={Dashboard}
                 />
                 <Route
-                  path="/homepage"
-                  name="HomePage"
-                  component={HomePageEdit}
+                  path="/edithomepage"
+                  exact
+                  name="EditHomePage"
+                  component={EditHomePage}
                 />
                 <Route path="/dummy" name="Dummy" component={PlaceHolder} />
                 <Route path="/bands" name="Bands" component={Bands} />
