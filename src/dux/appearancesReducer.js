@@ -93,6 +93,11 @@ const selectAppearancesByDateTime = createSelector(
       .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
 );
 
+
+// New one 
+
+
+
 const selectAppearancesGroupedByDayThenStage = createSelector(
   [selectAppearancesByDateTime],
   appearancesList =>
@@ -191,7 +196,9 @@ export const getAppearanceInfoForId = (appearancesList, appearanceId) =>
     appearanceMember => appearanceMember.id === appearanceId
   );
 
+// Action creators
 export const loadAppearances = () => ({ type: LOAD_APPEARANCES_NOW });
+
 const setFetchAppearancesRequest = () => ({
   type: FETCH_APPEARANCES_REQUEST
 });
