@@ -11,7 +11,7 @@ import {
 } from "../dux/appearancesReducer.js";
 
 // Important - from the mainReducer, so we can give it whole state?
-import { getAppearancesWithBandsNames } from "../dux/mainReducer.js";
+import { getAppearancesWithBandAndStageNames } from "../dux/mainReducer.js";
 
 import { getBandInfoForId as getBandInfoIdAction } from "../dux/bandsReducer.js";
 import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.js";
@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
     getBandInfoIdAction(state.bandsState.bandsList, bandId),
   getStageInfoForId: stageId =>
     getStageInfoIdAction(state.stagesState.stagesList, stageId),
-  appearancesWithBandsNames: () => getAppearancesWithBandsNames(state)
+  appearancesWithBandAndStageNames: () => getAppearancesWithBandAndStageNames(state)
 });
 
 /*

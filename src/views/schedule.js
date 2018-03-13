@@ -40,13 +40,13 @@ const Schedule = ({
   appearancesListByDateTime,
   fetchStatus,
   fetchError,
-  appearancesWithBandsNames,
+  appearancesWithBandAndStageNames,
   getBandInfoForId,
   getStageInfoForId
 }) => {
-  console.log("In Schedule, appearancesWithBandsNames:");
-  console.log(appearancesWithBandsNames);
-  appearancesWithBandsNames();
+  console.log("In Schedule, appearancesWithBandAndStageNames:");
+  console.log(appearancesWithBandAndStageNames);
+  appearancesWithBandAndStageNames();
   return (
     <div>
       <h1>Schedule</h1>

@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
 import { format } from "date-fns";
 import { getBandInfoForId } from "./bandsReducer.js";
+import { getStageInfoForId } from "./stagesReducer.js";
 
 // import { d3 } from "d3-collection";
 import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
@@ -126,17 +127,24 @@ export const getVisibleTodos = (state, filter) => {
   }
 };
  */
-export const getAppearancesWithBandNames = state => {
+export const getAppearancesWithBandAndStageNames = state => {
   const bandsList = state.bandsState.bandsList.slice();
-  let matchingBand;
-  const appearancesWithBandNames = selectAppearancesByDateTime(state.appearancesState).map(
-    appearance => {
-      matchingBand = getBandInfoForId(bandsList, appearance.bandId);
+  const stagesList = state.stagesState.stagesList.slice();
+  let matchingBand, matchingStage;
+  const appearancesWithBandNames = selectAppearancesByDateTime(
+    state.appearancesState
+  ).map(appearance => {
+    matchingBand = getBandInfoForId(bandsList, appearance.bandId);
+    matchingStage = getStageInfoForId(stagesList, appearance.stageId);
+    if (matchingBand) {
       appearance.bandName = matchingBand.name;
-      return appearance;
     }
-  );
-  console.log("getAppearancesWithBandNames:");
+    if (matchingStage) {
+      appearance.stageName = matchingStage.name;
+    }
+    return appearance;
+  });
+  console.log("appearancesReducer..getAppearancesWithBandAndStageNames returns:");
   console.log(appearancesWithBandNames);
 };
 
