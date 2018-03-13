@@ -12,12 +12,13 @@ import {
 
 const HomeForm = ({
   homeText,
-  isEditExisting,
   submitDataToServer,
   saveStatus,
   saveError
 }) => {
   const fieldValues = { homeText };
+  console.log("fieldValues:");
+  console.log(fieldValues);
   const validationSchemaObj = { homeText: yup.string().required() };
 
   return (
@@ -52,7 +53,7 @@ const HomeForm = ({
               <FormGroup>
                 <Label for="homeText">Info</Label>
                 <Input
-                  rows={6}
+                  rows={12}
                   type="textarea"
                   name="homeText"
                   placeholder="Home page information"

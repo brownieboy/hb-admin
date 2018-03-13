@@ -58,10 +58,10 @@ function* readHomeSaga() {
 
   while (true) {
     const item = yield take(updateChannel);
-    // yield console.log(
-    //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    // );
-    yield put(homeDuxActions.setFetchHomeSucceeded(item.value));
+    yield console.log(
+      "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    );
+    yield put(homeDuxActions.setFetchHomeSucceeded(item.value.homeText));
   }
 }
 

@@ -1,10 +1,10 @@
 export const types = {
   DATABASE: {
-    STAGES_PATH: "stagestest",
-    BANDS_PATH: "bandstest",
-    DATES_PATH: "datesTest",
-    HOME_PAGE_PATH: "homePageTest",
-    APPEARANCES_PATH: "appearancesTest",
+    STAGES_PATH: "stages",
+    BANDS_PATH: "bands",
+    DATES_PATH: "dates",
+    HOME_PAGE_PATH: "homePage",
+    APPEARANCES_PATH: "appearances",
     PUBLISHED_DATA_PATH: "publishedData"
   },
   STORAGE: {
