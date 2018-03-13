@@ -12,7 +12,7 @@ export default {
     },
     {
       name: "Home Page",
-      url: "/homepage",
+      url: "/edithomepage",
       icon: "icon-home"
     },
     {

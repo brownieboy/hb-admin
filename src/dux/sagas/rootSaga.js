@@ -3,9 +3,10 @@ import { all } from "redux-saga/effects";
 import readFirebaseDataSagas from "./readFirebaseDataSagas.js";
 import loginFirebaseSagas from "./loginFirebaseSagas.js";
 import writeFirebaseBandSagas from "./writeFirebaseBandSagas.js";
+import writeFirebaseHomeSagas from "./writeFirebaseHomeSagas.js";
 import writeFirebaseStageSagas from "./writeFirebaseStageSagas.js";
 import writeFirebaseDateSagas from "./writeFirebaseDateSagas.js";
-import writeFirebaseScheduleSagas  from "./writeFirebaseScheduleSagas.js";
+import writeFirebaseScheduleSagas from "./writeFirebaseScheduleSagas.js";
 import uploadFirebaseImagesSagas from "./uploadFirebaseImagesSagas.js";
 
 // Combine sagas solution taken from Andarist's comment at:
@@ -15,6 +16,7 @@ function* sagas() {
     ...readFirebaseDataSagas,
     ...loginFirebaseSagas,
     ...writeFirebaseBandSagas,
+    ...writeFirebaseHomeSagas,
     ...writeFirebaseStageSagas,
     ...writeFirebaseDateSagas,
     ...writeFirebaseScheduleSagas,

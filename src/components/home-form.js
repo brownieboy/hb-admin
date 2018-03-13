@@ -30,7 +30,6 @@ const HomeForm = ({
       <br />
       {saveStatus === "failure" &&
         `Error: ${JSON.stringify(saveError, null, 4)}`}
-      hello
       <Formik
         enableReinitialize
         initialValues={Object.assign({}, fieldValues)}
@@ -51,9 +50,10 @@ const HomeForm = ({
           return (
             <form onSubmit={handleSubmit}>
               <FormGroup>
-                <Label for="homeText">Stage ID</Label>
+                <Label for="homeText">Info</Label>
                 <Input
-                  type="text"
+                  rows={6}
+                  type="textarea"
                   name="homeText"
                   placeholder="Home page information"
                   onChange={handleChange}

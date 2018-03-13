@@ -76,7 +76,6 @@ class BandForm extends Component {
       submitDataToServer,
       saveStatus,
       saveError,
-      saveBandClear,
       sendStorageCardStart,
       sendStorageThumbStart,
       thumbProgress,

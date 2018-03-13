@@ -8,6 +8,10 @@ const SAVE_HOME_REQUEST = "SAVE_HOME_REQUEST";
 const SAVE_HOME_SUCCESS = "SAVE_HOME_SUCCESS";
 const SAVE_HOME_FAILED = "SAVE_HOME_FAILED";
 
+export const actionTypes = {
+  SAVE_EDITED_HOME
+};
+
 // Reducer
 const homeReducer = (
   state = {
