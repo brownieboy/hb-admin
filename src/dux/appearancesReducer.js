@@ -251,23 +251,3 @@ export const appearancesDuxConstants = {
 
 export default appearancesReducer;
 
-// A thunk must return a function, hence the double () => dispatch =>
-// export const loadBands = () => dispatch => {
-//   dispatch(loadingBands(true));
-//   bandsApi
-//     .getBandsData()
-//     .then(bandsData => {
-//       // addFireBaseImagesToData(bandsData);
-//       console.log(
-//         "bandsData in reducer=" + JSON.stringify(bandsData[0], null, 4)
-//       );
-//       dispatch(
-//         batchActions([loadedBandsSuccess(bandsData), loadingBands(false)])
-//       );
-//     })
-//     .catch(err => {
-//       console.log(`error in data retrieval: ${err}`);
-//       dispatch(batchActions([loadedBandsFailure(), loadingBands(false)]));
-//       return err;
-//     });
-// };
