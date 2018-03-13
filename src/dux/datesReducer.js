@@ -17,13 +17,16 @@ export const actionTypes = {
 };
 
 // Reducer
+
+const defaultDates = [new Date(), new Date(), new Date()];
+
 const datesReducer = (
   state = {
     fetchStatus: "",
     fetchError: "",
     saveStatus: "",
     saveError: "",
-    datesList: ["", "", ""]
+    datesList: defaultDates.slice()
   },
   action
 ) => {
@@ -50,7 +53,7 @@ const setFetchDatesRequest = () => ({
 });
 const setFetchDatesSucceeded = datesList => ({
   type: FETCH_DATES_SUCCESS,
-  payload: datesList ? datesList : ["", "", ""]
+  payload: datesList ? datesList : defaultDates.slice()
 });
 const setFetchDatesFailed = errorMessage => ({
   type: FETCH_DATES_FAILURE,
