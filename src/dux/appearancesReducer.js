@@ -125,6 +125,11 @@ export const getVisibleTodos = (state, filter) => {
   }
 };
  */
+
+// export const getAppearancesWithBandAndStageNames = state => {
+//   return ["a", "b"];
+// };
+
 export const getAppearancesWithBandAndStageNames = state => {
   console.log("appearancesReducer..getAppearancesWithBandAndStageNames start");
   const bandsList = state.bandsState.bandsList.slice();
@@ -192,7 +197,7 @@ const nest = d3.nest()
 // const selectAppearancesByDateTime = () => [];
 
 export const selectors = {
-  selectAppearancesByDateTime,
+  selectAppearancesByDateTime
   // selectAppearancesByBandNameThenDateTime
   // selectAppearanceGroupedByDayThenStage
 };
