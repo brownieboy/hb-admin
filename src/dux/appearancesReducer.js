@@ -127,6 +127,9 @@ export const getVisibleTodos = (state, filter) => {
  */
 
 // export const getAppearancesWithBandAndStageNames = state => {
+//   const bandsList = state.bandsState.bandsList;
+//   const stagesList = state.stagesState.stagesList();
+
 //   return ["a", "b"];
 // };
 
@@ -134,7 +137,7 @@ export const getAppearancesWithBandAndStageNames = state => {
   console.log("appearancesReducer..getAppearancesWithBandAndStageNames start");
   const bandsList = state.bandsState.bandsList.slice();
   const stagesList = state.stagesState.stagesList.slice();
-  let matchingBand, matchingStage;
+  let matchingBand, matchingStage, newAppearance;
   // const appearancesRaw = selectAppearancesByDateTime(
   //   state.appearancesState
   // ).slice(); // Defensive copying.
@@ -142,14 +145,21 @@ export const getAppearancesWithBandAndStageNames = state => {
   const appearancesWithBandNames = appearancesRaw.map(appearance => {
     matchingBand = getBandInfoForId(bandsList, appearance.bandId);
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
+    newAppearance = { ...appearance };
     if (matchingBand) {
-      appearance.bandName = matchingBand.name;
+      // appearance.bandName = matchingBand.name;
+      newAppearance = { ...newAppearance, bandName: matchingBand.name };
     }
     if (matchingStage) {
-      appearance.stageName = matchingStage.name;
-      appearance.stageSortOrder = matchingStage.sortOrder;
+      // appearance.stageName = matchingStage.name;
+      // appearance.stageSortOrder = matchingStage.sortOrder;
+      newAppearance = {
+        ...newAppearance,
+        stagename: matchingStage.name,
+        stageSortOrder: matchingStage.sortOrder
+      };
     }
-    return appearance;
+    return newAppearance;
   });
   console.log(
     "appearancesReducer..getAppearancesWithBandAndStageNames returns:"
