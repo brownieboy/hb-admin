@@ -38,20 +38,23 @@ import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 // ListItem key={`${bandId}${dateTimeStart}`}
 
 const getAppearanceLines = lineData => {
-  const itemsLength = lineData.length;
+  // const itemsLength = lineData.length;
   return lineData.map((lineMember, index) => {
-    const lineStyle = { height: 40 };
-    if (itemsLength === index + 1) {
-      lineStyle.borderBottomWidth = 0;
-    }
+    // const lineStyle = { height: 40 };
+    // if (itemsLength === index + 1) {
+    //   lineStyle.borderBottomWidth = 0;
+    // }
     return (
-      <ListGroupItem key={lineMember.bandId} style={lineStyle}>
+      <ListGroupItem key={lineMember.bandId}>
         <span>
-          <span style={{ fontSize: 14 }}>{`${lineMember.bandName}: ${format(
+          <span>{`${lineMember.bandName}: ${format(
             lineMember.dateTimeStart,
             "HH:mm"
           )}-${format(lineMember.dateTimeEnd, "HH:mm")}`}</span>
         </span>
+        <Link to={`/scheduleform/${lineMember.id}`} style={{ marginLeft: 20 }}>
+          <i className="icon-pencil" />
+        </Link>
       </ListGroupItem>
     );
   });
@@ -59,9 +62,11 @@ const getAppearanceLines = lineData => {
 
 const getAppearancesStageLevel = groupedStageData =>
   groupedStageData.map(stageMember => [
-    <ListGroupItem key={stageMember.key}>
-      <span>{stageMember.key.split("~")[1]}</span>
-    </ListGroupItem>,
+    <div key={stageMember.key} style={{ marginTop: 15 }}>
+      <span style={{ fontSize: 14, fontStyle: "italic" }}>
+        {stageMember.key.split("~")[1]}
+      </span>
+    </div>,
     <ListGroup key={`${stageMember.key}-lineswrapper`}>
       {getAppearanceLines(stageMember.values)}
     </ListGroup>
@@ -69,12 +74,17 @@ const getAppearancesStageLevel = groupedStageData =>
 
 const getAppearancesListDayLevel = groupedDayData =>
   groupedDayData.map(dayMember => [
-    <ListGroupItem key={dayMember.key}>
-      <span style={{ fontWeight: "bold" }}>{dayMember.key.toUpperCase()}</span>
-    </ListGroupItem>,
-    <div key={`${dayMember.key}-stagewrapper`} style={{ marginBottom: 20 }}>
+    <div key={dayMember.key} style={{ marginBottom: -15 }}>
+      <span style={{ fontWeight: "bold", fontSize: 18, color: "blue" }}>
+        {dayMember.key.toUpperCase()}
+      </span>
+    </div>,
+    <ListGroup
+      key={`${dayMember.key}-stagewrapper`}
+      style={{ marginBottom: 20 }}
+    >
       {getAppearancesStageLevel(dayMember.values)}
-    </div>
+    </ListGroup>
   ]);
 
 const Schedule = ({
