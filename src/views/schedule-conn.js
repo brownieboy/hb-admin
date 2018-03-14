@@ -29,12 +29,13 @@ const mapStateToProps = state => ({
   appearancesGroupedByDayThenStage: appearanceSelectors.selectAppearancesGroupedByDayThenStage(
     state.appearancesState
   ),
+  appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state),
+
   // Not really State, and returns a function, but what the hell
   getBandInfoForId: bandId =>
     getBandInfoIdAction(state.bandsState.bandsList, bandId),
   getStageInfoForId: stageId =>
-    getStageInfoIdAction(state.stagesState.stagesList, stageId),
-  appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state)
+    getStageInfoIdAction(state.stagesState.stagesList, stageId)
 });
 
 /*

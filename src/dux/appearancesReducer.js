@@ -93,8 +93,6 @@ const appearancesReducer = (
 // Definitely *is* being used.  So where is its state from?
 const selectAppearances = state => state.appearancesList;
 
-const selectBands = state => state.bandsList;
-
 // Selectors
 const selectAppearancesByDateTime = createSelector(
   [selectAppearances],
@@ -131,9 +129,10 @@ export const getAppearancesWithBandAndStageNames = state => {
   const bandsList = state.bandsState.bandsList.slice();
   const stagesList = state.stagesState.stagesList.slice();
   let matchingBand, matchingStage;
-  const appearancesWithBandNames = selectAppearancesByDateTime(
+  const appearancesRaw = selectAppearancesByDateTime(
     state.appearancesState
-  ).map(appearance => {
+  ).slice(); // Defensive copying.
+  const appearancesWithBandNames = appearancesRaw.map(appearance => {
     matchingBand = getBandInfoForId(bandsList, appearance.bandId);
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
     if (matchingBand) {
@@ -141,16 +140,18 @@ export const getAppearancesWithBandAndStageNames = state => {
     }
     if (matchingStage) {
       appearance.stageName = matchingStage.name;
+      appearance.stageSortOrder = matchingStage.sortOrder;
     }
     return appearance;
   });
-  console.log("appearancesReducer..getAppearancesWithBandAndStageNames returns:");
-  console.log(appearancesWithBandNames);
+  // console.log("appearancesReducer..getAppearancesWithBandAndStageNames returns:");
+  // console.log(appearancesWithBandNames);
   return appearancesWithBandNames;
 };
 
 const selectAppearancesGroupedByDayThenStage = createSelector(
   [selectAppearancesByDateTime],
+  // [getAppearancesWithBandAndStageNames],
   appearancesList =>
     d3
       .nest()
@@ -159,8 +160,9 @@ const selectAppearancesGroupedByDayThenStage = createSelector(
       .sortKeys(
         (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
       )
-      .entries(appearancesList)
+      .entries(appearancesList.slice())
 );
+
 /*
 const nest = d3.nest()
     .key(d => +d.date)

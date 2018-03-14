@@ -16,7 +16,7 @@ const listSchedule = (
   getStageInfoForId
 ) => {
   let bandInfo, stageInfo;
-  console.log("appearancesArray start = " + appearancesArray);
+  // console.log("appearancesArray start = " + appearancesArray);
   return appearancesArray.map(appearanceMember => {
     const { bandId, stageId } = appearanceMember;
     bandInfo = getBandInfoForId(bandId);
@@ -38,15 +38,17 @@ const listSchedule = (
 
 const Schedule = ({
   appearancesListByDateTime,
+  appearancesGroupedByDayThenStage,
   fetchStatus,
   fetchError,
   appearancesWithBandAndStageNames,
   getBandInfoForId,
   getStageInfoForId
 }) => {
-  console.log("In Schedule, appearancesWithBandAndStageNames:");
-  console.log(appearancesWithBandAndStageNames);
-  // appearancesWithBandAndStageNames();
+  // console.log("In Schedule, appearancesWithBandAndStageNames:");
+  // console.log(appearancesWithBandAndStageNames);
+  console.log("In Schedule, appearancesGroupedByDayThenStage:");
+  console.log(appearancesGroupedByDayThenStage);
   return (
     <div>
       <h1>Schedule</h1>
@@ -66,6 +68,9 @@ const Schedule = ({
 Schedule.propTypes = {
   appearancesListByDateTime: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired,
+  appearancesWithBandAndStageNames: PropTypes.arrayOf(
+    PropTypes.object.isRequired
+  ).isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   getBandInfoForId: PropTypes.func.isRequired,
