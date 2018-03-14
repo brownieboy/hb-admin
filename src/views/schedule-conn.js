@@ -34,7 +34,7 @@ const mapStateToProps = state => ({
     getBandInfoIdAction(state.bandsState.bandsList, bandId),
   getStageInfoForId: stageId =>
     getStageInfoIdAction(state.stagesState.stagesList, stageId),
-  appearancesWithBandAndStageNames: () => getAppearancesWithBandAndStageNames(state)
+  appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state)
 });
 
 /*

@@ -46,7 +46,7 @@ const Schedule = ({
 }) => {
   console.log("In Schedule, appearancesWithBandAndStageNames:");
   console.log(appearancesWithBandAndStageNames);
-  appearancesWithBandAndStageNames();
+  // appearancesWithBandAndStageNames();
   return (
     <div>
       <h1>Schedule</h1>

@@ -146,6 +146,7 @@ export const getAppearancesWithBandAndStageNames = state => {
   });
   console.log("appearancesReducer..getAppearancesWithBandAndStageNames returns:");
   console.log(appearancesWithBandNames);
+  return appearancesWithBandNames;
 };
 
 const selectAppearancesGroupedByDayThenStage = createSelector(
