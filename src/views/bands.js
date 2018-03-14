@@ -4,23 +4,12 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
-import { defaultThumbnailPath } from "../constants/general.js";
-
+import ThumbNail from "../components/thumbnail.js";
 
 const listBands = bandsArray =>
   bandsArray.map(bandMember => (
     <ListGroupItem key={bandMember.id} style={{ backgroundColor: "#e9f1f9" }}>
-      <img
-        src={bandMember.thumbFullUrl || defaultThumbnailPath}
-        style={{
-          height: 50,
-          width: 50,
-          borderRadius: "50%",
-          backgroundColor: "white",
-          padding: bandMember.thumbFullUrl ? 0 : 3,
-          marginRight: 5
-        }}
-      />
+      <ThumbNail thumbFullUrl={bandMember.thumbFullUrl} />
       {bandMember.name}{" "}
       <Link to={`/bandform/${bandMember.id}`}>
         <i className="icon-pencil" />
