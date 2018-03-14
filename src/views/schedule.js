@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 
@@ -32,9 +33,39 @@ import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 //       </ListGroupItem>
 //     );
 //   });
-// };
+// }
 
 // ListItem key={`${bandId}${dateTimeStart}`}
+
+const getAppearanceLines = lineData => {
+  const itemsLength = lineData.length;
+  return lineData.map((lineMember, index) => {
+    const lineStyle = { height: 40 };
+    if (itemsLength === index + 1) {
+      lineStyle.borderBottomWidth = 0;
+    }
+    return (
+      <ListGroupItem key={lineMember.bandId} style={lineStyle}>
+        <span>
+          <span style={{ fontSize: 14 }}>{`${lineMember.bandName}: ${format(
+            lineMember.dateTimeStart,
+            "HH:mm"
+          )}-${format(lineMember.dateTimeEnd, "HH:mm")}`}</span>
+        </span>
+      </ListGroupItem>
+    );
+  });
+};
+
+const getAppearancesStageLevel = groupedStageData =>
+  groupedStageData.map(stageMember => [
+    <ListGroupItem key={stageMember.key}>
+      <span>{stageMember.key.split("~")[1]}</span>
+    </ListGroupItem>,
+    <ListGroup key={`${stageMember.key}-lineswrapper`}>
+      {getAppearanceLines(stageMember.values)}
+    </ListGroup>
+  ]);
 
 const getAppearancesListDayLevel = groupedDayData =>
   groupedDayData.map(dayMember => [
@@ -42,7 +73,7 @@ const getAppearancesListDayLevel = groupedDayData =>
       <span style={{ fontWeight: "bold" }}>{dayMember.key.toUpperCase()}</span>
     </ListGroupItem>,
     <div key={`${dayMember.key}-stagewrapper`} style={{ marginBottom: 20 }}>
-      Line values
+      {getAppearancesStageLevel(dayMember.values)}
     </div>
   ]);
 
@@ -59,8 +90,8 @@ const Schedule = ({
   // console.log(appearancesListByDateTime);
   // console.log("In Schedule, appearancesWithBandAndStageNames:");
   // console.log(appearancesWithBandAndStageNames);
-  console.log("In Schedule, appearancesGroupedByDayThenStage:");
-  console.log(appearancesGroupedByDayThenStage);
+  // console.log("In Schedule, appearancesGroupedByDayThenStage:");
+  // console.log(appearancesGroupedByDayThenStage);
   return (
     <div>
       <h1>Schedule</h1>
