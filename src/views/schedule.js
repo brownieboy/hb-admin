@@ -45,10 +45,10 @@ const Schedule = ({
   getBandInfoForId,
   getStageInfoForId
 }) => {
-  // console.log("In Schedule, appearancesWithBandAndStageNames:");
-  // console.log(appearancesWithBandAndStageNames);
+  console.log("In Schedule, appearancesWithBandAndStageNames:");
+  console.log(appearancesWithBandAndStageNames);
   console.log("In Schedule, appearancesGroupedByDayThenStage:");
-  console.log(appearancesGroupedByDayThenStage);
+  // console.log(appearancesGroupedByDayThenStage);
   return (
     <div>
       <h1>Schedule</h1>

@@ -126,12 +126,14 @@ export const getVisibleTodos = (state, filter) => {
 };
  */
 export const getAppearancesWithBandAndStageNames = state => {
+  console.log("appearancesReducer..getAppearancesWithBandAndStageNames start");
   const bandsList = state.bandsState.bandsList.slice();
   const stagesList = state.stagesState.stagesList.slice();
   let matchingBand, matchingStage;
-  const appearancesRaw = selectAppearancesByDateTime(
-    state.appearancesState
-  ).slice(); // Defensive copying.
+  // const appearancesRaw = selectAppearancesByDateTime(
+  //   state.appearancesState
+  // ).slice(); // Defensive copying.
+  const appearancesRaw = state.appearancesState.appearancesList.slice(); // Defensive copying.
   const appearancesWithBandNames = appearancesRaw.map(appearance => {
     matchingBand = getBandInfoForId(bandsList, appearance.bandId);
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
@@ -144,24 +146,26 @@ export const getAppearancesWithBandAndStageNames = state => {
     }
     return appearance;
   });
-  // console.log("appearancesReducer..getAppearancesWithBandAndStageNames returns:");
-  // console.log(appearancesWithBandNames);
+  console.log(
+    "appearancesReducer..getAppearancesWithBandAndStageNames returns:"
+  );
+  console.log(appearancesWithBandNames);
   return appearancesWithBandNames;
 };
 
-const selectAppearancesGroupedByDayThenStage = createSelector(
-  [selectAppearancesByDateTime],
-  // [getAppearancesWithBandAndStageNames],
-  appearancesList =>
-    d3
-      .nest()
-      .key(appearance => format(new Date(appearance.dateTimeStart), "dddd"))
-      .key(appearance => `${appearance.stageSortOrder}~${appearance.stageName}`)
-      .sortKeys(
-        (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
-      )
-      .entries(appearancesList.slice())
-);
+// const selectAppearancesGroupedByDayThenStage = createSelector(
+//   [selectAppearancesByDateTime],
+//   // [getAppearancesWithBandAndStageNames],
+//   appearancesList =>
+//     d3
+//       .nest()
+//       .key(appearance => format(new Date(appearance.dateTimeStart), "dddd"))
+//       .key(appearance => `${appearance.stageSortOrder}~${appearance.stageName}`)
+//       .sortKeys(
+//         (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
+//       )
+//       .entries(appearancesList.slice())
+// );
 
 /*
 const nest = d3.nest()
@@ -170,11 +174,11 @@ const nest = d3.nest()
     .entries(data);
 */
 
-const selectAppearancesByBandNameThenDateTime = createSelector(
-  [selectAppearances],
-  appearancesList =>
-    stringThenDateTimeSort(appearancesList.slice(), "name", "dateTimeStart")
-);
+// const selectAppearancesByBandNameThenDateTime = createSelector(
+//   [selectAppearances],
+//   appearancesList =>
+//     stringThenDateTimeSort(appearancesList.slice(), "name", "dateTimeStart")
+// );
 
 // These getters have a supplied parameter, so they'll channge ever time.  Hence no
 // point in using Reselect library with them.
@@ -189,8 +193,8 @@ const selectAppearancesByBandNameThenDateTime = createSelector(
 
 export const selectors = {
   selectAppearancesByDateTime,
-  selectAppearancesByBandNameThenDateTime,
-  selectAppearancesGroupedByDayThenStage
+  // selectAppearancesByBandNameThenDateTime
+  // selectAppearanceGroupedByDayThenStage
 };
 
 /*
