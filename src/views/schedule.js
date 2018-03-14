@@ -47,12 +47,15 @@ const getAppearanceLines = lineData => {
     // }
     return (
       <ListGroupItem key={lineMember.bandId}>
-        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={ 30 } />
+        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
         <span>
-          <span>{`${lineMember.bandName}: ${format(
-            lineMember.dateTimeStart,
-            "HH:mm"
-          )}-${format(lineMember.dateTimeEnd, "HH:mm")}`}</span>
+          <span style={{ fontSize: 12 }}>
+            {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
+              lineMember.dateTimeEnd,
+              "HH:mm"
+            )}: `}
+          </span>
+          <span>{lineMember.bandName}</span>
         </span>
         <Link to={`/scheduleform/${lineMember.id}`} style={{ marginLeft: 20 }}>
           <i className="icon-pencil" />
