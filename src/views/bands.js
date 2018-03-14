@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import { defaultThumbnailPath } from "../constants/general.js";
 
+
 const listBands = bandsArray =>
   bandsArray.map(bandMember => (
     <ListGroupItem key={bandMember.id} style={{ backgroundColor: "#e9f1f9" }}>

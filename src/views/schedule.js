@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
+import ThumbNail from "../components/thumbnail.js";
 
 // import { getAppearanceKey } from "../helper-functions/computedkeys.js";
 
@@ -46,6 +47,7 @@ const getAppearanceLines = lineData => {
     // }
     return (
       <ListGroupItem key={lineMember.bandId}>
+        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={ 30 } />
         <span>
           <span>{`${lineMember.bandName}: ${format(
             lineMember.dateTimeStart,

@@ -155,7 +155,11 @@ export const getAppearancesWithBandAndStageNames = state => {
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
     newAppearance = { ...appearance };
     if (matchingBand) {
-      newAppearance = { ...newAppearance, bandName: matchingBand.name };
+      newAppearance = {
+        ...newAppearance,
+        bandName: matchingBand.name,
+        bandThumbFullUrl: matchingBand.thumbFullUrl || null
+      };
     }
     if (matchingStage) {
       newAppearance = {
@@ -178,7 +182,9 @@ export const getAppearancesGroupedByDayThenStage = state => {
 
   return d3
     .nest()
-    .key(appearance => format(new Date(appearance.dateTimeStart), "dddd DD/MM/YYYY"))
+    .key(appearance =>
+      format(new Date(appearance.dateTimeStart), "dddd DD/MM/YYYY")
+    )
     .key(appearance => `${appearance.stageSortOrder}~${appearance.stageName}`)
     .sortKeys(
       (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
