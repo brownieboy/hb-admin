@@ -45,32 +45,39 @@ const Schedule = ({
   getBandInfoForId,
   getStageInfoForId
 }) => {
-  console.log("In Schedule, appearancesWithBandAndStageNames:");
-  console.log(appearancesWithBandAndStageNames);
+  //   console.log("In Schedule, appearancesListByDateTime:");
+  // console.log(appearancesListByDateTime);
+  // console.log("In Schedule, appearancesWithBandAndStageNames:");
+  // console.log(appearancesWithBandAndStageNames);
   console.log("In Schedule, appearancesGroupedByDayThenStage:");
-  // console.log(appearancesGroupedByDayThenStage);
+  console.log(appearancesGroupedByDayThenStage);
   return (
     <div>
       <h1>Schedule</h1>
       <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
       <ListGroup>
-        {listSchedule(
-          appearancesListByDateTime,
-          getBandInfoForId,
-          getStageInfoForId
-        )}
+      List group would be here
       </ListGroup>
       <Link to="/scheduleform">Add appearance</Link>
     </div>
   );
 };
 
+/*
+      <ListGroup>
+        {listSchedule(
+          appearancesListByDateTime,
+          getBandInfoForId,
+          getStageInfoForId
+        )}
+*/
+
 Schedule.propTypes = {
-  appearancesListByDateTime: PropTypes.arrayOf(PropTypes.object.isRequired)
-    .isRequired,
-  appearancesWithBandAndStageNames: PropTypes.arrayOf(
-    PropTypes.object.isRequired
-  ).isRequired,
+  // appearancesListByDateTime: PropTypes.arrayOf(PropTypes.object.isRequired)
+  //   .isRequired,
+  // appearancesWithBandAndStageNames: PropTypes.arrayOf(
+  //   PropTypes.object.isRequired
+  // ).isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   getBandInfoForId: PropTypes.func.isRequired,

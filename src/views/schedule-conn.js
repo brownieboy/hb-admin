@@ -7,8 +7,8 @@ import Schedule from "./schedule.js";
 // Reducer
 import {
   loadAppearances,
-  selectors as appearanceSelectors,
-  getAppearancesWithBandAndStageNames
+  // selectors as appearanceSelectors,
+  getAppearancesGroupedByDayThenStage
 } from "../dux/appearancesReducer.js";
 
 // Important - from the mainReducer, so we can give it whole state?
@@ -24,13 +24,11 @@ const mapStateToProps = state => ({
   // appearancesProp: state.appearancesState,
   fetchStatus: state.appearancesState.fetchStatus,
   fetchError: state.appearancesState.fetchError,
-  appearancesListByDateTime: appearanceSelectors.selectAppearancesByDateTime(
-    state.appearancesState
-  ),
-  // appearancesGroupedByDayThenStage: appearanceSelectors.selectAppearancesGroupedByDayThenStage(
+  // appearancesListByDateTime: appearanceSelectors.selectAppearancesByDateTime(
   //   state.appearancesState
   // ),
-  appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state),
+  appearancesGroupedByDayThenStage: getAppearancesGroupedByDayThenStage(state),
+  // appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state),
 
   // Not really State, and returns a function, but what the hell
   getBandInfoForId: bandId =>
