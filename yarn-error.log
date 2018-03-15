@@ -1,17 +1,17 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js build
+  /usr/bin/node /usr/share/yarn/bin/yarn.js start
 
 PATH: 
-  /Users/mikebrown/.npm-packages/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /home/mikey/.npm-global/bin:/home/mikey/.scripts-global:~/.npm-global/bin:/home/mikey/bin:/home/mikey/.local/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  8.9.4
+  8.9.1
 
 Platform: 
-  darwin x64
+  linux x64
 
 npm manifest: 
   {
@@ -6819,13 +6819,13 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c webpack -p --progress --env.prod
-  Directory: /Users/mikebrown/Development/hb-admin
+  Arguments: -c webpack-dev-server --progress --color --inline --env.dev
+  Directory: /home/mikey/Development/hb-admin
   Output:
   
-      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:186:110)
-      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:226:113)
-      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:30281:17)
+      at ProcessTermError.MessageError (/usr/share/yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/share/yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/share/yarn/lib/cli.js:30281:17)
       at emitTwo (events.js:126:13)
       at ChildProcess.emit (events.js:214:7)
       at maybeClose (internal/child_process.js:925:16)
