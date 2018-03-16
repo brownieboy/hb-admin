@@ -157,6 +157,7 @@ export const getAppearancesWithBandAndStageNames = state => {
       newAppearance = {
         ...newAppearance,
         bandName: matchingBand.name,
+        name: matchingBand.name,
         bandThumbFullUrl: matchingBand.thumbFullUrl || null
       };
     }

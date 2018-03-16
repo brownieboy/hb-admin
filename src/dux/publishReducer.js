@@ -11,9 +11,9 @@ export const actionTypes = {
 };
 
 // Published data getters
-const getPublishedData = () => {
-  return { published: "here it is" };
-};
+// const getPublishedData = () => {
+//   return { published: "here it is" };
+// };
 
 
 export const savePublishRequest = () => ({
@@ -24,9 +24,9 @@ export const savePublishSucceeded = () => ({
   type: SAVE_PUBLISH_SUCCESS
 });
 
-export const savePublishNow = () => ({
+export const savePublishNow = publishData => ({
   type: SAVE_PUBLISH_NOW,
-  payload: getPublishedData()
+  payload: publishData
 });
 
 export const savePublishFailed = error => ({
