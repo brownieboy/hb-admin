@@ -92,7 +92,8 @@ const appearancesReducer = (
 // Definitely *is* being used.  So where is its state from?
 const selectAppearances = state => state.appearancesList;
 
-// Selectors
+// Selectors use redux-select and are memoised.  But they need to be called
+// before they get memoised!
 const selectAppearancesByDateTime = createSelector(
   [selectAppearances],
   appearancesList =>
@@ -101,6 +102,8 @@ const selectAppearancesByDateTime = createSelector(
       .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
 );
 
+
+// Getters are just functions.
 const getAppearancesByDateTime = appearancesList => {
   const newAppearances = [...appearancesList];
   return newAppearances

@@ -142,6 +142,27 @@ export const selectors = {
   selectBandsPicker
 };
 
+// Getters don't use redux-select
+export const getBandInfoForId = (bandsList, bandId) =>
+  bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null;
+
+const getBandsAlphabetical = bandsList => stringSort([...bandsList], "name");
+
+export const getBandsAlphabeticalEnhanced = bandsList => {
+  const newBandsList = getBandsAlphabetical(bandsList);
+  return newBandsList.map(bandMember => ({
+    ...bandMember,
+    bandId: bandMember.id
+  }));
+};
+
+// export const bandsDuxConstants = {
+//   LOAD_BANDS_NOW,
+//   FETCH_BANDS_REQUEST,
+//   FETCH_BANDS_SUCCESS,
+//   FETCH_BANDS_FAILURE
+// };
+
 /*
 // Sort/filter functions for selectors
 const selectPeople = state => state.people.peopleList;
@@ -250,17 +271,6 @@ export const bandsDuxActions = {
   updateBandCardUrl,
   updateBandThumbUrl
 };
-
-// Getters
-export const getBandInfoForId = (bandsList, bandId) =>
-  (bandsList ? bandsList.find(bandMember => bandMember.id === bandId) : null);
-
-// export const bandsDuxConstants = {
-//   LOAD_BANDS_NOW,
-//   FETCH_BANDS_REQUEST,
-//   FETCH_BANDS_SUCCESS,
-//   FETCH_BANDS_FAILURE
-// };
 
 export default bandsReducer;
 
