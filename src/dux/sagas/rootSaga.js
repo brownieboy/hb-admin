@@ -8,7 +8,7 @@ import writeFirebaseStageSagas from "./writeFirebaseStageSagas.js";
 import writeFirebaseDateSagas from "./writeFirebaseDateSagas.js";
 import writeFirebaseScheduleSagas from "./writeFirebaseScheduleSagas.js";
 import uploadFirebaseImagesSagas from "./uploadFirebaseImagesSagas.js";
-
+import writeFirebasePublishSagas from "./writeFirebasePublishSagas.js";
 // Combine sagas solution taken from Andarist's comment at:
 // https://github.com/redux-saga/redux-saga/issues/160
 function* sagas() {
@@ -20,7 +20,8 @@ function* sagas() {
     ...writeFirebaseStageSagas,
     ...writeFirebaseDateSagas,
     ...writeFirebaseScheduleSagas,
-    ...uploadFirebaseImagesSagas
+    ...uploadFirebaseImagesSagas,
+    ...writeFirebasePublishSagas
   ]);
 }
 export default sagas;

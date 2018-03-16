@@ -1,41 +1,35 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
-
-import { login, logout } from "../dux/firebaseLoginReducer.js";
+import { savePublishNow } from "../dux/publishReducer.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loginProp: login, logoutProp: logout }, dispatch);
+  bindActionCreators({ publishNow: savePublishNow }, dispatch);
 
 const mapStateToProps = state => ({
   loggedInState: state.firebaseLoginState
 });
 
-class LoginButton extends Component {
-  handleLogin = () => {
-    const { loginProp, logoutProp } = this.props;
-    const { loggedIn } = this.props.loggedInState || false;
-    console.log("loginProp() calling");
-    if (loggedIn) {
-      logoutProp();
-    } else {
-      loginProp();
-    }
+class PublishButton extends Component {
+  handlePublish = () => {
+    console.log("handlePublish");
+    const { publishNow } = this.props;
+    publishNow();
   };
 
   render() {
-    const { loggedIn } = this.props.loggedInState || false;
-    return (
-      <Button onClick={this.handleLogin}>
-        Publish to Phones
-      </Button>
-    );
+    return <Button onClick={this.handlePublish}>Publish to Phones</Button>;
   }
 }
 
-const loginButtonConn = connect(mapStateToProps, mapDispatchToProps)(
-  LoginButton
+PublishButton.propTypes = {
+  publishNow: PropTypes.func.isRequired
+};
+
+const PublishButtonConn = connect(mapStateToProps, mapDispatchToProps)(
+  PublishButton
 );
 
-export default loginButtonConn;
+export default PublishButtonConn;
