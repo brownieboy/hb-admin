@@ -5,7 +5,7 @@ import { getBandInfoForId } from "./bandsReducer.js";
 import { getStageInfoForId } from "./stagesReducer.js";
 
 // import { d3 } from "d3-collection";
-import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
+// import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
 
 // Action type constants
 const LOAD_APPEARANCES_NOW = "LOAD_APPEARANCES_NOW"; // Imperative, hence "NOW"!
@@ -33,7 +33,6 @@ const appearancesReducer = (
     fetchStatus: "",
     fetchError: "",
     saveStatus: "",
-    fetchError: "",
     appearancesList: []
   },
   action

@@ -5,7 +5,7 @@ export const types = {
     DATES_PATH: "dates",
     HOME_PAGE_PATH: "homePage",
     APPEARANCES_PATH: "appearances",
-    PUBLISHED_DATA_PATH: "publishedData"
+    PUBLISHED_DATA_PATH: "publishedDataTest"
   },
   STORAGE: {
     THUMBS_PATH: "/img/bands/thumbstest",

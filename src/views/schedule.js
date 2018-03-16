@@ -6,6 +6,10 @@ import { format } from "date-fns";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
+import { listGroupItemSmallStyles } from "./viewstyles.js";
+
+console.log("listGroupItemSmallStyles:");
+console.log(listGroupItemSmallStyles);
 
 const getAppearanceLines = lineData => {
   // const itemsLength = lineData.length;
@@ -15,13 +19,16 @@ const getAppearanceLines = lineData => {
     //   lineStyle.borderBottomWidth = 0;
     // }
     return (
-      <ListGroupItem key={lineMember.bandId}>
-        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={ 30 } />
+      <ListGroupItem key={lineMember.bandId} style={listGroupItemSmallStyles}>
+        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
         <span>
-          <span>{`${lineMember.bandName}: ${format(
-            lineMember.dateTimeStart,
-            "HH:mm"
-          )}-${format(lineMember.dateTimeEnd, "HH:mm")}`}</span>
+          <span style={{ fontSize: 12 }}>
+            {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
+              lineMember.dateTimeEnd,
+              "HH:mm"
+            )}: `}
+          </span>
+          <span>{lineMember.bandName}</span>
         </span>
         <Link to={`/scheduleform/${lineMember.id}`} style={{ marginLeft: 20 }}>
           <i className="icon-pencil" />

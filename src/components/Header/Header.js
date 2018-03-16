@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { NavbarToggler, NavbarBrand } from "reactstrap";
 
 import LoginButton from "../../containers/loginbutton-conn.js";
+import PublishButton from "../../containers/publishbutton-conn.js";
 
 class Header extends Component {
   sidebarToggle(e) {
@@ -24,8 +25,6 @@ class Header extends Component {
     document.body.classList.toggle("aside-menu-hidden");
   }
 
-
-
   render() {
     return (
       <header className="app-header navbar">
@@ -40,6 +39,7 @@ class Header extends Component {
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
         <LoginButton />
+        <PublishButton />
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
