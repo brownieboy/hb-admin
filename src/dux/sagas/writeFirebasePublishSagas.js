@@ -1,6 +1,7 @@
 import { put, takeEvery } from "redux-saga/effects";
 import {
-  actionTypes as publishActionTypes
+  actionTypes as publishActionTypes,
+  savePublishRequest
 } from "../publishReducer.js";
 import firebaseApp from "../../apis/firebase.js";
 
@@ -8,7 +9,7 @@ import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 function* saveData(action) {
   // Every saved edit, we write back to Firebase as an array.
-  yield put(saveHomeRequest());
+  yield put(savePublishRequest());
   // const homeList = yield select(state => state.homeState.homeList);
   console.log(
     "saveData saga handler for SAVE_PUBLISH_NOW, action=" +
@@ -34,7 +35,7 @@ function* saveData(action) {
 }
 
 const writeFirebaseSagas = [
-  takeEvery(publishActionTypes.SAVE_PUBLISH_NOW)
+  takeEvery(publishActionTypes.SAVE_PUBLISH_NOW, saveData)
 ];
 
 export default writeFirebaseSagas;
