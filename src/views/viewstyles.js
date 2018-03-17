@@ -12,7 +12,7 @@ export const listGroupItemSmallStyles = {
 };
 
 export const listGroupStyles = {
-  maxWidth: 320
+  maxWidth: 480
 };
 
 
