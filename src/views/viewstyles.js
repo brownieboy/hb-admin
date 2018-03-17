@@ -20,3 +20,8 @@ export const listGroupItemContentWrapperStyles = {
   justifyContent: "space-between",
   alignItems: "center"
 };
+
+export const itemTextSpan = {
+  marginLeft: 15,
+  fontSize: 17
+};

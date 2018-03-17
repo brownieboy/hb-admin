@@ -2,13 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
-import { listGroupItemContentWrapperStyles, listGroupItemStyles, listGroupStyles } from "./viewstyles.js";
+import {
+  listGroupItemContentWrapperStyles,
+  listGroupItemStyles,
+  listGroupStyles,
+  itemTextSpan
+} from "./viewstyles.js";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
-
-console.log("listGroupItemStyles:");
-console.log(listGroupItemStyles);
 
 const listBands = bandsArray =>
   bandsArray.map(bandMember => (
@@ -16,7 +18,7 @@ const listBands = bandsArray =>
       <div style={listGroupItemContentWrapperStyles}>
         <div>
           <ThumbNail thumbFullUrl={bandMember.thumbFullUrl} />
-          {bandMember.name}
+          <span style={itemTextSpan}>{bandMember.name}</span>
         </div>
         <div>
           <Input type="checkbox" />

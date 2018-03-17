@@ -1,18 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
-import { listGroupItemStyles, listGroupStyles } from "./viewstyles.js";
+import {
+  itemTextSpan,
+  listGroupItemContentWrapperStyles,
+  listGroupItemStyles,
+  listGroupStyles
+} from "./viewstyles.js";
 
 const listStages = StagesArray =>
   StagesArray.map(stageMember => (
     <ListGroupItem key={stageMember.id} style={listGroupItemStyles}>
-      {stageMember.name}
-      {"  "}
-      <Link to={`/stageform/${stageMember.id}`}>
-        <i className="icon-pencil" />
-      </Link>
+      <div style={listGroupItemContentWrapperStyles}>
+        <div>
+          <span style={itemTextSpan}>{stageMember.name}</span>
+        </div>
+        <div>
+          <Input type="checkbox" />
+          <Link to={`/stageform/${stageMember.id}`}>
+            <i className="icon-pencil" />
+          </Link>
+        </div>
+      </div>
     </ListGroupItem>
   ));
 
