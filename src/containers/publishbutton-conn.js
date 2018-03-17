@@ -18,14 +18,15 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   loggedInState: state.firebaseLoginState,
   appearancesList: getAppearancesWithBandAndStageNames(state),
-  bandsList: getBandsAlphabeticalEnhanced(state.bandsState.bandsList)
+  bandsList: getBandsAlphabeticalEnhanced(state.bandsState.bandsList),
+  homePageText: state.homeState.homeText
 });
 
 class PublishButton extends Component {
   handlePublish = () => {
-    const { appearancesList, bandsList, publishNow } = this.props;
+    const { appearancesList, bandsList, homePageText, publishNow } = this.props;
     console.log("handlePublish");
-    publishNow({ appearancesArray: appearancesList, bandsArray: bandsList });
+    publishNow({ appearancesArray: appearancesList, bandsArray: bandsList, homePageText  });
   };
 
   render() {
@@ -36,6 +37,7 @@ class PublishButton extends Component {
 PublishButton.propTypes = {
   appearancesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   bandsList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  homePageText: PropTypes.string.isRequired,
   publishNow: PropTypes.func.isRequired
 };
 
