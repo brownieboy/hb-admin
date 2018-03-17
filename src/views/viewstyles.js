@@ -17,5 +17,6 @@ export const listGroupStyles = {
 
 export const listGroupItemContentWrapperStyles = {
   display: "flex",
-  "justify-content": "space-between"
+  justifyContent: "space-between",
+  alignItems: "center"
 };
