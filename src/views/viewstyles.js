@@ -15,5 +15,7 @@ export const listGroupStyles = {
   maxWidth: 480
 };
 
-
-
+export const listGroupItemContentWrapperStyles = {
+  display: "flex",
+  "justify-content": "space-between"
+};
