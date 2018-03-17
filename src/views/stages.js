@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
+import { listGroupItemSmallStyles, listGroupStyles } from "./viewstyles.js";
 
 const listStages = StagesArray =>
   StagesArray.map(stageMember => (

@@ -89,7 +89,7 @@ class Full extends Component {
                   component={StageFormNewConn}
                 />
                 <Route path="/dates" name="Dates" component={DatesEdit} />
-                <Redirect from="/" to="/homepage" />
+                <Redirect from="/" to="/edithomepage" />
               </Switch>
             </Container>
           </main>

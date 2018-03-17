@@ -10,3 +10,10 @@ export const listGroupItemSmallStyles = {
   ...listGroupItemStylesCommon,
   padding: "0.3rem 0.7rem"
 };
+
+export const listGroupStyles = {
+  maxWidth: 320
+};
+
+
+

@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
-import { listGroupItemSmallStyles } from "./viewstyles.js";
+import { listGroupItemSmallStyles, listGroupStyles } from "./viewstyles.js";
 
 console.log("listGroupItemSmallStyles:");
 console.log(listGroupItemSmallStyles);
@@ -80,7 +80,7 @@ const Schedule = ({
     <div>
       <h1>Schedule</h1>
       <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
-      <ListGroup>
+      <ListGroup style={listGroupStyles}>
         {getAppearancesListDayLevel(appearancesGroupedByDayThenStage)}
       </ListGroup>
       <Link to="/scheduleform">Add appearance</Link>
