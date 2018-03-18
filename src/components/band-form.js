@@ -156,8 +156,8 @@ class BandForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
-            console.log("onSubmit band values:");
-            console.log(values);
+            // console.log("onSubmit band values:");
+            // console.log(values);
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
