@@ -13,6 +13,7 @@ const SAVE_STAGE_REQUEST = "SAVE_STAGE_REQUEST";
 const SAVE_STAGE_SUCCESS = "SAVE_STAGE_SUCCESS";
 const SAVE_STAGE_FAILED = "SAVE_STAGE_FAILED";
 const SAVE_STAGE_CLEAR = "SAVE_STAGE_CLEAR";
+const DELETE_STAGES = "DELETE_STAGES";
 
 export const actionTypes = {
   SAVE_NEW_STAGE,
@@ -72,6 +73,11 @@ const stagesReducer = (
         ...state.stagesList.slice(idx + 1)
       ];
       return { ...state, stagesList: newStagesList };
+    case DELETE_STAGES:
+      newStagesList = state.stagesList.filter(
+        stageMember => action.payload.indexOf(stageMember.id) < 0
+      );
+      return { ...state, stagesList: newStagesList };
     default:
       return state;
   }
@@ -130,6 +136,11 @@ export const saveStageFailed = error => ({
 
 export const saveStageClear = () => ({
   type: SAVE_STAGE_CLEAR
+});
+
+export const deleteStages = stageIdsArray => ({
+  type: DELETE_STAGES,
+  payload: stageIdsArray
 });
 
 export const stagesDuxActions = {

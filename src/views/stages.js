@@ -51,7 +51,12 @@ class Stages extends Component {
     ));
 
   render() {
-    const { stagesListProp, fetchError, fetchStatus } = this.props;
+    const {
+      deleteStages,
+      stagesListProp,
+      fetchError,
+      fetchStatus
+    } = this.props;
     return (
       <div>
         <h1>Stages</h1>
@@ -64,13 +69,19 @@ class Stages extends Component {
           {this.listStages(stagesListProp)}
         </ListGroup>
         <Link to="/stageform">Add stage</Link>
-        <Button style={{ marginLeft: 10 }}>Delete selected</Button>
+        <Button
+          style={{ marginLeft: 10 }}
+          onClick={() => deleteStages(this.state.selectedItems)}
+        >
+          Delete selected
+        </Button>
       </div>
     );
   }
 }
 
 Stages.propTypes = {
+  deleteStages: PropTypes.func.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   stagesListProp: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired

@@ -1,10 +1,12 @@
-// import { bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { deleteStages } from "../dux/stagesReducer.js";
 
 // Components
 import Stages from "./stages.js";
 
-const mapDispatchToProps = () => ({});
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ deleteStages }, dispatch);
 
 const mapStateToProps = state => ({
   fetchStatus: state.stagesState.fetchStatus,
