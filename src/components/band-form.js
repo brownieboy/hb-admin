@@ -32,8 +32,20 @@ const validationSchemaCommonObj = {
   summary: yup.string().required(),
   facebookPageUrl: yup.string(),
   facebookId: yup.string().when("facebookPageUrl", {
-    is: val => val !== "",
-    then: yup.string().required("You need this")
+    is: val => (val ? val !== "" : false),
+    then: yup
+      .string()
+      .required(
+        "If entering a Facebook page URL, you must also supply that page's ID"
+      )
+  }),
+  facebookPageName: yup.string().when("facebookPageUrl", {
+    is: val => (val ? val !== "" : false),
+    then: yup
+      .string()
+      .required(
+        "If entering a Facebook page URL, you must also supply that page's Name.  (Just put in the band's name otherwise.)"
+      )
   })
 };
 
@@ -262,6 +274,9 @@ class BandForm extends Component {
                       onBlur={handleBlur}
                       value={values.facebookPageName}
                     />
+                    {errors.facebookPageName && (
+                      <div>{errors.facebookPageName}</div>
+                    )}
                   </FormGroup>
 
                   <Button type="submit">Submit</Button>
