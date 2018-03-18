@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
+import { formFieldsWrapperStyles } from "./formstyles.js";
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
@@ -56,7 +57,7 @@ class StageForm extends Component {
     return isRedirectOn ? (
       <Redirect to={`/stageform/${this.classId}`} />
     ) : (
-      <div>
+      <div style={formFieldsWrapperStyles}>
         <h1>Add Stage</h1>
         Loading status: {saveStatus}
         {saveStatus === "saving" && (

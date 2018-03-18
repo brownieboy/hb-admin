@@ -5,6 +5,13 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
+// import fbExtract from "extract-facebook-pageid";
+
+import { formFieldsWrapperStyles, blurbFieldRows } from "./formstyles.js";
+
+// console.log(
+//   "pageid=" + fbExtract.getPageId("https://www.facebook.com/courtneybarnettmusic/")
+// );
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
@@ -72,7 +79,13 @@ class BandForm extends Component {
       cardProgress
     } = this.props;
 
-    let fieldValues = { name: "", id: "", summary: "" };
+    let fieldValues = {
+      name: "",
+      id: "",
+      summary: "",
+      blurb: "",
+      facebookPageUrl: ""
+    };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     if (isEditExisting) {
       const matchingInfo = getBandInfoForId(match.params.id);
@@ -96,7 +109,7 @@ class BandForm extends Component {
     return isRedirectOn ? (
       <Redirect to={`/bandform/${this.classId}`} />
     ) : (
-      <div>
+      <div style={formFieldsWrapperStyles}>
         <h1>Add Band</h1>
         Loading status: {saveStatus}
         {saveStatus === "saving" && (
@@ -169,9 +182,9 @@ class BandForm extends Component {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label for="summary">Summary</Label>
+                    <Label for="blurb">Band Info</Label>
                     <Input
-                      rows={6}
+                      rows={blurbFieldRows}
                       type="textarea"
                       name="blurb"
                       placeholder="Info about the band/artist"
@@ -180,6 +193,19 @@ class BandForm extends Component {
                       value={values.blurb}
                     />
                     {errors.blurb && <div>{errors.blurb}</div>}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="facebookPageUrl">Band Info</Label>
+                    <Input
+                      rows={blurbFieldRows}
+                      type="text"
+                      name="facebookPageUrl"
+                      placeholder="URL for band's Facebook page"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.facebookPageUrl}
+                    />
                   </FormGroup>
 
                   <Button type="submit">Submit</Button>

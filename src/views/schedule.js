@@ -1,15 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ListGroup, ListGroupItem } from "reactstrap";
+import { Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
-import { listGroupItemSmallStyles, listGroupStyles } from "./viewstyles.js";
-
-console.log("listGroupItemSmallStyles:");
-console.log(listGroupItemSmallStyles);
+import {
+  listGroupItemContentWrapperStyles,
+  listGroupItemSmallStyles,
+  listGroupStyles
+} from "./viewstyles.js";
 
 const getAppearanceLines = lineData => {
   // const itemsLength = lineData.length;
@@ -20,19 +21,30 @@ const getAppearanceLines = lineData => {
     // }
     return (
       <ListGroupItem key={lineMember.bandId} style={listGroupItemSmallStyles}>
-        <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
-        <span>
-          <span style={{ fontSize: 12 }}>
-            {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
-              lineMember.dateTimeEnd,
-              "HH:mm"
-            )}: `}
-          </span>
-          <span>{lineMember.bandName}</span>
-        </span>
-        <Link to={`/scheduleform/${lineMember.id}`} style={{ marginLeft: 20 }}>
-          <i className="icon-pencil" />
-        </Link>
+        <div style={listGroupItemContentWrapperStyles}>
+          <div>
+            <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
+            <span>
+              <span style={{ fontSize: 12 }}>
+                {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
+                  lineMember.dateTimeEnd,
+                  "HH:mm"
+                )}: `}
+              </span>
+              <span>{lineMember.bandName}</span>
+            </span>
+          </div>
+          <div>
+            <Input type="checkbox" />
+
+            <Link
+              to={`/scheduleform/${lineMember.id}`}
+              style={{ marginLeft: 20 }}
+            >
+              <i className="icon-pencil" />
+            </Link>
+          </div>
+        </div>
       </ListGroupItem>
     );
   });
@@ -97,4 +109,3 @@ Schedule.propTypes = {
 };
 
 export default Schedule;
-
