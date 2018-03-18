@@ -5,17 +5,36 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input, Progress } from "reactstrap";
+// import { getId as getFacebookId } from "fb-id";
 // import fbExtract from "extract-facebook-pageid";
 
-import { formFieldsWrapperStyles, blurbFieldRows } from "./formstyles.js";
+/*
+var Facebook = require('fb-id');
+var facebook = new Facebook();
+
+facebook.getId('https://www.facebook.com/mcnallydev?_rdr=p', function(id) {
+  console.log(id);
+});
+*/
+
+import {
+  formFieldsWrapperStyles,
+  helpInfoTextStyles,
+  blurbFieldRows
+} from "./formstyles.js";
 
 // console.log(
-//   "pageid=" + fbExtract.getPageId("https://www.facebook.com/courtneybarnettmusic/")
+//   "pageid=" + getFacebookId("https://www.facebook.com/courtneybarnettmusic/")
 // );
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
-  summary: yup.string().required()
+  summary: yup.string().required(),
+  facebookPageUrl: yup.string(),
+  facebookId: yup.string().when("facebookPageUrl", {
+    is: val => val !== "",
+    then: yup.string().required("You need this")
+  })
 };
 
 const ThumbImage = urlData =>
@@ -84,7 +103,9 @@ class BandForm extends Component {
       id: "",
       summary: "",
       blurb: "",
-      facebookPageUrl: ""
+      facebookPageUrl: "",
+      facebookId: "",
+      facebookPageName: ""
     };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     if (isEditExisting) {
@@ -123,7 +144,8 @@ class BandForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
-            console.log(JSON.stringify(values, null, 2));
+            console.log("onSubmit band values:");
+            console.log(values);
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
@@ -196,15 +218,49 @@ class BandForm extends Component {
                   </FormGroup>
 
                   <FormGroup>
-                    <Label for="facebookPageUrl">Band Info</Label>
+                    <Label for="facebookPageUrl">Facebook Page URL</Label>
                     <Input
-                      rows={blurbFieldRows}
                       type="text"
                       name="facebookPageUrl"
                       placeholder="URL for band's Facebook page"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.facebookPageUrl}
+                    />
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="facebookId">Facebook Page ID</Label>
+                    <Input
+                      type="text"
+                      name="facebookId"
+                      placeholder="ID for band's Facebook page"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.facebookId}
+                    />
+                    {errors.facebookId && <div>{errors.facebookId}</div>}
+                    <span style={helpInfoTextStyles}>
+                      To get the page ID, paste FB page URL in at{" "}
+                      <a href="https://findmyfbid.com/" target="_blank">
+                        https://findmyfbid.com/
+                      </a>{" "}
+                      or{" "}
+                      <a href="https://lookup-id.com/" target="_blank">
+                        https://lookup-id.com/
+                      </a>
+                    </span>
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="facebookPageName">Facebook Page Name</Label>
+                    <Input
+                      type="text"
+                      name="facebookPageName"
+                      placeholder="Name for band's Facebook page"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.facebookPageName}
                     />
                   </FormGroup>
 
@@ -319,6 +375,10 @@ class BandForm extends Component {
     );
   }
 }
+
+/*
+https://findmyfbid.com/, https://findmyfbid.com/ 
+*/
 
 BandForm.propTypes = {
   cardProgress: PropTypes.number,

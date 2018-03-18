@@ -1,14 +1,14 @@
 Arguments: 
-  /usr/local/Cellar/node/9.8.0/bin/node /usr/local/Cellar/yarn/1.5.1_1/libexec/bin/yarn.js remove facebook-extract-pageid
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js add facebook-extract-pageid
 
 PATH: 
-  /usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Applications/Wireshark.app/Contents/MacOS:/usr/local/sbin:/Users/michaelbrown/Library/Android/sdk/tools:/Users/michaelbrown/Library/Android/sdk/platform-tools:/Users/michaelbrown/Library/Android/sdk/tools:/Users/michaelbrown/Library/Android/sdk/platform-tools
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mikebrown/.npm-packages/bin:/Users/mikebrown/Library/Android/sdk/tools:/Users/mikebrown/Library/Android/sdk/platform-tools:/Users/mikebrown/.npm-packages/bin:/Users/mikebrown/Library/Android/sdk/tools:/Users/mikebrown/Library/Android/sdk/platform-tools
 
 Yarn version: 
   1.5.1
 
 Node version: 
-  9.8.0
+  8.9.4
 
 Platform: 
   darwin x64
@@ -55,7 +55,6 @@ npm manifest:
       "bootstrap": "4.0.0",
       "d3-collection": "^1.0.4",
       "date-fns": "2.0.0-alpha.7",
-      "extract-facebook-pageid": "^0.1.1",
       "firebase": "^4.10.0",
       "flag-icon-css": "2.9.0",
       "font-awesome": "4.7.0",
@@ -2458,10 +2457,6 @@ Lockfile:
       regex-not "^1.0.0"
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
-  
-  extract-facebook-pageid@^0.1.1:
-    version "0.1.1"
-    resolved "https://registry.yarnpkg.com/extract-facebook-pageid/-/extract-facebook-pageid-0.1.1.tgz#28ab014c764a2ec34a5044a9523a9d532b8507a0"
   
   extract-text-webpack-plugin@3.0.2:
     version "3.0.2"
@@ -6821,10 +6816,11 @@ Lockfile:
       type-name "^2.0.1"
 
 Trace: 
-  Error: This module isn't specified in a manifest.
-      at new MessageError (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:186:110)
-      at Object.<anonymous> (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:60445:15)
+  Error: Couldn't find package "facebook-extract-pageid" on the "npm" registry.
+      at new MessageError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:186:110)
+      at NpmResolver.<anonymous> (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:51625:15)
       at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:98:30)
-      at /usr/local/Cellar/yarn/1.5.1_1/libexec/lib/cli.js:109:13
+      at step (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:98:30)
+      at /usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:109:13
       at <anonymous>
+      at process._tickCallback (internal/process/next_tick.js:188:7)
