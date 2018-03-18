@@ -24,10 +24,10 @@ class Stages extends Component {
     console.log(e);
     console.log("id=" + id + ", value=" + e.target.checked);
     if (e.target.checked) {
+      newItems.push(id);
+    } else {
       const index = selectedItems.indexOf(id);
       newItems.splice(index);
-    } else {
-      newItems.push(id);
     }
     this.setState({ selectedItems: newItems });
   };
