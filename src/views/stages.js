@@ -18,9 +18,18 @@ class Stages extends Component {
     };
   }
 
-  handleCheck = e => {
+  handleCheck = (e, id) => {
+    const { selectedItems } = this.state;
+    let newItems = [...selectedItems];
     console.log(e);
-    console.log("Name=" + e.target.name);
+    console.log("id=" + id + ", value=" + e.target.checked);
+    if (e.target.checked) {
+      const index = selectedItems.indexOf(id);
+      newItems.splice(index);
+    } else {
+      newItems.push(id);
+    }
+    this.setState({ selectedItems: newItems });
   };
 
   listStages = StagesArray =>
@@ -33,8 +42,7 @@ class Stages extends Component {
           <div>
             <Input
               type="checkbox"
-              onChange={this.handleCheck}
-              name={stageMember.id}
+              onChange={e => this.handleCheck(e, stageMember.id)}
             />
             <Link to={`/stageform/${stageMember.id}`}>
               <i className="icon-pencil" />
