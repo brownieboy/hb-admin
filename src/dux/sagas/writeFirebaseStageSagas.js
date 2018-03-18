@@ -41,7 +41,8 @@ function* saveData() {
 
 const writeFirebaseSagas = [
   takeEvery(stagesActionTypes.SAVE_NEW_STAGE, saveData),
-  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveData)
+  takeEvery(stagesActionTypes.SAVE_EDITED_STAGE, saveData),
+  takeEvery(stagesActionTypes.DELETE_STAGES, saveData)
 ];
 
 export default writeFirebaseSagas;

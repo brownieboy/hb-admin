@@ -25,3 +25,7 @@ export const itemTextSpan = {
   marginLeft: 15,
   fontSize: 17
 };
+
+export const buttonsBottomWrapperStyles = {
+  marginTop: 20
+};

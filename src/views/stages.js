@@ -4,17 +4,20 @@ import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import {
+  buttonsBottomWrapperStyles,
   itemTextSpan,
   listGroupItemContentWrapperStyles,
   listGroupItemStyles,
   listGroupStyles
 } from "./viewstyles.js";
+import ConfirmModal from "../components/confirm-modal.js";
 
 class Stages extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedItems: []
+      selectedItems: [],
+      showConfirmDeleteModal: false
     };
   }
 
@@ -68,13 +71,34 @@ class Stages extends Component {
         <ListGroup style={listGroupStyles}>
           {this.listStages(stagesListProp)}
         </ListGroup>
-        <Link to="/stageform">Add stage</Link>
-        <Button
-          style={{ marginLeft: 10 }}
-          onClick={() => deleteStages(this.state.selectedItems)}
-        >
-          Delete selected
-        </Button>
+        <div style={buttonsBottomWrapperStyles}>
+          <Link to="/stageform">Add stage</Link>
+          <Button
+            color="danger"
+            disabled={this.state.selectedItems.length === 0}
+            style={{ marginLeft: 10 }}
+            onClick={() => {
+              this.setState({ showConfirmDeleteModal: true });
+              // if (confirm("Delete items?")) {
+              //   deleteStages(this.state.selectedItems);
+              // }
+            }}
+          >
+            Delete selected
+          </Button>
+          <ConfirmModal
+            displayModal={this.state.showConfirmDeleteModal}
+            modalTitle="Delete Stages?"
+            modalBody="Are you sure that you want to delete the selected stages?"
+            handleOk={() => {
+              deleteStages(this.state.selectedItems);
+              this.setState({ showConfirmDeleteModal: false });
+            }}
+            handleCancel={() =>
+              this.setState({ showConfirmDeleteModal: false })
+            }
+          />
+        </div>
       </div>
     );
   }
