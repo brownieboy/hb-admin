@@ -20,9 +20,7 @@ class Stages extends Component {
 
   handleCheck = (e, id) => {
     const { selectedItems } = this.state;
-    let newItems = [...selectedItems];
-    console.log(e);
-    console.log("id=" + id + ", value=" + e.target.checked);
+    const newItems = [...selectedItems];
     if (e.target.checked) {
       newItems.push(id);
     } else {
