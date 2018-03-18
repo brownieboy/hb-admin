@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js add facebook-extract-pageid
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js build
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/mikebrown/.npm-packages/bin:/Users/mikebrown/Library/Android/sdk/tools:/Users/mikebrown/Library/Android/sdk/platform-tools:/Users/mikebrown/.npm-packages/bin:/Users/mikebrown/Library/Android/sdk/tools:/Users/mikebrown/Library/Android/sdk/platform-tools
@@ -6816,11 +6816,17 @@ Lockfile:
       type-name "^2.0.1"
 
 Trace: 
-  Error: Couldn't find package "facebook-extract-pageid" on the "npm" registry.
-      at new MessageError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:186:110)
-      at NpmResolver.<anonymous> (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:51625:15)
-      at Generator.next (<anonymous>)
-      at step (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:98:30)
-      at /usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:109:13
-      at <anonymous>
-      at process._tickCallback (internal/process/next_tick.js:188:7)
+  Error: Command failed.
+  Exit code: 1
+  Command: sh
+  Arguments: -c webpack -p --progress --env.prod
+  Directory: /Users/mikebrown/Development/hb-admin
+  Output:
+  
+      at ProcessTermError.MessageError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/local/Cellar/yarn/1.5.1/libexec/lib/cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

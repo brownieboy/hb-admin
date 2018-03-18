@@ -1,6 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Input, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import {
@@ -10,32 +10,59 @@ import {
   listGroupStyles
 } from "./viewstyles.js";
 
-const listStages = StagesArray =>
-  StagesArray.map(stageMember => (
-    <ListGroupItem key={stageMember.id} style={listGroupItemStyles}>
-      <div style={listGroupItemContentWrapperStyles}>
-        <div>
-          <span style={itemTextSpan}>{stageMember.name}</span>
+class Stages extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItems: []
+    };
+  }
+
+  handleCheck = e => {
+    console.log(e);
+    console.log("Name=" + e.target.name);
+  };
+
+  listStages = StagesArray =>
+    StagesArray.map(stageMember => (
+      <ListGroupItem key={stageMember.id} style={listGroupItemStyles}>
+        <div style={listGroupItemContentWrapperStyles}>
+          <div>
+            <span style={itemTextSpan}>{stageMember.name}</span>
+          </div>
+          <div>
+            <Input
+              type="checkbox"
+              onChange={this.handleCheck}
+              name={stageMember.id}
+            />
+            <Link to={`/stageform/${stageMember.id}`}>
+              <i className="icon-pencil" />
+            </Link>
+          </div>
         </div>
-        <div>
-          <Input type="checkbox" />
-          <Link to={`/stageform/${stageMember.id}`}>
-            <i className="icon-pencil" />
-          </Link>
-        </div>
+      </ListGroupItem>
+    ));
+
+  render() {
+    const { stagesListProp, fetchError, fetchStatus } = this.props;
+    return (
+      <div>
+        <h1>Stages</h1>
+        <LoadStatusIndicator
+          fetchStatus={fetchStatus}
+          fetchError={fetchError}
+        />
+
+        <ListGroup style={listGroupStyles}>
+          {this.listStages(stagesListProp)}
+        </ListGroup>
+        <Link to="/stageform">Add stage</Link>
+        <Button style={{ marginLeft: 10 }}>Delete selected</Button>
       </div>
-    </ListGroupItem>
-  ));
-
-const Stages = ({ stagesListProp, fetchError, fetchStatus }) => (
-  <div>
-    <h1>Stages</h1>
-    <LoadStatusIndicator fetchStatus={fetchStatus} fetchError={fetchError} />
-
-    <ListGroup style={listGroupStyles}>{listStages(stagesListProp)}</ListGroup>
-    <Link to="/stageform">Add stage</Link>
-  </div>
-);
+    );
+  }
+}
 
 Stages.propTypes = {
   fetchStatus: PropTypes.string.isRequired,
