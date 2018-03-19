@@ -7,11 +7,12 @@ import Bands from "./bands.js";
 // Dux stuff
 import {
   loadBandsNow,
+  deleteBands,
   selectors as bandSelectors
 } from "../dux/bandsReducer.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loadBandsProp: loadBandsNow }, dispatch);
+  bindActionCreators({ deleteBands, loadBandsProp: loadBandsNow }, dispatch);
 
 const mapStateToProps = state => ({
   fetchStatus: state.bandsState.fetchStatus,

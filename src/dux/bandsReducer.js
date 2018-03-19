@@ -15,13 +15,15 @@ const SAVE_BAND_FAILED = "SAVE_BAND_FAILED";
 const SAVE_BAND_CLEAR = "SAVE_BAND_CLEAR";
 const UPDATE_BAND_THUMB_URL = "UPDATE_BAND_THUMB_URL";
 const UPDATE_BAND_CARD_URL = "UPDATE_BAND_CARD_URL";
+const DELETE_BANDS = "DELETE_BANDS";
 
 export const actionTypes = {
   SAVE_NEW_BAND,
   SAVE_EDITED_BAND,
   SAVE_BAND_REQUEST,
   SAVE_BAND_SUCCESS,
-  SAVE_BAND_FAILED
+  SAVE_BAND_FAILED,
+  DELETE_BANDS
 };
 
 // Reducer
@@ -98,6 +100,12 @@ const bandsReducer = (
         currentBandObj,
         ...state.bandsList.slice(idx + 1)
       ];
+      return { ...state, bandsList: newBandsList };
+
+    case DELETE_BANDS:
+      newBandsList = state.bandsList.filter(
+        bandMember => action.payload.indexOf(bandMember.id) < 0
+      );
       return { ...state, bandsList: newBandsList };
 
     default:
@@ -249,6 +257,11 @@ export const saveBandClear = () => ({
 export const saveBandFailed = error => ({
   type: SAVE_BAND_FAILED,
   payload: error
+});
+
+export const deleteBands = bandIdsArray => ({
+  type: DELETE_BANDS,
+  payload: bandIdsArray
 });
 
 const updateBandThumbUrl = updateInfo => ({
