@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
   getAppearancesForBandId: bandId =>
     getAppearancesForBandId(state.appearancesState.appearancesList, bandId),
   getBandInfoForId: bandId =>
-    getBandInfoForId(state.bandsState.bandsList, bandId).name
+    getBandInfoForId(state.bandsState.bandsList, bandId)
 
   // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(
   //   state.appearancesState

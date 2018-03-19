@@ -25,19 +25,25 @@ class Stages extends Component {
   }
 
   handleDeleteItems = () => {
-    const { getAppearancesForStageId, stagesListProp } = this.props;
+    const { getAppearancesForStageId, getStageInfoForId } = this.props;
     // Don't forget the .slice() below, otherwise we modify the state directly!
     const selectedItemsCopy = this.state.selectedItems.slice();
     const stagesWithAppearances = selectedItemsCopy.filter(
       selectedItem => getAppearancesForStageId(selectedItem).length > 0
     );
 
+        console.log("stagesWithAppearances:");
+    console.log(stagesWithAppearances);
+
     if (stagesWithAppearances.length === 0) {
       this.setState({ showConfirmDeleteModal: true });
     } else {
-      const stagesWithAppearancesNames = stagesListProp
-        .filter(stage => stagesWithAppearances.indexOf(stage.id) > 0)
-        .map(stageObj => stageObj.name);
+      const stagesWithAppearancesNames = stagesWithAppearances
+        .map(stageId => getStageInfoForId(stageId))
+        .sort();
+      console.log("stagesWithAppearancesNames:");
+      console.log(stagesWithAppearancesNames);
+
       this.setState({
         showStagesWithAppearancesAlertModal: true,
         stagesWithAppearances: stagesWithAppearancesNames
@@ -148,6 +154,7 @@ Stages.propTypes = {
   deleteStages: PropTypes.func.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
+  getStageInfoForId: PropTypes.func.isRequired,
   getAppearancesForStageId: PropTypes.func.isRequired,
   stagesListProp: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
