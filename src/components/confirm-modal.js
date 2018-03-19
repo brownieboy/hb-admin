@@ -23,11 +23,14 @@ const ConfirmModal = ({
   </Modal>
 );
 
-propTypes = {
+ConfirmModal.propTypes = {
   displayModal: PropTypes.bool.isRequired,
-  modalBody : PropTypes.string.isRequired,
+  modalBody: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.object)
+  ]).isRequired,
   modalTitle: PropTypes.string.isRequired,
-  handleOk : PropTypes.func.isRequired,
+  handleOk: PropTypes.func.isRequired,
   handleCancel: PropTypes.func.isRequired
 };
 

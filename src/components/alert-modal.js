@@ -1,25 +1,34 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-const ConfirmModal = ({
+const AlertModal = ({
+  buttonLabel = "Close",
   displayModal = false,
   modalBody = "Body here",
   modalTitle = "Title here",
-  handleOk,
-  handleCancel
+  handleClose
 }) => (
   <Modal isOpen={displayModal}>
     <ModalHeader>{modalTitle}</ModalHeader>
     <ModalBody>{modalBody}</ModalBody>
     <ModalFooter>
-      <Button color="primary" onClick={handleOk}>
-        Ok
-      </Button>{" "}
-      <Button color="secondary" onClick={handleCancel}>
-        Cancel
+      <Button color="primary" onClick={handleClose}>
+        {buttonLabel}
       </Button>
     </ModalFooter>
   </Modal>
 );
 
-export default ConfirmModal;
+AlertModal.propTypes = {
+  buttonLabel: PropTypes.string,
+  displayModal: PropTypes.bool.isRequired,
+  modalBody: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.object)
+  ]).isRequired,
+  modalTitle: PropTypes.string.isRequired,
+  handleClose: PropTypes.func.isRequired
+};
+
+export default AlertModal;

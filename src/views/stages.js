@@ -11,13 +11,16 @@ import {
   listGroupStyles
 } from "./viewstyles.js";
 import ConfirmModal from "../components/confirm-modal.js";
+import AlertModal from "../components/alert-modal.js";
 
 class Stages extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedItems: [],
-      showConfirmDeleteModal: false
+      showConfirmDeleteModal: false,
+      showStagesWithAppearancesAlertModal: false,
+      stagesWithAppearances: []
     };
   }
 
@@ -28,14 +31,16 @@ class Stages extends Component {
     const stagesWithAppearances = selectedItems.filter(
       selectedItem => getAppearancesForStageId(selectedItem).length > 0
     );
-    console.log("stagesWithAppearances:");
-    console.log(stagesWithAppearances);
-    if(stagesWIthAppearances.length > 0) {
-      alert("The following stages have appearances: " + JSON.stringify(stagesWithAppearances));
+    // console.log("stagesWithAppearances:");
+    // console.log(stagesWithAppearances);
+    if (stagesWithAppearances.length === 0) {
+      this.setState({ showConfirmDeleteModal: true });
+    } else {
+      this.setState({
+        showStagesWithAppearancesAlertModal: true,
+        stagesWithAppearances
+      });
     }
-
-    // deleteStages(this.state.selectedItems);
-    // this.setState({ showConfirmDeleteModal: false });
   };
 
   handleCheck = (e, id) => {
@@ -103,11 +108,28 @@ class Stages extends Component {
             modalTitle="Delete Stages?"
             modalBody="Are you sure that you want to delete the selected stages?"
             handleOk={() => {
-              // deleteStages(this.state.selectedItems);
-              // this.setState({ showConfirmDeleteModal: false });
+              deleteStages(this.state.selectedItems);
+              this.setState({ showConfirmDeleteModal: false });
             }}
             handleCancel={() =>
               this.setState({ showConfirmDeleteModal: false })
+            }
+          />
+          <AlertModal
+            displayModal={this.state.showStagesWithAppearancesAlertModal}
+            modalTitle="Stages with appearances"
+            modalBody={[
+              <div key="1">The following stages have appearances on them:</div>,
+              <div key="2" style={{ margin: 15 }}>
+                {this.state.stagesWithAppearances.join(", ")}
+              </div>,
+              <div key="3">
+                You must delete the appearances from the Schedule view before
+                you can delete these stages.
+              </div>
+            ]}
+            handleClose={() =>
+              this.setState({ showStagesWithAppearancesAlertModal: false })
             }
           />
         </div>
