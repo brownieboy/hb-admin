@@ -297,7 +297,17 @@ export const getAppearanceInfoForId = (appearancesList, appearanceId) =>
 export const getAppearancesForStageId = (appearancesList, stageId) =>
   appearancesList.filter(appearance => appearance.stageId === stageId);
 
-// New one
+export const getAppearancesForBandId = (appearancesList, bandId) => {
+  console.log("getAppearancesForBandId bandId=" + bandId + ", appearancesList");
+  console.log(appearancesList);
+  const matchingAppearances = appearancesList.filter(
+    appearance => appearance.bandId === bandId
+  );
+  console.log("matchingAppearances:");
+  console.log(matchingAppearances);
+
+  return matchingAppearances;
+};
 
 // Action creators
 export const loadAppearances = () => ({ type: LOAD_APPEARANCES_NOW });

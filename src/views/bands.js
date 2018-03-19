@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Input, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import {
+  buttonsBottomWrapperStyles,
   listGroupItemContentWrapperStyles,
   listGroupItemStyles,
   listGroupStyles,
@@ -28,6 +29,29 @@ class Bands extends Component {
     const { loadBandsProp } = this.props;
     loadBandsProp();
   }
+
+  handleDeleteItems = () => {
+    const { getAppearancesForBandId, bandsAlphabeticalProp } = this.props;
+    // Don't forget the .slice() below, otherwise we modify the state directly!
+    const selectedItemsCopy = this.state.selectedItems.slice();
+    const bandsWithAppearances = selectedItemsCopy.filter(
+      selectedItem => getAppearancesForBandId(selectedItem).length >= 0
+    );
+    console.log("bandsWithAppearances:");
+    console.log(bandsWithAppearances);
+
+    if (bandsWithAppearances.length === 0) {
+      this.setState({ showConfirmDeleteModal: true });
+    } else {
+      const bandsWithAppearancesNames = bandsAlphabeticalProp
+        .filter(band => bandsWithAppearances.indexOf(band.id) > 0)
+        .map(bandObj => bandObj.name);
+      this.setState({
+        showBandsWithAppearancesAlertModal: true,
+        bandsWithAppearances: bandsWithAppearancesNames
+      });
+    }
+  };
 
   handleCheck = (e, id) => {
     const { selectedItems } = this.state;
@@ -79,7 +103,46 @@ class Bands extends Component {
         <ListGroup style={listGroupStyles}>
           {this.listBands(bandsAlphabeticalProp)}
         </ListGroup>
-        <Link to="/bandform">Add band</Link>
+        <div style={buttonsBottomWrapperStyles}>
+          <Link to="/bandform">Add band</Link>
+          <Button
+            color="danger"
+            disabled={this.state.selectedItems.length === 0}
+            style={{ marginLeft: 10 }}
+            onClick={this.handleDeleteItems}
+          >
+            Delete selected
+          </Button>
+          <ConfirmModal
+            displayModal={this.state.showConfirmDeleteModal}
+            modalTitle="Delete Bands?"
+            modalBody="Are you sure that you want to delete the selected bands?"
+            handleOk={() => {
+              deleteBands(this.state.selectedItems);
+              this.setState({ showConfirmDeleteModal: false });
+            }}
+            handleCancel={() =>
+              this.setState({ showConfirmDeleteModal: false })
+            }
+          />
+          <AlertModal
+            displayModal={this.state.showBandsWithAppearancesAlertModal}
+            modalTitle="Bands with appearances"
+            modalBody={[
+              <div key="1">The following bands are making appearances:</div>,
+              <div key="2" style={{ margin: 15 }}>
+                {this.state.bandsWithAppearances.join(", ")}
+              </div>,
+              <div key="3">
+                You must delete each of the bands&apos; appearances from the
+                Schedule view before you can delete these bands.
+              </div>
+            ]}
+            handleClose={() =>
+              this.setState({ showBandsWithAppearancesAlertModal: false })
+            }
+          />
+        </div>
       </div>
     );
   }
@@ -88,6 +151,7 @@ class Bands extends Component {
 Bands.propTypes = {
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
+  getAppearancesForBandId: PropTypes.func.isRequired,
   loadBandsProp: PropTypes.func.isRequired,
   bandsAlphabeticalProp: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired
@@ -99,7 +163,7 @@ export default Bands;
 //
 /*
       <ListGroupItem key={appearanceMember.id}>
-        {`${bandInfo.name} (${stageInfo.name})`}
+        {`${bandInfo.name} (${bandInfo.name})`}
         <Link to={`/scheduleform/${appearanceMember.id}`}>
           <i className="icon-pencil" />
         </Link>
