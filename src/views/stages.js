@@ -27,12 +27,11 @@ class Stages extends Component {
   handleDeleteItems = () => {
     const { getAppearancesForStageId, stagesListProp } = this.props;
     const { selectedItems } = this.state;
-    const stagesWithAppearances = selectedItems.filter(
+    // Don't forget the .slice() below, otherwise we modify the state directly!
+    const stagesWithAppearances = selectedItems.slice().filter(
       selectedItem => getAppearancesForStageId(selectedItem).length >= 0
     );
 
-    // console.log("stagesWithAppearancesNames:");
-    // console.log(stagesWithAppearancesNames);
     if (stagesWithAppearances.length === 0) {
       this.setState({ showConfirmDeleteModal: true });
     } else {
@@ -49,6 +48,7 @@ class Stages extends Component {
   handleCheck = (e, id) => {
     const { selectedItems } = this.state;
     const newItems = [...selectedItems];
+    console.log("id = " + id + ", e.target.checked = "+ e.target.checked);
     if (e.target.checked) {
       newItems.push(id);
     } else {
