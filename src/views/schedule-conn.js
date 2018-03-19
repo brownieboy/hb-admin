@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 // Components
 import Schedule from "./schedule.js";
 
-// Reducer
 import {
   loadAppearances,
   // selectors as appearanceSelectors,

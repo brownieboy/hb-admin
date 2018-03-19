@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const ConfirmModal = ({
@@ -22,13 +21,5 @@ const ConfirmModal = ({
     </ModalFooter>
   </Modal>
 );
-
-propTypes = {
-  displayModal: PropTypes.bool.isRequired,
-  modalBody : PropTypes.string.isRequired,
-  modalTitle: PropTypes.string.isRequired,
-  handleOk : PropTypes.func.isRequired,
-  handleCancel: PropTypes.func.isRequired
-};
 
 export default ConfirmModal;

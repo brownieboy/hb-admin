@@ -102,7 +102,6 @@ const selectAppearancesByDateTime = createSelector(
       .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
 );
 
-
 // Getters are just functions.
 const getAppearancesByDateTime = appearancesList => {
   const newAppearances = [...appearancesList];
@@ -294,6 +293,9 @@ export const getAppearanceInfoForId = (appearancesList, appearanceId) =>
   appearancesList.find(
     appearanceMember => appearanceMember.id === appearanceId
   );
+
+export const getAppearancesForStageId = (appearancesList, stageId) =>
+  appearancesList.filter(appearance => appearance.stageId === stageId);
 
 // New one
 

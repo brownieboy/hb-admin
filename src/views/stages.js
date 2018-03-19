@@ -21,6 +21,23 @@ class Stages extends Component {
     };
   }
 
+  handleDeleteItems = e => {
+    const { getAppearancesForStageId } = this.props;
+    const { selectedItems } = this.state;
+    // let appearancesForStage = 0;
+    const stagesWithAppearances = selectedItems.filter(
+      selectedItem => getAppearancesForStageId(selectedItem).length > 0
+    );
+    console.log("stagesWithAppearances:");
+    console.log(stagesWithAppearances);
+    if(stagesWIthAppearances.length > 0) {
+      alert("The following stages have appearances: " + JSON.stringify(stagesWithAppearances));
+    }
+
+    // deleteStages(this.state.selectedItems);
+    // this.setState({ showConfirmDeleteModal: false });
+  };
+
   handleCheck = (e, id) => {
     const { selectedItems } = this.state;
     const newItems = [...selectedItems];
@@ -77,12 +94,7 @@ class Stages extends Component {
             color="danger"
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
-            onClick={() => {
-              this.setState({ showConfirmDeleteModal: true });
-              // if (confirm("Delete items?")) {
-              //   deleteStages(this.state.selectedItems);
-              // }
-            }}
+            onClick={this.handleDeleteItems}
           >
             Delete selected
           </Button>
@@ -91,8 +103,8 @@ class Stages extends Component {
             modalTitle="Delete Stages?"
             modalBody="Are you sure that you want to delete the selected stages?"
             handleOk={() => {
-              deleteStages(this.state.selectedItems);
-              this.setState({ showConfirmDeleteModal: false });
+              // deleteStages(this.state.selectedItems);
+              // this.setState({ showConfirmDeleteModal: false });
             }}
             handleCancel={() =>
               this.setState({ showConfirmDeleteModal: false })
@@ -108,6 +120,7 @@ Stages.propTypes = {
   deleteStages: PropTypes.func.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
+  getAppearancesForStageId: PropTypes.func.isRequired,
   stagesListProp: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
 
