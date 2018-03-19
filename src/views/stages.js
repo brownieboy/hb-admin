@@ -29,7 +29,7 @@ class Stages extends Component {
     // Don't forget the .slice() below, otherwise we modify the state directly!
     const selectedItemsCopy = this.state.selectedItems.slice();
     const stagesWithAppearances = selectedItemsCopy.filter(
-      selectedItem => getAppearancesForStageId(selectedItem).length >= 0
+      selectedItem => getAppearancesForStageId(selectedItem).length > 0
     );
 
     if (stagesWithAppearances.length === 0) {

@@ -31,21 +31,24 @@ class Bands extends Component {
   }
 
   handleDeleteItems = () => {
-    const { getAppearancesForBandId, bandsAlphabeticalProp } = this.props;
+    const { getAppearancesForBandId, getBandInfoForId } = this.props;
     // Don't forget the .slice() below, otherwise we modify the state directly!
     const selectedItemsCopy = this.state.selectedItems.slice();
     const bandsWithAppearances = selectedItemsCopy.filter(
-      selectedItem => getAppearancesForBandId(selectedItem).length >= 0
+      selectedItem => getAppearancesForBandId(selectedItem).length > 0
     );
-    console.log("bandsWithAppearances:");
-    console.log(bandsWithAppearances);
+    // console.log("bandsWithAppearances:");
+    // console.log(bandsWithAppearances);
 
     if (bandsWithAppearances.length === 0) {
       this.setState({ showConfirmDeleteModal: true });
     } else {
-      const bandsWithAppearancesNames = bandsAlphabeticalProp
-        .filter(band => bandsWithAppearances.indexOf(band.id) > 0)
-        .map(bandObj => bandObj.name);
+      const bandsWithAppearancesNames = bandsWithAppearances
+        .map(bandId => getBandInfoForId(bandId))
+        .sort();
+
+      // console.log("bandsWithAppearancesNames:");
+      // console.log(bandsWithAppearancesNames);
       this.setState({
         showBandsWithAppearancesAlertModal: true,
         bandsWithAppearances: bandsWithAppearancesNames
@@ -152,6 +155,7 @@ Bands.propTypes = {
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   getAppearancesForBandId: PropTypes.func.isRequired,
+  getBandInfoForId: PropTypes.func.isRequired,
   loadBandsProp: PropTypes.func.isRequired,
   bandsAlphabeticalProp: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired

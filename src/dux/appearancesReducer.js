@@ -298,12 +298,12 @@ export const getAppearancesForStageId = (appearancesList, stageId) =>
   appearancesList.filter(appearance => appearance.stageId === stageId);
 
 export const getAppearancesForBandId = (appearancesList, bandId) => {
-  console.log("getAppearancesForBandId bandId=" + bandId + ", appearancesList");
-  console.log(appearancesList);
+  // console.log("getAppearancesForBandId bandId=" + bandId + ", appearancesList");
+  // console.log(appearancesList);
   const matchingAppearances = appearancesList.filter(
     appearance => appearance.bandId === bandId
   );
-  console.log("matchingAppearances:");
+  console.log("matchingAppearances for bandId:" + bandId);
   console.log(matchingAppearances);
 
   return matchingAppearances;
