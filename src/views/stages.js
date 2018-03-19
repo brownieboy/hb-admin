@@ -24,21 +24,24 @@ class Stages extends Component {
     };
   }
 
-  handleDeleteItems = e => {
-    const { getAppearancesForStageId } = this.props;
+  handleDeleteItems = () => {
+    const { getAppearancesForStageId, stagesListProp } = this.props;
     const { selectedItems } = this.state;
-    // let appearancesForStage = 0;
     const stagesWithAppearances = selectedItems.filter(
-      selectedItem => getAppearancesForStageId(selectedItem).length > 0
+      selectedItem => getAppearancesForStageId(selectedItem).length >= 0
     );
-    // console.log("stagesWithAppearances:");
-    // console.log(stagesWithAppearances);
+
+    // console.log("stagesWithAppearancesNames:");
+    // console.log(stagesWithAppearancesNames);
     if (stagesWithAppearances.length === 0) {
       this.setState({ showConfirmDeleteModal: true });
     } else {
+      const stagesWithAppearancesNames = stagesListProp
+        .filter(stage => stagesWithAppearances.indexOf(stage.id) > 0)
+        .map(stageObj => stageObj.name);
       this.setState({
         showStagesWithAppearancesAlertModal: true,
-        stagesWithAppearances
+        stagesWithAppearances: stagesWithAppearancesNames
       });
     }
   };
@@ -124,7 +127,7 @@ class Stages extends Component {
                 {this.state.stagesWithAppearances.join(", ")}
               </div>,
               <div key="3">
-                You must delete the appearances from the Schedule view before
+                You must delete those appearances from the Schedule view before
                 you can delete these stages.
               </div>
             ]}
