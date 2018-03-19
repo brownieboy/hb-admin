@@ -26,9 +26,9 @@ class Stages extends Component {
 
   handleDeleteItems = () => {
     const { getAppearancesForStageId, stagesListProp } = this.props;
-    const { selectedItems } = this.state;
     // Don't forget the .slice() below, otherwise we modify the state directly!
-    const stagesWithAppearances = selectedItems.slice().filter(
+    const selectedItemsCopy = this.state.selectedItems.slice();
+    const stagesWithAppearances = selectedItemsCopy.filter(
       selectedItem => getAppearancesForStageId(selectedItem).length >= 0
     );
 
@@ -46,14 +46,21 @@ class Stages extends Component {
   };
 
   handleCheck = (e, id) => {
+    console.log(
+      "handleCheck, id = " + id,
+      ", e.target.checked = " + e.target.checked
+    );
     const { selectedItems } = this.state;
-    const newItems = [...selectedItems];
-    console.log("id = " + id + ", e.target.checked = "+ e.target.checked);
+    let newItems;
     if (e.target.checked) {
-      newItems.push(id);
+      // newItems.push(id);
+      newItems = [...selectedItems, id];
     } else {
       const index = selectedItems.indexOf(id);
-      newItems.splice(index);
+      newItems = [
+        ...selectedItems.slice(0, index),
+        ...selectedItems.slice(index + 1)
+      ];
     }
     this.setState({ selectedItems: newItems });
   };
