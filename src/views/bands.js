@@ -44,7 +44,7 @@ class Bands extends Component {
       this.setState({ showConfirmDeleteModal: true });
     } else {
       const bandsWithAppearancesNames = bandsWithAppearances
-        .map(bandId => getBandInfoForId(bandId))
+        .map(bandId => getBandInfoForId(bandId).name)
         .sort();
 
       // console.log("bandsWithAppearancesNames:");
@@ -94,7 +94,12 @@ class Bands extends Component {
     ));
 
   render() {
-    const { bandsAlphabeticalProp, fetchError, fetchStatus } = this.props;
+    const {
+      bandsAlphabeticalProp,
+      deleteBands,
+      fetchError,
+      fetchStatus
+    } = this.props;
 
     return (
       <div>
@@ -152,6 +157,7 @@ class Bands extends Component {
 }
 
 Bands.propTypes = {
+  deleteBands: PropTypes.func.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   getAppearancesForBandId: PropTypes.func.isRequired,

@@ -39,7 +39,7 @@ class Stages extends Component {
       this.setState({ showConfirmDeleteModal: true });
     } else {
       const stagesWithAppearancesNames = stagesWithAppearances
-        .map(stageId => getStageInfoForId(stageId))
+        .map(stageId => getStageInfoForId(stageId).name)
         .sort();
       console.log("stagesWithAppearancesNames:");
       console.log(stagesWithAppearancesNames);
