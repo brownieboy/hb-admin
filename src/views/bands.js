@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, FormGroup, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import {
   buttonsBottomWrapperStyles,
@@ -81,10 +81,13 @@ class Bands extends Component {
             <span style={itemTextSpan}>{bandMember.name}</span>
           </div>
           <div>
-            <Input
-              type="checkbox"
-              onChange={e => this.handleCheck(e, bandMember.id)}
-            />{" "}
+            <FormGroup className="checkbox" check>
+              <Input
+                type="checkbox"
+                className="form-check-input"
+                onChange={e => this.handleCheck(e, bandMember.id)}
+              />
+            </FormGroup>{" "}
             <Link to={`/bandform/${bandMember.id}`} style={{ marginLeft: 10 }}>
               <i className="icon-pencil" />
             </Link>

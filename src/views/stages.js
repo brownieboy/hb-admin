@@ -32,7 +32,7 @@ class Stages extends Component {
       selectedItem => getAppearancesForStageId(selectedItem).length > 0
     );
 
-        console.log("stagesWithAppearances:");
+    console.log("stagesWithAppearances:");
     console.log(stagesWithAppearances);
 
     if (stagesWithAppearances.length === 0) {
