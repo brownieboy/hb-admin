@@ -41,7 +41,8 @@ function* saveData() {
 
 const writeFirebaseSagas = [
   takeEvery(bandsActionTypes.SAVE_NEW_BAND, saveData),
-  takeEvery(bandsActionTypes.SAVE_EDITED_BAND, saveData)
+  takeEvery(bandsActionTypes.SAVE_EDITED_BAND, saveData),
+  takeEvery(bandsActionTypes.DELETE_BANDS, saveData)
 ];
 
 export default writeFirebaseSagas;
