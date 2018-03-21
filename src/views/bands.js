@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, FormGroup, Input, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import {
   buttonsBottomWrapperStyles,
@@ -11,6 +11,7 @@ import {
 } from "./viewstyles.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import AlertModal from "../components/alert-modal.js";
+import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
 
@@ -23,6 +24,7 @@ class Bands extends Component {
       showBandsWithAppearancesAlertModal: false,
       bandsWithAppearances: []
     };
+    this.handleCheck = handleCheckExt.bind(this);
   }
 
   componentDidMount() {
@@ -56,22 +58,6 @@ class Bands extends Component {
     }
   };
 
-  handleCheck = (e, id) => {
-    const { selectedItems } = this.state;
-    let newItems;
-    if (e.target.checked) {
-      // newItems.push(id);
-      newItems = [...selectedItems, id];
-    } else {
-      const index = selectedItems.indexOf(id);
-      newItems = [
-        ...selectedItems.slice(0, index),
-        ...selectedItems.slice(index + 1)
-      ];
-    }
-    this.setState({ selectedItems: newItems });
-  };
-
   listBands = bandsArray =>
     bandsArray.map(bandMember => (
       <ListGroupItem key={bandMember.id} style={listGroupItemStyles}>
@@ -81,13 +67,11 @@ class Bands extends Component {
             <span style={itemTextSpan}>{bandMember.name}</span>
           </div>
           <div>
-            <FormGroup className="checkbox" check>
-              <Input
-                type="checkbox"
-                className="form-check-input"
-                onChange={e => this.handleCheck(e, bandMember.id)}
-              />
-            </FormGroup>{" "}
+            <Input
+              type="checkbox"
+              className="form-check-input"
+              onChange={e => this.handleCheck(e, bandMember.id)}
+            />{" "}
             <Link to={`/bandform/${bandMember.id}`} style={{ marginLeft: 10 }}>
               <i className="icon-pencil" />
             </Link>

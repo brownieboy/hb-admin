@@ -12,6 +12,7 @@ import {
 } from "./viewstyles.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import AlertModal from "../components/alert-modal.js";
+import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 
 class Stages extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class Stages extends Component {
       showStagesWithAppearancesAlertModal: false,
       stagesWithAppearances: []
     };
+    this.handleCheck = handleCheckExt.bind(this);
   }
 
   handleDeleteItems = () => {
@@ -49,22 +51,6 @@ class Stages extends Component {
         stagesWithAppearances: stagesWithAppearancesNames
       });
     }
-  };
-
-  handleCheck = (e, id) => {
-    const { selectedItems } = this.state;
-    let newItems;
-    if (e.target.checked) {
-      // newItems.push(id);
-      newItems = [...selectedItems, id];
-    } else {
-      const index = selectedItems.indexOf(id);
-      newItems = [
-        ...selectedItems.slice(0, index),
-        ...selectedItems.slice(index + 1)
-      ];
-    }
-    this.setState({ selectedItems: newItems });
   };
 
   listStages = StagesArray =>

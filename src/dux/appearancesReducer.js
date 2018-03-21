@@ -18,13 +18,15 @@ const SAVE_APPEARANCE_REQUEST = "SAVE_APPEARANCE_REQUEST";
 const SAVE_APPEARANCE_SUCCESS = "SAVE_APPEARANCE_SUCCESS";
 const SAVE_APPEARANCE_FAILED = "SAVE_APPEARANCE_FAILED";
 const SAVE_APPEARANCE_CLEAR = "SAVE_APPEARANCE_CLEAR";
+const DELETE_APPEARANCES = "DELETE_APPEARANCES";
 
 export const actionTypes = {
   SAVE_NEW_APPEARANCE,
   SAVE_EDITED_APPEARANCE,
   SAVE_APPEARANCE_REQUEST,
   SAVE_APPEARANCE_SUCCESS,
-  SAVE_APPEARANCE_FAILED
+  SAVE_APPEARANCE_FAILED,
+  DELETE_APPEARANCES
 };
 
 // Reducer
@@ -81,6 +83,12 @@ const appearancesReducer = (
         action.payload,
         ...state.appearancesList.slice(idx + 1)
       ];
+      return { ...state, appearancesList: newAppearancesList };
+
+    case DELETE_APPEARANCES:
+      newAppearancesList = state.appearancesList.filter(
+        appearanceMember => action.payload.indexOf(appearanceMember.id) < 0
+      );
       return { ...state, appearancesList: newAppearancesList };
 
     default:
@@ -349,6 +357,11 @@ export const saveAppearanceFailed = error => ({
 
 export const saveAppearanceClear = () => ({
   type: SAVE_APPEARANCE_CLEAR
+});
+
+export const deleteAppearances = appearanceIdsArray => ({
+  type: DELETE_APPEARANCES,
+  payload: appearanceIdsArray
 });
 
 export const appearancesDuxActions = {

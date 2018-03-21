@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Schedule from "./schedule.js";
 
 import {
+  deleteAppearances,
   loadAppearances,
   // selectors as appearanceSelectors,
   getAppearancesGroupedByDayThenStage
@@ -17,7 +18,10 @@ import { getBandInfoForId as getBandInfoIdAction } from "../dux/bandsReducer.js"
 import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ loadappearancesProp: loadAppearances }, dispatch);
+  bindActionCreators(
+    { deleteAppearances, loadappearancesProp: loadAppearances },
+    dispatch
+  );
 
 const mapStateToProps = state => ({
   // appearancesProp: state.appearancesState,
