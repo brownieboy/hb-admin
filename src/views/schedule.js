@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Input, ListGroup, ListGroupItem } from "reactstrap";
+import { Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
+import ConfirmModal from "../components/confirm-modal.js";
+
 import {
+  buttonsBottomWrapperStyles,
   listGroupItemContentWrapperStyles,
   listGroupItemSmallStyles,
   listGroupStyles
@@ -100,9 +103,14 @@ class Schedule extends Component {
       </ListGroup>
     ]);
 
+  handleDeleteItems = () => {
+    this.setState({ showConfirmDeleteModal: true });
+  };
+
   render() {
     const {
       appearancesGroupedByDayThenStage,
+      deleteAppearances,
       fetchStatus,
       fetchError
     } = this.props;
@@ -117,7 +125,29 @@ class Schedule extends Component {
         <ListGroup style={listGroupStyles}>
           {this.getAppearancesListDayLevel(appearancesGroupedByDayThenStage)}
         </ListGroup>
-        <Link to="/scheduleform">Add appearance</Link>
+        <div style={buttonsBottomWrapperStyles}>
+          <Link to="/scheduleform">Add appearance</Link>
+          <Button
+            color="danger"
+            disabled={this.state.selectedItems.length === 0}
+            style={{ marginLeft: 10 }}
+            onClick={this.handleDeleteItems}
+          >
+            Delete selected
+          </Button>
+          <ConfirmModal
+            displayModal={this.state.showConfirmDeleteModal}
+            modalTitle="Delete Appearances?"
+            modalBody="Are you sure that you want to delete the selected appearances?"
+            handleOk={() => {
+              deleteAppearances(this.state.selectedItems);
+              this.setState({ showConfirmDeleteModal: false });
+            }}
+            handleCancel={() =>
+              this.setState({ showConfirmDeleteModal: false })
+            }
+          />
+        </div>
       </div>
     );
   }
@@ -127,6 +157,7 @@ Schedule.propTypes = {
   appearancesGroupedByDayThenStage: PropTypes.arrayOf(
     PropTypes.object.isRequired
   ).isRequired,
+  deleteAppearances: PropTypes.func.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired
 };
