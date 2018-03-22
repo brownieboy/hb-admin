@@ -2,7 +2,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 // Components
-import Schedule from "./schedule.js";
+import Schedule from "./schedulewrapper.js";
 
 import {
   deleteAppearances,
