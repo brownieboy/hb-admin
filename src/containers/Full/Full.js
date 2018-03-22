@@ -9,7 +9,7 @@ import Footer from "../../components/Footer/";
 
 import Dashboard from "../../views/Dashboard/";
 import Bands from "../../views/bands-conn.js";
-import Schedule from "../../views/schedule-conn.js";
+import ScheduleWrapper from "../../views/schedulewrapper.js";
 import Stages from "../../views/stages-conn.js";
 
 import {
@@ -64,7 +64,7 @@ class Full extends Component {
                   name="BandFormNew"
                   component={BandFormNewConn}
                 />
-                <Route path="/schedule" name="Schedule" component={Schedule} />
+                <Route path="/schedule" name="Schedule" component={ScheduleWrapper} />
                 <Route
                   path="/scheduleform/:id"
                   exact
