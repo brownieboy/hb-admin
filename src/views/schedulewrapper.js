@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import classnames from "classnames";
 
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import Schedule from "./schedule.js";
@@ -13,7 +14,8 @@ class ScheduleWrapper extends Component {
     super(props);
     this.state = {
       selectedItems: [],
-      showConfirmDeleteModal: false
+      showConfirmDeleteModal: false,
+      activeTab: "byDayStage"
     };
     this.handleCheck = handleCheckExt.bind(this);
   }
@@ -22,11 +24,53 @@ class ScheduleWrapper extends Component {
     this.setState({ showConfirmDeleteModal: true });
   };
 
+  toggleTab = tab => {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      });
+    }
+  };
+
   render() {
     const { deleteAppearances } = this.props;
     return (
       <div>
-        <h1>Schedule Wrapper</h1>
+        <Nav tabs>
+          <NavItem>
+            <NavLink
+              className={classnames({
+                active: this.state.activeTab === "byDayStage"
+              })}
+              onClick={() => {
+                this.toggleTab("byDayStage");
+              }}
+            >
+              Day & Stage
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
+              className={classnames({
+                active: this.state.activeTab === "byTimetable"
+              })}
+              onClick={() => {
+                this.toggleTab("byTimetable");
+              }}
+            >
+              Timetable
+            </NavLink>
+          </NavItem>
+        </Nav>
+
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="byDayStage">By Day/Stage</TabPane>
+        </TabContent>
+
+        <TabContent activeTab={this.state.activeTab}>
+          <TabPane tabId="byTimetable">By TimeTable</TabPane>
+        </TabContent>
+
         <Schedule {...this.props} handleCheck={this.handleCheck} />
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>

@@ -96,7 +96,7 @@ class Schedule extends Component {
 
     return (
       <div>
-        <h2>Schedule by Day & Stage</h2>
+        <h2>Schedule Timetable</h2>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
           fetchError={fetchError}
