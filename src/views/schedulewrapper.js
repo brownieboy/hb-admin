@@ -6,6 +6,7 @@ import classnames from "classnames";
 
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import Schedule from "./schedule.js";
+import ScheduleTimetable from "./schedule-timetable.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
 
@@ -64,14 +65,17 @@ class ScheduleWrapper extends Component {
         </Nav>
 
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="byDayStage">By Day/Stage</TabPane>
+          <TabPane tabId="byDayStage">
+            <Schedule {...this.props} handleCheck={this.handleCheck} />
+          </TabPane>
         </TabContent>
 
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="byTimetable">By TimeTable</TabPane>
+          <TabPane tabId="byTimetable">
+            <ScheduleTimetable {...this.props} handleCheck={this.handleCheck} />
+          </TabPane>
         </TabContent>
 
-        <Schedule {...this.props} handleCheck={this.handleCheck} />
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>
           <Button
