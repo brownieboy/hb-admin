@@ -13,7 +13,7 @@ import {
   listGroupStyles
 } from "./viewstyles.js";
 
-class Schedule extends Component {
+class ScheduleByDayStage extends Component {
   getAppearanceLines = lineData => {
     // const itemsLength = lineData.length;
     return lineData.map((lineMember, index) => {
@@ -22,7 +22,7 @@ class Schedule extends Component {
       //   lineStyle.borderBottomWidth = 0;
       // }
       return (
-        <ListGroupItem key={lineMember.bandId} style={listGroupItemSmallStyles}>
+        <ListGroupItem key={lineMember.id} style={listGroupItemSmallStyles}>
           <div style={listGroupItemContentWrapperStyles}>
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
@@ -33,7 +33,7 @@ class Schedule extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <span>{lineMember.bandName}</span>
+                <span style={{fontWeight: "bold"}}>{lineMember.bandName}</span>
               </span>
             </div>
             <div>
@@ -96,7 +96,6 @@ class Schedule extends Component {
 
     return (
       <div>
-        <h2>Schedule by Day & Stage</h2>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
           fetchError={fetchError}
@@ -109,7 +108,7 @@ class Schedule extends Component {
   }
 }
 
-Schedule.propTypes = {
+ScheduleByDayStage.propTypes = {
   appearancesGroupedByDayThenStage: PropTypes.arrayOf(
     PropTypes.object.isRequired
   ).isRequired,
@@ -118,4 +117,4 @@ Schedule.propTypes = {
   handleCheck: PropTypes.func.isRequired
 };
 
-export default Schedule;
+export default ScheduleByDayStage;

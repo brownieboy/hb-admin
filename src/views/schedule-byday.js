@@ -13,7 +13,7 @@ import {
   listGroupStyles
 } from "./viewstyles.js";
 
-class Schedule extends Component {
+class ScheduleByDay extends Component {
   getAppearanceLines = lineData => {
     // const itemsLength = lineData.length;
     return lineData.map((lineMember, index) => {
@@ -22,7 +22,7 @@ class Schedule extends Component {
       //   lineStyle.borderBottomWidth = 0;
       // }
       return (
-        <ListGroupItem key={lineMember.bandId} style={listGroupItemSmallStyles}>
+        <ListGroupItem key={lineMember.id} style={listGroupItemSmallStyles}>
           <div style={listGroupItemContentWrapperStyles}>
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
@@ -33,7 +33,8 @@ class Schedule extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <span>{lineMember.bandName}</span>
+                <span style={{fontWeight: "bold"}}>{lineMember.bandName}</span>
+                <span style={{ fontSize: 12 }}> ({lineMember.stageName})</span>
               </span>
             </div>
             <div>
@@ -56,21 +57,9 @@ class Schedule extends Component {
     });
   };
 
-  getAppearancesStageLevel = groupedStageData =>
-    groupedStageData.map(stageMember => [
-      <div key={stageMember.key} style={{ marginTop: 15 }}>
-        <span style={{ fontSize: 14, fontStyle: "italic" }}>
-          {stageMember.key.split("~")[1]}
-        </span>
-      </div>,
-      <ListGroup key={`${stageMember.key}-lineswrapper`}>
-        {this.getAppearanceLines(stageMember.values)}
-      </ListGroup>
-    ]);
-
   getAppearancesListDayLevel = groupedDayData =>
     groupedDayData.map(dayMember => [
-      <div key={dayMember.key} style={{ marginBottom: -15 }}>
+      <div key={dayMember.key}>
         <span style={{ fontWeight: "bold", fontSize: 18, color: "blue" }}>
           {dayMember.key.toUpperCase()}
         </span>
@@ -79,7 +68,7 @@ class Schedule extends Component {
         key={`${dayMember.key}-stagewrapper`}
         style={{ marginBottom: 20 }}
       >
-        {this.getAppearancesStageLevel(dayMember.values)}
+        {this.getAppearanceLines(dayMember.values)}
       </ListGroup>
     ]);
 
@@ -88,34 +77,30 @@ class Schedule extends Component {
   };
 
   render() {
-    const {
-      appearancesGroupedByDayThenStage,
-      fetchStatus,
-      fetchError
-    } = this.props;
+    const { appearancesGroupedByDay, fetchStatus, fetchError } = this.props;
+
+    console.log("ScheduleByDay render");
 
     return (
       <div>
-        <h2>Schedule Timetable</h2>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
           fetchError={fetchError}
         />
         <ListGroup style={listGroupStyles}>
-          {this.getAppearancesListDayLevel(appearancesGroupedByDayThenStage)}
+          {this.getAppearancesListDayLevel(appearancesGroupedByDay)}
         </ListGroup>
       </div>
     );
   }
 }
 
-Schedule.propTypes = {
-  appearancesGroupedByDayThenStage: PropTypes.arrayOf(
-    PropTypes.object.isRequired
-  ).isRequired,
+ScheduleByDay.propTypes = {
+  appearancesGroupedByDay: PropTypes.arrayOf(PropTypes.object.isRequired)
+    .isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
   handleCheck: PropTypes.func.isRequired
 };
 
-export default Schedule;
+export default ScheduleByDay;

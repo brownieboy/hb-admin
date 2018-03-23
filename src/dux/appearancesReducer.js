@@ -102,13 +102,13 @@ const selectAppearances = state => state.appearancesList;
 
 // Selectors use redux-select and are memoised.  But they need to be called
 // before they get memoised!
-const selectAppearancesByDateTime = createSelector(
-  [selectAppearances],
-  appearancesList =>
-    appearancesList
-      .slice()
-      .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
-);
+// const selectAppearancesByDateTime = createSelector(
+//   [selectAppearances],
+//   appearancesList =>
+//     appearancesList
+//       .slice()
+//       .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart))
+// );
 
 // Getters are just functions.
 const getAppearancesByDateTime = appearancesList => {
@@ -186,6 +186,21 @@ export const getAppearancesWithBandAndStageNames = state => {
   // console.log(appearancesWithBandNames);
   return appearancesWithBandNames;
 };
+
+export const getAppearancesGroupedByDay = state => {
+  const appearancesList = [...getAppearancesWithBandAndStageNames(state)];
+
+  return d3
+    .nest()
+    .key(appearance =>
+      format(new Date(appearance.dateTimeStart), "dddd DD/MM/YYYY")
+    )
+    .sortKeys(
+      (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
+    )
+    .entries(appearancesList.slice());
+};
+
 
 export const getAppearancesGroupedByDayThenStage = state => {
   const appearancesList = [...getAppearancesWithBandAndStageNames(state)];

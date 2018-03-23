@@ -5,8 +5,8 @@ import { Button, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
 import classnames from "classnames";
 
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
-import Schedule from "./schedule.js";
-import ScheduleTimetable from "./schedule-timetable.js";
+import ScheduleByDayStage from "./schedule-bydaystage.js";
+import ScheduleByDay from "./schedule-byday.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
 
@@ -16,7 +16,7 @@ class ScheduleWrapper extends Component {
     this.state = {
       selectedItems: [],
       showConfirmDeleteModal: false,
-      activeTab: "byDayStage"
+      activeTab: "byDay"
     };
     this.handleCheck = handleCheckExt.bind(this);
   }
@@ -41,6 +41,19 @@ class ScheduleWrapper extends Component {
           <NavItem>
             <NavLink
               className={classnames({
+                active: this.state.activeTab === "byDay"
+              })}
+              onClick={() => {
+                this.toggleTab("byDay");
+              }}
+            >
+              Day
+            </NavLink>
+          </NavItem>
+
+          <NavItem>
+            <NavLink
+              className={classnames({
                 active: this.state.activeTab === "byDayStage"
               })}
               onClick={() => {
@@ -50,29 +63,20 @@ class ScheduleWrapper extends Component {
               Day & Stage
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink
-              className={classnames({
-                active: this.state.activeTab === "byTimetable"
-              })}
-              onClick={() => {
-                this.toggleTab("byTimetable");
-              }}
-            >
-              Timetable
-            </NavLink>
-          </NavItem>
         </Nav>
 
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="byDayStage">
-            <Schedule {...this.props} handleCheck={this.handleCheck} />
+            <ScheduleByDayStage
+              {...this.props}
+              handleCheck={this.handleCheck}
+            />
           </TabPane>
         </TabContent>
 
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="byTimetable">
-            <ScheduleTimetable {...this.props} handleCheck={this.handleCheck} />
+          <TabPane tabId="byDay">
+            <ScheduleByDay {...this.props} handleCheck={this.handleCheck} />
           </TabPane>
         </TabContent>
 

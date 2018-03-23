@@ -8,6 +8,7 @@ import {
   deleteAppearances,
   loadAppearances,
   // selectors as appearanceSelectors,
+  getAppearancesGroupedByDay,
   getAppearancesGroupedByDayThenStage
 } from "../dux/appearancesReducer.js";
 
@@ -30,6 +31,7 @@ const mapStateToProps = state => ({
   // appearancesListByDateTime: appearanceSelectors.selectAppearancesByDateTime(
   //   state.appearancesState
   // ),
+  appearancesGroupedByDay: getAppearancesGroupedByDay(state),
   appearancesGroupedByDayThenStage: getAppearancesGroupedByDayThenStage(state),
   // appearancesWithBandAndStageNames: getAppearancesWithBandAndStageNames(state),
 
