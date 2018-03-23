@@ -8,19 +8,10 @@ import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
 
 import {
-  buttonsBottomWrapperStyles,
   listGroupItemContentWrapperStyles,
   listGroupItemSmallStyles,
   listGroupStyles
 } from "./viewstyles.js";
-
-/*
-{
-  appearancesGroupedByDayThenStage,
-  fetchStatus,
-  fetchError
-}
- */
 
 class Schedule extends Component {
 
