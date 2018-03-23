@@ -41,7 +41,7 @@ class Schedule extends Component {
               <Input
                 type="checkbox"
                 className="form-check-input"
-                onChange={e => this.handleCheck(e, lineMember.id)}
+                onChange={e => this.props.handleCheck(e, lineMember.id)}
               />
 
               <Link

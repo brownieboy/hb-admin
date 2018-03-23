@@ -27,7 +27,7 @@ class ScheduleWrapper extends Component {
     return (
       <div>
         <h1>Schedule Wrapper</h1>
-        <Schedule {...this.props} />
+        <Schedule {...this.props} handleCheck={this.handleCheck} />
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>
           <Button
