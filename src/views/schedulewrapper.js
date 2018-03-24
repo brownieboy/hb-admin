@@ -26,7 +26,6 @@ class ScheduleWrapper extends Component {
   };
 
   componentDidMount() {
-    console.log("scheduleWrapper..componentDidMount()");
     const scheduleViewActiveTab = localStorage.getItem("scheduleViewActiveTab");
     if (scheduleViewActiveTab !== "") {
       this.setState({ activeTab: scheduleViewActiveTab });
@@ -34,7 +33,6 @@ class ScheduleWrapper extends Component {
   }
 
   componentWillUnmount() {
-    console.log("scheduleWrapper..componentWillUnmount()");
     localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
   }
 
@@ -60,7 +58,7 @@ class ScheduleWrapper extends Component {
                 this.toggleTab("byDay");
               }}
             >
-              Day
+              by Day
             </NavLink>
           </NavItem>
 
@@ -73,7 +71,7 @@ class ScheduleWrapper extends Component {
                 this.toggleTab("byDayStage");
               }}
             >
-              Day & Stage
+              by Day then Stage
             </NavLink>
           </NavItem>
         </Nav>
