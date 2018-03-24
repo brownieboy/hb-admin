@@ -79,7 +79,8 @@ class ScheduleByDay extends Component {
   render() {
     const { appearancesGroupedByDay, fetchStatus, fetchError } = this.props;
 
-    console.log("ScheduleByDay render");
+    // console.log("ScheduleByDay render, appearancesGroupedByDay:");
+    // console.log(appearancesGroupedByDay);
 
     return (
       <div>

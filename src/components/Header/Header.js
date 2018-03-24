@@ -31,15 +31,15 @@ class Header extends Component {
         <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
-        <NavbarBrand href="#" />
         <NavbarToggler
           className="d-md-down-none mr-auto"
           onClick={this.sidebarToggle}
         >
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
-        <LoginButton />
-        <PublishButton />
+        <div>
+          <LoginButton /> <PublishButton />
+        </div>
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />
         </NavbarToggler>

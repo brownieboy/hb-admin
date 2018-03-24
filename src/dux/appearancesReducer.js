@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
+// import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
 import { format } from "date-fns";
 import { getBandInfoForId } from "./bandsReducer.js";
@@ -187,6 +187,8 @@ export const getAppearancesWithBandAndStageNames = state => {
   return appearancesWithBandNames;
 };
 
+// Grouped by day, but within that sorted by start time then
+// stage sort order
 export const getAppearancesGroupedByDay = state => {
   const appearancesList = [...getAppearancesWithBandAndStageNames(state)];
 
@@ -198,9 +200,8 @@ export const getAppearancesGroupedByDay = state => {
     .sortKeys(
       (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
     )
-    .entries(appearancesList.slice());
+    .entries(appearancesList);
 };
-
 
 export const getAppearancesGroupedByDayThenStage = state => {
   const appearancesList = [...getAppearancesWithBandAndStageNames(state)];
