@@ -17,8 +17,8 @@ const HomeForm = ({
   saveError
 }) => {
   const fieldValues = { homeText };
-  console.log("fieldValues:");
-  console.log(fieldValues);
+  // console.log("fieldValues:");
+  // console.log(fieldValues);
   const validationSchemaObj = { homeText: yup.string().required() };
 
   return (
