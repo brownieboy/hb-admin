@@ -33,7 +33,9 @@ class ScheduleByDay extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <span style={{fontWeight: "bold"}}>{lineMember.bandName}</span>
+                <span style={{ fontWeight: "bold" }}>
+                  {lineMember.bandName}
+                </span>
                 <span style={{ fontSize: 12 }}> ({lineMember.stageName})</span>
               </span>
             </div>

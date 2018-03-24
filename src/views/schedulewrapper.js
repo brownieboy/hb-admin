@@ -25,6 +25,19 @@ class ScheduleWrapper extends Component {
     this.setState({ showConfirmDeleteModal: true });
   };
 
+  componentDidMount() {
+    console.log("scheduleWrapper..componentDidMount()");
+    const scheduleViewActiveTab = localStorage.getItem("scheduleViewActiveTab");
+    if (scheduleViewActiveTab !== "") {
+      this.setState({ activeTab: scheduleViewActiveTab });
+    }
+  }
+
+  componentWillUnmount() {
+    console.log("scheduleWrapper..componentWillUnmount()");
+    localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
+  }
+
   toggleTab = tab => {
     if (this.state.activeTab !== tab) {
       this.setState({
