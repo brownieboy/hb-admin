@@ -17,6 +17,8 @@ facebook.getId('https://www.facebook.com/mcnallydev?_rdr=p', function(id) {
 });
 */
 
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
+
 import {
   formFieldsWrapperStyles,
   helpInfoTextStyles,
@@ -100,6 +102,7 @@ class BandForm extends Component {
     const {
       getBandInfoForId,
       isEditExisting,
+      isLoggedIn,
       match,
       submitDataToServer,
       saveStatus,
@@ -120,8 +123,9 @@ class BandForm extends Component {
       facebookPageName: ""
     };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
+    let matchingInfo;
     if (isEditExisting) {
-      const matchingInfo = getBandInfoForId(match.params.id);
+      matchingInfo = getBandInfoForId(match.params.id);
       if (matchingInfo) {
         fieldValues = Object.assign({}, matchingInfo);
         // console.log("fieldValues:");
@@ -139,11 +143,17 @@ class BandForm extends Component {
     }
 
     const isRedirectOn = !isEditExisting && saveStatus === "success";
+
     return isRedirectOn ? (
       <Redirect to={`/bandform/${this.classId}`} />
     ) : (
       <div style={formFieldsWrapperStyles}>
-        <h1>Add Band</h1>
+        {!isLoggedIn && <NotLoggedInWarning />}
+        <h1>
+          {isEditExisting
+            ? `Edit ${matchingInfo ? matchingInfo.name : "??"}`
+            : "Add Band"}
+        </h1>
         Loading status: {saveStatus}
         {saveStatus === "saving" && (
           <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
@@ -401,6 +411,7 @@ BandForm.propTypes = {
   history: PropTypes.object.isRequired, // from react-router
   getBandInfoForId: PropTypes.func.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,

@@ -12,6 +12,7 @@ import {
   LoadStatusIndicator,
   SaveStatusIndicator
 } from "./loadsaveindicator.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
@@ -78,6 +79,7 @@ class DatesForm extends Component {
     const {
       datesList,
       isEditExisting,
+      isLoggedIn,
       match,
       submitDataToServer,
       fetchStatus,
@@ -89,6 +91,7 @@ class DatesForm extends Component {
     let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     return (
       <div>
+        {!isLoggedIn && <NotLoggedInWarning />}
         <h1>Helstonbury Dates</h1>
         <div style={{ maxWidth: 180 }}>
           <LoadStatusIndicator
@@ -143,6 +146,7 @@ DatesForm.propTypes = {
   fetchError: PropTypes.string.isRequired,
   fetchStatus: PropTypes.string.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,

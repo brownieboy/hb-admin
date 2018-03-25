@@ -24,7 +24,8 @@ const mapStateToProps = state => ({
   getAppearancesForBandId: bandId =>
     getAppearancesForBandId(state.appearancesState.appearancesList, bandId),
   getBandInfoForId: bandId =>
-    getBandInfoForId(state.bandsState.bandsList, bandId)
+    getBandInfoForId(state.bandsState.bandsList, bandId),
+  isLoggedIn: state.firebaseLoginState.loggedIn
 
   // appearancesByBandThenDateTime: appearancesSelectors.selectAppearancesByBandNameThenDateTime(
   //   state.appearancesState

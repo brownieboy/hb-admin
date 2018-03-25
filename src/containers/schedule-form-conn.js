@@ -26,7 +26,8 @@ const getCommonStateObject = state => ({
   saveError: state.appearancesState.saveError,
   bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState),
   stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState),
-  datesList: state.datesState.datesList
+  datesList: state.datesState.datesList,
+  isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
 // So we're connecting the same form to Redux, but with different props

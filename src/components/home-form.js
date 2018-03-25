@@ -9,9 +9,11 @@ import {
   LoadStatusIndicator,
   SaveStatusIndicator
 } from "./loadsaveindicator.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 const HomeForm = ({
   homeText,
+  isLoggedIn,
   submitDataToServer,
   saveStatus,
   saveError
@@ -23,6 +25,7 @@ const HomeForm = ({
 
   return (
     <div>
+      {!isLoggedIn && <NotLoggedInWarning />}
       <h1>Edit Home Page Info</h1>
       Loading status: {saveStatus}
       {saveStatus === "saving" && (
@@ -121,6 +124,7 @@ HomeForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   homeText: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

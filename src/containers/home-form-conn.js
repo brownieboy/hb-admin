@@ -14,7 +14,8 @@ const getCommonStateObject = state => ({
   fetchStatus: state.datesState.fetchStatus,
   fetchError: state.datesState.fetchError,
   saveStatus: state.homeState.saveStatus,
-  saveError: state.homeState.saveError
+  saveError: state.homeState.saveError,
+  isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
 // So we're connecting the same form to Redux, but with different props

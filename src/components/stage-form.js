@@ -6,6 +6,7 @@ import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import { formFieldsWrapperStyles } from "./formstyles.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
@@ -20,7 +21,7 @@ class StageForm extends Component {
   classId = "";
 
   componentWillUnmount() {
-    console.log("Clearing from componentWillUnmount");
+    // console.log("Clearing from componentWillUnmount");
     this.props.saveStageClear && this.props.saveStageClear(); // Clear saveSuccess status so we don't loop
   }
 
@@ -28,6 +29,7 @@ class StageForm extends Component {
     const {
       getStageInfoForId,
       isEditExisting,
+      isLoggedIn,
       match,
       submitDataToServer,
       saveStatus,
@@ -35,8 +37,9 @@ class StageForm extends Component {
     } = this.props;
     let fieldValues = { name: "", id: "", sortOrder: -1 };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
+    let matchingInfo;
     if (isEditExisting) {
-      const matchingInfo = getStageInfoForId(match.params.id);
+      matchingInfo = getStageInfoForId(match.params.id);
 
       if (matchingInfo) {
         fieldValues = Object.assign({}, matchingInfo);
@@ -58,7 +61,12 @@ class StageForm extends Component {
       <Redirect to={`/stageform/${this.classId}`} />
     ) : (
       <div style={formFieldsWrapperStyles}>
-        <h1>Add Stage</h1>
+        {!isLoggedIn && <NotLoggedInWarning />}
+        <h1>
+          {isEditExisting
+            ? `Edit ${matchingInfo ? matchingInfo.name : "??"}`
+            : "Add Stage"}
+        </h1>
         Loading status: {saveStatus}
         {saveStatus === "saving" && (
           <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
@@ -71,7 +79,7 @@ class StageForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
-            console.log(JSON.stringify(values, null, 2));
+            // console.log(JSON.stringify(values, null, 2));
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
@@ -139,6 +147,7 @@ class StageForm extends Component {
 StageForm.propTypes = {
   errors: PropTypes.object,
   getStageInfoForId: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,

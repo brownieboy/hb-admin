@@ -17,6 +17,7 @@ import {
   LoadStatusIndicator,
   SaveStatusIndicator
 } from "./loadsaveindicator.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 dateFnsLocalizer({ "en-GB": enGB });
 
@@ -42,7 +43,6 @@ const renderSelectDates = datesList =>
   }));
 
 class AppearanceForm extends Component {
-
   classId = "";
 
   componentWillUnmount() {
@@ -57,6 +57,7 @@ class AppearanceForm extends Component {
       isEditExisting,
       match,
       submitDataToServer,
+      isLoggedIn,
       bandsPicker,
       stagesPicker,
       fetchStatus,
@@ -111,7 +112,8 @@ class AppearanceForm extends Component {
       <Redirect to={`/scheduleform/${this.classId}`} />
     ) : (
       <div style={{ maxWidth: 320, marginBottom: 50 }}>
-        <h1>Add Appearance</h1>
+        {!isLoggedIn && <NotLoggedInWarning />}
+        <h1>{isEditExisting ? "Edit" : "Add"} Appearance</h1>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
           fetchError={fetchError}
@@ -278,6 +280,7 @@ AppearanceForm.propTypes = {
   fetchStatus: PropTypes.string.isRequired,
   getAppearanceInfoForId: PropTypes.func,
   isEditExisting: PropTypes.bool.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,

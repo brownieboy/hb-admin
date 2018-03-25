@@ -13,6 +13,7 @@ import {
 import ConfirmModal from "../components/confirm-modal.js";
 import AlertModal from "../components/alert-modal.js";
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 class Stages extends Component {
   constructor(props) {
@@ -78,10 +79,12 @@ class Stages extends Component {
       deleteStages,
       stagesListProp,
       fetchError,
-      fetchStatus
+      fetchStatus,
+      isLoggedIn
     } = this.props;
     return (
       <div>
+        {!isLoggedIn && <NotLoggedInWarning />}
         <h1>Stages</h1>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
@@ -142,6 +145,7 @@ Stages.propTypes = {
   fetchError: PropTypes.string.isRequired,
   getStageInfoForId: PropTypes.func.isRequired,
   getAppearancesForStageId: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   stagesListProp: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
 

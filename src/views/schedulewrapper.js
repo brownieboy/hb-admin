@@ -8,6 +8,7 @@ import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js"
 import ScheduleByDayStage from "./schedule-bydaystage.js";
 import ScheduleByDay from "./schedule-byday.js";
 import ConfirmModal from "../components/confirm-modal.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
 
 class ScheduleWrapper extends Component {
@@ -45,9 +46,10 @@ class ScheduleWrapper extends Component {
   };
 
   render() {
-    const { deleteAppearances } = this.props;
+    const { deleteAppearances, isLoggedIn } = this.props;
     return (
       <div>
+        {!isLoggedIn && <NotLoggedInWarning />}
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -120,7 +122,8 @@ class ScheduleWrapper extends Component {
 }
 
 ScheduleWrapper.propTypes = {
-  deleteAppearances: PropTypes.func.isRequired
+  deleteAppearances: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
 
 export default ScheduleWrapper;

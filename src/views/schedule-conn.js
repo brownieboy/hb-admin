@@ -39,7 +39,8 @@ const mapStateToProps = state => ({
   getBandInfoForId: bandId =>
     getBandInfoIdAction(state.bandsState.bandsList, bandId),
   getStageInfoForId: stageId =>
-    getStageInfoIdAction(state.stagesState.stagesList, stageId)
+    getStageInfoIdAction(state.stagesState.stagesList, stageId),
+  isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
 /*

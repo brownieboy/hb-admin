@@ -22,7 +22,8 @@ const getCommonStateObject = state => ({
   saveError: state.bandsState.saveError,
   // bandsListProp: state.bandsState.bandsList,
   getBandInfoForId: bandId =>
-    getBandInfoForIdAction(state.bandsState.bandsList, bandId)
+    getBandInfoForIdAction(state.bandsState.bandsList, bandId),
+  isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
 // So we're connecting the same form to Redux, but with different props

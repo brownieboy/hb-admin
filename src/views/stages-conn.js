@@ -18,7 +18,8 @@ const mapStateToProps = state => ({
   getAppearancesForStageId: stageId =>
     getAppearancesForStageId(state.appearancesState.appearancesList, stageId),
   getStageInfoForId: stageId =>
-    getStageInfoForId(state.stagesState.stagesList, stageId)
+    getStageInfoForId(state.stagesState.stagesList, stageId),
+  isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
 const StagesConn = connect(mapStateToProps, mapDispatchToProps)(Stages);

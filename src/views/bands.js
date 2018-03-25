@@ -14,6 +14,8 @@ import AlertModal from "../components/alert-modal.js";
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
+import NotLoggedInWarning from "../components/not-logged-in-warning.js";
+
 
 class Bands extends Component {
   constructor(props) {
@@ -85,11 +87,13 @@ class Bands extends Component {
       bandsAlphabeticalProp,
       deleteBands,
       fetchError,
-      fetchStatus
+      fetchStatus,
+      isLoggedIn
     } = this.props;
 
     return (
       <div>
+        {!isLoggedIn && <NotLoggedInWarning />}
         <h1>Bands</h1>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
@@ -149,6 +153,7 @@ Bands.propTypes = {
   fetchError: PropTypes.string.isRequired,
   getAppearancesForBandId: PropTypes.func.isRequired,
   getBandInfoForId: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   loadBandsProp: PropTypes.func.isRequired,
   bandsAlphabeticalProp: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired
