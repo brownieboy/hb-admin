@@ -5,8 +5,13 @@ import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
-import { formFieldsWrapperStyles } from "./formstyles.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
+
+import {
+  formFieldsWrapperStyles,
+  helpInfoTextStyles,
+  blurbFieldRows
+} from "./formstyles.js";
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
@@ -35,7 +40,12 @@ class StageForm extends Component {
       saveStatus,
       saveError
     } = this.props;
-    let fieldValues = { name: "", id: "", sortOrder: -1 };
+    let fieldValues = {
+      name: "",
+      id: "",
+      sortOrder: -1,
+      blurb: ""
+    };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     let matchingInfo;
     if (isEditExisting) {
@@ -120,6 +130,20 @@ class StageForm extends Component {
                     value={values.name}
                   />
                   {errors.name && <div>{errors.name}</div>}
+                </FormGroup>
+
+                <FormGroup>
+                  <Label for="blurb">Stage Info</Label>
+                  <Input
+                    rows={blurbFieldRows}
+                    type="textarea"
+                    name="blurb"
+                    placeholder="Info about this stage (location etc)"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.blurb}
+                  />
+                  {errors.blurb && <div>{errors.blurb}</div>}
                 </FormGroup>
 
                 <FormGroup>
