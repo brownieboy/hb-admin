@@ -85,7 +85,7 @@ const stagesReducer = (
 };
 
 // Sort/filter functions for selectors
-const selectStages = state => state.stagesList;
+export const selectStages = state => state.stagesState.stagesList;
 const selectStagesPicker = createSelector([selectStages], stagesList =>
   stagesList.map(stageMember => ({
     id: stageMember.id,

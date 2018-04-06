@@ -6,6 +6,7 @@ import { Button } from "reactstrap";
 import { savePublishNow } from "../dux/publishReducer.js";
 import { getAppearancesWithBandAndStageNames } from "../dux/appearancesReducer.js";
 import { getBandsAlphabeticalEnhanced } from "../dux/bandsReducer.js";
+import { selectStages as getStages } from "../dux/stagesReducer.js";
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
@@ -19,14 +20,27 @@ const mapStateToProps = state => ({
   loggedInState: state.firebaseLoginState,
   appearancesList: getAppearancesWithBandAndStageNames(state),
   bandsList: getBandsAlphabeticalEnhanced(state.bandsState.bandsList),
+  stagesList: getStages(state),
   homePageText: state.homeState.homeText
 });
 
 class PublishButton extends Component {
   handlePublish = () => {
-    const { appearancesList, bandsList, homePageText, publishNow } = this.props;
-    console.log("handlePublish");
-    publishNow({ appearancesArray: appearancesList, bandsArray: bandsList, homePageText  });
+    const {
+      appearancesList,
+      bandsList,
+      homePageText,
+      publishNow,
+      stagesList
+    } = this.props;
+    // console.log("handlePublish, stagesList:");
+    // console.log(stagesList);
+    publishNow({
+      appearancesArray: appearancesList,
+      bandsArray: bandsList,
+      stagesArray: stagesList,
+      homePageText
+    });
   };
 
   render() {
@@ -38,7 +52,8 @@ PublishButton.propTypes = {
   appearancesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   bandsList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   homePageText: PropTypes.string.isRequired,
-  publishNow: PropTypes.func.isRequired
+  publishNow: PropTypes.func.isRequired,
+  stagesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
 
 const PublishButtonConn = connect(mapStateToProps, mapDispatchToProps)(
