@@ -1,0 +1,27 @@
+[debug] [2018-04-06T06:58:22.895Z] ----------------------------------------------------------------------
+[debug] [2018-04-06T06:58:22.897Z] Command:       /usr/local/bin/node /Users/mikebrown/.npm-packages/bin/firebase deploy
+[debug] [2018-04-06T06:58:22.898Z] CLI Version:   3.17.6
+[debug] [2018-04-06T06:58:22.898Z] Platform:      darwin
+[debug] [2018-04-06T06:58:22.898Z] Node Version:  v8.10.0
+[debug] [2018-04-06T06:58:22.898Z] Time:          Fri Apr 06 2018 16:58:22 GMT+1000 (AEST)
+[debug] [2018-04-06T06:58:22.898Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-04-06T06:58:22.913Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-04-06T06:58:22.914Z] > authorizing via signed-in user
+[debug] [2018-04-06T06:58:22.916Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2018-04-06T06:58:22.916Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ { refresh_token: '1/ks0QgiTD4pkl0LxAFSPwU2Tmh8JWifxUm7NnK-zkbgQ',
+  client_id: '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope: 'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Fri Apr 06 2018 16:58:22 GMT+1000 (AEST)
+[debug] [2018-04-06T06:58:23.389Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-06T06:58:23.394Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/helstonbury-cadbf  
+  
+ Fri Apr 06 2018 16:58:23 GMT+1000 (AEST)
+[debug] [2018-04-06T06:58:24.762Z] <<< HTTP RESPONSE 200
+[debug] [2018-04-06T06:58:24.762Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/helstonbury-cadbf/tokens  
+  
+ Fri Apr 06 2018 16:58:24 GMT+1000 (AEST)
+[debug] [2018-04-06T06:58:25.686Z] <<< HTTP RESPONSE 200
