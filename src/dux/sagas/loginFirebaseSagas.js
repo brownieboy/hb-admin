@@ -11,16 +11,33 @@ import {
   syncUser
 } from "../firebaseLoginReducer.js";
 
+/*
+firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+ */
+
 function* loginSaga(loginCredentials) {
   try {
     // const data = yield call(
     //   reduxSagaFirebase.auth.signInWithPopup,
     //   authProvider
     // );
-    yield console.log(
-      "Login success?, loginCredentials=" +
-        JSON.stringify(loginCredentials, null, 4)
+    const { email, password } = loginCredentials;
+    console.log("logging in...");
+    // const data = yield call(
+    //   reduxSagaFirebase.auth().signInWithEmailAndPassword(email, password)
+    // );
+    const user = yield call(
+      reduxSagaFirebase.auth.createUserWithEmailAndPassword,
+      email,
+      password
     );
+    yield console.log("Login success?, data:");
+    yield console.log(data);
     yield put(loginSuccess(data));
   } catch (error) {
     yield put(loginFailure(error));
