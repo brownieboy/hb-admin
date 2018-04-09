@@ -26,8 +26,10 @@ function* loginSaga(loginCredentials) {
     //   reduxSagaFirebase.auth.signInWithPopup,
     //   authProvider
     // );
-    const { email, password } = loginCredentials;
-    console.log("logging in...");
+    console.log("loginCredentials:");
+    console.log(loginCredentials);
+    const { email, password } = loginCredentials.payload;
+    console.log("logging in with email=" + email + ", pass=" + password);
     // const data = yield call(
     //   reduxSagaFirebase.auth().signInWithEmailAndPassword(email, password)
     // );
