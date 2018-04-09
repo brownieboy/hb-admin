@@ -74,6 +74,11 @@ const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
                 </FormGroup>
                 <Button type="submit">Submit</Button>
               </form>
+              {isLoggedIn && (
+                <Button onClick={logoutProp} style={{ marginTop: "20px" }}>
+                  Logout
+                </Button>
+              )}
             </div>
           );
         }}

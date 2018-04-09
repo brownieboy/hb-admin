@@ -42,6 +42,7 @@ function* loginSaga(loginCredentials) {
     yield console.log(user);
     yield put(loginSuccess(user));
   } catch (error) {
+    console.log("Lgging in error trap:");
     yield put(loginFailure(error));
   }
 }
