@@ -9,6 +9,7 @@ const routes = {
   "/stages": "Stages",
   "/stageform": "StageForm",
   "/bandform": "BandForm",
-  "/scheduleform": "ScheduleForm"
+  "/scheduleform": "ScheduleForm",
+  "/loginemailform": "LoginEmailForm"
 };
 export default routes;

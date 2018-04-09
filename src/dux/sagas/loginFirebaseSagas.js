@@ -11,13 +11,16 @@ import {
   syncUser
 } from "../firebaseLoginReducer.js";
 
-function* loginSaga() {
+function* loginSaga(loginCredentials) {
   try {
-    const data = yield call(
-      reduxSagaFirebase.auth.signInWithPopup,
-      authProvider
+    // const data = yield call(
+    //   reduxSagaFirebase.auth.signInWithPopup,
+    //   authProvider
+    // );
+    yield console.log(
+      "Login success?, loginCredentials=" +
+        JSON.stringify(loginCredentials, null, 4)
     );
-    // yield console.log("Login success?, data=" + JSON.stringify(data, null, 4));
     yield put(loginSuccess(data));
   } catch (error) {
     yield put(loginFailure(error));

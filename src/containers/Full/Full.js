@@ -24,6 +24,7 @@ import {
   ScheduleFormNewConn,
   ScheduleFormEditConn
 } from "../../containers/schedule-form-conn.js";
+import LoginEmailFormConn from "../../containers/loginemailform-conn.js";
 
 import DatesEdit from "../../containers/dates-form-conn.js";
 import EditHomePage from "../../containers/home-form-conn.js";
@@ -87,6 +88,11 @@ class Full extends Component {
                   path="/stageform"
                   name="StageFormNew"
                   component={StageFormNewConn}
+                />
+                <Route
+                  path="/loginemailform"
+                  name="LoginEmailForm"
+                  component={LoginEmailFormConn}
                 />
                 <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/edithomepage" />

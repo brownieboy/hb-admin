@@ -12,8 +12,9 @@ export const types = {
   SYNC_USER: "SYNC_USER"
 };
 
-export const login = () => ({
-  type: types.LOGIN.REQUEST
+export const login = loginCredentials => ({
+  type: types.LOGIN.REQUEST,
+  payload: loginCredentials
 });
 
 export const loginSuccess = credential => ({
@@ -47,12 +48,21 @@ export const syncUser = user => ({
 const initialState = {
   loading: false,
   loggedIn: false,
-  user: null
+  user: null,
+  password: null
 };
+
+export const getIsLoggedIn = state => state.firebaseLoginState.loggedIn;
 
 export default function loginReducer(state = initialState, action = {}) {
   switch (action.type) {
     case types.LOGIN.REQUEST:
+      return {
+        ...state,
+        loading: true,
+        email: action.payload.email,
+        password: action.payload.password
+      };
     case types.LOGOUT.REQUEST:
       return {
         ...state,
@@ -83,7 +93,7 @@ export default function loginReducer(state = initialState, action = {}) {
     case types.SYNC_USER:
       return {
         ...state,
-        loggedIn: action.user != null,
+        loggedIn: action.user !== null,
         user: action.user
       };
     default:
