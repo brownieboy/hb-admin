@@ -33,7 +33,7 @@ const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          console.log(JSON.stringify(values, null, 2));
+          // console.log(JSON.stringify(values, null, 2));
           loginProp(values);
           actions.setSubmitting(false);
         }}

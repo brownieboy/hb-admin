@@ -36,9 +36,9 @@ function* loginSaga(loginCredentials) {
       email,
       password
     );
-    yield console.log("Login success?, data:");
-    yield console.log(data);
-    yield put(loginSuccess(data));
+    yield console.log("Login success?, user:");
+    yield console.log(user);
+    yield put(loginSuccess(user));
   } catch (error) {
     yield put(loginFailure(error));
   }
