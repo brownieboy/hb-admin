@@ -34,7 +34,7 @@ function* loginSaga(loginCredentials) {
     //   reduxSagaFirebase.auth().signInWithEmailAndPassword(email, password)
     // );
     const user = yield call(
-      reduxSagaFirebase.auth.createUserWithEmailAndPassword,
+      reduxSagaFirebase.auth.signInWithEmailAndPassword,
       email,
       password
     );

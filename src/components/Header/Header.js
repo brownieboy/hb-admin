@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { NavbarToggler, NavbarBrand } from "reactstrap";
 
 import LoginButton from "../../containers/loginbutton-conn.js";
@@ -38,7 +39,8 @@ class Header extends Component {
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
         <div>
-          <LoginButton /> <PublishButton />
+          <Link to={"/loginemailform"}>Login Page</Link> | 
+          <PublishButton />
         </div>
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />
