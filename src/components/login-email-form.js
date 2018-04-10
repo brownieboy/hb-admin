@@ -5,14 +5,18 @@ import yup from "yup";
 import { Button, FormGroup, Input, Label } from "reactstrap";
 import { Formik } from "formik";
 
-import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import {
   formFieldsWrapperStyles,
   helpInfoTextStyles,
   blurbFieldRows
 } from "./formstyles.js";
 
-const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
+const LoginEmailForm = ({
+  isLoggedIn,
+  loginProp,
+  logoutProp,
+  loginErrorMessage
+}) => {
   const fieldValues = { email: "", password: "" };
   // console.log("fieldValues:");
   // console.log(fieldValues);
@@ -26,7 +30,6 @@ const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
 
   return (
     <div>
-      {!isLoggedIn && <NotLoggedInWarning />}
       <h1>Login</h1>
       <Formik
         enableReinitialize
@@ -74,6 +77,12 @@ const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
                 </FormGroup>
                 <Button type="submit">Submit</Button>
               </form>
+              <div style={helpInfoTextStyles}>
+                {isLoggedIn ? "You are logged in" : "You are not logged in"}
+              </div>
+              {loginErrorMessage !== "" && (
+                <div>{`Error logging in: ${loginErrorMessage}`}</div>
+              )}
               {isLoggedIn && (
                 <Button onClick={logoutProp} style={{ marginTop: "20px" }}>
                   Logout
@@ -89,12 +98,13 @@ const LoginEmailForm = ({ isLoggedIn, loginProp, logoutProp }) => {
 
 LoginEmailForm.propTypes = {
   errors: PropTypes.object,
-
   handleBlur: PropTypes.func,
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   loginProp: PropTypes.func.isRequired,
   logoutProp: PropTypes.func.isRequired,
+  loginErrorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    .isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   values: PropTypes.object
 };

@@ -24,7 +24,7 @@ export const loginSuccess = credential => ({
 
 export const loginFailure = error => ({
   type: types.LOGIN.FAILURE,
-  error
+  payload: error
 });
 
 export const logout = () => ({
@@ -37,22 +37,25 @@ export const logoutSuccess = () => ({
 
 export const logoutFailure = error => ({
   type: types.LOGOUT.FAILURE,
-  error
+  payload: error
 });
 
 export const syncUser = user => ({
   type: types.SYNC_USER,
-  user
+  payload: user
 });
 
 const initialState = {
   loading: false,
   loggedIn: false,
   user: null,
-  password: null
+  password: null,
+  loginErrorMessage: ""
 };
 
 export const getIsLoggedIn = state => state.firebaseLoginState.loggedIn;
+export const getLoginErrorMessage = state =>
+  state.firebaseLoginState.loginErrorMessage;
 
 export default function loginReducer(state = initialState, action = {}) {
   switch (action.type) {
@@ -61,40 +64,46 @@ export default function loginReducer(state = initialState, action = {}) {
         ...state,
         loading: true,
         email: action.payload.email,
-        password: action.payload.password
+        password: action.payload.password,
+        loginErrorMessage: ""
       };
     case types.LOGOUT.REQUEST:
       return {
         ...state,
+        loginErrorMessage: "",
         loading: true
       };
     case types.LOGIN.SUCCESS:
       return {
         ...state,
+        loginErrorMessage: "",
         loading: false,
         loggedIn: true
       };
     case types.LOGIN.FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        loginErrorMessage: action.payload
       };
     case types.LOGOUT.SUCCESS:
       return {
         ...state,
+        loginErrorMessage: "",
         loading: false,
         loggedIn: false
       };
     case types.LOGOUT.FAILURE:
       return {
         ...state,
-        loading: false
+        loading: false,
+        loginErrorMessage: action.payload.error
       };
     case types.SYNC_USER:
       return {
         ...state,
-        loggedIn: action.user !== null,
-        user: action.user
+        loggedIn: action.payload !== null,
+        user: action.payload
       };
     default:
       return state;

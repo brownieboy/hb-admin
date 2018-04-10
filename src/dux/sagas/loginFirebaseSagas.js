@@ -26,10 +26,10 @@ function* loginSaga(loginCredentials) {
     //   reduxSagaFirebase.auth.signInWithPopup,
     //   authProvider
     // );
-    console.log("loginCredentials:");
-    console.log(loginCredentials);
+    // console.log("loginCredentials:");
+    // console.log(loginCredentials);
     const { email, password } = loginCredentials.payload;
-    console.log("logging in with email=" + email + ", pass=" + password);
+    // console.log("logging in with email=" + email + ", pass=" + password);
     // const data = yield call(
     //   reduxSagaFirebase.auth().signInWithEmailAndPassword(email, password)
     // );
@@ -38,8 +38,8 @@ function* loginSaga(loginCredentials) {
       email,
       password
     );
-    yield console.log("Login success?, user:");
-    yield console.log(user);
+    // yield console.log("Login success?, user:");
+    // yield console.log(user);
     yield put(loginSuccess(user));
   } catch (error) {
     console.log("Lgging in error trap:");
@@ -58,10 +58,8 @@ function* logoutSaga() {
 
 function* syncUserSaga() {
   const channel = yield call(reduxSagaFirebase.auth.channel);
-
   while (true) {
     const { user } = yield take(channel);
-
     if (user) {
       yield put(syncUser(user));
     } else {
