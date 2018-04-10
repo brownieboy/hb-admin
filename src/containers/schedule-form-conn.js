@@ -25,7 +25,7 @@ const getCommonStateObject = state => ({
   fetchError: state.appearancesState.fetchError,
   saveError: state.appearancesState.saveError,
   bandsPicker: bandsSelectors.selectBandsPicker(state.bandsState),
-  stagesPicker: stagesSelectors.selectStagesPicker(state.stagesState),
+  stagesPicker: stagesSelectors.selectStagesPicker(state),
   datesList: state.datesState.datesList,
   isLoggedIn: state.firebaseLoginState.loggedIn
 });
