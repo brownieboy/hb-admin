@@ -12,17 +12,16 @@ export const actionTypes = {
   SAVE_EDITED_CONTACTUS
 };
 
+const defaultState = {
+  fetchStatus: "",
+  fetchError: "",
+  saveError: {},
+  organiserDetails: {},
+  venueDetails: {}
+};
+
 // Reducer
-const homeReducer = (
-  state = {
-    fetchStatus: "",
-    fetchError: "",
-    saveHome: "",
-    saveError: {},
-    homeText: ""
-  },
-  action
-) => {
+const homeReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_CONTACTUS_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -90,9 +89,5 @@ export const homeDuxActions = {
   setFetchHomeRequest,
   setFetchHomeSucceeded
 };
-
-
-
-
 
 export default homeReducer;
