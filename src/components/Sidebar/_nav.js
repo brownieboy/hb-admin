@@ -34,6 +34,11 @@ export default {
       name: "Stages",
       url: "/stages",
       icon: "icon-anchor"
+    },
+    {
+      name: "Contact Us",
+      url: "/contactuspage",
+      icon: "icon-info"
     }
   ]
 };

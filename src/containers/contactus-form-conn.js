@@ -8,7 +8,7 @@ import ContactUsForm from "../components/contactus-form.js";
 import {
   // saveNewContactUs,
   saveEditedContactUs
-} from "../dux/homeReducer.js";
+} from "../dux/contactusReducer.js";
 
 const getCommonStateObject = state => ({
   fetchStatus: state.datesState.fetchStatus,

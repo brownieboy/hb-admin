@@ -16,6 +16,8 @@ const defaultState = {
   fetchStatus: "",
   fetchError: "",
   saveError: {},
+  endBlurb: {},
+  startBlurb: {},
   organiserDetails: {},
   venueDetails: {}
 };

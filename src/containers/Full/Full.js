@@ -28,6 +28,7 @@ import LoginEmailFormConn from "../../containers/loginemailform-conn.js";
 
 import DatesEdit from "../../containers/dates-form-conn.js";
 import EditHomePage from "../../containers/home-form-conn.js";
+import ContactUsPage from "../../containers/contactus-form-conn.js";
 import PlaceHolder from "../../components/placeholder.js";
 
 class Full extends Component {
@@ -93,6 +94,11 @@ class Full extends Component {
                   path="/loginemailform"
                   name="LoginEmailForm"
                   component={LoginEmailFormConn}
+                />
+                <Route
+                  path="/contactuspage"
+                  name="ContactUsPage"
+                  component={ContactUsPage}
                 />
                 <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/edithomepage" />
