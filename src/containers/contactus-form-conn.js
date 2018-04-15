@@ -8,13 +8,13 @@ import ContactUsForm from "../components/contactus-form.js";
 import {
   // saveNewContactUs,
   saveEditedContactUs
-} from "../dux/contactusReducer.js";
+} from "../dux/contactUsReducer.js";
 
 const getCommonStateObject = state => ({
-  fetchStatus: state.datesState.fetchStatus,
-  fetchError: state.datesState.fetchError,
-  saveStatus: state.homeState.saveStatus,
-  saveError: state.homeState.saveError,
+  fetchStatus: state.contactUsState.fetchStatus,
+  fetchError: state.contactUsState.fetchError,
+  saveStatus: state.contactUsState.saveStatus,
+  saveError: state.contactUsState.saveError,
   isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
@@ -32,7 +32,15 @@ const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedContactUs }, dispatch);
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
-  homeText: state.homeState.homeText,
+  startBlurb: state.contactUsState.startBlurb,
+  email1: state.contactUsState.email1,
+  email2: state.contactUsState.email2,
+  mobile: state.contactUsState.mobile,
+  gettingThereBlurb: state.contactUsState.gettingThereBlurb,
+  mapLinkText: state.contactUsState.mapLinkText,
+  venueAddress: state.contactUsState.venueAddress,
+  venueEmail: state.contactUsState.venueEmail,
+  venuePhone: state.contactUsState.venuePhone,
   isEditExisting: true
 });
 
@@ -41,8 +49,9 @@ const mapStateToPropsEdit = state => ({
 //   mapDispatchToPropsNew
 // )(ContactUsForm);
 
-const ContactUsFormEditConn = connect(mapStateToPropsEdit, mapDispatchToPropsEdit)(
-  ContactUsForm
-);
+const ContactUsFormEditConn = connect(
+  mapStateToPropsEdit,
+  mapDispatchToPropsEdit
+)(ContactUsForm);
 
 export default ContactUsFormEditConn;

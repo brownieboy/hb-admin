@@ -18,6 +18,7 @@ import {
 import { homeDuxActions } from "../homeReducer.js";
 import { stagesDuxActions } from "../stagesReducer.js";
 import { datesDuxActions } from "../datesReducer.js";
+import { contactUsDuxActions } from "../contactUsReducer.js";
 
 export function createEventChannel(ref) {
   const listener = eventChannel(emit => {
@@ -62,6 +63,21 @@ function* readHomeSaga() {
     //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
     // );
     yield put(homeDuxActions.setFetchHomeSucceeded(item.value.homeText));
+  }
+}
+
+function* readContactUsSaga() {
+  console.log("running readContactUsSagaSaga...");
+  const updateChannel = createEventChannel(
+    firebaseApp.database().ref(globalTypes.DATABASE.CONTACTS_PAGE_PATH)
+  );
+
+  while (true) {
+    const item = yield take(updateChannel);
+    // yield console.log(
+    //   "readHomeSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    // );
+    yield put(contactUsDuxActions.setFetchContactUsSucceeded(item.value));
   }
 }
 
@@ -128,7 +144,8 @@ const readFirebaseDataSagas = [
   fork(readHomeSaga),
   fork(readStagesSaga),
   fork(readAppearancesSaga),
-  fork(readDatesSaga)
+  fork(readDatesSaga),
+  fork(readContactUsSaga)
 ];
 
 export default readFirebaseDataSagas;

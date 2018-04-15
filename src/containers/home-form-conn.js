@@ -11,8 +11,8 @@ import {
 } from "../dux/homeReducer.js";
 
 const getCommonStateObject = state => ({
-  fetchStatus: state.datesState.fetchStatus,
-  fetchError: state.datesState.fetchError,
+  fetchStatus: state.homeState.fetchStatus,
+  fetchError: state.homeState.fetchError,
   saveStatus: state.homeState.saveStatus,
   saveError: state.homeState.saveError,
   isLoggedIn: state.firebaseLoginState.loggedIn

@@ -11,20 +11,48 @@ import {
 } from "./loadsaveindicator.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
+import {
+  formFieldsWrapperStyles,
+  helpInfoTextStyles,
+  blurbFieldRows
+} from "./formstyles.js";
+
 const ContactUsForm = ({
   startBlurb,
+  email1,
+  email2,
+  mobile,
+  gettingThereBlurb,
+  mapLinkText,
+  venueAddress,
+  venuePhone,
+  venueEmail,
   isLoggedIn,
   submitDataToServer,
   saveStatus,
   saveError
 }) => {
-  const fieldValues = { startBlurb };
+  const fieldValues = {
+    startBlurb,
+    email1,
+    email2,
+    mobile,
+    gettingThereBlurb,
+    mapLinkText,
+    venueAddress,
+    venuePhone,
+    venueEmail
+  };
   // console.log("fieldValues:");
   // console.log(fieldValues);
-  const validationSchemaObj = { startBlurb: yup.string().required() };
+  const validationSchemaObj = {
+    startBlurb: yup.string().required(),
+    email1: yup.string().email(),
+    email2: yup.string().email()
+  };
 
   return (
-    <div>
+    <div style={formFieldsWrapperStyles}>
       {!isLoggedIn && <NotLoggedInWarning />}
       <h1>Edit Contact Us Page Info</h1>
       Loading status: {saveStatus}
@@ -39,7 +67,8 @@ const ContactUsForm = ({
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          console.log(JSON.stringify(values, null, 2));
+          console.log("ContactUs form data");
+          console.log(values);
           submitDataToServer(values);
           actions.setSubmitting(false);
         }}
@@ -52,7 +81,7 @@ const ContactUsForm = ({
             handleSubmit
           } = props;
           return (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ marginBottom: 20 }}>
               <FormGroup>
                 <Label for="startBlurb">Start Blurb</Label>
                 <Input

@@ -8,13 +8,13 @@ import firebaseLoginReducer from "./firebaseLoginReducer.js";
 import datesReducer from "./datesReducer.js";
 import storageReducer from "./storageReducer";
 import publishReducer from "./publishReducer.js";
-import contactsReducer from "./contactusReducer.js";
+import contactsReducer from "./contactUsReducer.js";
 // import { getAppearancesWithBandAndStageNames as fromAppearancesGetAppearancesWithBandAndStageNames } from "./appearancesReducer.js";
 
 const mainReducer = combineReducers({
   appearancesState: appearancesReducer,
   bandsState: bandsReducer,
-  contactsState: contactsReducer,
+  contactUsState: contactsReducer,
   homeState: homeReducer,
   firebaseLoginState: firebaseLoginReducer,
   publishState: publishReducer,

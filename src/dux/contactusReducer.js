@@ -16,14 +16,19 @@ const defaultState = {
   fetchStatus: "",
   fetchError: "",
   saveError: {},
-  endBlurb: {},
-  startBlurb: {},
-  organiserDetails: {},
-  venueDetails: {}
+  startBlurb: "",
+  email1: "",
+  email2: "",
+  mobile: "",
+  gettingThereBlurb: "",
+  mapLinkText: "",
+  venueAddress: "",
+  venueEmail: "",
+  venuePhone: ""
 };
 
 // Reducer
-const homeReducer = (state = defaultState, action) => {
+const contactUsReducer = (state = defaultState, action) => {
   switch (action.type) {
     case FETCH_CONTACTUS_REQUEST:
       return { ...state, fetchStatus: "loading" };
@@ -31,7 +36,7 @@ const homeReducer = (state = defaultState, action) => {
       return {
         ...state,
         fetchStatus: "",
-        homeText: action.payload
+        contactUsText: action.payload
       };
     case FETCH_CONTACTUS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };
@@ -53,43 +58,43 @@ const homeReducer = (state = defaultState, action) => {
   }
 };
 
-export const loadHomeNow = () => ({ type: LOAD_CONTACTUS_NOW });
+export const loadContactUsNow = () => ({ type: LOAD_CONTACTUS_NOW });
 // export const fetchCONTACTUSSucceeded = () => ({ type: FETCH_CONTACTUS_REQUEST });
 
-const setFetchHomeRequest = () => ({
+const setFetchContactUsRequest = () => ({
   type: FETCH_CONTACTUS_REQUEST
 });
-const setFetchHomeSucceeded = homeText => ({
+const setFetchContactUsSucceeded = constactUsText => ({
   type: FETCH_CONTACTUS_SUCCESS,
-  payload: homeText || ""
+  payload: constactUsText || ""
 });
-const setFetchHomeFailed = errorMessage => ({
+const setFetchContactUsFailed = errorMessage => ({
   type: FETCH_CONTACTUS_FAILURE,
   payload: errorMessage
 });
 
-export const saveEditedHome = homeInfo => ({
+export const saveEditedContactUs = constactUsInfo => ({
   type: SAVE_EDITED_CONTACTUS,
-  payload: homeInfo
+  payload: constactUsInfo
 });
 
-export const saveHomeRequest = () => ({
+export const saveContactUsRequest = () => ({
   type: SAVE_CONTACTUS_REQUEST
 });
 
-export const saveHomeSucceeded = () => ({
+export const saveContactUsSucceeded = () => ({
   type: SAVE_CONTACTUS_SUCCESS
 });
 
-export const saveHomeFailed = error => ({
+export const saveContactUsFailed = error => ({
   type: SAVE_CONTACTUS_FAILED,
   payload: error
 });
 
-export const homeDuxActions = {
-  setFetchHomeFailed,
-  setFetchHomeRequest,
-  setFetchHomeSucceeded
+export const contactUsDuxActions = {
+  setFetchContactUsFailed,
+  setFetchContactUsRequest,
+  setFetchContactUsSucceeded
 };
 
-export default homeReducer;
+export default contactUsReducer;
