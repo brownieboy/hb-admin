@@ -32,7 +32,8 @@ class PublishButton extends Component {
       bandsList,
       homePageText,
       publishNow,
-      stagesList
+      stagesList,
+      contactUsPage
     } = this.props;
     // console.log("handlePublish, stagesList:");
     // console.log(stagesList);
@@ -54,6 +55,7 @@ PublishButton.propTypes = {
   appearancesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   bandsList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   homePageText: PropTypes.string.isRequired,
+  contactUsPage: PropTypes.string.isRequired,
   publishNow: PropTypes.func.isRequired,
   stagesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };

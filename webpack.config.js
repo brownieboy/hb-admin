@@ -20,7 +20,7 @@ module.exports = (env = {}) => {
   console.log("Production: ", env.production); // true
   console.log("env: ", env); // true
 
-  return {
+  const myConfig = {
     entry: {
       index: [SRC_DIR + "/index.js"]
     },
@@ -115,4 +115,15 @@ module.exports = (env = {}) => {
       new BundleAnalyzerPlugin()
     ]
   };
+
+  if (!env.dev) {
+    console.log("Prod add new plugin, plugins:");
+    myConfig.plugins.push(
+      new webpack.NormalModuleReplacementPlugin(
+        /src\/apis\/firebase-dev.js/,
+        "./firebase-prod.js"
+      )
+    );
+  }
+  return myConfig;
 };

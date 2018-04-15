@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
-import { reduxSagaFirebase } from "../../apis/firebase.js";
+import { reduxSagaFirebase } from "../../apis/firebase-dev.js";
 
 import {
   actionTypes as storageActionTypes,
@@ -8,7 +8,7 @@ import {
 } from "../storageReducer.js";
 
 import { bandsDuxActions } from "../bandsReducer.js";
-// import firebaseApp from "../../apis/firebase.js";
+// import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 

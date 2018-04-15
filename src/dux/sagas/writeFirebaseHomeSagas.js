@@ -5,7 +5,7 @@ import {
   saveHomeSucceeded,
   saveHomeFailed
 } from "../homeReducer.js";
-import firebaseApp from "../../apis/firebase.js";
+import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 

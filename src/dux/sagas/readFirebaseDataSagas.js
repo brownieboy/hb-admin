@@ -3,7 +3,7 @@
 import { buffers, eventChannel } from "redux-saga";
 import { fork, put, take } from "redux-saga/effects";
 // import FastImage from "react-native-fast-image";
-import firebaseApp from "../../apis/firebase.js";
+import firebaseApp from "../../apis/firebase-dev.js";
 import { types as globalTypes } from "../../constants/firebasePaths.js";
 
 // import bandsApi from "../api/bandsApi.js";

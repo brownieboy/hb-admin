@@ -2,9 +2,9 @@
 import firebase from "firebase";
 import ReduxSagaFirebase from "redux-saga-firebase";
 
-console.log("firebase config");
+console.log("firebase config prod");
 
-let config = {
+const config = {
   apiKey: "AIzaSyDWMrob4ieV9UVEOCXUlDt19O9YAWAZveA",
   authDomain: "helstonbury-cadbf.firebaseapp.com",
   databaseURL: "https://helstonbury-cadbf.firebaseio.com",
@@ -12,18 +12,6 @@ let config = {
   storageBucket: "helstonbury-cadbf.appspot.com",
   messagingSenderId: "597390507245"
 };
-
-if (window.location.host === "localhost:8080") {
-  console.log("use dev database...");
-  config = {
-    apiKey: "AIzaSyDRUoHuO7Zr1cUkWggCy6vDCzlLW1wbK7w",
-    authDomain: "helstonbury-dev.firebaseapp.com",
-    databaseURL: "https://helstonbury-dev.firebaseio.com",
-    projectId: "helstonbury-dev",
-    storageBucket: "helstonbury-cadbf.appspot.com",
-    messagingSenderId: "536136928665"
-  };
-}
 
 // The firebase config with some extra app level stuff added.
 export const extendedConfig = {
