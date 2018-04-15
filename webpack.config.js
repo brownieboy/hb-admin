@@ -16,6 +16,10 @@ console.log("BUILD_DIR", BUILD_DIR);
 console.log("SRC_DIR", SRC_DIR);
 
 module.exports = (env = {}) => {
+  console.log("NODE_ENV: ", env.NODE_ENV); // 'local'
+  console.log("Production: ", env.production); // true
+  console.log("env: ", env); // true
+
   return {
     entry: {
       index: [SRC_DIR + "/index.js"]

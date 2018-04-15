@@ -21,7 +21,8 @@ const mapStateToProps = state => ({
   appearancesList: getAppearancesWithBandAndStageNames(state),
   bandsList: getBandsAlphabeticalEnhanced(state.bandsState.bandsList),
   stagesList: getStages(state),
-  homePageText: state.homeState.homeText
+  homePageText: state.homeState.homeText,
+  contactUsPage: state.contactUsState.contactUs
 });
 
 class PublishButton extends Component {
@@ -39,7 +40,8 @@ class PublishButton extends Component {
       appearancesArray: appearancesList,
       bandsArray: bandsList,
       stagesArray: stagesList,
-      homePageText
+      homePageText,
+      contactUsPage
     });
   };
 

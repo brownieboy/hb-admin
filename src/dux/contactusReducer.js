@@ -16,15 +16,17 @@ const defaultState = {
   fetchStatus: "",
   fetchError: "",
   saveError: {},
-  startBlurb: "",
-  email1: "",
-  email2: "",
-  mobile: "",
-  gettingThereBlurb: "",
-  mapLinkText: "",
-  venueAddress: "",
-  venueEmail: "",
-  venuePhone: ""
+  contactUs: {
+    startBlurb: "",
+    email1: "",
+    email2: "",
+    mobile: "",
+    gettingThereBlurb: "",
+    mapLinkText: "",
+    venueAddress: "",
+    venueEmail: "",
+    venuePhone: ""
+  }
 };
 
 // Reducer
@@ -35,8 +37,8 @@ const contactUsReducer = (state = defaultState, action) => {
     case FETCH_CONTACTUS_SUCCESS:
       return {
         ...state,
-        fetchStatus: "",
-        contactUsText: action.payload
+        contactUs: action.payload, // will be an object
+        fetchStatus: ""
       };
     case FETCH_CONTACTUS_FAILURE:
       return { ...state, fetchStatus: "failure", fetchError: action.payload };

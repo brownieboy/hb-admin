@@ -18,22 +18,24 @@ function* saveData(action) {
       JSON.stringify(action, null, 4)
   );
 
-  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.CONTACTUS_PAGE_PATH);
+  const ref = yield firebaseApp
+    .database()
+    .ref(globalTypes.DATABASE.CONTACTUS_PAGE_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer
   // to it in the if statement after the ref has run.  Clunky, but it works.
   let firebaseError = "";
-  // yield ref.set(action.payload).catch(e => {
-  //   firebaseError = e;
-  //   console.log("Firebase contactUs save error=" + e);
-  // });
+  yield ref.set(action.payload).catch(e => {
+    firebaseError = e;
+    console.log("Firebase contactUs save error=" + e);
+  });
 
-  // if (firebaseError === "") {
-  //   yield put(saveContactUsSucceeded());
-  // } else {
-  //   yield put(saveContactUsFailed(firebaseError));
-  // }
+  if (firebaseError === "") {
+    yield put(saveContactUsSucceeded());
+  } else {
+    yield put(saveContactUsFailed(firebaseError));
+  }
 }
 
 const writeFirebaseSagas = [

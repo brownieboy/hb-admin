@@ -32,15 +32,15 @@ const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators({ submitDataToServer: saveEditedContactUs }, dispatch);
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
-  startBlurb: state.contactUsState.startBlurb,
-  email1: state.contactUsState.email1,
-  email2: state.contactUsState.email2,
-  mobile: state.contactUsState.mobile,
-  gettingThereBlurb: state.contactUsState.gettingThereBlurb,
-  mapLinkText: state.contactUsState.mapLinkText,
-  venueAddress: state.contactUsState.venueAddress,
-  venueEmail: state.contactUsState.venueEmail,
-  venuePhone: state.contactUsState.venuePhone,
+  startBlurb: state.contactUsState.contactUs.startBlurb,
+  email1: state.contactUsState.contactUs.email1,
+  email2: state.contactUsState.contactUs.email2,
+  mobile: state.contactUsState.contactUs.mobile,
+  gettingThereBlurb: state.contactUsState.contactUs.gettingThereBlurb,
+  mapLinkText: state.contactUsState.contactUs.mapLinkText,
+  venueAddress: state.contactUsState.contactUs.venueAddress,
+  venueEmail: state.contactUsState.contactUs.venueEmail,
+  venuePhone: state.contactUsState.contactUs.venuePhone,
   isEditExisting: true
 });
 
