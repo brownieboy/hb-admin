@@ -42,7 +42,7 @@ class PublishButton extends Component {
       bandsArray: bandsList,
       stagesArray: stagesList,
       homePageText,
-      contactUsPage
+      contactsPage: contactUsPage
     });
   };
 
