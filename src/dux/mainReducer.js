@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { reducer as notifications } from "react-notification-system-redux";
 
 import homeReducer from "./homeReducer.js";
 import bandsReducer from "./bandsReducer";
@@ -12,6 +13,7 @@ import contactsReducer from "./contactUsReducer.js";
 // import { getAppearancesWithBandAndStageNames as fromAppearancesGetAppearancesWithBandAndStageNames } from "./appearancesReducer.js";
 
 const mainReducer = combineReducers({
+  notifications,
   appearancesState: appearancesReducer,
   bandsState: bandsReducer,
   contactUsState: contactsReducer,
