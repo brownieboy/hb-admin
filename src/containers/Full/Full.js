@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "reactstrap";
+import NotificationsContainer from "react-notification-system-redux";
+
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
 import Breadcrumb from "../../components/Breadcrumb/";
@@ -33,6 +35,7 @@ import PlaceHolder from "../../components/placeholder.js";
 
 class Full extends Component {
   render() {
+    const { notifications } = this.props;
     return (
       <div className="app">
         <Header />
@@ -103,6 +106,7 @@ class Full extends Component {
                 <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/edithomepage" />
               </Switch>
+              <NotificationsContainer notifications={notifications} />
             </Container>
           </main>
           <Aside />
