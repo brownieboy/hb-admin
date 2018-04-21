@@ -5,7 +5,7 @@ import {
   NOTIFICATION_TYPE_SUCCESS
 } from "react-redux-notify";
 
-const DURATION = 2000;
+const DURATION = 500000;
 
 // Action creators, return a notification (object?)
 export const notifySuccess = (message = "No message supplied") =>
@@ -16,3 +16,5 @@ export const notifySuccess = (message = "No message supplied") =>
     canDismiss: true,
     icon: <i className="fa fa-check" />
   });
+
+

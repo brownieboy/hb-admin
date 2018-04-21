@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "reactstrap";
 import { Notify } from "react-redux-notify";
 import "react-redux-notify/dist/ReactReduxNotify.css";
+import "../../styles/notification-styles.css";
 
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
@@ -34,9 +35,15 @@ import EditHomePage from "../../containers/home-form-conn.js";
 import ContactUsPage from "../../containers/contactus-form-conn.js";
 import PlaceHolder from "../../components/placeholder.js";
 
+// containerTopRightBelowBar
+
+const customNotifyStyles = {
+  containerTopRightBelowBar: "containerTopRightBelowBar"
+};
+//               <Notify position="containerTopRightBelowBar" customStyles={customNotifyStyles} />
+
 class Full extends Component {
   render() {
-    const { notifications } = this.props;
     return (
       <div className="app">
         <Header />
@@ -45,6 +52,10 @@ class Full extends Component {
           <main className="main">
             <Breadcrumb />
             <Container fluid>
+              <Notify
+                position="TopRightBelowBar"
+                customStyles={customNotifyStyles}
+              />
               <Switch>
                 <Route
                   path="/dashboard"
@@ -107,7 +118,6 @@ class Full extends Component {
                 <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/edithomepage" />
               </Switch>
-              <Notify />
             </Container>
           </main>
           <Aside />
