@@ -20,10 +20,13 @@ function* saveData() {
   // and .catch() statements.  So I set a variable inside the .catch() then refer
   // to it in the if statement after the ref has run.  Clunky, but it works.
   let firebaseError = "";
+  console.log("Band saga saveData, saving..");
   yield ref.set(bandsList).catch(e => {
     firebaseError = e;
     console.log("Firebase band save error=" + e);
   });
+
+  console.log("Band saga saveData, done saving");
 
   if (firebaseError === "") {
     yield put(saveBandSucceeded());
