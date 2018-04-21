@@ -17,6 +17,8 @@ import {
   sendStorageThumbStart
 } from "../dux/storageReducer.js";
 
+import { notifySuccess } from "../dux/react-redux-notify-helpers.js";
+
 const getCommonStateObject = state => ({
   saveStatus: state.bandsState.saveStatus,
   saveError: state.bandsState.saveError,
@@ -32,6 +34,7 @@ const getCommonStateObject = state => ({
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
     {
+      notifySuccess,
       submitDataToServer: saveNewBand,
       saveBandClear
     },
@@ -46,6 +49,7 @@ const mapStateToPropsNew = state => ({
 const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators(
     {
+      notifySuccess,
       submitDataToServer: saveEditedBand,
       sendStorageThumbStart,
       sendStorageCardStart

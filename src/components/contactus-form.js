@@ -202,7 +202,17 @@ ContactUsForm.propTypes = {
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   submitDataToServer: PropTypes.func.isRequired,
-  values: PropTypes.object
+  values: PropTypes.object,
+  startBlurb: PropTypes.string.isRequired,
+  email1: PropTypes.string.isRequired,
+  email2: PropTypes.string.isRequired,
+  mobile: PropTypes.string.isRequired,
+  gettingThereBlurb: PropTypes.string.isRequired,
+  mapLinkText: PropTypes.string.isRequired,
+  venueAddress: PropTypes.string.isRequired,
+  venuePhone: PropTypes.string.isRequired,
+  venueEmail: PropTypes.string.isRequired
+
 };
 
 export default ContactUsForm;

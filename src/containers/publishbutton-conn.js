@@ -55,7 +55,7 @@ PublishButton.propTypes = {
   appearancesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   bandsList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   homePageText: PropTypes.string.isRequired,
-  contactUsPage: PropTypes.string.isRequired,
+  contactUsPage: PropTypes.object.isRequired,
   publishNow: PropTypes.func.isRequired,
   stagesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };
