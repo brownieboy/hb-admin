@@ -101,6 +101,9 @@ class BandForm extends Component {
   render() {
     const {
       notifySuccess,
+      notifyError,
+      notifyWarning,
+      notifyInfo,
       getBandInfoForId,
       isEditExisting,
       isLoggedIn,
@@ -292,7 +295,16 @@ class BandForm extends Component {
 
                   <Button type="submit">Submit</Button>
                   <Button onClick={() => notifySuccess("hello")}>
-                    Message
+                    Message Success
+                  </Button>
+                   <Button onClick={() => notifyInfo("hello")}>
+                    Message Info
+                  </Button>
+                   <Button onClick={() => notifyWarning("hello")}>
+                    Message Warning
+                  </Button>
+                   <Button onClick={() => notifyError("hello")}>
+                    Message Error
                   </Button>
                 </form>
                 <hr />
@@ -421,6 +433,9 @@ BandForm.propTypes = {
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
   notifySuccess: PropTypes.func.isRequired,
+  notifyInfo: PropTypes.func.isRequired,
+  notifyWarning: PropTypes.func.isRequired,
+  notifyError: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

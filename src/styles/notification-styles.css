@@ -3,7 +3,7 @@
     position: fixed;
     overflow-y: auto;
     max-height: 100vh;
-    right: 100px;
+    right: 0;
     transform: translate3d(-50%, 0, 0);
     flex-direction: column;
     top: 50px;
