@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { Container } from "reactstrap";
-import NotificationsContainer from "react-notification-system-redux";
+import { Notifications } from "react-redux-notify";
 
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
@@ -106,7 +106,7 @@ class Full extends Component {
                 <Route path="/dates" name="Dates" component={DatesEdit} />
                 <Redirect from="/" to="/edithomepage" />
               </Switch>
-              <NotificationsContainer notifications={notifications} />
+              <Notifications notifications={notifications} />
             </Container>
           </main>
           <Aside />
