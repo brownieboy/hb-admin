@@ -37,7 +37,8 @@ const commonDispatchObject = {
   notifySuccess,
   notifyError,
   notifyWarning,
-  notifyInfo
+  notifyInfo,
+  saveBandClear
 };
 
 // So we're connecting the same form to Redux, but with different props
@@ -47,8 +48,7 @@ const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
     {
       ...commonDispatchObject,
-      submitDataToServer: saveNewBand,
-      saveBandClear
+      submitDataToServer: saveNewBand
     },
     dispatch
   );
