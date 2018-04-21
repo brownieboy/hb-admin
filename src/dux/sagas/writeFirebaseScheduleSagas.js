@@ -5,6 +5,14 @@ import {
   saveAppearanceSucceeded,
   saveAppearanceFailed
 } from "../appearancesReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -31,8 +39,10 @@ function* saveData() {
 
   if (firebaseError === "") {
     yield put(saveAppearanceSucceeded());
+    yield put(notifySuccess("Schedule appearance saved to server okay"));
   } else {
     yield put(saveAppearanceFailed(firebaseError));
+    yield put(notifyError(`Error saving appearance: ${firebaseError}`));
   }
 }
 

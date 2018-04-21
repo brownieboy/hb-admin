@@ -8,10 +8,10 @@ import {
   NOTIFICATION_TYPE_WARNING
 } from "react-redux-notify";
 
-const DURATION_SUCCESS = 2000;
+const DURATION_SUCCESS = 3000;
 const DURATION_WARNING = 5000;
 const DURATION_ERROR = 10000;
-const DURATION_INFO = 2000;
+const DURATION_INFO = 5000;
 
 // Action creators, return a notification (object?)
 export const notifySuccess = (message = "No message supplied") =>

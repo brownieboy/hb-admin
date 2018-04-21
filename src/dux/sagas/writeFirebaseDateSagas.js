@@ -5,6 +5,14 @@ import {
   saveDatesSucceeded,
   saveDatesFailed
 } from "../datesReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -31,8 +39,10 @@ function* saveData(action) {
 
   if (firebaseError === "") {
     yield put(saveDatesSucceeded());
+    yield put(notifySuccess("Dates saved to server okay"));
   } else {
     yield put(saveDatesFailed(firebaseError));
+    yield put(notifyError(`Error saving dates: ${firebaseError}`));
   }
 }
 

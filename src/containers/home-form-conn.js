@@ -10,6 +10,8 @@ import {
   saveEditedHome
 } from "../dux/homeReducer.js";
 
+import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
+
 const getCommonStateObject = state => ({
   fetchStatus: state.homeState.fetchStatus,
   fetchError: state.homeState.fetchError,
@@ -29,7 +31,8 @@ const getCommonStateObject = state => ({
 // });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedHome }, dispatch);
+  bindActionCreators({ notifyInfo, submitDataToServer: saveEditedHome }, dispatch);
+
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   homeText: state.homeState.homeText,

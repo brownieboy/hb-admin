@@ -5,6 +5,14 @@ import {
   saveContactUsSucceeded,
   saveContactUsFailed
 } from "../contactUsReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -33,8 +41,10 @@ function* saveData(action) {
 
   if (firebaseError === "") {
     yield put(saveContactUsSucceeded());
+    yield put(notifySuccess("Contact info saved to server okay"));
   } else {
     yield put(saveContactUsFailed(firebaseError));
+    yield put(notifyError(`Error saving contact info: ${firebaseError}`));
   }
 }
 

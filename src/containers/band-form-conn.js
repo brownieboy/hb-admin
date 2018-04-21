@@ -17,12 +17,7 @@ import {
   sendStorageThumbStart
 } from "../dux/storageReducer.js";
 
-import {
-  notifySuccess,
-  notifyError,
-  notifyWarning,
-  notifyInfo
-} from "../dux/react-redux-notify-helpers.js";
+import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
 
 const getCommonStateObject = state => ({
   saveStatus: state.bandsState.saveStatus,
@@ -33,22 +28,15 @@ const getCommonStateObject = state => ({
   isLoggedIn: state.firebaseLoginState.loggedIn
 });
 
-const commonDispatchObject = {
-  notifySuccess,
-  notifyError,
-  notifyWarning,
-  notifyInfo,
-  saveBandClear
-};
-
 // So we're connecting the same form to Redux, but with different props
 // and state depending on whether we're creating a new one or
 // editing an existing one
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
     {
-      ...commonDispatchObject,
-      submitDataToServer: saveNewBand
+      notifyInfo,
+      submitDataToServer: saveNewBand,
+      saveBandClear
     },
     dispatch
   );
@@ -61,7 +49,7 @@ const mapStateToPropsNew = state => ({
 const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators(
     {
-      ...commonDispatchObject,
+      notifyInfo,
       submitDataToServer: saveEditedBand,
       sendStorageThumbStart,
       sendStorageCardStart

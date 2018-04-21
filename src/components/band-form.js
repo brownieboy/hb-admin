@@ -94,35 +94,8 @@ class BandForm extends Component {
     this.props.saveBandClear && this.props.saveBandClear(); // Clear saveSuccess status so we don't loop
   }
 
-  componentDidUpdate() {
-    const {
-      saveStatus,
-      saveError,
-      notifyError,
-      notifySuccess,
-      saveBandClear
-    } = this.props;
-    console.log("BandForm..componentDidUpdate, saveStatus = " + saveStatus);
-    switch (saveStatus) {
-      case "success":
-        // Call saveBandClear first, otherwise we go into an endless loop
-        saveBandClear();
-        notifySuccess("Band saved okay");
-        break;
-      case "failure":
-        saveBandClear();
-        notifyError(`Error saving the band: ${saveError}`);
-        break;
-      default:
-      // do nothing
-    }
-  }
-
   render() {
     const {
-      notifySuccess,
-      notifyError,
-      notifyWarning,
       notifyInfo,
       getBandInfoForId,
       isEditExisting,
@@ -185,7 +158,7 @@ class BandForm extends Component {
           onSubmit={(values, actions) => {
             // console.log("onSubmit band values:");
             // console.log(values);
-            notifyInfo("Sumbitting data to server...");
+            notifyInfo("Submitting band data to server...");
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
@@ -434,10 +407,7 @@ BandForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
-  notifySuccess: PropTypes.func.isRequired,
   notifyInfo: PropTypes.func.isRequired,
-  notifyWarning: PropTypes.func.isRequired,
-  notifyError: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

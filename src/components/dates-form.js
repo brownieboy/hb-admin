@@ -65,12 +65,13 @@ class DatesForm extends Component {
   };
 
   handleSubmit = e => {
-    const { submitDataToServer } = this.props;
+    const { notifyInfo, submitDataToServer } = this.props;
     e.preventDefault();
     const values = this.fnsDatesToISOText(this.state.datesList);
-    console.log(
-      "submitting dates to server = " + JSON.stringify(values, null, 2)
-    );
+    // console.log(
+    //   "submitting dates to server = " + JSON.stringify(values, null, 2)
+    // );
+    notifyInfo("Submitting dates data to server...");
     submitDataToServer(values);
     // actions.setSubmitting(false);
   };
@@ -81,6 +82,7 @@ class DatesForm extends Component {
       isEditExisting,
       isLoggedIn,
       match,
+      notifyInfo,
       submitDataToServer,
       fetchStatus,
       fetchError,
@@ -151,6 +153,7 @@ DatesForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
+  notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
