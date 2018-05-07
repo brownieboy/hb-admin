@@ -42,6 +42,12 @@ const mapDispatchToPropsEdit = dispatch =>
   );
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
+  cardStatus: state.storageState.cardStatus,
+  cardError: state.storageState.cardError,
+  cardProgress: state.storageState.cardProgress,
+  thumbStatus: state.storageState.thumbStatus,
+  thumbError: state.storageState.thumbError,
+  thumbProgress: state.storageState.thumbProgress,
   isEditExisting: true
 });
 

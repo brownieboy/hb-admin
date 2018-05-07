@@ -61,7 +61,11 @@ class StageForm extends Component {
       notifyInfo,
       submitDataToServer,
       saveStatus,
-      saveError
+      saveError,
+      sendStorageCardStart,
+      sendStorageThumbStart,
+      thumbProgress,
+      cardProgress
     } = this.props;
     let fieldValues = {
       name: "",
@@ -125,6 +129,7 @@ class StageForm extends Component {
               handleBlur,
               handleSubmit
             } = props;
+            const { cardFileInfo, thumbFileInfo } = this.state;
             return (
               <Fragment>
                 <form onSubmit={handleSubmit}>
@@ -185,7 +190,14 @@ class StageForm extends Component {
                   </FormGroup>
                   <Button type="submit">Submit</Button>
                 </form>
-                <CardThumbImagesSubForm />
+                <CardThumbImagesSubForm
+                  cardFileInfo={cardFileInfo}
+                  thumbFileInfo={thumbFileInfo}
+                  sendStorageCardStart={sendStorageCardStart}
+                  sendStorageThumbStart={sendStorageThumbStart}
+                  thumbProgress={thumbProgress}
+                  cardProgress={cardProgress}
+                />
               </Fragment>
             );
           }}
