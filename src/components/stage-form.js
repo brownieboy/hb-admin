@@ -1,11 +1,12 @@
 // Render Prop
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Redirect } from "react-router";
 import { Formik } from "formik";
 import yup from "yup";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label, Input } from "reactstrap";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
+import CardThumbImagesSubForm from "./cardthumbimages-subform.js";
 
 import {
   formFieldsWrapperStyles,
@@ -50,7 +51,6 @@ class StageForm extends Component {
     // console.log(event.target.files[0]);
     this.setState({ cardFileInfo: event.target.files[0] });
   };
-
 
   render() {
     const {
@@ -126,64 +126,67 @@ class StageForm extends Component {
               handleSubmit
             } = props;
             return (
-              <form onSubmit={handleSubmit}>
-                <FormGroup>
-                  <Label for="id">Stage ID</Label>
-                  <Input
-                    disabled={isEditExisting}
-                    type="text"
-                    name="id"
-                    placeholder="ID must be unique"
-                    onChange={e => {
-                      handleChange(e);
-                      this.classId = e.target.value;
-                    }}
-                    onBlur={handleBlur}
-                    value={values.id}
-                  />
-                  {errors.id && <div>{errors.id}</div>}
-                </FormGroup>
-                <FormGroup>
-                  <Label for="name">Stage name</Label>
-                  <Input
-                    type="text"
-                    name="name"
-                    placeholder="Stage name"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.name}
-                  />
-                  {errors.name && <div>{errors.name}</div>}
-                </FormGroup>
+              <Fragment>
+                <form onSubmit={handleSubmit}>
+                  <FormGroup>
+                    <Label for="id">Stage ID</Label>
+                    <Input
+                      disabled={isEditExisting}
+                      type="text"
+                      name="id"
+                      placeholder="ID must be unique"
+                      onChange={e => {
+                        handleChange(e);
+                        this.classId = e.target.value;
+                      }}
+                      onBlur={handleBlur}
+                      value={values.id}
+                    />
+                    {errors.id && <div>{errors.id}</div>}
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="name">Stage name</Label>
+                    <Input
+                      type="text"
+                      name="name"
+                      placeholder="Stage name"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.name}
+                    />
+                    {errors.name && <div>{errors.name}</div>}
+                  </FormGroup>
 
-                <FormGroup>
-                  <Label for="blurb">Stage Info</Label>
-                  <Input
-                    rows={blurbFieldRows}
-                    type="textarea"
-                    name="blurb"
-                    placeholder="Info about this stage (location etc)"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.blurb}
-                  />
-                  {errors.blurb && <div>{errors.blurb}</div>}
-                </FormGroup>
+                  <FormGroup>
+                    <Label for="blurb">Stage Info</Label>
+                    <Input
+                      rows={blurbFieldRows}
+                      type="textarea"
+                      name="blurb"
+                      placeholder="Info about this stage (location etc)"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.blurb}
+                    />
+                    {errors.blurb && <div>{errors.blurb}</div>}
+                  </FormGroup>
 
-                <FormGroup>
-                  <Label for="sortOrder">Sort order</Label>
-                  <Input
-                    type="number"
-                    name="sortOrder"
-                    placeholder="Sort order common (integer)"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.sortOrder}
-                  />
-                  {errors.sortOrder && <div>{errors.sortOrder}</div>}
-                </FormGroup>
-                <Button type="submit">Submit</Button>
-              </form>
+                  <FormGroup>
+                    <Label for="sortOrder">Sort order</Label>
+                    <Input
+                      type="number"
+                      name="sortOrder"
+                      placeholder="Sort order common (integer)"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.sortOrder}
+                    />
+                    {errors.sortOrder && <div>{errors.sortOrder}</div>}
+                  </FormGroup>
+                  <Button type="submit">Submit</Button>
+                </form>
+                <CardThumbImagesSubForm />
+              </Fragment>
             );
           }}
         />

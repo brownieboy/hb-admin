@@ -24,10 +24,14 @@ const CardImage = urlData =>
 class CardThumbImagesSubForm extends Component {
   render() {
     const {
+      cardFileInfo,
       cardProgress,
       isEditExisting,
+      handleCardFileChange,
+      handleThumbFileChange,
       sendStorageCardStart,
       sendStorageThumbStart,
+      thumbFileInfo,
       thumbProgress,
       values
     } = this.props;
@@ -51,15 +55,15 @@ class CardThumbImagesSubForm extends Component {
                   type="file"
                   disabled={!isEditExisting}
                   name="thumbInput"
-                  onChange={this.handleThumbFileChange}
+                  onChange={handleThumbFileChange}
                 />
               </div>
               <button
-                disabled={!this.state.thumbFileInfo.name}
+                disabled={!thumbFileInfo.name}
                 onClick={() => {
                   sendStorageThumbStart({
                     bandId: values.id,
-                    fileInfo: this.state.thumbFileInfo
+                    fileInfo: thumbFileInfo
                   });
                 }}
               >
@@ -68,7 +72,7 @@ class CardThumbImagesSubForm extends Component {
               <div
                 style={{
                   maxWidth: 200,
-                  display: this.state.thumbFileInfo.name ? "block" : "none"
+                  display: thumbFileInfo.name ? "block" : "none"
                 }}
               >
                 <div className="text-center">
@@ -93,15 +97,15 @@ class CardThumbImagesSubForm extends Component {
                   type="file"
                   disabled={!isEditExisting}
                   name="cardInput"
-                  onChange={this.handleCardFileChange}
+                  onChange={handleCardFileChange}
                 />
               </div>
               <button
-                disabled={!this.state.cardFileInfo.name}
+                disabled={!cardFileInfo.name}
                 onClick={() => {
                   sendStorageCardStart({
                     bandId: values.id,
-                    fileInfo: this.state.cardFileInfo
+                    fileInfo: cardFileInfo
                   });
                 }}
               >
@@ -110,7 +114,7 @@ class CardThumbImagesSubForm extends Component {
               <div
                 style={{
                   maxWidth: 200,
-                  display: this.state.cardFileInfo.name ? "block" : "none"
+                  display: cardFileInfo.name ? "block" : "none"
                 }}
               >
                 <div className="text-center">{parseInt(cardProgress, 10)}%</div>
@@ -132,10 +136,14 @@ class CardThumbImagesSubForm extends Component {
 }
 
 CardThumbImagesSubForm.propTypes = {
+  cardFileInfo: PropTypes.object.isRequired,
   cardProgress: PropTypes.number,
+  handleCardFileChange: PropTypes.func.isRequired,
+  handleThumbFileChange: PropTypes.func.isRequired,
   isEditExisting: PropTypes.bool.isRequired,
-  sendStorageCardStart: PropTypes.func,
-  sendStorageThumbStart: PropTypes.func,
+  sendStorageCardStart: PropTypes.func.isRequired,
+  sendStorageThumbStart: PropTypes.func.isRequired,
+  thunbFileinfo: PropTypes.func.isRequired,
   thumbProgress: PropTypes.number,
   values: PropTypes.object
 };
