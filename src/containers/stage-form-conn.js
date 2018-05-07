@@ -12,6 +12,8 @@ import {
   getStageInfoForId as getStageInfoForIdAction
 } from "../dux/stagesReducer.js";
 
+import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
+
 const getCommonStateObject = state => ({
   saveStatus: state.stagesState.saveStatus,
   saveError: state.stagesState.saveError,
@@ -25,7 +27,7 @@ const getCommonStateObject = state => ({
 // editing an existing one
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
-    { submitDataToServer: saveNewStage, saveStageClear },
+    { notifyInfo, submitDataToServer: saveNewStage, saveStageClear },
     dispatch
   );
 const mapStateToPropsNew = state => ({
@@ -34,7 +36,10 @@ const mapStateToPropsNew = state => ({
 });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedStage }, dispatch);
+  bindActionCreators(
+    { notifyInfo, submitDataToServer: saveEditedStage },
+    dispatch
+  );
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   isEditExisting: true

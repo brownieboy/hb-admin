@@ -25,10 +25,6 @@ import {
   blurbFieldRows
 } from "./formstyles.js";
 
-// console.log(
-//   "pageid=" + getFacebookId("https://www.facebook.com/courtneybarnettmusic/")
-// );
-
 const validationSchemaCommonObj = {
   name: yup.string().required(),
   summary: yup.string().required(),
@@ -100,17 +96,18 @@ class BandForm extends Component {
 
   render() {
     const {
+      notifyInfo,
       getBandInfoForId,
       isEditExisting,
       isLoggedIn,
       match,
       submitDataToServer,
       saveStatus,
-      saveError,
       sendStorageCardStart,
       sendStorageThumbStart,
       thumbProgress,
-      cardProgress
+      cardProgress,
+      saveBandClear
     } = this.props;
 
     let fieldValues = {
@@ -154,13 +151,6 @@ class BandForm extends Component {
             ? `Edit ${matchingInfo ? matchingInfo.name : "??"}`
             : "Add Band"}
         </h1>
-        Loading status: {saveStatus}
-        {saveStatus === "saving" && (
-          <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
-        )}
-        <br />
-        {saveStatus === "failure" &&
-          `Error: ${JSON.stringify(saveError, null, 4)}`}
         <Formik
           enableReinitialize
           initialValues={Object.assign({}, fieldValues)}
@@ -168,6 +158,7 @@ class BandForm extends Component {
           onSubmit={(values, actions) => {
             // console.log("onSubmit band values:");
             // console.log(values);
+            notifyInfo("Submitting band data to server...");
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
@@ -416,6 +407,7 @@ BandForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
+  notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

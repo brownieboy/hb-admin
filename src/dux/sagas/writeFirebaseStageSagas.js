@@ -5,6 +5,14 @@ import {
   saveStageSucceeded,
   saveStageFailed
 } from "../stagesReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -14,7 +22,9 @@ function* saveData() {
   yield put(saveStageRequest());
   const stagesList = yield select(state => state.stagesState.stagesList);
 
-  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.STAGES_PATH);
+  const ref = yield firebaseApp
+    .database()
+    .ref(globalTypes.DATABASE.STAGES_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer
@@ -27,8 +37,10 @@ function* saveData() {
 
   if (firebaseError === "") {
     yield put(saveStageSucceeded());
+    yield put(notifySuccess("Stage saved to server okay"));
   } else {
     yield put(saveStageFailed(firebaseError));
+    yield put(notifyError(`Error saving stage: ${firebaseError}`));
   }
 }
 

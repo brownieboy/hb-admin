@@ -1,4 +1,3 @@
-// Adapted from https://github.com/gor181/react-notification-system-redux
 
 // Action types
 const RNS_SHOW_NOTIFICATION = "RNS_SHOW_NOTIFICATION";

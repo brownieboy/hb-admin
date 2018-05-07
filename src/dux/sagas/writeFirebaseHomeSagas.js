@@ -5,6 +5,14 @@ import {
   saveHomeSucceeded,
   saveHomeFailed
 } from "../homeReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -18,7 +26,9 @@ function* saveData(action) {
       JSON.stringify(action, null, 4)
   );
 
-  const ref = yield firebaseApp.database().ref(globalTypes.DATABASE.HOME_PAGE_PATH);
+  const ref = yield firebaseApp
+    .database()
+    .ref(globalTypes.DATABASE.HOME_PAGE_PATH);
 
   // The put statements didn't trigger Redux when I had them instead the .then()
   // and .catch() statements.  So I set a variable inside the .catch() then refer
@@ -31,8 +41,9 @@ function* saveData(action) {
 
   if (firebaseError === "") {
     yield put(saveHomeSucceeded());
+    yield put(notifySuccess("Home page data saved to server okay"));
   } else {
-    yield put(saveHomeFailed(firebaseError));
+    yield put(notifyError(`Error saving home page: ${firebaseError}`));
   }
 }
 

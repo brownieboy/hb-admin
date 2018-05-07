@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { reducer as notifications } from "react-notification-system-redux";
+import notifications from "react-redux-notify";
 
 import homeReducer from "./homeReducer.js";
 import bandsReducer from "./bandsReducer";

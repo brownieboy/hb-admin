@@ -24,6 +24,7 @@ const ContactUsForm = ({
   mobile,
   gettingThereBlurb,
   mapLinkText,
+  notifyInfo,
   venueAddress,
   venuePhone,
   venueEmail,
@@ -67,8 +68,9 @@ const ContactUsForm = ({
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          console.log("ContactUs form data");
-          console.log(values);
+          // console.log("ContactUs form data");
+          // console.log(values);
+          notifyInfo("Submitting contacts data to server...");
           submitDataToServer(values);
           actions.setSubmitting(false);
         }}
@@ -199,10 +201,20 @@ ContactUsForm.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  notifyInfo: PropTypes.func.isRequired,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   submitDataToServer: PropTypes.func.isRequired,
-  values: PropTypes.object
+  values: PropTypes.object,
+  startBlurb: PropTypes.string.isRequired,
+  email1: PropTypes.string.isRequired,
+  email2: PropTypes.string.isRequired,
+  mobile: PropTypes.string.isRequired,
+  gettingThereBlurb: PropTypes.string.isRequired,
+  mapLinkText: PropTypes.string.isRequired,
+  venueAddress: PropTypes.string.isRequired,
+  venuePhone: PropTypes.string.isRequired,
+  venueEmail: PropTypes.string.isRequired
 };
 
 export default ContactUsForm;

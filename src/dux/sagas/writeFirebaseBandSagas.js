@@ -5,6 +5,14 @@ import {
   saveBandSucceeded,
   saveBandFailed
 } from "../bandsReducer.js";
+
+import {
+  notifySuccess,
+  notifyError,
+  notifyWarning,
+  notifyInfo
+} from "../react-redux-notify-helpers.js";
+
 import firebaseApp from "../../apis/firebase-dev.js";
 
 import { types as globalTypes } from "../../constants/firebasePaths.js";
@@ -20,15 +28,20 @@ function* saveData() {
   // and .catch() statements.  So I set a variable inside the .catch() then refer
   // to it in the if statement after the ref has run.  Clunky, but it works.
   let firebaseError = "";
+  // console.log("Band saga saveData, saving..");
   yield ref.set(bandsList).catch(e => {
     firebaseError = e;
     console.log("Firebase band save error=" + e);
   });
 
+  // console.log("Band saga saveData, done saving");
+
   if (firebaseError === "") {
     yield put(saveBandSucceeded());
+    yield put(notifySuccess("Band saved to server okay"));
   } else {
     yield put(saveBandFailed(firebaseError));
+    yield put(notifyError(`Error saving band: ${firebaseError}`));
   }
 }
 

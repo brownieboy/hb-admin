@@ -12,6 +12,8 @@ import {
   getAppearanceInfoForId as getAppearanceInfoForIdAction
 } from "../dux/appearancesReducer.js";
 
+import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
+
 import { selectors as bandsSelectors } from "../dux/bandsReducer.js";
 import { selectors as stagesSelectors } from "../dux/stagesReducer.js";
 
@@ -35,7 +37,7 @@ const getCommonStateObject = state => ({
 // editing an existing one
 const mapDispatchToPropsNew = dispatch =>
   bindActionCreators(
-    { submitDataToServer: saveNewAppearance, saveAppearanceClear },
+    { notifyInfo, submitDataToServer: saveNewAppearance, saveAppearanceClear },
     dispatch
   );
 const mapStateToPropsNew = state => ({
@@ -44,7 +46,8 @@ const mapStateToPropsNew = state => ({
 });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedAppearance }, dispatch);
+  bindActionCreators({ notifyInfo, submitDataToServer: saveEditedAppearance }, dispatch);
+
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   isEditExisting: true,

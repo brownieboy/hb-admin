@@ -58,6 +58,7 @@ class StageForm extends Component {
       isEditExisting,
       isLoggedIn,
       match,
+      notifyInfo,
       submitDataToServer,
       saveStatus,
       saveError
@@ -112,6 +113,7 @@ class StageForm extends Component {
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
             // console.log(JSON.stringify(values, null, 2));
+            notifyInfo("Submitting stage data to server...");
             submitDataToServer(values);
             actions.setSubmitting(false);
           }}
@@ -199,6 +201,7 @@ StageForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
+  notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

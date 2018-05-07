@@ -57,6 +57,7 @@ class AppearanceForm extends Component {
       isEditExisting,
       match,
       submitDataToServer,
+      notifyInfo,
       isLoggedIn,
       bandsPicker,
       stagesPicker,
@@ -124,7 +125,7 @@ class AppearanceForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
-            console.log("onSubmit values=" + JSON.stringify(values, null, 2));
+            // console.log("onSubmit values=" + JSON.stringify(values, null, 2));
             // Outgoing
             const processedValues = {
               stageId: values.stageId,
@@ -147,6 +148,7 @@ class AppearanceForm extends Component {
               "onSubmit processedValues=" +
                 JSON.stringify(processedValues, null, 2)
             );
+            notifyInfo("Submitting appearance data to server...");
 
             submitDataToServer(processedValues);
             actions.setSubmitting(false);
@@ -285,6 +287,7 @@ AppearanceForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   match: PropTypes.object,
+  notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,

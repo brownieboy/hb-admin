@@ -14,6 +14,7 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 const HomeForm = ({
   homeText,
   isLoggedIn,
+  notifyInfo,
   submitDataToServer,
   saveStatus,
   saveError
@@ -39,7 +40,8 @@ const HomeForm = ({
         initialValues={Object.assign({}, fieldValues)}
         validationSchema={yup.object().shape(validationSchemaObj)}
         onSubmit={(values, actions) => {
-          console.log(JSON.stringify(values, null, 2));
+          // console.log(JSON.stringify(values, null, 2));
+          notifyInfo("Submitting home page data to server...");
           submitDataToServer(values);
           actions.setSubmitting(false);
         }}
@@ -124,6 +126,7 @@ HomeForm.propTypes = {
   handleChange: PropTypes.func,
   handleSubmit: PropTypes.func,
   homeText: PropTypes.string.isRequired,
+  notifyInfo: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,

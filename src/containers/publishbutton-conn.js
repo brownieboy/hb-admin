@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Button } from "reactstrap";
+import { notifyInfo as notifyInfoAction } from "../dux/react-redux-notify-helpers.js";
 import { savePublishNow } from "../dux/publishReducer.js";
 import { getAppearancesWithBandAndStageNames } from "../dux/appearancesReducer.js";
 import { getBandsAlphabeticalEnhanced } from "../dux/bandsReducer.js";
@@ -11,6 +12,7 @@ import { selectStages as getStages } from "../dux/stagesReducer.js";
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
+      notifyInfo: notifyInfoAction,
       publishNow: savePublishNow
     },
     dispatch
@@ -31,12 +33,14 @@ class PublishButton extends Component {
       appearancesList,
       bandsList,
       homePageText,
+      notifyInfo,
       publishNow,
       stagesList,
       contactUsPage
     } = this.props;
     // console.log("handlePublish, stagesList:");
     // console.log(stagesList);
+    notifyInfo("Pushing updated data out to phones...");
     publishNow({
       appearancesArray: appearancesList,
       bandsArray: bandsList,
@@ -55,7 +59,7 @@ PublishButton.propTypes = {
   appearancesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   bandsList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   homePageText: PropTypes.string.isRequired,
-  contactUsPage: PropTypes.string.isRequired,
+  contactUsPage: PropTypes.object.isRequired,
   publishNow: PropTypes.func.isRequired,
   stagesList: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
 };

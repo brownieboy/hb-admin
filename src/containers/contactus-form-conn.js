@@ -10,6 +10,8 @@ import {
   saveEditedContactUs
 } from "../dux/contactUsReducer.js";
 
+import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
+
 const getCommonStateObject = state => ({
   fetchStatus: state.contactUsState.fetchStatus,
   fetchError: state.contactUsState.fetchError,
@@ -29,7 +31,8 @@ const getCommonStateObject = state => ({
 // });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ submitDataToServer: saveEditedContactUs }, dispatch);
+  bindActionCreators({ notifyInfo, submitDataToServer: saveEditedContactUs }, dispatch);
+  
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   startBlurb: state.contactUsState.contactUs.startBlurb,
