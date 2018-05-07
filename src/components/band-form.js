@@ -402,7 +402,7 @@ class BandForm extends Component {
 }
 
 /*
-https://findmyfbid.com/, https://findmyfbid.com/ 
+https://findmyfbid.com/, https://findmyfbid.com/
 */
 
 BandForm.propTypes = {

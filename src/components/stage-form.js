@@ -23,12 +23,34 @@ const validationSchemaCommonObj = {
 };
 
 class StageForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      thumbFileInfo: {},
+      cardFileInfo: {},
+      cardPostFileName: ""
+    };
+  }
+
   classId = "";
 
   componentWillUnmount() {
     // console.log("Clearing from componentWillUnmount");
     this.props.saveStageClear && this.props.saveStageClear(); // Clear saveSuccess status so we don't loop
   }
+
+  handleThumbFileChange = event => {
+    // console.log("handleThumbFileChange");
+    // console.log(event.target.files[0]);
+    this.setState({ thumbFileInfo: event.target.files[0] });
+  };
+
+  handleCardFileChange = event => {
+    // console.log("handleThumbFileChange");
+    // console.log(event.target.files[0]);
+    this.setState({ cardFileInfo: event.target.files[0] });
+  };
+
 
   render() {
     const {

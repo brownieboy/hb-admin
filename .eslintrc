@@ -23,6 +23,7 @@
         "lines-around-comment": "off",
         "newline-after-var": "off",
         "no-invalid-this": "off",
+        "no-unused-vars": "warn",
         "no-confusing-arrow": [
             "error",
             {
