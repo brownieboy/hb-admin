@@ -24,6 +24,7 @@
         "newline-after-var": "off",
         "no-console": "warn",
         "no-invalid-this": "off",
+        "no-multi-spaces": "warn",
         "no-unused-vars": "warn",
         "no-confusing-arrow": [
             "warn",

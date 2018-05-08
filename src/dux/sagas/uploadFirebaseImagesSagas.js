@@ -93,9 +93,55 @@ function* uploadCardImage(data) {
   );
 }
 
+function* uploadImage(configObj, data) {
+  yield console.log("saga uploadImage started, data:");
+  yield console.log(data);
+  yield console.log("saga uploadImage started, configObj:");
+  yield console.log(configObj);
+  const file = yield data.payload.fileInfo;
+  const filePath = yield `${configObj.path}/${file.name}`;
+
+  const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
+
+  const channel = eventChannel(emit => task.on("state_changed", emit));
+  yield takeEvery(channel, handleEventEmitCard);
+
+  yield task;
+  const downloadUrl = yield syncFileUrl(filePath);
+  yield put(
+    storageDuxActions.sendStorageCardSuccess({ downloadUrl })
+  );
+
+  let putOnSuccessObj = { downloadUrl };
+  putOnSuccessObj = configObj.processPutOnSuccessObj(
+    putOnSuccessObj,
+    data.payload
+  );
+
+  yield put(
+    configObj.putOnSuccess(putOnSuccessObj)
+  );
+}
+
 const uploadFirebaseImagesSagas = [
-  takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadThumbImage),
-  takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadCardImage)
+  // takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadThumbImage),
+  // takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadCardImage),
+  takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadImage, {
+    putOnSuccess: bandsDuxActions.updateBandThumbUrl,
+    processPutOnSuccessObj: (putOnSuccessObj, payload) => {
+      putOnSuccessObj.bandId = payload.bandId;
+      return putOnSuccessObj;
+    },
+    path: globalTypes.STORAGE.THUMBS_PATH
+  }),
+  takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadImage, {
+    putOnSuccess: bandsDuxActions.updateBandCardUrl,
+    processPutOnSuccessObj: (putOnSuccessObj, payload) => {
+      putOnSuccessObj.bandId = payload.bandId;
+      return putOnSuccessObj;
+    },
+    path: globalTypes.STORAGE.CARDS_PATH
+  })
 ];
 
 export default uploadFirebaseImagesSagas;

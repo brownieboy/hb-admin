@@ -268,6 +268,7 @@ const updateBandThumbUrl = updateInfo => ({
   type: UPDATE_BAND_THUMB_URL,
   payload: updateInfo // {bandId, downloadUrl}
 });
+
 const updateBandCardUrl = updateInfo => ({
   type: UPDATE_BAND_CARD_URL,
   payload: updateInfo // {bandId, downloadUrl}
