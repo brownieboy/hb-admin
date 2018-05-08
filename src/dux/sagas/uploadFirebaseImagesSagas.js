@@ -22,8 +22,8 @@ function* syncFileUrl(filePath) {
 }
 
 function* handleEventEmitThumb(snapshot) {
-  // yield console.log("saga handleEventEmitThumb started, snapshot:");
-  // yield console.log(snapshot);
+  yield console.log("saga handleEventEmitThumb started, snapshot:");
+  yield console.log(snapshot);
   const progress = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
   yield put(
     storageDuxActions.updateStorageThumbStatus({
@@ -58,8 +58,8 @@ function* uploadThumbImage(data) {
 }
 
 function* handleEventEmitCard(snapshot) {
-  // yield console.log("saga handleEventEmitCard started, snapshot:");
-  // yield console.log(snapshot);
+  yield console.log("saga handleEventEmitCard started, snapshot:");
+  yield console.log(snapshot);
   const progress = snapshot.bytesTransferred * 100 / snapshot.totalBytes;
   yield put(
     storageDuxActions.updateStorageCardStatus({

@@ -37,10 +37,13 @@ const sendStorageThumbFailure = errorMessage => ({
   payload: errorMessage
 });
 
-const updateStorageThumbStatus = statusInfo => ({
-  type: UPDATE_STORAGE_THUMB_STATUS,
-  payload: statusInfo // e.g. {percentUploaded: 15}
-});
+const updateStorageThumbStatus = statusInfo => {
+  console.log("updateStorageThumbStatus:");
+  return {
+    type: UPDATE_STORAGE_THUMB_STATUS,
+    payload: statusInfo // e.g. {percentUploaded: 15}
+  };
+};
 
 export const sendStorageCardStart = fileInfo => ({
   type: SEND_STORAGE_CARD_START,
