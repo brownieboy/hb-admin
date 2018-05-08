@@ -37,7 +37,6 @@ class CardThumbImagesSubForm extends Component {
     } = this.props;
     return (
       <Fragment>
-        <h2>Images</h2>
         {!isEditExisting && (
           <div>
             You must save this form at least once before you can add images.

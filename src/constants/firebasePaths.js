@@ -9,7 +9,9 @@ export const types = {
     PUBLISHED_DATA_PATH: "publishedData"
   },
   STORAGE: {
-    THUMBS_PATH: "/img/bands/thumbstest",
-    CARDS_PATH: "/img/bands/cardstest"
+    THUMBS_PATH: "/img/bands/thumbs",
+    CARDS_PATH: "/img/bands/cards",
+    STAGES_THUMBS_PATH: "/img/stages/thumbs",
+    STAGES_CARDS_PATH: "/img/stages/cards"
   }
 };

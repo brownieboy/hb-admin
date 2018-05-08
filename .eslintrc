@@ -22,13 +22,15 @@
         "require-jsdoc": "off",
         "lines-around-comment": "off",
         "newline-after-var": "off",
+        "no-console": "warn",
         "no-invalid-this": "off",
         "no-unused-vars": "warn",
         "no-confusing-arrow": [
-            "error",
+            "warn",
             {
                 "allowParens": true
             }
-        ]
+        ],
+        "react/prop-types": "warn"
     }
 }

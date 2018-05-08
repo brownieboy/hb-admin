@@ -37,7 +37,9 @@ class StageForm extends Component {
 
   componentWillUnmount() {
     // console.log("Clearing from componentWillUnmount");
-    this.props.saveStageClear && this.props.saveStageClear(); // Clear saveSuccess status so we don't loop
+    if (this.props.saveStageClear) {
+      this.props.saveStageClear();
+    } // Clear saveSuccess status so we don't loop
   }
 
   handleThumbFileChange = event => {
@@ -190,6 +192,8 @@ class StageForm extends Component {
                   </FormGroup>
                   <Button type="submit">Submit</Button>
                 </form>
+                <hr />
+                <h2>Images</h2>
                 <CardThumbImagesSubForm
                   cardFileInfo={cardFileInfo}
                   thumbFileInfo={thumbFileInfo}
@@ -197,6 +201,7 @@ class StageForm extends Component {
                   sendStorageThumbStart={sendStorageThumbStart}
                   thumbProgress={thumbProgress}
                   cardProgress={cardProgress}
+                  values={values}
                 />
               </Fragment>
             );
@@ -219,6 +224,7 @@ StageForm.propTypes = {
   notifyInfo: PropTypes.func.isRequired,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
+  saveStageClear: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
   submitDataToServer: PropTypes.func.isRequired,
