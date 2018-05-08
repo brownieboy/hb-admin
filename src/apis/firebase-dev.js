@@ -9,7 +9,7 @@ const config = {
   authDomain: "helstonbury-dev.firebaseapp.com",
   databaseURL: "https://helstonbury-dev.firebaseio.com",
   projectId: "helstonbury-dev",
-  storageBucket: "helstonbury-cadbf.appspot.com",
+  storageBucket: "helstonbury-dev.appspot.com",
   messagingSenderId: "536136928665"
 };
 
