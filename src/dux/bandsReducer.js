@@ -97,9 +97,9 @@ const bandsReducer = (
       };
 
     case UPDATE_BAND_THUMB_URL:
-      console.log("UPDATE_BAND_THUMB_URL reducer");
+      // console.log("UPDATE_BAND_THUMB_URL reducer");
       idx = state.bandsList.findIndex(
-        bandObj => bandObj.id === action.payload.bandId
+        bandObj => bandObj.id === action.payload.id
       );
       currentBandObj = state.bandsList.slice()[idx];
       currentBandObj.thumbFullUrl = action.payload.downloadUrl;
@@ -111,9 +111,9 @@ const bandsReducer = (
       return { ...state, bandsList: newBandsList };
 
     case UPDATE_BAND_CARD_URL:
-      console.log("UPDATE_BAND_CARD_URL reducer");
+      // console.log("UPDATE_BAND_CARD_URL reducer");
       idx = state.bandsList.findIndex(
-        bandObj => bandObj.id === action.payload.bandId
+        bandObj => bandObj.id === action.payload.id
       );
       currentBandObj = state.bandsList.slice()[idx];
       currentBandObj.cardFullUrl = action.payload.downloadUrl;

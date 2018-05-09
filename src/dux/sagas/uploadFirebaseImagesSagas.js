@@ -60,7 +60,7 @@ function* handleEventEmitThumb(snapshot) {
   );
   yield put(
     bandsDuxActions.updateBandThumbUrl({
-      bandId: data.payload.bandId,
+      id: data.payload.id,
       downloadUrl: thumbDownloadUrl
     })
   );
@@ -96,7 +96,7 @@ function* handleEventEmitCard(snapshot) {
   );
   yield put(
     bandsDuxActions.updateBandCardUrl({
-      bandId: data.payload.bandId,
+      id: data.payload.id,
       downloadUrl: cardDownloadUrl
     })
   );
@@ -141,7 +141,7 @@ const uploadFirebaseImagesSagas = [
     putOnSuccess: bandsDuxActions.updateBandThumbUrl,
     progressUpdateHandler: handleEventEmitThumb,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
-      putOnSuccessObj.bandId = payload.bandId;
+      putOnSuccessObj.id = payload.id;
       return putOnSuccessObj;
     },
     path: globalTypes.STORAGE.BANDS_THUMBS_PATH
@@ -151,7 +151,7 @@ const uploadFirebaseImagesSagas = [
     putOnSuccess: bandsDuxActions.updateBandCardUrl,
     progressUpdateHandler: handleEventEmitCard,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
-      putOnSuccessObj.bandId = payload.bandId;
+      putOnSuccessObj.id = payload.id;
       return putOnSuccessObj;
     },
     path: globalTypes.STORAGE.BANDS_CARDS_PATH
@@ -161,7 +161,7 @@ const uploadFirebaseImagesSagas = [
     putOnSuccess: stagesDuxActions.updateStageThumbUrl,
     progressUpdateHandler: handleEventEmitThumb,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
-      putOnSuccessObj.stageId = payload.stageId;
+      putOnSuccessObj.id = payload.id;
       return putOnSuccessObj;
     },
     path: globalTypes.STORAGE.STAGES_THUMBS_PATH
@@ -171,7 +171,7 @@ const uploadFirebaseImagesSagas = [
     putOnSuccess: stagesDuxActions.updateStageCardUrl,
     progressUpdateHandler: handleEventEmitCard,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
-      putOnSuccessObj.stageId = payload.stageId;
+      putOnSuccessObj.id = payload.id;
       return putOnSuccessObj;
     },
     path: globalTypes.STORAGE.STAGES_CARDS_PATH

@@ -309,7 +309,7 @@ class BandForm extends Component {
                         disabled={!this.state.thumbFileInfo.name}
                         onClick={() => {
                           sendStorageThumbStart({
-                            bandId: values.id,
+                            id: values.id,
                             fileInfo: this.state.thumbFileInfo
                           });
                         }}
@@ -353,7 +353,7 @@ class BandForm extends Component {
                         disabled={!this.state.cardFileInfo.name}
                         onClick={() => {
                           sendStorageCardStart({
-                            bandId: values.id,
+                            id: values.id,
                             fileInfo: this.state.cardFileInfo
                           });
                         }}

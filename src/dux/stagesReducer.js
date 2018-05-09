@@ -96,9 +96,11 @@ const stagesReducer = (
       };
 
     case UPDATE_STAGE_THUMB_URL:
-      console.log("UPDATE_STAGE_THUMB_URL reducer");
+      // console.log("UPDATE_STAGE_THUMB_URL reducer, action:");
+      // console.log(action);
+
       idx = state.stagesList.findIndex(
-        stageObj => stageObj.id === action.payload.stageId
+        stageObj => stageObj.id === action.payload.id
       );
       currentStageObj = state.stagesList.slice()[idx];
       currentStageObj.thumbFullUrl = action.payload.downloadUrl;
@@ -110,9 +112,9 @@ const stagesReducer = (
       return { ...state, stagesList: newStagesList };
 
     case UPDATE_STAGE_CARD_URL:
-      console.log("UPDATE_STAGE_CARD_URL reducer");
+      // console.log("UPDATE_STAGE_CARD_URL reducer");
       idx = state.stagesList.findIndex(
-        stageObj => stageObj.id === action.payload.stageId
+        stageObj => stageObj.id === action.payload.id
       );
       currentStageObj = state.stagesList.slice()[idx];
       currentStageObj.cardFullUrl = action.payload.downloadUrl;
@@ -193,6 +195,16 @@ export const deleteStages = stageIdsArray => ({
   payload: stageIdsArray
 });
 
+const updateStageThumbUrl = updateInfo => ({
+  type: UPDATE_STAGE_THUMB_URL,
+  payload: updateInfo // {StageId, downloadUrl}
+});
+
+const updateStageCardUrl = updateInfo => ({
+  type: UPDATE_STAGE_CARD_URL,
+  payload: updateInfo // {StageId, downloadUrl}
+});
+
 export const stageStartCardFileUpload = fileInfo => ({
   type: STAGE_START_CARD_FILE_UPLOAD,
   payload: fileInfo
@@ -210,7 +222,9 @@ export const stagesDuxActions = {
   saveStageSucceeded,
   saveNewStage,
   saveStageClear,
-  saveStageFailed
+  saveStageFailed,
+  updateStageCardUrl,
+  updateStageThumbUrl
 };
 
 // Getters
