@@ -104,7 +104,7 @@ function* uploadImage(configObj, data) {
   const task = reduxSagaFirebase.storage.uploadFile(filePath, file);
 
   const channel = eventChannel(emit => task.on("state_changed", emit));
-  yield takeEvery(channel, handleEventEmitCard);
+  yield takeEvery(channel, configObj.progressUpdateHandler);
 
   yield task;
   const downloadUrl = yield syncFileUrl(filePath);
@@ -128,6 +128,7 @@ const uploadFirebaseImagesSagas = [
   // takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadCardImage),
   takeEvery(storageActionTypes.SEND_STORAGE_THUMB_START, uploadImage, {
     putOnSuccess: bandsDuxActions.updateBandThumbUrl,
+    progressUpdateHandler: handleEventEmitThumb,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
       putOnSuccessObj.bandId = payload.bandId;
       return putOnSuccessObj;
