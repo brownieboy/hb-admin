@@ -196,11 +196,14 @@ class StageForm extends Component {
                 <h2>Images</h2>
                 <CardThumbImagesSubForm
                   cardFileInfo={cardFileInfo}
+                  handleCardFileChange={this.handleCardFileChange}
+                  handleThumbFileChange={this.handleThumbFileChange}
                   thumbFileInfo={thumbFileInfo}
                   sendStorageCardStart={sendStorageCardStart}
                   sendStorageThumbStart={sendStorageThumbStart}
                   thumbProgress={thumbProgress}
                   cardProgress={cardProgress}
+                  isEditExisting={isEditExisting}
                   values={values}
                 />
               </Fragment>

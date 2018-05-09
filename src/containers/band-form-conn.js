@@ -6,16 +6,18 @@ import BandForm from "../components/band-form.js";
 
 // Dux
 import {
+  bandStartCardFileUpload,
+  bandStartThumbFileUpload,
   saveNewBand,
   saveEditedBand,
   saveBandClear,
   getBandInfoForId as getBandInfoForIdAction
 } from "../dux/bandsReducer.js";
 
-import {
-  sendStorageCardStart,
-  sendStorageThumbStart
-} from "../dux/storageReducer.js";
+// import {
+//   sendStorageCardStart,
+//   sendStorageThumbStart
+// } from "../dux/storageReducer.js";
 
 import { notifyInfo } from "../dux/react-redux-notify-helpers.js";
 
@@ -51,8 +53,8 @@ const mapDispatchToPropsEdit = dispatch =>
     {
       notifyInfo,
       submitDataToServer: saveEditedBand,
-      sendStorageThumbStart,
-      sendStorageCardStart
+      sendStorageThumbStart: bandStartThumbFileUpload,
+      sendStorageCardStart: bandStartCardFileUpload
     },
     dispatch
   );

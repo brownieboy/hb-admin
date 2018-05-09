@@ -142,7 +142,7 @@ CardThumbImagesSubForm.propTypes = {
   isEditExisting: PropTypes.bool.isRequired,
   sendStorageCardStart: PropTypes.func.isRequired,
   sendStorageThumbStart: PropTypes.func.isRequired,
-  thunbFileinfo: PropTypes.func.isRequired,
+  thumbFileInfo: PropTypes.object.isRequired,
   thumbProgress: PropTypes.number,
   values: PropTypes.object
 };
