@@ -137,6 +137,7 @@ const uploadFirebaseImagesSagas = [
   }),
   takeEvery(storageActionTypes.SEND_STORAGE_CARD_START, uploadImage, {
     putOnSuccess: bandsDuxActions.updateBandCardUrl,
+    progressUpdateHandler: handleEventEmitCard,
     processPutOnSuccessObj: (putOnSuccessObj, payload) => {
       putOnSuccessObj.bandId = payload.bandId;
       return putOnSuccessObj;
