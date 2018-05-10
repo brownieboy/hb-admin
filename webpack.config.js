@@ -1,3 +1,5 @@
+/* eslint:env node */
+
 const webpack = require("webpack");
 const path = require("path");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -62,10 +64,10 @@ module.exports = (env = {}) => {
               use: [
                 {
                   loader: "css-loader",
-                  options: { alias: { "../img": "../public/img" } }
+                  options: { alias: { "../img": "../public/img" }, sourceMap: true }
                 },
                 {
-                  loader: "sass-loader"
+                  loader: "sass-loader", options: { sourceMap: true }
                 }
               ]
             })
