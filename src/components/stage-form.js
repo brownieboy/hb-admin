@@ -16,6 +16,7 @@ import {
 
 const validationSchemaCommonObj = {
   name: yup.string().required(),
+  summary: yup.string(),
   sortOrder: yup
     .number()
     .required()
@@ -73,6 +74,7 @@ class StageForm extends Component {
       name: "",
       id: "",
       sortOrder: -1,
+      summary: "",
       blurb: ""
     };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
@@ -162,6 +164,19 @@ class StageForm extends Component {
                       value={values.name}
                     />
                     {errors.name && <div>{errors.name}</div>}
+                  </FormGroup>
+
+                  <FormGroup>
+                    <Label for="summary">Summary</Label>
+                    <Input
+                      type="text"
+                      name="summary"
+                      placeholder="One line summary, shown in app's bands list"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.summary}
+                    />
+                    {errors.summary && <div>{errors.summary}</div>}
                   </FormGroup>
 
                   <FormGroup>
