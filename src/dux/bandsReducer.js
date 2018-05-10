@@ -16,8 +16,12 @@ const SAVE_BAND_CLEAR = "SAVE_BAND_CLEAR";
 const UPDATE_BAND_THUMB_URL = "UPDATE_BAND_THUMB_URL";
 const UPDATE_BAND_CARD_URL = "UPDATE_BAND_CARD_URL";
 const DELETE_BANDS = "DELETE_BANDS";
+const BAND_START_CARD_FILE_UPLOAD = "BAND_START_CARD_FILE_UPLOAD";
+const BAND_START_THUMB_FILE_UPLOAD = "BAND_START_THUMB_FILE_UPLOAD";
 
 export const actionTypes = {
+  BAND_START_CARD_FILE_UPLOAD,
+  BAND_START_THUMB_FILE_UPLOAD,
   SAVE_NEW_BAND,
   SAVE_EDITED_BAND,
   SAVE_BAND_REQUEST,
@@ -28,7 +32,13 @@ export const actionTypes = {
 
 // Reducer
 const bandsReducer = (
-  state = { fetchStatus: "", fetchError: "", bandsList: [] },
+  state = {
+    fetchStatus: "",
+    fetchError: "",
+    bandsList: [],
+    cardFileInfo: "",
+    thumbFileInfo: ""
+  },
   action
 ) => {
   let idx, newBandsList, currentBandObj;
@@ -74,10 +84,22 @@ const bandsReducer = (
       ];
       return { ...state, bandsList: newBandsList };
 
+    case BAND_START_CARD_FILE_UPLOAD:
+      return {
+        ...state,
+        cardFileInfo: action.payload.fileInfo
+      };
+
+    case BAND_START_THUMB_FILE_UPLOAD:
+      return {
+        ...state,
+        thumbFileInfo: action.payload.fileInfo
+      };
+
     case UPDATE_BAND_THUMB_URL:
-      console.log("UPDATE_BAND_THUMB_URL reducer");
+      // console.log("UPDATE_BAND_THUMB_URL reducer");
       idx = state.bandsList.findIndex(
-        bandObj => bandObj.id === action.payload.bandId
+        bandObj => bandObj.id === action.payload.id
       );
       currentBandObj = state.bandsList.slice()[idx];
       currentBandObj.thumbFullUrl = action.payload.downloadUrl;
@@ -89,9 +111,9 @@ const bandsReducer = (
       return { ...state, bandsList: newBandsList };
 
     case UPDATE_BAND_CARD_URL:
-      console.log("UPDATE_BAND_CARD_URL reducer");
+      // console.log("UPDATE_BAND_CARD_URL reducer");
       idx = state.bandsList.findIndex(
-        bandObj => bandObj.id === action.payload.bandId
+        bandObj => bandObj.id === action.payload.id
       );
       currentBandObj = state.bandsList.slice()[idx];
       currentBandObj.cardFullUrl = action.payload.downloadUrl;
@@ -274,7 +296,18 @@ const updateBandCardUrl = updateInfo => ({
   payload: updateInfo // {bandId, downloadUrl}
 });
 
+export const bandStartCardFileUpload = fileInfo => ({
+  type: BAND_START_CARD_FILE_UPLOAD,
+  payload: fileInfo
+});
+export const bandStartThumbFileUpload = fileInfo => ({
+  type: BAND_START_THUMB_FILE_UPLOAD,
+  payload: fileInfo
+});
+
 export const bandsDuxActions = {
+  // bandStartCardFileUpload,
+  // bandStartThumbFileUpload,
   setFetchBandsFailed,
   setFetchBandsRequest,
   setFetchBandsSucceeded,

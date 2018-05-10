@@ -61,7 +61,7 @@ class CardThumbImagesSubForm extends Component {
                 disabled={!thumbFileInfo.name}
                 onClick={() => {
                   sendStorageThumbStart({
-                    bandId: values.id,
+                    id: values.id,
                     fileInfo: thumbFileInfo
                   });
                 }}
@@ -103,7 +103,7 @@ class CardThumbImagesSubForm extends Component {
                 disabled={!cardFileInfo.name}
                 onClick={() => {
                   sendStorageCardStart({
-                    bandId: values.id,
+                    id: values.id,
                     fileInfo: cardFileInfo
                   });
                 }}
@@ -142,7 +142,7 @@ CardThumbImagesSubForm.propTypes = {
   isEditExisting: PropTypes.bool.isRequired,
   sendStorageCardStart: PropTypes.func.isRequired,
   sendStorageThumbStart: PropTypes.func.isRequired,
-  thunbFileinfo: PropTypes.func.isRequired,
+  thumbFileInfo: PropTypes.object.isRequired,
   thumbProgress: PropTypes.number,
   values: PropTypes.object
 };

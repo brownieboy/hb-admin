@@ -9,6 +9,8 @@ import {
   saveNewStage,
   saveEditedStage,
   saveStageClear,
+  stageStartCardFileUpload,
+  stageStartThumbFileUpload,
   getStageInfoForId as getStageInfoForIdAction
 } from "../dux/stagesReducer.js";
 
@@ -37,7 +39,12 @@ const mapStateToPropsNew = state => ({
 
 const mapDispatchToPropsEdit = dispatch =>
   bindActionCreators(
-    { notifyInfo, submitDataToServer: saveEditedStage },
+    {
+      notifyInfo,
+      submitDataToServer: saveEditedStage,
+      sendStorageThumbStart: stageStartThumbFileUpload,
+      sendStorageCardStart: stageStartCardFileUpload
+    },
     dispatch
   );
 const mapStateToPropsEdit = state => ({
