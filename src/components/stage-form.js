@@ -171,7 +171,7 @@ class StageForm extends Component {
                     <Input
                       type="text"
                       name="summary"
-                      placeholder="One line summary, shown in app's bands list"
+                      placeholder="One line summary, shown in app's Stage squares"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.summary}
