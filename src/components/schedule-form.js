@@ -266,7 +266,7 @@ class AppearanceForm extends Component {
                   {errors.timeEnd && <div>{errors.timeEnd}</div>}
                 </FormGroup>
 
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Save</Button>
               </form>
             );
           }}

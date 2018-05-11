@@ -182,7 +182,7 @@ const ContactUsForm = ({
                 />
               </FormGroup>
 
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save</Button>
             </form>
           );
         }}

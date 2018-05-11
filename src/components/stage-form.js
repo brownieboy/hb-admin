@@ -205,7 +205,7 @@ class StageForm extends Component {
                     />
                     {errors.sortOrder && <div>{errors.sortOrder}</div>}
                   </FormGroup>
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">Save</Button>
                 </form>
                 <hr />
                 <h2>Images</h2>

@@ -68,7 +68,7 @@ const HomeForm = ({
                 />
                 {errors.homeText && <div>{errors.homeText}</div>}
               </FormGroup>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save</Button>
             </form>
           );
         }}
@@ -111,7 +111,7 @@ const HomeForm = ({
                 />
                 {errors.homeText && <div>{errors.homeText}</div>}
               </FormGroup>
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save</Button>
             </form>
           );
         }}

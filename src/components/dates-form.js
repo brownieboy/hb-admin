@@ -134,7 +134,7 @@ class DatesForm extends Component {
                 value={this.state.datesList[2]}
               />
             </FormGroup>
-            <Button type="submit">Submit</Button>
+            <Button type="submit">Save</Button>
           </form>
         </div>
       </div>

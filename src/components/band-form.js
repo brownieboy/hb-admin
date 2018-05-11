@@ -280,7 +280,7 @@ class BandForm extends Component {
                     )}
                   </FormGroup>
 
-                  <Button type="submit">Submit</Button>
+                  <Button type="submit">Save</Button>
                 </form>
                 <hr />
                 <h2>Images</h2>

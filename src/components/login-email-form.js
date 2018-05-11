@@ -75,7 +75,7 @@ const LoginEmailForm = ({
                   />
                   {errors.password && <div>{errors.password}</div>}
                 </FormGroup>
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Save</Button>
               </form>
               <div style={helpInfoTextStyles}>
                 {isLoggedIn ? "You are logged in" : "You are not logged in"}
