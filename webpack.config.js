@@ -64,10 +64,14 @@ module.exports = (env = {}) => {
               use: [
                 {
                   loader: "css-loader",
-                  options: { alias: { "../img": "../public/img" }, sourceMap: true }
+                  options: {
+                    alias: { "../img": "../public/img" },
+                    sourceMap: true
+                  }
                 },
                 {
-                  loader: "sass-loader", options: { sourceMap: true }
+                  loader: "sass-loader",
+                  options: { sourceMap: true }
                 }
               ]
             })
@@ -111,9 +115,15 @@ module.exports = (env = {}) => {
         inject: true,
         template: "./public/index.html"
       }),
-      new CopyWebpackPlugin([{ from: "./public/img", to: "img" }], {
-        copyUnmodified: false
-      }),
+      new CopyWebpackPlugin(
+        [
+          { from: "./public/img", to: "img" },
+          { from: "./public/privacy_policy.html", to: "priv" }
+        ],
+        {
+          copyUnmodified: false
+        }
+      ),
       new BundleAnalyzerPlugin()
     ]
   };
