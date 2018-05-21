@@ -23,6 +23,10 @@ const ContactUsForm = ({
   email2,
   mobile,
   gettingThereBlurb,
+  helstonburyWebUrl,
+  helstonburyFBID,
+  helstonburyMerchandiseFBID,
+  helstonburyMerchandiseFBText,
   mapLinkText,
   notifyInfo,
   venueAddress,
@@ -39,6 +43,10 @@ const ContactUsForm = ({
     email2,
     mobile,
     gettingThereBlurb,
+    helstonburyFBID,
+    helstonburyWebUrl,
+    helstonburyMerchandiseFBID,
+    helstonburyMerchandiseFBText,
     mapLinkText,
     venueAddress,
     venuePhone,
@@ -128,6 +136,42 @@ const ContactUsForm = ({
                   onBlur={handleBlur}
                   value={values.mobile}
                 />
+                <Label for="helstonburyWebUrl">Web URL:</Label>
+                <Input
+                  type="text"
+                  name="helsonburyWebUrl"
+                  placeholder="Helstonbury Web URL"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.helstonburyWebUrl}
+                />
+                <Label for="helstonburyFBID">Facebook Page ID:</Label>
+                <Input
+                  type="text"
+                  name="helsonburyFBID"
+                  placeholder="Helstonbury Facebook Page ID"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.helstonburyFBID}
+                />
+                <Label for="helstonburyMerchandiseFBID">Merchandise Facebook Post ID:</Label>
+                <Input
+                  type="text"
+                  name="helstonburyMerchandiseFBID"
+                  placeholder="ID for Facebook Merchandise post"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.helstonburyMerchandiseFBID}
+                />
+                <Label for="helstonburyMerchandiseFBText">Merchandise Facebook Post Text:</Label>
+                <Input
+                  type="text"
+                  name="helstonburyMerchandiseFBText"
+                  placeholder="Text for link to FB Merchandise post"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.helstonburyMerchandiseFBText}
+                />
               </FormGroup>
 
               <FormGroup>
@@ -211,6 +255,10 @@ ContactUsForm.propTypes = {
   email2: PropTypes.string.isRequired,
   mobile: PropTypes.string.isRequired,
   gettingThereBlurb: PropTypes.string.isRequired,
+  helstonburyWebUrl: PropTypes.string.isRequired,
+  helstonburyFBID: PropTypes.string.isRequired,
+  helstonburyMerchandiseFBID: PropTypes.string.isRequired,
+  helstonburyMerchandiseFBText: PropTypes.string.isRequired,
   mapLinkText: PropTypes.string.isRequired,
   venueAddress: PropTypes.string.isRequired,
   venuePhone: PropTypes.string.isRequired,
