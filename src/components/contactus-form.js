@@ -18,24 +18,24 @@ import {
 } from "./formstyles.js";
 
 const ContactUsForm = ({
-  startBlurb,
-  email1,
-  email2,
-  mobile,
-  gettingThereBlurb,
-  helstonburyWebUrl,
-  helstonburyFBID,
-  helstonburyMerchandiseFBID,
-  helstonburyMerchandiseFBText,
-  mapLinkText,
-  notifyInfo,
-  venueAddress,
-  venuePhone,
-  venueEmail,
-  isLoggedIn,
+  startBlurb = "",
+  email1 = "",
+  email2 = "",
+  mobile = "",
+  gettingThereBlurb = "",
+  helstonburyWebUrl = "",
+  helstonburyFBID = "",
+  helstonburyMerchandiseFBID = "",
+  helstonburyMerchandiseFBText = "",
+  mapLinkText = "",
+  notifyInfo = "",
+  venueAddress = "",
+  venuePhone = "",
+  venueEmail = "",
+  isLoggedIn = "",
   submitDataToServer,
-  saveStatus,
-  saveError
+  saveStatus = "",
+  saveError = ""
 }) => {
   const fieldValues = {
     startBlurb,
@@ -139,7 +139,7 @@ const ContactUsForm = ({
                 <Label for="helstonburyWebUrl">Web URL:</Label>
                 <Input
                   type="text"
-                  name="helsonburyWebUrl"
+                  name="helstonburyWebUrl"
                   placeholder="Helstonbury Web URL"
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -148,13 +148,15 @@ const ContactUsForm = ({
                 <Label for="helstonburyFBID">Facebook Page ID:</Label>
                 <Input
                   type="text"
-                  name="helsonburyFBID"
+                  name="helstonburyFBID"
                   placeholder="Helstonbury Facebook Page ID"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.helstonburyFBID}
                 />
-                <Label for="helstonburyMerchandiseFBID">Merchandise Facebook Post ID:</Label>
+                <Label for="helstonburyMerchandiseFBID">
+                  Merchandise Facebook Post ID:
+                </Label>
                 <Input
                   type="text"
                   name="helstonburyMerchandiseFBID"
@@ -163,7 +165,9 @@ const ContactUsForm = ({
                   onBlur={handleBlur}
                   value={values.helstonburyMerchandiseFBID}
                 />
-                <Label for="helstonburyMerchandiseFBText">Merchandise Facebook Post Text:</Label>
+                <Label for="helstonburyMerchandiseFBText">
+                  Merchandise Facebook Post Text:
+                </Label>
                 <Input
                   type="text"
                   name="helstonburyMerchandiseFBText"
