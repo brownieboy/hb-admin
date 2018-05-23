@@ -42,6 +42,8 @@ const mapStateToPropsEdit = state => ({
   email1: state.contactUsState.contactUs.email1,
   email2: state.contactUsState.contactUs.email2,
   helstonburyWebUrl: state.contactUsState.contactUs.helstonburyWebUrl,
+    helstonburyFBID:
+    state.contactUsState.contactUs.helstonburyFBID,
   helstonburyMerchandiseFBID:
     state.contactUsState.contactUs.helstonburyMerchandiseFBID,
   helstonburyMerchandiseFBText:
