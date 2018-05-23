@@ -31,13 +31,21 @@ const getCommonStateObject = state => ({
 // });
 
 const mapDispatchToPropsEdit = dispatch =>
-  bindActionCreators({ notifyInfo, submitDataToServer: saveEditedContactUs }, dispatch);
-  
+  bindActionCreators(
+    { notifyInfo, submitDataToServer: saveEditedContactUs },
+    dispatch
+  );
+
 const mapStateToPropsEdit = state => ({
   ...getCommonStateObject(state),
   startBlurb: state.contactUsState.contactUs.startBlurb,
   email1: state.contactUsState.contactUs.email1,
   email2: state.contactUsState.contactUs.email2,
+  helstonburyWebUrl: state.contactUsState.contactUs.helstonburyWebUrl,
+  helstonburyMerchandiseFBID:
+    state.contactUsState.contactUs.helstonburyMerchandiseFBID,
+  helstonburyMerchandiseFBText:
+    state.contactUsState.contactUs.helstonburyMerchandiseFBText,
   mobile: state.contactUsState.contactUs.mobile,
   gettingThereBlurb: state.contactUsState.contactUs.gettingThereBlurb,
   mapLinkText: state.contactUsState.contactUs.mapLinkText,

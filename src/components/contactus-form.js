@@ -37,6 +37,8 @@ const ContactUsForm = ({
   saveStatus = "",
   saveError = ""
 }) => {
+
+  console.log("contactUs form");
   const fieldValues = {
     startBlurb,
     email1,
