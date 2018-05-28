@@ -60,6 +60,7 @@ class Stages extends Component {
         <div style={listGroupItemContentWrapperStyles}>
           <div>
             <span style={itemTextSpan}>{stageMember.name}</span>
+            <span> ({stageMember.sortOrder})</span>
           </div>
           <div>
             <Input
