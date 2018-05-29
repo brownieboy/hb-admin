@@ -168,6 +168,7 @@ export const getAppearancesWithBandAndStageNames = state => {
         ...newAppearance,
         bandName: matchingBand.name,
         name: matchingBand.name,
+        bandSummary: matchingBand.summary,
         bandThumbFullUrl: matchingBand.thumbFullUrl || null
       };
     }
@@ -175,6 +176,7 @@ export const getAppearancesWithBandAndStageNames = state => {
       newAppearance = {
         ...newAppearance,
         stageName: matchingStage.name,
+        stageSummary: matchingStage.summary,
         stageSortOrder: matchingStage.sortOrder
       };
     }
