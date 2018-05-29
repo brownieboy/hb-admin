@@ -61,6 +61,7 @@ class Stages extends Component {
           <div>
             <span style={itemTextSpan}>{stageMember.name}</span>
             <span> ({stageMember.sortOrder})</span>
+            <span style={{ fontStyle: "italic" }}> {stageMember.summary}</span>
           </div>
           <div>
             <Input
