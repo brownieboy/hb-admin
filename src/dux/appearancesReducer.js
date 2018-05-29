@@ -162,6 +162,8 @@ export const getAppearancesWithBandAndStageNames = state => {
   const appearancesWithBandNames = appearancesRaw.map(appearance => {
     matchingBand = getBandInfoForId(bandsList, appearance.bandId);
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
+    // console.log("matchingStage");
+    // console.log(matchingStage);
     newAppearance = { ...appearance };
     if (matchingBand) {
       newAppearance = {
@@ -176,7 +178,10 @@ export const getAppearancesWithBandAndStageNames = state => {
       newAppearance = {
         ...newAppearance,
         stageName: matchingStage.name,
-        stageSummary: matchingStage.summary,
+        stageSummary:  // Because stage summary wasn't an original field
+          typeof matchingStage.summary !== "undefined"
+            ? matchingStage.summary
+            : "",
         stageSortOrder: matchingStage.sortOrder
       };
     }
