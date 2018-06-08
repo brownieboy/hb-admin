@@ -33,11 +33,11 @@ const ContactUsForm = ({
   venuePhone = "",
   venueEmail = "",
   isLoggedIn = "",
+  appTips = "",
   submitDataToServer,
   saveStatus = "",
   saveError = ""
 }) => {
-
   console.log("contactUs form");
   const fieldValues = {
     startBlurb,
@@ -52,7 +52,8 @@ const ContactUsForm = ({
     mapLinkText,
     venueAddress,
     venuePhone,
-    venueEmail
+    venueEmail,
+    appTips
   };
   // console.log("fieldValues:");
   // console.log(fieldValues);
@@ -231,7 +232,19 @@ const ContactUsForm = ({
                   value={values.venueEmail}
                 />
               </FormGroup>
-
+              <h3>App Stuff</h3>
+              <FormGroup>
+                <Label for="appTips">Tips & Tricks</Label>
+                <Input
+                  rows={10}
+                  type="textarea"
+                  name="appTips"
+                  placeholder="Some blurb about how to use the app"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.appTips}
+                />
+              </FormGroup>
               <Button type="submit">Save</Button>
             </form>
           );
@@ -268,7 +281,8 @@ ContactUsForm.propTypes = {
   mapLinkText: PropTypes.string.isRequired,
   venueAddress: PropTypes.string.isRequired,
   venuePhone: PropTypes.string.isRequired,
-  venueEmail: PropTypes.string.isRequired
+  venueEmail: PropTypes.string.isRequired,
+  appTips: PropTypes.string.isRequired
 };
 
 export default ContactUsForm;
