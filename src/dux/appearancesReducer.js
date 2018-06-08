@@ -162,12 +162,15 @@ export const getAppearancesWithBandAndStageNames = state => {
   const appearancesWithBandNames = appearancesRaw.map(appearance => {
     matchingBand = getBandInfoForId(bandsList, appearance.bandId);
     matchingStage = getStageInfoForId(stagesList, appearance.stageId);
+    // console.log("matchingStage");
+    // console.log(matchingStage);
     newAppearance = { ...appearance };
     if (matchingBand) {
       newAppearance = {
         ...newAppearance,
         bandName: matchingBand.name,
         name: matchingBand.name,
+        bandSummary: matchingBand.summary,
         bandThumbFullUrl: matchingBand.thumbFullUrl || null
       };
     }
@@ -175,6 +178,10 @@ export const getAppearancesWithBandAndStageNames = state => {
       newAppearance = {
         ...newAppearance,
         stageName: matchingStage.name,
+        stageSummary:  // Because stage summary wasn't an original field
+          typeof matchingStage.summary !== "undefined"
+            ? matchingStage.summary
+            : "",
         stageSortOrder: matchingStage.sortOrder
       };
     }

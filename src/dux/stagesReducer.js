@@ -135,8 +135,18 @@ const stagesReducer = (
   }
 };
 
+/*
+const selectAlphabetical = createSelector([selectBands], bandsList =>
+  stringSort(bandsList.slice(), "name")
+);
+
+
+ */
+
 // Sort/filter functions for selectors
-export const selectStages = state => state.stagesState.stagesList;
+export const selectStages = state =>
+  state.stagesState.stagesList.sort((a, b) => a.sortOrder - b.sortOrder);
+
 const selectStagesPicker = createSelector([selectStages], stagesList =>
   stagesList.map(stageMember => ({
     id: stageMember.id,

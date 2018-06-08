@@ -1,7 +1,11 @@
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { deleteStages, getStageInfoForId } from "../dux/stagesReducer.js";
+import {
+  deleteStages,
+  getStageInfoForId,
+  selectStages
+} from "../dux/stagesReducer.js";
 import { getAppearancesForStageId } from "../dux/appearancesReducer.js";
 
 // Components
@@ -13,7 +17,7 @@ const mapDispatchToProps = dispatch =>
 const mapStateToProps = state => ({
   fetchStatus: state.stagesState.fetchStatus,
   fetchError: state.stagesState.fetchError,
-  stagesListProp: state.stagesState.stagesList,
+  stagesListProp: selectStages(state),
   // Not really State, and returns a function, but what the hell
   getAppearancesForStageId: stageId =>
     getAppearancesForStageId(state.appearancesState.appearancesList, stageId),
