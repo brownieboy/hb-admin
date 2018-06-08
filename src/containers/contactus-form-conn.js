@@ -42,8 +42,7 @@ const mapStateToPropsEdit = state => ({
   email1: state.contactUsState.contactUs.email1,
   email2: state.contactUsState.contactUs.email2,
   helstonburyWebUrl: state.contactUsState.contactUs.helstonburyWebUrl,
-    helstonburyFBID:
-    state.contactUsState.contactUs.helstonburyFBID,
+  helstonburyFBID: state.contactUsState.contactUs.helstonburyFBID,
   helstonburyMerchandiseFBID:
     state.contactUsState.contactUs.helstonburyMerchandiseFBID,
   helstonburyMerchandiseFBText:
@@ -54,6 +53,7 @@ const mapStateToPropsEdit = state => ({
   venueAddress: state.contactUsState.contactUs.venueAddress,
   venueEmail: state.contactUsState.contactUs.venueEmail,
   venuePhone: state.contactUsState.contactUs.venuePhone,
+  appTips: state.contactUsState.contactUs.appTips,
   isEditExisting: true
 });
 
