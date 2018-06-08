@@ -281,7 +281,8 @@ ContactUsForm.propTypes = {
   mapLinkText: PropTypes.string.isRequired,
   venueAddress: PropTypes.string.isRequired,
   venuePhone: PropTypes.string.isRequired,
-  venueEmail: PropTypes.string.isRequired
+  venueEmail: PropTypes.string.isRequired,
+  appTips: PropTypes.string.isRequired
 };
 
 export default ContactUsForm;
