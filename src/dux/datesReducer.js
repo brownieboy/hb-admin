@@ -60,13 +60,10 @@ const setFetchDatesFailed = errorMessage => ({
   payload: errorMessage
 });
 
-export const saveEditedDates = datesList => {
-  console.log("saveEditedDates action creator, " + datesList);
-  return {
-    type: SAVE_EDITED_DATES,
-    payload: datesList || []
-  };
-};
+export const saveEditedDates = datesList => ({
+  type: SAVE_EDITED_DATES,
+  payload: datesList || []
+});
 
 export const saveDatesRequest = () => ({
   type: SAVE_DATES_REQUEST

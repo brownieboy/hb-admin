@@ -53,7 +53,7 @@ class DatesForm extends Component {
   };
 
   handleChange = fieldData => {
-    console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
+    // console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
     const { datesList } = this.state;
 
     const newDatesList = [
@@ -76,6 +76,30 @@ class DatesForm extends Component {
     // actions.setSubmitting(false);
   };
 
+  getDateFields = datesList => {
+    console.log("getDateFields");
+    let x = -1;
+    let keyName = "";
+    datesList.map(theDate => {
+      console.log("x = " + x);
+      x++;
+      keyName = `date${x}`;
+      return (
+        <FormGroup key={keyName}>
+          <Label for={keyName}>Day {x + 1}</Label>
+          <DateTimePicker
+            name={keyName}
+            format={dateFormatString}
+            time={false}
+            onChange={value => this.handleChange({ value, fieldNo: x })}
+            defaultValue={this.state.datesList[x]}
+            value={this.state.datesList[x]}
+          />
+        </FormGroup>
+      );
+    });
+  };
+
   render() {
     const {
       datesList,
@@ -90,7 +114,7 @@ class DatesForm extends Component {
       saveError
     } = this.props;
 
-    let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
+    // let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
@@ -103,37 +127,8 @@ class DatesForm extends Component {
           <SaveStatusIndicator saveStatus={saveStatus} saveError={saveError} />
 
           <form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label for="dateOne">Day 1</Label>
-              <DateTimePicker
-                name="dateOne"
-                format={dateFormatString}
-                time={false}
-                onChange={value => this.handleChange({ value, fieldNo: 0 })}
-                defaultValue={this.state.datesList[0]}
-                value={this.state.datesList[0]}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="dateTwo">Day 2</Label>
-              <DateTimePicker
-                name="dateTwo"
-                format={dateFormatString}
-                time={false}
-                onChange={value => this.handleChange({ value, fieldNo: 1 })}
-                value={this.state.datesList[1]}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="dateThree">Day 3</Label>
-              <DateTimePicker
-                name="dateThree"
-                format={dateFormatString}
-                time={false}
-                onChange={value => this.handleChange({ value, fieldNo: 2 })}
-                value={this.state.datesList[2]}
-              />
-            </FormGroup>
+            {this.getDateFields(datesList)}
+
             <Button type="submit">Save</Button>
           </form>
         </div>
