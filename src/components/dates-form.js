@@ -80,10 +80,11 @@ class DatesForm extends Component {
     console.log("getDateFields");
     let x = -1;
     let keyName = "";
-    datesList.map(theDate => {
-      console.log("x = " + x);
+    return datesList.map(theDate => {
       x++;
       keyName = `date${x}`;
+      console.log("keyName = " + keyName);
+
       return (
         <FormGroup key={keyName}>
           <Label for={keyName}>Day {x + 1}</Label>
@@ -102,7 +103,6 @@ class DatesForm extends Component {
 
   render() {
     const {
-      datesList,
       isEditExisting,
       isLoggedIn,
       match,
@@ -113,6 +113,8 @@ class DatesForm extends Component {
       saveStatus,
       saveError
     } = this.props;
+
+    const { datesList } = this.state;
 
     // let fieldValues = { dayOne: "", dayTwo: "", dayThree: "" };
     return (
@@ -132,6 +134,11 @@ class DatesForm extends Component {
             <Button type="submit">Save</Button>
           </form>
         </div>
+        <Button
+          onPress={() => this.setState({ datesList: [...datesList, ""] })}
+        >
+          Add new date
+        </Button>
       </div>
     );
   }
