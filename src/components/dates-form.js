@@ -135,7 +135,12 @@ class DatesForm extends Component {
           </form>
         </div>
         <Button
-          onPress={() => this.setState({ datesList: [...datesList, ""] })}
+          onClick={() => {
+            const newDates = [...datesList, ""];
+            console.log("newDates");
+            console.log(newDates);
+            this.setState({ datesList: newDates });
+          }}
         >
           Add new date
         </Button>
