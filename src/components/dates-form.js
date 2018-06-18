@@ -78,28 +78,45 @@ class DatesForm extends Component {
     // actions.setSubmitting(false);
   };
 
+  /*
+(function(key) {
+    db.setValue(
+        function() {
+            console.log("OK: store a value of " + key);
+        },
+        function() {
+            throw "ERR: can't store a value of " + key;
+        },
+        databaseName,
+        key,
+        _list[i]
+    );
+})(key)
+ */
+
+  getDateField = (dateValue, fieldNo) => {
+    const keyName = `date${fieldNo}`;
+    return (
+      <FormGroup key={keyName}>
+        <Label for={keyName}>Day {fieldNo + 1}</Label>
+        <DateTimePicker
+          name={keyName}
+          format={dateFormatString}
+          time={false}
+          onChange={value => this.handleChange({ value, fieldNo })}
+          value={dateValue}
+        />
+      </FormGroup>
+    );
+  };
+
   getDateFields = datesList => {
     console.log("getDateFields, datesList:");
     console.log(datesList);
     let x = -1;
-    let keyName = "";
     return datesList.map(theDate => {
       x++;
-      keyName = `date${x}`;
-      console.log("keyName = " + keyName);
-
-      return (
-        <FormGroup key={keyName}>
-          <Label for={keyName}>Day {x + 1}</Label>
-          <DateTimePicker
-            name={keyName}
-            format={dateFormatString}
-            time={false}
-            onChange={value => this.handleChange({ value, fieldNo: x })}
-            value={datesList[x]}
-          />
-        </FormGroup>
-      );
+      return this.getDateField(theDate, x);
     });
   };
 
