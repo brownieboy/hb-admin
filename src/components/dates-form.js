@@ -23,6 +23,8 @@ class DatesForm extends Component {
   constructor(props) {
     super(props);
     const { datesList } = props;
+    console.log("constructor datesList");
+    console.log(datesList);
     // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
       datesList: this.textDatesToFnsDates(datesList)
@@ -77,7 +79,8 @@ class DatesForm extends Component {
   };
 
   getDateFields = datesList => {
-    console.log("getDateFields");
+    console.log("getDateFields, datesList:");
+    console.log(datesList);
     let x = -1;
     let keyName = "";
     return datesList.map(theDate => {
@@ -93,8 +96,7 @@ class DatesForm extends Component {
             format={dateFormatString}
             time={false}
             onChange={value => this.handleChange({ value, fieldNo: x })}
-            defaultValue={this.state.datesList[x]}
-            value={this.state.datesList[x]}
+            value={datesList[x]}
           />
         </FormGroup>
       );
@@ -136,7 +138,7 @@ class DatesForm extends Component {
         </div>
         <Button
           onClick={() => {
-            const newDates = [...datesList, ""];
+            const newDates = [...datesList, new Date()];
             console.log("newDates");
             console.log(newDates);
             this.setState({ datesList: newDates });
@@ -150,7 +152,9 @@ class DatesForm extends Component {
 }
 
 DatesForm.propTypes = {
-  datesList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  datesList: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date)])
+  ).isRequired,
   errors: PropTypes.object,
   fetchError: PropTypes.string.isRequired,
   fetchStatus: PropTypes.string.isRequired,

@@ -67,16 +67,16 @@ function* readHomeSaga() {
 }
 
 function* readContactUsSaga() {
-  console.log("running readContactUsSaga...");
+  // console.log("running readContactUsSaga...");
   const updateChannel = createEventChannel(
     firebaseApp.database().ref(globalTypes.DATABASE.CONTACTUS_PAGE_PATH)
   );
 
   while (true) {
     const item = yield take(updateChannel);
-    yield console.log(
-      "readContactUsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
-    );
+    // yield console.log(
+    //   "readContactUsSaga=" + JSON.stringify(item, null, 4).substring(0, 500)
+    // );
     yield put(contactUsDuxActions.setFetchContactUsSucceeded(item.value));
   }
 }
