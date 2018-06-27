@@ -14,18 +14,22 @@ import {
 } from "./loadsaveindicator.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
+import ConfirmModal from "../components/confirm-modal.js";
+
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
 // dateFnsLocalizer({ "en-GB": enGB });
 dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
+/* eslint react/no-deprecated: 0 */
 class DatesForm extends Component {
   constructor(props) {
     super(props);
     const { datesList } = props;
     // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
-      datesList: this.textDatesToFnsDates(datesList)
+      datesList: this.textDatesToFnsDates(datesList),
+      showConfirmDeleteModal: false
     };
   }
 
@@ -82,7 +86,14 @@ class DatesForm extends Component {
       ...datesList.slice(0, fieldNo),
       ...datesList.slice(fieldNo + 1)
     ];
-    this.setState({ datesList: newDates });
+    this.setState({ datesList: newDates, showConfirmDeleteModal: false });
+  };
+
+  handleDeleteDate = fieldNo => {
+    this.setState({
+      dateFieldNoToDelete: fieldNo,
+      showConfirmDeleteModal: true
+    });
   };
 
   getDateField = (dateValue, fieldNo) => {
@@ -101,7 +112,7 @@ class DatesForm extends Component {
           <i
             className="icon-trash"
             onClick={() => {
-              this.deleteDate(fieldNo);
+              this.handleDeleteDate(fieldNo);
             }}
             style={{ marginLeft: "20px" }}
           />
@@ -162,6 +173,16 @@ class DatesForm extends Component {
         >
           Add new date
         </Button>
+        <ConfirmModal
+          displayModal={this.state.showConfirmDeleteModal}
+          modalTitle="Delete Date?"
+          modalBody={`Are you sure that you want to delete date number ${this
+            .state.dateFieldNoToDelete + 1}?`}
+          handleOk={() => {
+            this.deleteDate(this.state.dateFieldNoToDelete);
+          }}
+          handleCancel={() => this.setState({ showConfirmDeleteModal: false })}
+        />
       </div>
     );
   }
