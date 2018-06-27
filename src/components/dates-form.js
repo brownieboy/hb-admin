@@ -23,8 +23,6 @@ class DatesForm extends Component {
   constructor(props) {
     super(props);
     const { datesList } = props;
-    console.log("constructor datesList");
-    console.log(datesList);
     // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
       datesList: this.textDatesToFnsDates(datesList)
@@ -78,34 +76,36 @@ class DatesForm extends Component {
     // actions.setSubmitting(false);
   };
 
-  /*
-(function(key) {
-    db.setValue(
-        function() {
-            console.log("OK: store a value of " + key);
-        },
-        function() {
-            throw "ERR: can't store a value of " + key;
-        },
-        databaseName,
-        key,
-        _list[i]
-    );
-})(key)
- */
+  deleteDate = fieldNo => {
+    const { datesList } = this.state;
+    const newDates = [
+      ...datesList.slice(0, fieldNo),
+      ...datesList.slice(fieldNo + 1)
+    ];
+    this.setState({ datesList: newDates });
+  };
 
   getDateField = (dateValue, fieldNo) => {
     const keyName = `date${fieldNo}`;
     return (
       <FormGroup key={keyName}>
         <Label for={keyName}>Day {fieldNo + 1}</Label>
-        <DateTimePicker
-          name={keyName}
-          format={dateFormatString}
-          time={false}
-          onChange={value => this.handleChange({ value, fieldNo })}
-          value={dateValue}
-        />
+        <div style={{ display: "flex", alignItems: "center", width: "220px" }}>
+          <DateTimePicker
+            name={keyName}
+            format={dateFormatString}
+            time={false}
+            onChange={value => this.handleChange({ value, fieldNo })}
+            value={dateValue}
+          />
+          <i
+            className="icon-trash"
+            onClick={() => {
+              this.deleteDate(fieldNo);
+            }}
+            style={{ marginLeft: "20px" }}
+          />
+        </div>
       </FormGroup>
     );
   };
@@ -153,11 +153,10 @@ class DatesForm extends Component {
             <Button type="submit">Save</Button>
           </form>
         </div>
+        <br />
         <Button
           onClick={() => {
             const newDates = [...datesList, new Date()];
-            console.log("newDates");
-            console.log(newDates);
             this.setState({ datesList: newDates });
           }}
         >
