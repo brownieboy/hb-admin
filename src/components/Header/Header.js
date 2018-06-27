@@ -39,8 +39,12 @@ class Header extends Component {
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
         <div>
-          <Link to={"/loginemailform"}>Login Page</Link> | 
-          <PublishButton />
+          <Link to={"/loginemailform"} style={{ marginRight: 5 }}>
+            Login Page
+          </Link>|
+          <span style={{ marginLeft: 5 }}>
+            <PublishButton />
+          </span>
         </div>
         <NavbarToggler className="d-md-down-none" onClick={this.asideToggle}>
           <span className="navbar-toggler-icon" />

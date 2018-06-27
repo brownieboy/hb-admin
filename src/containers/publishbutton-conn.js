@@ -51,7 +51,7 @@ class PublishButton extends Component {
   };
 
   render() {
-    return <Button onClick={this.handlePublish}>Publish to Phones</Button>;
+    return <Button color="primary" onClick={this.handlePublish}>Publish to Phones</Button>;
   }
 }
 

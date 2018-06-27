@@ -111,8 +111,8 @@ class DatesForm extends Component {
   };
 
   getDateFields = datesList => {
-    console.log("getDateFields, datesList:");
-    console.log(datesList);
+    // console.log("getDateFields, datesList:");
+    // console.log(datesList);
     let x = -1;
     return datesList.map(theDate => {
       x++;

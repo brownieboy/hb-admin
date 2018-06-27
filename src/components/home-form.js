@@ -68,7 +68,7 @@ const HomeForm = ({
                 />
                 {errors.homeText && <div>{errors.homeText}</div>}
               </FormGroup>
-              <Button type="submit">Save</Button>
+              <Button color="primary" type="submit">Save</Button>
             </form>
           );
         }}

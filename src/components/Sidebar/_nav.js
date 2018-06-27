@@ -16,11 +16,6 @@ export default {
       icon: "icon-home"
     },
     {
-      name: "Dates",
-      url: "/dates",
-      icon: "icon-calendar"
-    },
-    {
       name: "Bands",
       url: "/bands",
       icon: "icon-microphone"
@@ -39,6 +34,11 @@ export default {
       name: "Contact Us",
       url: "/contactuspage",
       icon: "icon-info"
+    },
+    {
+      name: "Dates",
+      url: "/dates",
+      icon: "icon-calendar"
     }
   ]
 };
