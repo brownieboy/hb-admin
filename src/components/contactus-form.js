@@ -23,6 +23,7 @@ const ContactUsForm = ({
   email2 = "",
   mobile = "",
   gettingThereBlurb = "",
+  locationBlurb = "",
   helstonburyWebUrl = "",
   helstonburyFBID = "",
   helstonburyMerchandiseFBID = "",
@@ -45,6 +46,7 @@ const ContactUsForm = ({
     email2,
     mobile,
     gettingThereBlurb,
+    locationBlurb,
     helstonburyFBID,
     helstonburyWebUrl,
     helstonburyMerchandiseFBID,
@@ -182,24 +184,15 @@ const ContactUsForm = ({
               </FormGroup>
 
               <FormGroup>
-                <Label for="gettingThereBlurb">Getting there blurb:</Label>
+                <Label for="locationBlurb">Location blurb:</Label>
                 <Input
                   rows={6}
                   type="textarea"
-                  name="gettingThereBlurb"
-                  placeholder="Some blurb about how to get to Helston"
+                  name="locationBlurb"
+                  placeholder="Introductory location blurb"
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  value={values.gettingThereBlurb}
-                />
-                <Label for="mapLinkText">Map link text:</Label>
-                <Input
-                  type="text"
-                  name="mapLinkText"
-                  placeholder="Text for Google maps link (will default to'Tap to open in Maps app')"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  value={values.mapLinkText}
+                  value={values.locationBlurb}
                 />
               </FormGroup>
               <FormGroup>
@@ -230,6 +223,18 @@ const ContactUsForm = ({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.venueEmail}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="gettingThereBlurb">Getting there blurb:</Label>
+                <Input
+                  rows={6}
+                  type="textarea"
+                  name="gettingThereBlurb"
+                  placeholder="Some blurb about how to get to Helston"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.gettingThereBlurb}
                 />
               </FormGroup>
               <h3>App Stuff</h3>
@@ -274,6 +279,7 @@ ContactUsForm.propTypes = {
   email2: PropTypes.string.isRequired,
   mobile: PropTypes.string.isRequired,
   gettingThereBlurb: PropTypes.string.isRequired,
+  locationBlurb: PropTypes.string.isRequired,
   helstonburyWebUrl: PropTypes.string.isRequired,
   helstonburyFBID: PropTypes.string.isRequired,
   helstonburyMerchandiseFBID: PropTypes.string.isRequired,
