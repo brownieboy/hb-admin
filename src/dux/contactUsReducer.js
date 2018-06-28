@@ -22,6 +22,7 @@ const defaultState = {
     email2: "",
     mobile: "",
     gettingThereBlurb: "",
+    locationBlurb: "",
     helstonburyWebUrl: "",
     helstonburyFBID: "",
     helstonburyMerchandiseFBID: "",
