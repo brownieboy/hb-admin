@@ -245,7 +245,7 @@ const ContactUsForm = ({
                   value={values.appTips}
                 />
               </FormGroup>
-              <Button type="submit">Save</Button>
+              <Button type="submit" color="primary">Save</Button>
             </form>
           );
         }}

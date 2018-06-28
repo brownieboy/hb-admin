@@ -160,19 +160,21 @@ class DatesForm extends Component {
 
           <form onSubmit={this.handleSubmit}>
             {this.getDateFields(datesList)}
-
-            <Button type="submit">Save</Button>
+            <div style={{ display: "flex" }}>
+              <Button color="primary" type="submit">Save</Button>
+              <Button
+                onClick={() => {
+                  const newDates = [...datesList, new Date()];
+                  this.setState({ datesList: newDates });
+                }}
+                style={{marginLeft: 10}}
+              >
+                Add new date
+              </Button>
+            </div>
           </form>
         </div>
-        <br />
-        <Button
-          onClick={() => {
-            const newDates = [...datesList, new Date()];
-            this.setState({ datesList: newDates });
-          }}
-        >
-          Add new date
-        </Button>
+
         <ConfirmModal
           displayModal={this.state.showConfirmDeleteModal}
           modalTitle="Delete Date?"

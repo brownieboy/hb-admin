@@ -280,7 +280,9 @@ class BandForm extends Component {
                     )}
                   </FormGroup>
 
-                  <Button type="submit">Save</Button>
+                  <Button type="submit" color="primary">
+                    Save
+                  </Button>
                 </form>
                 <hr />
                 <h2>Images</h2>
@@ -313,6 +315,7 @@ class BandForm extends Component {
                             fileInfo: this.state.thumbFileInfo
                           });
                         }}
+                        style={{ marginTop: 10 }}
                       >
                         Upload thumbnail
                       </button>
@@ -357,6 +360,7 @@ class BandForm extends Component {
                             fileInfo: this.state.cardFileInfo
                           });
                         }}
+                        style={{ marginTop: 10 }}
                       >
                         Upload card
                       </button>

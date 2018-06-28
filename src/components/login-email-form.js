@@ -75,7 +75,7 @@ const LoginEmailForm = ({
                   />
                   {errors.password && <div>{errors.password}</div>}
                 </FormGroup>
-                <Button type="submit">Save</Button>
+                <Button type="submit" color="primary">Submit</Button>
               </form>
               <div style={helpInfoTextStyles}>
                 {isLoggedIn ? "You are logged in" : "You are not logged in"}
@@ -84,7 +84,7 @@ const LoginEmailForm = ({
                 <div>{`Error logging in: ${loginErrorMessage}`}</div>
               )}
               {isLoggedIn && (
-                <Button onClick={logoutProp} style={{ marginTop: "20px" }}>
+                <Button onClick={logoutProp} style={{ marginTop: "20px" }} color="warning">
                   Logout
                 </Button>
               )}
