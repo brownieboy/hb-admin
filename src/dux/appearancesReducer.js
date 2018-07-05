@@ -19,6 +19,7 @@ const SAVE_APPEARANCE_SUCCESS = "SAVE_APPEARANCE_SUCCESS";
 const SAVE_APPEARANCE_FAILED = "SAVE_APPEARANCE_FAILED";
 const SAVE_APPEARANCE_CLEAR = "SAVE_APPEARANCE_CLEAR";
 const DELETE_APPEARANCES = "DELETE_APPEARANCES";
+const ADJUST_APPEARANCE_TIMES = "ADJUST_APPEARANCE_TIMES";
 
 export const actionTypes = {
   SAVE_NEW_APPEARANCE,
@@ -90,6 +91,16 @@ const appearancesReducer = (
         appearanceMember => action.payload.indexOf(appearanceMember.id) < 0
       );
       return { ...state, appearancesList: newAppearancesList };
+
+    case ADJUST_APPEARANCE_TIMES:
+      // Adjust start and end times up and down by a set number of minutes.
+      newAppearancesList = state.appearancesList.slice();
+      for (let appearanceMember of newAppearancesList) {
+        if(action.payload.appearancesIdsArray.indexOf(appearanceMember.id) >= 0) {
+          console.log("adjusting " + appearanceMember.id);
+        }
+      }
+      return state;
 
     default:
       return state;
@@ -178,7 +189,8 @@ export const getAppearancesWithBandAndStageNames = state => {
       newAppearance = {
         ...newAppearance,
         stageName: matchingStage.name,
-        stageSummary:  // Because stage summary wasn't an original field
+        // Because stage summary wasn't an original field
+        stageSummary:
           typeof matchingStage.summary !== "undefined"
             ? matchingStage.summary
             : "",
@@ -334,8 +346,8 @@ export const getAppearancesForBandId = (appearancesList, bandId) => {
   const matchingAppearances = appearancesList.filter(
     appearance => appearance.bandId === bandId
   );
-  console.log("matchingAppearances for bandId:" + bandId);
-  console.log(matchingAppearances);
+  // console.log("matchingAppearances for bandId:" + bandId);
+  // console.log(matchingAppearances);
 
   return matchingAppearances;
 };
@@ -385,6 +397,14 @@ export const saveAppearanceClear = () => ({
 export const deleteAppearances = appearanceIdsArray => ({
   type: DELETE_APPEARANCES,
   payload: appearanceIdsArray
+});
+
+export const adjustAppearances = (appearanceIdsArray, minutesToAdjustBy) => ({
+  type: ADJUST_APPEARANCE_TIMES,
+  payload: {
+    appearanceIdsArray,
+    minutesToAdjustBy
+  }
 });
 
 export const appearancesDuxActions = {
