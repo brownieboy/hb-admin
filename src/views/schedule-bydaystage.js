@@ -83,9 +83,9 @@ class ScheduleByDayStage extends Component {
       </ListGroup>
     ]);
 
-  handleDeleteItems = () => {
-    this.setState({ showConfirmDeleteModal: true });
-  };
+  // handleDeleteItems = () => {
+  //   this.setState({ showConfirmDeleteModal: true });
+  // };
 
   render() {
     const {

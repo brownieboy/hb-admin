@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Schedule from "./schedulewrapper.js";
 
 import {
+  adjustAppearances,
   deleteAppearances,
   loadAppearances,
   // selectors as appearanceSelectors,
@@ -20,7 +21,7 @@ import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { deleteAppearances, loadappearancesProp: loadAppearances },
+    { adjustAppearances, deleteAppearances, loadappearancesProp: loadAppearances },
     dispatch
   );
 

@@ -16,6 +16,7 @@ class ScheduleWrapper extends Component {
     super(props);
     this.state = {
       selectedItems: [],
+      showAdjustTimesModal: false,
       showConfirmDeleteModal: false,
       activeTab: "byDay"
     };
@@ -24,6 +25,10 @@ class ScheduleWrapper extends Component {
 
   handleDeleteItems = () => {
     this.setState({ showConfirmDeleteModal: true });
+  };
+
+  handleAdjustItemsTimes = () => {
+    this.setState({ showAdjustTimesModal: true });
   };
 
   componentDidMount() {
@@ -46,7 +51,7 @@ class ScheduleWrapper extends Component {
   };
 
   render() {
-    const { deleteAppearances, isLoggedIn } = this.props;
+    const { adjustAppearances, deleteAppearances, isLoggedIn } = this.props;
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
@@ -96,6 +101,13 @@ class ScheduleWrapper extends Component {
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>
           <Button
+            disabled={this.state.selectedItems.length === 0}
+            style={{ marginLeft: 10 }}
+            onClick={this.handleAdjustItemsTimes}
+          >
+            Adjust selected times
+          </Button>
+          <Button
             color="danger"
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
@@ -115,6 +127,18 @@ class ScheduleWrapper extends Component {
               this.setState({ showConfirmDeleteModal: false })
             }
           />
+          <ConfirmModal
+            displayModal={this.state.showAdjustTimesModal}
+            modalTitle="Adjust Appearance Times"
+            modalBody="Enter the number of minutes you want to adjust start and end times by.  A negative number will move the times forward."
+            handleOk={() => {
+              adjustAppearances(this.state.selectedItems);
+              this.setState({ showAdjustTimesModal: false });
+            }}
+            handleCancel={() =>
+              this.setState({ showAdjustTimesModal: false })
+            }
+          />
         </div>
       </div>
     );
@@ -122,6 +146,7 @@ class ScheduleWrapper extends Component {
 }
 
 ScheduleWrapper.propTypes = {
+  adjustAppearances: PropTypes.func.isRequired,
   deleteAppearances: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 };

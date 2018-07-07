@@ -87,6 +87,8 @@ const appearancesReducer = (
       return { ...state, appearancesList: newAppearancesList };
 
     case DELETE_APPEARANCES:
+      // Return new array, not including any ids that are in
+      // action.payload array (of ids to delet)
       newAppearancesList = state.appearancesList.filter(
         appearanceMember => action.payload.indexOf(appearanceMember.id) < 0
       );
@@ -95,8 +97,8 @@ const appearancesReducer = (
     case ADJUST_APPEARANCE_TIMES:
       // Adjust start and end times up and down by a set number of minutes.
       newAppearancesList = state.appearancesList.slice();
-      for (let appearanceMember of newAppearancesList) {
-        if(action.payload.appearancesIdsArray.indexOf(appearanceMember.id) >= 0) {
+      for (const appearanceMember of newAppearancesList) {
+        if(action.payload.appearancesIdsArray.includes(appearanceMember.id)) {
           console.log("adjusting " + appearanceMember.id);
         }
       }
@@ -399,7 +401,7 @@ export const deleteAppearances = appearanceIdsArray => ({
   payload: appearanceIdsArray
 });
 
-export const adjustAppearances = (appearanceIdsArray, minutesToAdjustBy) => ({
+export const adjustAppearances = (appearanceIdsArray, minutesToAdjustBy = 0) => ({
   type: ADJUST_APPEARANCE_TIMES,
   payload: {
     appearanceIdsArray,
