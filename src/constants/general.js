@@ -1,1 +1,1 @@
-export const defaultThumbnailPath = "/img/RockNRollGuitarist.png";
+export const defaultThumbnailPath = "./img/RockNRollGuitarist.png";
