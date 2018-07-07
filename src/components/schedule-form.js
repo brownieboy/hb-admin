@@ -70,12 +70,12 @@ class AppearanceForm extends Component {
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     // console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
     if (isEditExisting) {
-      console.log("schedule form edit mode, id=" + match.params.id);
+      // console.log("schedule form edit mode, id=" + match.params.id);
       const matchingInfo = getAppearanceInfoForId(match.params.id);
-      console.log(
-        "schedule form edit mode, matchingInfo=" +
-          JSON.stringify(matchingInfo, null, 2)
-      );
+      // console.log(
+      //   "schedule form edit mode, matchingInfo=" +
+      //     JSON.stringify(matchingInfo, null, 2)
+      // );
 
       if (matchingInfo) {
         // console.log("matchingInfo.dateTimeStart=" + matchingInfo.dateTimeStart);
@@ -144,10 +144,10 @@ class AppearanceForm extends Component {
               }~${shortId.generate()}`;
               this.classId = processedValues.id;
             }
-            console.log(
-              "onSubmit processedValues=" +
-                JSON.stringify(processedValues, null, 2)
-            );
+            // console.log(
+            //   "onSubmit processedValues=" +
+            //     JSON.stringify(processedValues, null, 2)
+            // );
             notifyInfo("Submitting appearance data to server...");
 
             submitDataToServer(processedValues);

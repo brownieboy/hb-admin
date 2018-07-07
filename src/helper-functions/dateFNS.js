@@ -8,7 +8,7 @@ dateFnsLocalizer({ locales: { "en-GB": enGB } });
 export const fnsDateToISOText = theDate => dateFnsFormat(theDate, "YYYY-MM-DD");
 
 export const fnsDateTimeToISOText = theFnsDate =>
-  dateFnsFormat(theFnsDate, "YYYY-MM-DD HH:mm");
+  dateFnsFormat(theFnsDate, "YYYY-MM-DDTHH:mm");
 
 export const textDatesToFnsDates = textDateList =>
   textDateList.map(textDate => {

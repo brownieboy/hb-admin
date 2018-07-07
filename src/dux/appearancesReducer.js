@@ -5,6 +5,7 @@ import { getBandInfoForId } from "./bandsReducer.js";
 import { getStageInfoForId } from "./stagesReducer.js";
 
 import { fnsDateTimeToISOText } from "../helper-functions/dateFNS.js";
+import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
 // import { d3 } from "d3-collection";
 // import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
@@ -45,7 +46,12 @@ const appearancesReducer = (
   action
 ) => {
   let idx, newAppearancesList;
-  let dateTimeStart, dateTimeEnd, dateTimeStartAdjusted, dateTimeEndAdjusted;
+  let dateTimeStart,
+    dateTimeEnd,
+    dateTimeStartAdjusted,
+    dateTimeEndAdjusted,
+    dateTimeStartAdjustedISOString,
+    dateTimeEndAdjustedISOString;
 
   switch (action.type) {
     case FETCH_APPEARANCES_REQUEST:
@@ -118,9 +124,11 @@ twentyMinutesLater.setMinutes(twentyMinutesLater.getMinutes() + 20);
             dateTimeStart,
             action.payload.minutesToAdjustBy
           );
-          appearanceMember.dateTimeStart = fnsDateTimeToISOText(
+
+          dateTimeStartAdjustedISOString = fnsDateTimeToISOText(
             dateTimeStartAdjusted
           );
+
           // console.log(
           //   "Adjusted ISO FNS = " + fnsDateTimeToISOText(dateTimeStartAdjusted)
           // );
@@ -131,9 +139,14 @@ twentyMinutesLater.setMinutes(twentyMinutesLater.getMinutes() + 20);
             dateTimeEnd,
             action.payload.minutesToAdjustBy
           );
-          appearanceMember.dateTimeEnd = fnsDateTimeToISOText(
+
+          dateTimeEndAdjustedISOString = fnsDateTimeToISOText(
             dateTimeEndAdjusted
           );
+
+          appearanceMember.dateTimeStart = dateTimeStartAdjustedISOString;
+
+          appearanceMember.dateTimeEnd = dateTimeEndAdjustedISOString;
           // console.log(
           //   "Adjusted End ISO FNS = " +
           //     fnsDateTimeToISOText(dateTimeEndAdjusted)

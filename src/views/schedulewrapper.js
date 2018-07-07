@@ -29,7 +29,7 @@ class AdjustTimesModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minutesToAdjustText: "0"
+      minutesToAdjustText: ""
     };
   }
   render() {
@@ -58,6 +58,7 @@ class AdjustTimesModal extends Component {
         <ModalFooter>
           <Button
             color="primary"
+            disabled={minutesToAdjustText === ""}
             onClick={() => handleOk(parseInt(minutesToAdjustText, 10))}
           >
             Ok
