@@ -6,6 +6,7 @@ import Schedule from "./schedulewrapper.js";
 
 import {
   adjustAppearances,
+  adjustAppearancesSave,
   deleteAppearances,
   loadAppearances,
   // selectors as appearanceSelectors,
@@ -21,7 +22,7 @@ import { getStageInfoForId as getStageInfoIdAction } from "../dux/stagesReducer.
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
-    { adjustAppearances, deleteAppearances, loadappearancesProp: loadAppearances },
+    { adjustAppearances, adjustAppearancesSave, deleteAppearances, loadappearancesProp: loadAppearances },
     dispatch
   );
 

@@ -22,6 +22,7 @@ const SAVE_APPEARANCE_FAILED = "SAVE_APPEARANCE_FAILED";
 const SAVE_APPEARANCE_CLEAR = "SAVE_APPEARANCE_CLEAR";
 const DELETE_APPEARANCES = "DELETE_APPEARANCES";
 const ADJUST_APPEARANCE_TIMES = "ADJUST_APPEARANCE_TIMES";
+const ADJUST_APPEARANCES_SAVE = "ADJUST_APPEARANCES_SAVE";
 
 export const actionTypes = {
   SAVE_NEW_APPEARANCE,
@@ -29,7 +30,8 @@ export const actionTypes = {
   SAVE_APPEARANCE_REQUEST,
   SAVE_APPEARANCE_SUCCESS,
   SAVE_APPEARANCE_FAILED,
-  DELETE_APPEARANCES
+  DELETE_APPEARANCES,
+  ADJUST_APPEARANCES_SAVE
 };
 
 // Reducer
@@ -447,6 +449,11 @@ export const adjustAppearances = (
     appearancesIdsArray,
     minutesToAdjustBy
   }
+});
+
+// Trigger for saga to save back end data
+export const adjustAppearancesSave = () => ({
+  type: ADJUST_APPEARANCES_SAVE
 });
 
 export const appearancesDuxActions = {

@@ -29,12 +29,12 @@ class AdjustTimesModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      minutesToAdjust: 0
+      minutesToAdjustText: "0"
     };
   }
   render() {
     const { displayModal = false, handleOk, handleCancel } = this.props;
-    const { minutesToAdjust } = this.state;
+    const { minutesToAdjustText } = this.state;
     return (
       <Modal isOpen={displayModal}>
         <ModalHeader>Adjust Times</ModalHeader>
@@ -44,23 +44,22 @@ class AdjustTimesModal extends Component {
           <FormGroup>
             <Label for="id">Minutes to adjust by:</Label>
             <Input
-              type="number"
+              type="text"
               placeholder="Number of minutes to adjust"
               onChange={e => {
-                let newNumber = parseInt(e.target.value, 10);
-                if (isNaN(newNumber) || typeof newNumber !== "number") {
-                  newNumber = 0;
-                }
                 this.setState({
-                  minutesToAdjust: newNumber
+                  minutesToAdjustText: e.target.value
                 });
               }}
-              value={minutesToAdjust}
+              value={minutesToAdjustText}
             />
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={() => handleOk(minutesToAdjust)}>
+          <Button
+            color="primary"
+            onClick={() => handleOk(parseInt(minutesToAdjustText, 10))}
+          >
             Ok
           </Button>{" "}
           <Button color="secondary" onClick={handleCancel}>
@@ -79,6 +78,7 @@ class ScheduleWrapper extends Component {
       selectedItems: [],
       showAdjustTimesModal: false,
       showConfirmDeleteModal: false,
+      adjustmentsMadeDirty: false,
       activeTab: "byDay"
     };
     this.handleCheck = handleCheckExt.bind(this);
@@ -90,6 +90,12 @@ class ScheduleWrapper extends Component {
 
   handleAdjustItemsTimes = () => {
     this.setState({ showAdjustTimesModal: true });
+  };
+
+  // Write adjusment changes to the back end.
+  handleAdjustItemsTimesSave = () => {
+    this.props.adjustAppearancesSave();
+    this.setState({ adjustmentsMadeDirty: false });
   };
 
   componentDidMount() {
@@ -112,7 +118,12 @@ class ScheduleWrapper extends Component {
   };
 
   render() {
-    const { adjustAppearances, deleteAppearances, isLoggedIn } = this.props;
+    const {
+      adjustAppearances,
+      adjustAppearancesSave,
+      deleteAppearances,
+      isLoggedIn
+    } = this.props;
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
@@ -169,6 +180,13 @@ class ScheduleWrapper extends Component {
             Adjust selected times
           </Button>
           <Button
+            disabled={!this.state.adjustmentsMadeDirty}
+            style={{ marginLeft: 10 }}
+            onClick={this.handleAdjustItemsTimesSave}
+          >
+            Save schedule adjustments
+          </Button>
+          <Button
             color="danger"
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
@@ -192,7 +210,10 @@ class ScheduleWrapper extends Component {
             displayModal={this.state.showAdjustTimesModal}
             handleOk={adjustMinutes => {
               adjustAppearances(this.state.selectedItems, adjustMinutes);
-              this.setState({ showAdjustTimesModal: false });
+              this.setState({
+                showAdjustTimesModal: false,
+                adjustmentsMadeDirty: true
+              });
             }}
             handleCancel={() => this.setState({ showAdjustTimesModal: false })}
           />
@@ -210,6 +231,7 @@ AdjustTimesModal.propTypes = {
 
 ScheduleWrapper.propTypes = {
   adjustAppearances: PropTypes.func.isRequired,
+  adjustAppearancesSave: PropTypes.func.isRequired,
   deleteAppearances: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 };

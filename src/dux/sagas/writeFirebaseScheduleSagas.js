@@ -56,7 +56,8 @@ function* saveData() {
 const writeFirebaseSagas = [
   takeEvery(appearancesActionTypes.SAVE_NEW_APPEARANCE, saveData),
   takeEvery(appearancesActionTypes.SAVE_EDITED_APPEARANCE, saveData),
-  takeEvery(appearancesActionTypes.DELETE_APPEARANCES, saveData)
+  takeEvery(appearancesActionTypes.DELETE_APPEARANCES, saveData),
+  takeEvery(appearancesActionTypes.ADJUST_APPEARANCES_SAVE, saveData)
 ];
 
 export default writeFirebaseSagas;
