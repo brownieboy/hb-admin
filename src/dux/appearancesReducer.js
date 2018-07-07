@@ -401,10 +401,10 @@ export const deleteAppearances = appearanceIdsArray => ({
   payload: appearanceIdsArray
 });
 
-export const adjustAppearances = (appearanceIdsArray, minutesToAdjustBy = 0) => ({
+export const adjustAppearances = (appearancesIdsArray, minutesToAdjustBy = 0) => ({
   type: ADJUST_APPEARANCE_TIMES,
   payload: {
-    appearanceIdsArray,
+    appearancesIdsArray,
     minutesToAdjustBy
   }
 });

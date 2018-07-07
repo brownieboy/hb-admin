@@ -1,7 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, TabContent, TabPane, Nav, NavItem, NavLink } from "reactstrap";
+import {
+  Button,
+  FormGroup,
+  Input,
+  Label,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  TabContent,
+  TabPane,
+  Nav,
+  NavItem,
+  NavLink
+} from "reactstrap";
 import classnames from "classnames";
 
 import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js";
@@ -10,6 +24,53 @@ import ScheduleByDay from "./schedule-byday.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
+
+class AdjustTimesModal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      minutesToAdjust: 0
+    };
+  }
+  render() {
+    const { displayModal = false, handleOk, handleCancel } = this.props;
+    const { minutesToAdjust } = this.state;
+    return (
+      <Modal isOpen={displayModal}>
+        <ModalHeader>Adjust Times</ModalHeader>
+        <ModalBody>
+          Enter the number of minutes you want to adjust start and end times by.
+          A negative number will move the times forward.
+          <FormGroup>
+            <Label for="id">Minutes to adjust by:</Label>
+            <Input
+              type="number"
+              placeholder="Number of minutes to adjust"
+              onChange={e => {
+                let newNumber = parseInt(e.target.value, 10);
+                if (isNaN(newNumber) || typeof newNumber !== "number") {
+                  newNumber = 0;
+                }
+                this.setState({
+                  minutesToAdjust: newNumber
+                });
+              }}
+              value={minutesToAdjust}
+            />
+          </FormGroup>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={() => handleOk(minutesToAdjust)}>
+            Ok
+          </Button>{" "}
+          <Button color="secondary" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+    );
+  }
+}
 
 class ScheduleWrapper extends Component {
   constructor(props) {
@@ -127,23 +188,25 @@ class ScheduleWrapper extends Component {
               this.setState({ showConfirmDeleteModal: false })
             }
           />
-          <ConfirmModal
+          <AdjustTimesModal
             displayModal={this.state.showAdjustTimesModal}
-            modalTitle="Adjust Appearance Times"
-            modalBody="Enter the number of minutes you want to adjust start and end times by.  A negative number will move the times forward."
-            handleOk={() => {
-              adjustAppearances(this.state.selectedItems);
+            handleOk={adjustMinutes => {
+              adjustAppearances(this.state.selectedItems, adjustMinutes);
               this.setState({ showAdjustTimesModal: false });
             }}
-            handleCancel={() =>
-              this.setState({ showAdjustTimesModal: false })
-            }
+            handleCancel={() => this.setState({ showAdjustTimesModal: false })}
           />
         </div>
       </div>
     );
   }
 }
+
+AdjustTimesModal.propTypes = {
+  displayModal: PropTypes.bool.isRequired,
+  handleOk: PropTypes.func.isRequired,
+  handleCancel: PropTypes.func.isRequired
+};
 
 ScheduleWrapper.propTypes = {
   adjustAppearances: PropTypes.func.isRequired,
