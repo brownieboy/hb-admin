@@ -2,9 +2,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Button, FormGroup, Label } from "reactstrap";
-import { format as dateFnsFormat } from "date-fns";
+// import { format as dateFnsFormat } from "date-fns";
 import enGB from "date-fns/locale/en-GB";
-import dateFnsLocalizer from "react-widgets-date-fns";
+// import dateFnsLocalizer from "react-widgets-date-fns";
 import DateTimePicker from "react-widgets/lib/DateTimePicker";
 import "react-widgets/dist/css/react-widgets.css";
 import { dateFormatString } from "../constants/formats.js";
@@ -16,10 +16,12 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 import ConfirmModal from "../components/confirm-modal.js";
 
+import { fnsDatesToISOText, textDatesToFnsDates } from "../helper-functions/dateFNS.js";
+
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
 // dateFnsLocalizer({ "en-GB": enGB });
-dateFnsLocalizer({ locales: { "en-GB": enGB } });
+// dateFnsLocalizer({ locales: { "en-GB": enGB } });
 
 /* eslint react/no-deprecated: 0 */
 class DatesForm extends Component {
@@ -28,7 +30,7 @@ class DatesForm extends Component {
     const { datesList } = props;
     // console.log("datesList=" + JSON.stringify(datesList, null, 4));
     this.state = {
-      datesList: this.textDatesToFnsDates(datesList),
+      datesList: textDatesToFnsDates(datesList),
       showConfirmDeleteModal: false
     };
   }
@@ -40,21 +42,21 @@ class DatesForm extends Component {
     // );
     if (nextProps.datesList) {
       this.setState({
-        datesList: this.textDatesToFnsDates(nextProps.datesList)
+        datesList: textDatesToFnsDates(nextProps.datesList)
       });
     }
   }
 
-  textDatesToFnsDates = textDateList =>
-    textDateList.map(textDate => {
-      const newDate = new Date(textDate);
-      return newDate;
-    });
+  // textDatesToFnsDates = textDateList =>
+  //   textDateList.map(textDate => {
+  //     const newDate = new Date(textDate);
+  //     return newDate;
+  //   });
 
-  fnsDatesToISOText = dateList => {
-    // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
-    return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
-  };
+  // fnsDatesToISOText = dateList => {
+  //   // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
+  //   return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
+  // };
 
   handleChange = fieldData => {
     // console.log("fieldData = " + JSON.stringify(fieldData, null, 4));
@@ -71,7 +73,7 @@ class DatesForm extends Component {
   handleSubmit = e => {
     const { notifyInfo, submitDataToServer } = this.props;
     e.preventDefault();
-    const values = this.fnsDatesToISOText(this.state.datesList);
+    const values = fnsDatesToISOText(this.state.datesList);
     // console.log(
     //   "submitting dates to server = " + JSON.stringify(values, null, 2)
     // );

@@ -1,8 +1,10 @@
 // import { createSelector } from "reselect";
 import * as d3 from "d3-collection";
-import { format } from "date-fns";
+import { addMinutes, format } from "date-fns";
 import { getBandInfoForId } from "./bandsReducer.js";
 import { getStageInfoForId } from "./stagesReducer.js";
+
+import { fnsDateTimeToISOText } from "../helper-functions/dateFNS.js";
 
 // import { d3 } from "d3-collection";
 // import { stringThenDateTimeSort } from "../helper-functions/sorting.js";
@@ -41,6 +43,7 @@ const appearancesReducer = (
   action
 ) => {
   let idx, newAppearancesList;
+  let dateTimeStart, dateTimeEnd, dateTimeStartAdjusted, dateTimeEndAdjusted;
 
   switch (action.type) {
     case FETCH_APPEARANCES_REQUEST:
@@ -94,15 +97,49 @@ const appearancesReducer = (
       );
       return { ...state, appearancesList: newAppearancesList };
 
+    /*
+Use .getMinutes() to get the current minutes, then add 20 and use .setMinutes() to update the date object.
+
+var twentyMinutesLater = new Date();
+twentyMinutesLater.setMinutes(twentyMinutesLater.getMinutes() + 20);
+ */
+
     case ADJUST_APPEARANCE_TIMES:
       // Adjust start and end times up and down by a set number of minutes.
       newAppearancesList = state.appearancesList.slice();
+
       for (const appearanceMember of newAppearancesList) {
-        if(action.payload.appearancesIdsArray.includes(appearanceMember.id)) {
-          console.log("adjusting " + appearanceMember.id);
+        if (action.payload.appearancesIdsArray.includes(appearanceMember.id)) {
+          dateTimeStart = new Date(appearanceMember.dateTimeStart);
+          // console.log("Start ISO FNS = " + fnsDateTimeToISOText(dateTimeStart));
+          dateTimeStartAdjusted = addMinutes(
+            dateTimeStart,
+            action.payload.minutesToAdjustBy
+          );
+          appearanceMember.dateTimeStart = fnsDateTimeToISOText(
+            dateTimeStartAdjusted
+          );
+          // console.log(
+          //   "Adjusted ISO FNS = " + fnsDateTimeToISOText(dateTimeStartAdjusted)
+          // );
+          dateTimeEnd = new Date(appearanceMember.dateTimeEnd);
+
+          // console.log("End ISO FNS = " + fnsDateTimeToISOText(dateTimeEnd));
+          dateTimeEndAdjusted = addMinutes(
+            dateTimeEnd,
+            action.payload.minutesToAdjustBy
+          );
+          appearanceMember.dateTimeEnd = fnsDateTimeToISOText(
+            dateTimeEndAdjusted
+          );
+          // console.log(
+          //   "Adjusted End ISO FNS = " +
+          //     fnsDateTimeToISOText(dateTimeEndAdjusted)
+          // );
+          // console.log("adjusting " + appearanceMember.id);
         }
       }
-      return state;
+      return { ...state, appearancesList: newAppearancesList };
 
     default:
       return state;
@@ -401,7 +438,10 @@ export const deleteAppearances = appearanceIdsArray => ({
   payload: appearanceIdsArray
 });
 
-export const adjustAppearances = (appearancesIdsArray, minutesToAdjustBy = 0) => ({
+export const adjustAppearances = (
+  appearancesIdsArray,
+  minutesToAdjustBy = 0
+) => ({
   type: ADJUST_APPEARANCE_TIMES,
   payload: {
     appearancesIdsArray,
