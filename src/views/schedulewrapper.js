@@ -107,6 +107,9 @@ class ScheduleWrapper extends Component {
   }
 
   componentWillUnmount() {
+    if (this.state.adjustmentsMadeDirty) {
+      alert("Dirty adjustments");
+    }
     localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
   }
 
