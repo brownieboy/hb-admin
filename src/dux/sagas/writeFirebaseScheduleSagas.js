@@ -53,11 +53,21 @@ function* saveData() {
 //   failAction: saveAppearanceFailed
 // };
 
+function* adjustData() {
+  // Nothing saved to firebase here.  It's just for the on-screen messages
+  yield put(
+    notifyInfo(
+      "Times adjusted in UI only.  Use the 'Save schedule adjustments' button to save them to the server"
+    )
+  );
+}
+
 const writeFirebaseSagas = [
   takeEvery(appearancesActionTypes.SAVE_NEW_APPEARANCE, saveData),
   takeEvery(appearancesActionTypes.SAVE_EDITED_APPEARANCE, saveData),
   takeEvery(appearancesActionTypes.DELETE_APPEARANCES, saveData),
-  takeEvery(appearancesActionTypes.ADJUST_APPEARANCES_SAVE, saveData)
+  takeEvery(appearancesActionTypes.ADJUST_APPEARANCES_SAVE, saveData),
+  takeEvery(appearancesActionTypes.ADJUST_APPEARANCE_TIMES, adjustData)
 ];
 
 export default writeFirebaseSagas;

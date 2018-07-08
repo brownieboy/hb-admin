@@ -79,7 +79,7 @@ class ScheduleWrapper extends Component {
       selectedItems: [],
       showAdjustTimesModal: false,
       showConfirmDeleteModal: false,
-      adjustmentsMadeDirty: false,
+      adjustmentsMadeDirtyArray: [], // Array of Ids adjusted (but not saved)
       activeTab: "byDay"
     };
     this.handleCheck = handleCheckExt.bind(this);
@@ -96,7 +96,7 @@ class ScheduleWrapper extends Component {
   // Write adjusment changes to the back end.
   handleAdjustItemsTimesSave = () => {
     this.props.adjustAppearancesSave();
-    this.setState({ adjustmentsMadeDirty: false });
+    this.setState({ adjustmentsMadeDirtyArray: [] });
   };
 
   componentDidMount() {
@@ -107,9 +107,6 @@ class ScheduleWrapper extends Component {
   }
 
   componentWillUnmount() {
-    if (this.state.adjustmentsMadeDirty) {
-      alert("Dirty adjustments");
-    }
     localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
   }
 
@@ -128,6 +125,7 @@ class ScheduleWrapper extends Component {
       deleteAppearances,
       isLoggedIn
     } = this.props;
+    const { adjustmentsMadeDirtyArray, selectedItems } = this.state;
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
@@ -164,27 +162,34 @@ class ScheduleWrapper extends Component {
             <ScheduleByDayStage
               {...this.props}
               handleCheck={this.handleCheck}
+              selectedItems={selectedItems}
+              adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
             />
           </TabPane>
         </TabContent>
 
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="byDay">
-            <ScheduleByDay {...this.props} handleCheck={this.handleCheck} />
+            <ScheduleByDay
+              {...this.props}
+              handleCheck={this.handleCheck}
+              selectedItems={selectedItems}
+              adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
+            />
           </TabPane>
         </TabContent>
 
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>
           <Button
-            disabled={this.state.selectedItems.length === 0}
+            disabled={selectedItems.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimes}
           >
             Adjust selected times
           </Button>
           <Button
-            disabled={!this.state.adjustmentsMadeDirty}
+            disabled={adjustmentsMadeDirtyArray.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimesSave}
           >
@@ -192,7 +197,7 @@ class ScheduleWrapper extends Component {
           </Button>
           <Button
             color="danger"
-            disabled={this.state.selectedItems.length === 0}
+            disabled={selectedItems.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleDeleteItems}
           >
@@ -203,7 +208,7 @@ class ScheduleWrapper extends Component {
             modalTitle="Delete Appearances?"
             modalBody="Are you sure that you want to delete the selected appearances?"
             handleOk={() => {
-              deleteAppearances(this.state.selectedItems);
+              deleteAppearances(selectedItems);
               this.setState({ showConfirmDeleteModal: false });
             }}
             handleCancel={() =>
@@ -213,10 +218,16 @@ class ScheduleWrapper extends Component {
           <AdjustTimesModal
             displayModal={this.state.showAdjustTimesModal}
             handleOk={adjustMinutes => {
-              adjustAppearances(this.state.selectedItems, adjustMinutes);
+              adjustAppearances(selectedItems, adjustMinutes);
+              const newAdjustmentsMadeDirtyArray = adjustmentsMadeDirtyArray.slice();
+              selectedItems.forEach(val => {
+                if (!newAdjustmentsMadeDirtyArray.includes(val)) {
+                  newAdjustmentsMadeDirtyArray.push(val);
+                }
+              });
               this.setState({
                 showAdjustTimesModal: false,
-                adjustmentsMadeDirty: true
+                adjustmentsMadeDirtyArray: newAdjustmentsMadeDirtyArray
               });
             }}
             handleCancel={() => this.setState({ showAdjustTimesModal: false })}

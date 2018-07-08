@@ -13,16 +13,22 @@ import {
   listGroupStyles
 } from "./viewstyles.js";
 
+// key={lineMember.id}
+
 class ScheduleByDayStage extends Component {
   getAppearanceLines = lineData => {
     // const itemsLength = lineData.length;
+    const { adjustmentsMadeDirtyArray, selectedItems } = this.props;
     return lineData.map((lineMember, index) => {
       // const lineStyle = { height: 40 };
       // if (itemsLength === index + 1) {
       //   lineStyle.borderBottomWidth = 0;
       // }
+      const listItemStyles = adjustmentsMadeDirtyArray.includes(lineMember.id)
+        ? { ...listGroupItemSmallStyles, backgroundColor: "#fce2b8" }
+        : listGroupItemSmallStyles;
       return (
-        <ListGroupItem key={lineMember.id} style={listGroupItemSmallStyles}>
+        <ListGroupItem key={lineMember.id} style={listItemStyles}>
           <div style={listGroupItemContentWrapperStyles}>
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
@@ -33,12 +39,15 @@ class ScheduleByDayStage extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <span style={{fontWeight: "bold"}}>{lineMember.bandName}</span>
+                <span style={{ fontWeight: "bold" }}>
+                  {lineMember.bandName}
+                </span>
               </span>
             </div>
             <div>
               <Input
                 type="checkbox"
+                checked={selectedItems.includes(lineMember.id)}
                 className="form-check-input"
                 onChange={e => this.props.handleCheck(e, lineMember.id)}
               />
@@ -109,12 +118,15 @@ class ScheduleByDayStage extends Component {
 }
 
 ScheduleByDayStage.propTypes = {
+  adjustmentsMadeDirtyArray: PropTypes.arrayOf(PropTypes.string.isRequired)
+    .isRequired,
   appearancesGroupedByDayThenStage: PropTypes.arrayOf(
     PropTypes.object.isRequired
   ).isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
-  handleCheck: PropTypes.func.isRequired
+  handleCheck: PropTypes.func.isRequired,
+  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default ScheduleByDayStage;

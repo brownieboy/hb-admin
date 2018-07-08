@@ -16,13 +16,17 @@ import {
 class ScheduleByDay extends Component {
   getAppearanceLines = lineData => {
     // const itemsLength = lineData.length;
+    const { adjustmentsMadeDirtyArray, selectedItems } = this.props;
     return lineData.map((lineMember, index) => {
       // const lineStyle = { height: 40 };
       // if (itemsLength === index + 1) {
       //   lineStyle.borderBottomWidth = 0;
       // }
+      const listItemStyles = adjustmentsMadeDirtyArray.includes(lineMember.id)
+        ? { ...listGroupItemSmallStyles, backgroundColor: "#fce2b8" }
+        : listGroupItemSmallStyles;
       return (
-        <ListGroupItem key={lineMember.id} style={listGroupItemSmallStyles}>
+        <ListGroupItem key={lineMember.id} style={listItemStyles}>
           <div style={listGroupItemContentWrapperStyles}>
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
@@ -99,11 +103,14 @@ class ScheduleByDay extends Component {
 }
 
 ScheduleByDay.propTypes = {
+  adjustmentsMadeDirtyArray: PropTypes.arrayOf(PropTypes.string.isRequired)
+    .isRequired,
   appearancesGroupedByDay: PropTypes.arrayOf(PropTypes.object.isRequired)
     .isRequired,
   fetchStatus: PropTypes.string.isRequired,
   fetchError: PropTypes.string.isRequired,
-  handleCheck: PropTypes.func.isRequired
+  handleCheck: PropTypes.func.isRequired,
+  selectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default ScheduleByDay;
