@@ -169,7 +169,10 @@ class ScheduleWrapper extends Component {
         </TabContent>
 
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="byDay">
+          <TabPane
+            tabId="byDay"
+            style={{ height: "59vh", "overflow-y": "auto" }}
+          >
             <ScheduleByDay
               {...this.props}
               handleCheck={this.handleCheck}
@@ -196,6 +199,7 @@ class ScheduleWrapper extends Component {
             Save schedule adjustments
           </Button>
           <Button
+            small
             color="danger"
             disabled={selectedItems.length === 0}
             style={{ marginLeft: 10 }}
