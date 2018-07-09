@@ -24,8 +24,7 @@ import ScheduleByDay from "./schedule-byday.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
-
-const MOBILEWIDTHCUTOFF = 736; // 414
+import { getScrollHeightPercent, MOBILEWIDTHCUTOFF, HEADERFOOTERSIZE } from "../constants/general.js";
 
 class AdjustTimesModal extends Component {
   constructor(props) {
@@ -90,23 +89,9 @@ class ScheduleWrapper extends Component {
     this.handleCheck = handleCheckExt.bind(this);
   }
 
-  getScrollHeightPercent = () => {
-    const headerFooter = 270; // Size of header size;
-    const browserHeight = window.innerHeight;
-    const percentScrollPercent =
-      ((browserHeight - headerFooter) / browserHeight) * 100;
-    console.log(
-      "browserHeight: " +
-        browserHeight +
-        ", percentScrollPercent: " +
-        percentScrollPercent
-    );
-    return percentScrollPercent;
-  };
-
   updateBrowserSizes = () => {
     this.setState({
-      scrollHeightPercent: this.getScrollHeightPercent(),
+      scrollHeightPercent: getScrollHeightPercent(),
       browserWidth: window.innerWidth
     });
   };
@@ -129,7 +114,7 @@ class ScheduleWrapper extends Component {
     const scheduleViewActiveTab = localStorage.getItem("scheduleViewActiveTab");
     this.setState({
       activeTab: scheduleViewActiveTab,
-      scrollHeightPercent: this.getScrollHeightPercent(),
+      scrollHeightPercent: getScrollHeightPercent(),
       browserWidth: window.innerWidth
     });
     window.addEventListener("resize", this.updateBrowserSizes);

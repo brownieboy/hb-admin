@@ -15,7 +15,11 @@ import { handleCheck as handleCheckExt } from "../components/lifecycleextras.js"
 import { LoadStatusIndicator } from "../components/loadsaveindicator.js";
 import ThumbNail from "../components/thumbnail.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
-
+import {
+  getScrollHeightPercent,
+  MOBILEWIDTHCUTOFF,
+  HEADERFOOTERSIZE
+} from "../constants/general.js";
 
 class Bands extends Component {
   constructor(props) {
@@ -24,13 +28,27 @@ class Bands extends Component {
       selectedItems: [],
       showConfirmDeleteModal: false,
       showBandsWithAppearancesAlertModal: false,
-      bandsWithAppearances: []
+      bandsWithAppearances: [],
+      scrollHeightPercent: 70,
+      browserWidth: 400
     };
     this.handleCheck = handleCheckExt.bind(this);
   }
 
+  updateBrowserSizes = () => {
+    this.setState({
+      scrollHeightPercent: getScrollHeightPercent(),
+      browserWidth: window.innerWidth
+    });
+  };
+
   componentDidMount() {
     const { loadBandsProp } = this.props;
+    this.setState({
+      scrollHeightPercent: getScrollHeightPercent(),
+      browserWidth: window.innerWidth
+    });
+    window.addEventListener("resize", this.updateBrowserSizes);
     loadBandsProp();
   }
 
@@ -90,6 +108,8 @@ class Bands extends Component {
       fetchStatus,
       isLoggedIn
     } = this.props;
+    const { browserWidth, scrollHeightPercent } = this.state;
+    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF ? true : false;
 
     return (
       <div>
@@ -99,13 +119,20 @@ class Bands extends Component {
           fetchStatus={fetchStatus}
           fetchError={fetchError}
         />
-        <ListGroup style={listGroupStyles}>
+        <ListGroup
+          style={{
+            ...listGroupStyles,
+            height: `${scrollHeightPercent}vh`,
+            overflowY: "auto"
+          }}
+        >
           {this.listBands(bandsAlphabeticalProp)}
         </ListGroup>
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/bandform">Add band</Link>
           <Button
             color="danger"
+            size={mobileWidth ? "sm" : null}
             disabled={this.state.selectedItems.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleDeleteItems}
