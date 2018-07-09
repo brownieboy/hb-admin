@@ -268,9 +268,17 @@ export const getAppearancesGroupedByDay = state => {
 
   return d3
     .nest()
-    .key(appearance =>
-      format(new Date(appearance.dateTimeStart), "dddd DD/MM/YYYY")
-    )
+    .key(appearance => {
+      const groupDate = new Date(appearance.dateTimeStart);
+            console.log("groupDate:");
+      console.log(groupDate);
+      const groupDateFormatted = format(
+        new Date(appearance.dateTimeStart),
+        "dddd DD/MM/YYYY"
+      );
+      console.log("groupDateFormatted: " + groupDateFormatted);
+      return groupDateFormatted;
+    })
     .sortKeys(
       (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
     )
