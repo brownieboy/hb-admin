@@ -25,6 +25,8 @@ import ConfirmModal from "../components/confirm-modal.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
 
+const MOBILEWIDTHCUTOFF = 736; // 414
+
 class AdjustTimesModal extends Component {
   constructor(props) {
     super(props);
@@ -32,6 +34,7 @@ class AdjustTimesModal extends Component {
       minutesToAdjustText: ""
     };
   }
+
   render() {
     const { displayModal = false, handleOk, handleCancel } = this.props;
     const { minutesToAdjustText } = this.state;
@@ -39,8 +42,8 @@ class AdjustTimesModal extends Component {
       <Modal isOpen={displayModal}>
         <ModalHeader>Adjust Times</ModalHeader>
         <ModalBody>
-          Enter the number of minutes you want to adjust start and end times by.
-          A negative number will move the times forward.
+          Enter the number of minutes you want to start and end times by. A
+          negative number will move the times forward.
           <FormGroup>
             <Label for="id">Minutes to adjust by:</Label>
             <Input
@@ -80,10 +83,33 @@ class ScheduleWrapper extends Component {
       showAdjustTimesModal: false,
       showConfirmDeleteModal: false,
       adjustmentsMadeDirtyArray: [], // Array of Ids adjusted (but not saved)
-      activeTab: "byDay"
+      activeTab: "byDay",
+      scrollHeightPercent: 70,
+      browserWidth: 400
     };
     this.handleCheck = handleCheckExt.bind(this);
   }
+
+  getScrollHeightPercent = () => {
+    const headerFooter = 270; // Size of header size;
+    const browserHeight = window.innerHeight;
+    const percentScrollPercent =
+      ((browserHeight - headerFooter) / browserHeight) * 100;
+    console.log(
+      "browserHeight: " +
+        browserHeight +
+        ", percentScrollPercent: " +
+        percentScrollPercent
+    );
+    return percentScrollPercent;
+  };
+
+  updateBrowserSizes = () => {
+    this.setState({
+      scrollHeightPercent: this.getScrollHeightPercent(),
+      browserWidth: window.innerWidth
+    });
+  };
 
   handleDeleteItems = () => {
     this.setState({ showConfirmDeleteModal: true });
@@ -101,13 +127,17 @@ class ScheduleWrapper extends Component {
 
   componentDidMount() {
     const scheduleViewActiveTab = localStorage.getItem("scheduleViewActiveTab");
-    if (scheduleViewActiveTab !== "") {
-      this.setState({ activeTab: scheduleViewActiveTab });
-    }
+    this.setState({
+      activeTab: scheduleViewActiveTab,
+      scrollHeightPercent: this.getScrollHeightPercent(),
+      browserWidth: window.innerWidth
+    });
+    window.addEventListener("resize", this.updateBrowserSizes);
   }
 
   componentWillUnmount() {
     localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
+    window.removeEventListener("resize");
   }
 
   toggleTab = tab => {
@@ -125,7 +155,14 @@ class ScheduleWrapper extends Component {
       deleteAppearances,
       isLoggedIn
     } = this.props;
-    const { adjustmentsMadeDirtyArray, selectedItems } = this.state;
+    const {
+      adjustmentsMadeDirtyArray,
+      browserWidth,
+      scrollHeightPercent,
+      selectedItems
+    } = this.state;
+
+    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF ? true : false;
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
@@ -158,7 +195,13 @@ class ScheduleWrapper extends Component {
         </Nav>
 
         <TabContent activeTab={this.state.activeTab}>
-          <TabPane tabId="byDayStage">
+          <TabPane
+            tabId="byDayStage"
+            style={{
+              height: `${scrollHeightPercent}vh`,
+              overflowY: "auto"
+            }}
+          >
             <ScheduleByDayStage
               {...this.props}
               handleCheck={this.handleCheck}
@@ -171,7 +214,10 @@ class ScheduleWrapper extends Component {
         <TabContent activeTab={this.state.activeTab}>
           <TabPane
             tabId="byDay"
-            style={{ height: "59vh", "overflow-y": "auto" }}
+            style={{
+              height: `${scrollHeightPercent}vh`,
+              overflowY: "auto"
+            }}
           >
             <ScheduleByDay
               {...this.props}
@@ -185,6 +231,8 @@ class ScheduleWrapper extends Component {
         <div style={buttonsBottomWrapperStyles}>
           <Link to="/scheduleform">Add appearance</Link>
           <Button
+            color="primary"
+            size={mobileWidth ? "sm" : null}
             disabled={selectedItems.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimes}
@@ -192,6 +240,8 @@ class ScheduleWrapper extends Component {
             Adjust selected times
           </Button>
           <Button
+            color="success"
+            size={mobileWidth ? "sm" : null}
             disabled={adjustmentsMadeDirtyArray.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimesSave}
@@ -199,8 +249,8 @@ class ScheduleWrapper extends Component {
             Save schedule adjustments
           </Button>
           <Button
-            small
             color="danger"
+            size={mobileWidth ? "sm" : null}
             disabled={selectedItems.length === 0}
             style={{ marginLeft: 10 }}
             onClick={this.handleDeleteItems}

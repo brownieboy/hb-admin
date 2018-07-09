@@ -27,5 +27,5 @@ export const itemTextSpan = {
 };
 
 export const buttonsBottomWrapperStyles = {
-  marginTop: 20
+  marginTop: 10
 };
