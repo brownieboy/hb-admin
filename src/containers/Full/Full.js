@@ -50,7 +50,7 @@ class Full extends Component {
         <div className="app-body">
           <Sidebar {...this.props} />
           <main className="main">
-            <Breadcrumb />
+            {/* <Breadcrumb /> */}
             <Container fluid>
               <Notify
                 position="TopRightBelowBar"
@@ -122,7 +122,7 @@ class Full extends Component {
           </main>
           <Aside />
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }

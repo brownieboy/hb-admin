@@ -24,7 +24,11 @@ import ScheduleByDay from "./schedule-byday.js";
 import ConfirmModal from "../components/confirm-modal.js";
 import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 import { buttonsBottomWrapperStyles } from "./viewstyles.js";
-import { getScrollHeightPercent, MOBILEWIDTHCUTOFF, HEADERFOOTERSIZE } from "../constants/general.js";
+import {
+  getScrollHeightPercent,
+  MOBILEWIDTHCUTOFF,
+  HEADERFOOTERSIZE
+} from "../constants/general.js";
 
 class AdjustTimesModal extends Component {
   constructor(props) {
@@ -147,10 +151,12 @@ class ScheduleWrapper extends Component {
       selectedItems
     } = this.state;
 
-    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF ? true : false;
+    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF;
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
+        {/* <h1 style={{ fontSize: "1.6em" }}>Schedule</h1> */}
+
         <Nav tabs>
           <NavItem>
             <NavLink
@@ -214,7 +220,9 @@ class ScheduleWrapper extends Component {
         </TabContent>
 
         <div style={buttonsBottomWrapperStyles}>
-          <Link to="/scheduleform">Add appearance</Link>
+          <Link to="/scheduleform">
+            {mobileWidth ? "Add" : "Add appearance"}
+          </Link>
           <Button
             color="primary"
             size={mobileWidth ? "sm" : null}
@@ -222,7 +230,7 @@ class ScheduleWrapper extends Component {
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimes}
           >
-            Adjust selected times
+            {mobileWidth ? "Adjust" : "Adjust selected times"}
           </Button>
           <Button
             color="success"
@@ -231,7 +239,7 @@ class ScheduleWrapper extends Component {
             style={{ marginLeft: 10 }}
             onClick={this.handleAdjustItemsTimesSave}
           >
-            Save schedule adjustments
+            {mobileWidth ? "Save" : "Save schedule adjustments"}
           </Button>
           <Button
             color="danger"
@@ -240,7 +248,7 @@ class ScheduleWrapper extends Component {
             style={{ marginLeft: 10 }}
             onClick={this.handleDeleteItems}
           >
-            Delete selected
+            {mobileWidth ? "Delete" : "Delete selected"}
           </Button>
           <ConfirmModal
             displayModal={this.state.showConfirmDeleteModal}

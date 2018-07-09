@@ -109,12 +109,12 @@ class Bands extends Component {
       isLoggedIn
     } = this.props;
     const { browserWidth, scrollHeightPercent } = this.state;
-    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF ? true : false;
+    const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF;
 
     return (
       <div>
         {!isLoggedIn && <NotLoggedInWarning />}
-        <h1>Bands</h1>
+        <h1 style={{ fontSize: "1.5em" }}>Bands</h1>
         <LoadStatusIndicator
           fetchStatus={fetchStatus}
           fetchError={fetchError}
