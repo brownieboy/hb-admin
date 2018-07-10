@@ -126,7 +126,7 @@ class ScheduleWrapper extends Component {
 
   componentWillUnmount() {
     localStorage.setItem("scheduleViewActiveTab", this.state.activeTab);
-    window.removeEventListener("resize");
+    window.removeEventListener("resize", this.updateBrowserSizes);
   }
 
   toggleTab = tab => {
