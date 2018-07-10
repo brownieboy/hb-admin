@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import {
@@ -153,76 +153,88 @@ class ScheduleWrapper extends Component {
 
     const mobileWidth = browserWidth <= MOBILEWIDTHCUTOFF;
     return (
-      <div>
-        {!isLoggedIn && <NotLoggedInWarning />}
-        {/* <h1 style={{ fontSize: "1.6em" }}>Schedule</h1> */}
+      <Fragment>
+        <div style={{ maxWidth: "530px" }}>
+          {!isLoggedIn && <NotLoggedInWarning />}
+          {/* <h1 style={{ fontSize: "1.6em" }}>Schedule</h1> */}
 
-        <Nav tabs>
-          <NavItem>
-            <NavLink
-              className={classnames({
-                active: this.state.activeTab === "byDay"
-              })}
-              onClick={() => {
-                this.toggleTab("byDay");
+          <Nav tabs>
+            <NavItem>
+              <NavLink
+                className={classnames({
+                  active: this.state.activeTab === "byDay"
+                })}
+                onClick={() => {
+                  this.toggleTab("byDay");
+                }}
+              >
+                by Day
+              </NavLink>
+            </NavItem>
+
+            <NavItem>
+              <NavLink
+                className={classnames({
+                  active: this.state.activeTab === "byDayStage"
+                })}
+                onClick={() => {
+                  this.toggleTab("byDayStage");
+                }}
+              >
+                by Day then Stage
+              </NavLink>
+            </NavItem>
+          </Nav>
+
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane
+              tabId="byDayStage"
+              style={{
+                height: `${scrollHeightPercent}vh`,
+                overflowY: "auto"
               }}
             >
-              by Day
-            </NavLink>
-          </NavItem>
+              <ScheduleByDayStage
+                {...this.props}
+                handleCheck={this.handleCheck}
+                selectedItems={selectedItems}
+                adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
+              />
+            </TabPane>
+          </TabContent>
 
-          <NavItem>
-            <NavLink
-              className={classnames({
-                active: this.state.activeTab === "byDayStage"
-              })}
-              onClick={() => {
-                this.toggleTab("byDayStage");
+          <TabContent activeTab={this.state.activeTab}>
+            <TabPane
+              tabId="byDay"
+              style={{
+                height: `${scrollHeightPercent}vh`,
+                overflowY: "auto"
               }}
             >
-              by Day then Stage
-            </NavLink>
-          </NavItem>
-        </Nav>
-
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane
-            tabId="byDayStage"
-            style={{
-              height: `${scrollHeightPercent}vh`,
-              overflowY: "auto"
-            }}
-          >
-            <ScheduleByDayStage
-              {...this.props}
-              handleCheck={this.handleCheck}
-              selectedItems={selectedItems}
-              adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
-            />
-          </TabPane>
-        </TabContent>
-
-        <TabContent activeTab={this.state.activeTab}>
-          <TabPane
-            tabId="byDay"
-            style={{
-              height: `${scrollHeightPercent}vh`,
-              overflowY: "auto"
-            }}
-          >
-            <ScheduleByDay
-              {...this.props}
-              handleCheck={this.handleCheck}
-              selectedItems={selectedItems}
-              adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
-            />
-          </TabPane>
-        </TabContent>
-
+              <ScheduleByDay
+                {...this.props}
+                handleCheck={this.handleCheck}
+                selectedItems={selectedItems}
+                adjustmentsMadeDirtyArray={adjustmentsMadeDirtyArray}
+              />
+            </TabPane>
+          </TabContent>
+        </div>
         <div style={buttonsBottomWrapperStyles}>
-          <Link to="/scheduleform">
-            {mobileWidth ? "Add" : "Add appearance"}
-          </Link>
+          <Button
+            color="primary"
+            size={mobileWidth ? "sm" : null}
+            disabled={selectedItems.length === 0}
+            style={{ marginLeft: 10 }}
+          >
+            <Link
+              to="/scheduleform"
+              style={{ display: "block", height: "100%", color: "white" }}
+            >
+              {mobileWidth ? "Add" : "Add appearance"}
+            </Link>
+          </Button>
+
           <Button
             color="primary"
             size={mobileWidth ? "sm" : null}
@@ -250,37 +262,35 @@ class ScheduleWrapper extends Component {
           >
             {mobileWidth ? "Delete" : "Delete selected"}
           </Button>
-          <ConfirmModal
-            displayModal={this.state.showConfirmDeleteModal}
-            modalTitle="Delete Appearances?"
-            modalBody="Are you sure that you want to delete the selected appearances?"
-            handleOk={() => {
-              deleteAppearances(selectedItems);
-              this.setState({ showConfirmDeleteModal: false });
-            }}
-            handleCancel={() =>
-              this.setState({ showConfirmDeleteModal: false })
-            }
-          />
-          <AdjustTimesModal
-            displayModal={this.state.showAdjustTimesModal}
-            handleOk={adjustMinutes => {
-              adjustAppearances(selectedItems, adjustMinutes);
-              const newAdjustmentsMadeDirtyArray = adjustmentsMadeDirtyArray.slice();
-              selectedItems.forEach(val => {
-                if (!newAdjustmentsMadeDirtyArray.includes(val)) {
-                  newAdjustmentsMadeDirtyArray.push(val);
-                }
-              });
-              this.setState({
-                showAdjustTimesModal: false,
-                adjustmentsMadeDirtyArray: newAdjustmentsMadeDirtyArray
-              });
-            }}
-            handleCancel={() => this.setState({ showAdjustTimesModal: false })}
-          />
         </div>
-      </div>
+        <ConfirmModal
+          displayModal={this.state.showConfirmDeleteModal}
+          modalTitle="Delete Appearances?"
+          modalBody="Are you sure that you want to delete the selected appearances?"
+          handleOk={() => {
+            deleteAppearances(selectedItems);
+            this.setState({ showConfirmDeleteModal: false });
+          }}
+          handleCancel={() => this.setState({ showConfirmDeleteModal: false })}
+        />
+        <AdjustTimesModal
+          displayModal={this.state.showAdjustTimesModal}
+          handleOk={adjustMinutes => {
+            adjustAppearances(selectedItems, adjustMinutes);
+            const newAdjustmentsMadeDirtyArray = adjustmentsMadeDirtyArray.slice();
+            selectedItems.forEach(val => {
+              if (!newAdjustmentsMadeDirtyArray.includes(val)) {
+                newAdjustmentsMadeDirtyArray.push(val);
+              }
+            });
+            this.setState({
+              showAdjustTimesModal: false,
+              adjustmentsMadeDirtyArray: newAdjustmentsMadeDirtyArray
+            });
+          }}
+          handleCancel={() => this.setState({ showAdjustTimesModal: false })}
+        />
+      </Fragment>
     );
   }
 }

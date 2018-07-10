@@ -131,7 +131,19 @@ class Bands extends Component {
           {this.listBands(bandsAlphabeticalProp)}
         </ListGroup>
         <div style={buttonsBottomWrapperStyles}>
-          <Link to="/bandform">Add band</Link>
+          <Button
+            color="primary"
+            size={mobileWidth ? "sm" : null}
+            style={{ marginLeft: 10 }}
+          >
+            <Link
+              to="/bandform"
+              style={{ display: "block", height: "100%", color: "white" }}
+            >
+              Add band
+            </Link>
+          </Button>
+
           <Button
             color="danger"
             size={mobileWidth ? "sm" : null}

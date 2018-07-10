@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { NavbarToggler, NavbarBrand } from "reactstrap";
+import { Button, NavbarToggler, NavbarBrand } from "reactstrap";
 
 import LoginButton from "../../containers/loginbutton-conn.js";
 import PublishButton from "../../containers/publishbutton-conn.js";
@@ -39,9 +39,15 @@ class Header extends Component {
           <span className="navbar-toggler-icon" />
         </NavbarToggler>
         <div>
-          <Link to={"/loginemailform"} style={{ marginRight: 5 }}>
-            Login Page
-          </Link>|
+          <Button color="primary" style={{ marginRight: 5 }}>
+            <Link
+              to={"/loginemailform"}
+              style={{ display: "block", height: "100%", color: "white" }}
+            >
+              Login Page
+            </Link>
+          </Button>
+          |
           <span style={{ marginLeft: 5 }}>
             <PublishButton />
           </span>

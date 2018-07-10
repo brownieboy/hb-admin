@@ -100,7 +100,14 @@ class Stages extends Component {
           {this.listStages(stagesListProp)}
         </ListGroup>
         <div style={buttonsBottomWrapperStyles}>
-          <Link to="/stageform">Add stage</Link>
+          <Button color="primary" style={{ marginLeft: 10 }}>
+            <Link
+              to="/stageform"
+              style={{ display: "block", height: "100%", color: "white" }}
+            >
+              Add stage
+            </Link>
+          </Button>
           <Button
             color="danger"
             disabled={this.state.selectedItems.length === 0}

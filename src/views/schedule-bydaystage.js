@@ -39,10 +39,7 @@ class ScheduleByDayStage extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <Link
-                  to={`/scheduleform/${lineMember.id}`}
-                  style={{ marginLeft: 20 }}
-                >
+                <Link to={`/scheduleform/${lineMember.id}`}>
                   <span style={{ fontWeight: "bold" }}>
                     {lineMember.bandName}
                   </span>{" "}

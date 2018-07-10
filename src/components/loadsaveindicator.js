@@ -2,7 +2,7 @@ import React from "react";
 
 export const LoadStatusIndicator = ({ fetchStatus, fetchError }) => (
   <div>
-    <div>Load status: {fetchStatus}</div>
+    {/* <div>Load status: {fetchStatus}</div> */}
     {fetchStatus === "loading" && (
       <div>
         <i className="fa fa-refresh fa-spin" style={{ fontSize: "24px" }} />
