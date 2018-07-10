@@ -20,3 +20,16 @@ export const fnsDatesToISOText = dateList => {
   // console.log("fnsDatesToISOText, dateFnsFormat=" + dateFnsFormat);
   return dateList.map(dateMember => dateFnsFormat(dateMember, "YYYY-MM-DD"));
 };
+
+
+export const getDatePortionFromISOTimeString = dateTimeISOString => {
+  // dateTimeISOString should be in format "2018-07-22T17:00", but there was an issue
+  // where the "T" was replaced by a space
+  if (dateTimeISOString.indexOf("T") >= 0) {
+    return dateTimeISOString.split("T")[0];
+  }
+  if (dateTimeISOString.indexOf(" ") >= 0) {
+    return dateTimeISOString.split(" ")[0];
+  }
+  return dateTimeISOString;
+};

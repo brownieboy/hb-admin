@@ -4,7 +4,10 @@ import { addMinutes, format } from "date-fns";
 import { getBandInfoForId } from "./bandsReducer.js";
 import { getStageInfoForId } from "./stagesReducer.js";
 
-import { fnsDateTimeToISOText } from "../helper-functions/dateFNS.js";
+import {
+  fnsDateTimeToISOText,
+  getDatePortionFromISOTimeString
+} from "../helper-functions/dateFNS.js";
 import { dateFormatString, timeFormatString } from "../constants/formats.js";
 
 // import { d3 } from "d3-collection";
@@ -269,14 +272,15 @@ export const getAppearancesGroupedByDay = state => {
   return d3
     .nest()
     .key(appearance => {
-      const groupDate = new Date(appearance.dateTimeStart);
-            console.log("groupDate:");
-      console.log(groupDate);
-      const groupDateFormatted = format(
-        new Date(appearance.dateTimeStart),
-        "dddd DD/MM/YYYY"
+      const dateOnly = getDatePortionFromISOTimeString(
+        appearance.dateTimeStart
       );
-      console.log("groupDateFormatted: " + groupDateFormatted);
+      // const dateOnly = appearance.dateTimeStart.split("T")[0];
+      const groupDate = new Date(dateOnly);
+      // console.log("groupDate for :" + appearance.dateTimeStart + ", dateOnly = " + dateOnly);
+      // console.log(groupDate);
+      const groupDateFormatted = format(new Date(groupDate), "dddd DD/MM/YYYY");
+      // console.log("groupDateFormatted: " + groupDateFormatted);
       return groupDateFormatted;
     })
     .sortKeys(
@@ -290,9 +294,19 @@ export const getAppearancesGroupedByDayThenStage = state => {
 
   return d3
     .nest()
-    .key(appearance =>
-      format(new Date(appearance.dateTimeStart), "dddd DD/MM/YYYY")
-    )
+    .key(appearance => {
+      const dateOnly = getDatePortionFromISOTimeString(
+        appearance.dateTimeStart
+      );
+
+      // const dateOnly = appearance.dateTimeStart.split("T")[0];
+      const groupDate = new Date(dateOnly);
+      // console.log("groupDate for :" + appearance.dateTimeStart + ", dateOnly = " + dateOnly);
+      // console.log(groupDate);
+      const groupDateFormatted = format(new Date(groupDate), "dddd DD/MM/YYYY");
+      // console.log("groupDateFormatted: " + groupDateFormatted);
+      return groupDateFormatted;
+    })
     .key(appearance => `${appearance.stageSortOrder}~${appearance.stageName}`)
     .sortKeys(
       (a, b) => parseInt(a.split("~")[0], 10) - parseInt(b.split("~")[0], 10)
