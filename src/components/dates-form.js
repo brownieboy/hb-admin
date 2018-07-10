@@ -16,7 +16,10 @@ import NotLoggedInWarning from "../components/not-logged-in-warning.js";
 
 import ConfirmModal from "../components/confirm-modal.js";
 
-import { fnsDatesToISOText, textDatesToFnsDates } from "../helper-functions/dateFNS.js";
+import {
+  fnsDatesToISOText,
+  textDatesToFnsDates
+} from "../helper-functions/dateFNS.js";
 
 // const formats = Object.assign(defaultFormats, { default: "DD/MM/YYYY" });
 // dateFnsLocalizer(formats, { "en-GB": enGB });
@@ -163,13 +166,16 @@ class DatesForm extends Component {
           <form onSubmit={this.handleSubmit}>
             {this.getDateFields(datesList)}
             <div style={{ display: "flex" }}>
-              <Button color="primary" type="submit">Save</Button>
+              <Button color="primary" type="submit">
+                Save
+              </Button>
               <Button
+                color="primary"
                 onClick={() => {
                   const newDates = [...datesList, new Date()];
                   this.setState({ datesList: newDates });
                 }}
-                style={{marginLeft: 10}}
+                style={{ marginLeft: 10 }}
               >
                 Add new date
               </Button>

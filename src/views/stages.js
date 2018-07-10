@@ -59,7 +59,10 @@ class Stages extends Component {
       <ListGroupItem key={stageMember.id} style={listGroupItemStyles}>
         <div style={listGroupItemContentWrapperStyles}>
           <div>
-            <span style={itemTextSpan}>{stageMember.name}</span>
+            <Link to={`/stageform/${stageMember.id}`}>
+              <span style={itemTextSpan}>{stageMember.name}</span>
+            </Link>
+
             <span> ({stageMember.sortOrder})</span>
             <span style={{ fontStyle: "italic" }}> {stageMember.summary}</span>
           </div>
@@ -68,9 +71,9 @@ class Stages extends Component {
               type="checkbox"
               onChange={e => this.handleCheck(e, stageMember.id)}
             />
-            <Link to={`/stageform/${stageMember.id}`}>
+            {/* <Link to={`/stageform/${stageMember.id}`}>
               <i className="icon-pencil" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </ListGroupItem>

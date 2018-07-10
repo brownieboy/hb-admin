@@ -39,12 +39,17 @@ class ScheduleByDayStage extends Component {
                     "HH:mm"
                   )}: `}
                 </span>
-                <span style={{ fontWeight: "bold" }}>
-                  {lineMember.bandName}
-                </span>
+                <Link
+                  to={`/scheduleform/${lineMember.id}`}
+                  style={{ marginLeft: 20 }}
+                >
+                  <span style={{ fontWeight: "bold" }}>
+                    {lineMember.bandName}
+                  </span>{" "}
+                </Link>
               </span>
             </div>
-            <div>
+            <div style={{ height: "20px" }}>
               <Input
                 type="checkbox"
                 checked={selectedItems.includes(lineMember.id)}
@@ -52,12 +57,12 @@ class ScheduleByDayStage extends Component {
                 onChange={e => this.props.handleCheck(e, lineMember.id)}
               />
 
-              <Link
+              {/*    <Link
                 to={`/scheduleform/${lineMember.id}`}
                 style={{ marginLeft: 20 }}
               >
                 <i className="icon-pencil" />
-              </Link>
+              </Link> */}
             </div>
           </div>
         </ListGroupItem>

@@ -84,17 +84,19 @@ class Bands extends Component {
         <div style={listGroupItemContentWrapperStyles}>
           <div>
             <ThumbNail thumbFullUrl={bandMember.thumbFullUrl} />
-            <span style={itemTextSpan}>{bandMember.name}</span>
+            <Link to={`/bandform/${bandMember.id}`} style={{ marginLeft: 10 }}>
+              <span style={itemTextSpan}>{bandMember.name}</span>
+            </Link>
           </div>
-          <div>
+          <div style={{ height: "20px" }}>
             <Input
               type="checkbox"
               className="form-check-input"
               onChange={e => this.handleCheck(e, bandMember.id)}
-            />{" "}
-            <Link to={`/bandform/${bandMember.id}`} style={{ marginLeft: 10 }}>
+            />
+            {/*  <Link to={`/bandform/${bandMember.id}`} style={{ marginLeft: 10 }}>
               <i className="icon-pencil" />
-            </Link>
+            </Link> */}
           </div>
         </div>
       </ListGroupItem>
