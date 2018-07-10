@@ -66,7 +66,7 @@ class Stages extends Component {
             <span> ({stageMember.sortOrder})</span>
             <span style={{ fontStyle: "italic" }}> {stageMember.summary}</span>
           </div>
-          <div>
+          <div style={{ height: "20px" }}>
             <Input
               type="checkbox"
               onChange={e => this.handleCheck(e, stageMember.id)}
