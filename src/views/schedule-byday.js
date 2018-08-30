@@ -25,12 +25,17 @@ class ScheduleByDay extends Component {
       const listItemStyles = adjustmentsMadeDirtyArray.includes(lineMember.id)
         ? { ...listGroupItemSmallStyles, backgroundColor: "#fce2b8" }
         : listGroupItemSmallStyles;
+      console.log("check isCancelled = " + lineMember.isCancelled);
       return (
         <ListGroupItem key={lineMember.id} style={listItemStyles}>
           <div style={listGroupItemContentWrapperStyles}>
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
-              <span>
+              <span
+                style={
+                  lineData.isCancelled && { textDecoration: "line-through" }
+                }
+              >
                 <span style={{ fontSize: 12 }}>
                   {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
                     lineMember.dateTimeEnd,
