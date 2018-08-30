@@ -87,7 +87,7 @@ class AppearanceForm extends Component {
         fieldValues = {
           bandId: matchingInfo.bandId,
           stageId: matchingInfo.stageId,
-
+          isCancelled: matchingInfo.isCancelled = false,
           dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
           id: matchingInfo.id
         };
@@ -276,7 +276,7 @@ class AppearanceForm extends Component {
                       type="checkbox"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.isCancelled}
+                      checked={values.isCancelled}
                     />
                     Appearance cancelled
                   </Label>
