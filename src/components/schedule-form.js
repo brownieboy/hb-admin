@@ -47,7 +47,9 @@ class AppearanceForm extends Component {
 
   componentWillUnmount() {
     console.log("Clearing from componentWillUnmount");
-    this.props.saveAppearanceClear && this.props.saveAppearanceClear(); // Clear saveSuccess status so we don't loop
+    if (this.props.saveAppearanceClear) {
+      this.props.saveAppearanceClear(); // Clear saveSuccess status so we don't loop
+    }
   }
 
   render() {
@@ -85,6 +87,7 @@ class AppearanceForm extends Component {
         fieldValues = {
           bandId: matchingInfo.bandId,
           stageId: matchingInfo.stageId,
+
           dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
           id: matchingInfo.id
         };
@@ -130,6 +133,7 @@ class AppearanceForm extends Component {
             const processedValues = {
               stageId: values.stageId,
               bandId: values.bandId,
+              isCancelled: values.isCancelled,
               dateTimeStart: `${values.dateDay}T${values.timeStartString}`,
               dateTimeEnd: `${values.dateDay}T${values.timeEndString}`
             };
@@ -265,8 +269,22 @@ class AppearanceForm extends Component {
                   />
                   {errors.timeEnd && <div>{errors.timeEnd}</div>}
                 </FormGroup>
+                <FormGroup check>
+                  <Label check>
+                    <Input
+                      name="isCancelled"
+                      type="checkbox"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.isCancelled}
+                    />
+                    Appearance cancelled
+                  </Label>
+                </FormGroup>
 
-                <Button type="submit" color="primary">Save</Button>
+                <Button type="submit" color="primary" style={{ marginTop: 10 }}>
+                  Save
+                </Button>
               </form>
             );
           }}
@@ -292,6 +310,7 @@ AppearanceForm.propTypes = {
   onChange: PropTypes.func,
   saveStatus: PropTypes.string,
   saveError: PropTypes.object,
+  saveAppearanceClear: PropTypes.bool,
   setFieldValue: PropTypes.func,
   submitDataToServer: PropTypes.func.isRequired,
   values: PropTypes.object

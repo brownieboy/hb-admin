@@ -109,13 +109,6 @@ const appearancesReducer = (
       );
       return { ...state, appearancesList: newAppearancesList };
 
-    /*
-Use .getMinutes() to get the current minutes, then add 20 and use .setMinutes() to update the date object.
-
-var twentyMinutesLater = new Date();
-twentyMinutesLater.setMinutes(twentyMinutesLater.getMinutes() + 20);
- */
-
     case ADJUST_APPEARANCE_TIMES:
       // Adjust start and end times up and down by a set number of minutes.
       newAppearancesList = state.appearancesList.slice();
@@ -182,6 +175,7 @@ const selectAppearances = state => state.appearancesList;
 // Getters are just functions.
 const getAppearancesByDateTime = appearancesList => {
   const newAppearances = [...appearancesList];
+
   return newAppearances
     .slice()
     .sort((a, b) => new Date(a.dateTimeStart) - new Date(b.dateTimeStart));

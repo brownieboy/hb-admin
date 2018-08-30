@@ -22,6 +22,7 @@
         "require-jsdoc": "off",
         "lines-around-comment": "off",
         "newline-after-var": "off",
+        "node/no-unsupported-features/es-syntax": "off",
         "no-console": "warn",
         "no-invalid-this": "off",
         "no-multi-spaces": "warn",
@@ -33,6 +34,7 @@
                 "allowParens": true
             }
         ],
+        "padding-line-between-statements": "off",
         "react/prop-types": "warn"
     }
 }
