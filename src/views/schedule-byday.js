@@ -32,9 +32,9 @@ class ScheduleByDay extends Component {
             <div>
               <ThumbNail thumbFullUrl={lineMember.bandThumbFullUrl} size={30} />
               <span
-                style={
-                  lineData.isCancelled && { textDecoration: "line-through" }
-                }
+                style={{
+                  textDecoration: lineMember.isCancelled ? "line-through" : null
+                }}
               >
                 <span style={{ fontSize: 12 }}>
                   {`${format(lineMember.dateTimeStart, "HH:mm")}-${format(
@@ -44,7 +44,14 @@ class ScheduleByDay extends Component {
                 </span>
 
                 <Link to={`/scheduleform/${lineMember.id}`}>
-                  <span style={{ fontWeight: "bold" }}>
+                  <span
+                    style={{
+                      fontWeight: "bold",
+                      textDecoration: lineData.isCancelled
+                        ? "line-through"
+                        : null
+                    }}
+                  >
                     {lineMember.bandName}
                   </span>
                 </Link>

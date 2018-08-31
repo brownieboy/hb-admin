@@ -68,7 +68,7 @@ class AppearanceForm extends Component {
       saveStatus,
       saveError
     } = this.props;
-    let fieldValues = { bandId: "", stageId: "" };
+    let fieldValues = { bandId: "", stageId: "", isCancelled: false };
     const validationSchemaObj = Object.assign({}, validationSchemaCommonObj);
     // console.log("bandsPicker=" + JSON.stringify(bandsPicker, null, 4));
     if (isEditExisting) {
@@ -128,7 +128,7 @@ class AppearanceForm extends Component {
           initialValues={Object.assign({}, fieldValues)}
           validationSchema={yup.object().shape(validationSchemaObj)}
           onSubmit={(values, actions) => {
-            // console.log("onSubmit values=" + JSON.stringify(values, null, 2));
+            console.log("onSubmit values=" + JSON.stringify(values, null, 2));
             // Outgoing
             const processedValues = {
               stageId: values.stageId,
@@ -137,6 +137,7 @@ class AppearanceForm extends Component {
               dateTimeStart: `${values.dateDay}T${values.timeStartString}`,
               dateTimeEnd: `${values.dateDay}T${values.timeEndString}`
             };
+            console.log("onSubmit processedValues=" + JSON.stringify(processedValues, null, 2));
 
             // Add ID only if it's a new appearance.  Assume that we won't be
             // able to change the bandId when editing later.
