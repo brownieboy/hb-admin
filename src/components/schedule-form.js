@@ -87,7 +87,7 @@ class AppearanceForm extends Component {
         fieldValues = {
           bandId: matchingInfo.bandId,
           stageId: matchingInfo.stageId,
-          isCancelled: matchingInfo.isCancelled = false,
+          isCancelled: matchingInfo.isCancelled,
           dateDay: dateFnsFormat(matchingInfo.dateTimeStart, "YYYY-MM-DD"),
           id: matchingInfo.id
         };
